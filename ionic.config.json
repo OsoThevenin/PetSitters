@@ -1,5 +1,7 @@
 {
   "name": "PetSitters",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
