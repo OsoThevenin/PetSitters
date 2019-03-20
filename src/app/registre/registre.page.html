@@ -1,0 +1,45 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Create Account</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <!--<ion-input placeholder="First Name"></ion-input>
+  <ion-input placeholder="Last Name"></ion-input>
+  <ion-input placeholder="Username"></ion-input>
+  <ion-input placeholder="Password"></ion-input>
+  <ion-input placeholder="Birth Date dd-mm-yyyy"></ion-input>
+
+  input type can also be email! we will probably have to add it later on.
+  -->
+  <ion-list>
+    <ion-item>
+      <ion-label color="primary" position="floating">First Name</ion-label>
+      <ion-input type="text" #firstName></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label color="primary" position="floating">Last Name</ion-label>
+        <ion-input type="text" #lastName></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label color="primary" position="floating">Username</ion-label>
+        <ion-input type="text" #username></ion-input>
+    </ion-item>
+
+    <ion-item>
+        <ion-label color="primary" position="floating">Password</ion-label>
+        <ion-input type="password" #password></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label color="primary" position="floating">Birth Date (dd-mm-yyyy)</ion-label>
+      <ion-input type="text" #birthDate></ion-input> <!--preguntar a george si puede ser un type number para poner solo el año (o un scroll)-->
+    </ion-item>
+  </ion-list>
+ 
+</ion-content>
+<ion-button expand="block" (click)="signUp()">Sign up</ion-button> 
+  
