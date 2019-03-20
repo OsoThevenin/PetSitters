@@ -15,7 +15,7 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
 
-  signUp(){
+  signIn(){
     console.log('Estoy en la funcion signIn() de login.page.ts y tengo estos valores:',this.un.value,this.pw.value)
   }
 }
