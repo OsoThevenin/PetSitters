@@ -11,7 +11,8 @@ const routes: Routes = [
   {
     path: 'tutorial',
     loadChildren: './intro/intro.module#IntroPageModule'
-  },  { path: 'registre', loadChildren: './registre/registre.module#RegistrePageModule' }
+  },
+  { path: 'registre', loadChildren: './registre/registre.module#RegistrePageModule' }
 
 ];
 @NgModule({

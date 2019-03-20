@@ -1,0 +1,20 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Login Page</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-item>
+      <ion-label color="primary" position="floating">Username</ion-label>
+      <ion-input type="text" #username></ion-input>
+  </ion-item>
+
+  <ion-item>
+      <ion-label color="primary" position="floating">Password</ion-label>
+      <ion-input type="password" #password></ion-input>
+  </ion-item>
+  </ion-list>
+  <ion-button expand="block" (click)="signIn()">Sign in</ion-button> 
+</ion-content>
