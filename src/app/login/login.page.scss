@@ -1,11 +1,19 @@
 .alinea-centro-v{
     margin-top:10%;
 }
-
-.centrado{
-    width: 30ex
+.boton{
+    --color:black;
 }
 
-.boton{
-    --color:black
+ion-input{
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    border-radius: 8px;
+    margin-bottom: 10px;  
+    --background:white;
+    color:black;
+}
+
+.imagen {
+    margin-bottom: 10%;
 }

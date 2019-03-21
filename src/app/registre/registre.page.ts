@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-registre',
@@ -13,7 +14,7 @@ export class RegistrePage implements OnInit {
   @ViewChild('password') pw;
   @ViewChild('birthDate') bd;
   
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
@@ -21,5 +22,7 @@ export class RegistrePage implements OnInit {
   signUp(){
     console.log('Estoy en la funcion signUp() de registre.page.ts y tengo estos valores:',this.fn.value,this.ln.value,this.un.value,this.pw.value,this.bd.value)
   }
-
+  goSignIn(){
+    this.router.navigateByUrl('/login');
+  }
 }

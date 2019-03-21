@@ -3,29 +3,27 @@
   <ion-grid class="alinea-centro-v" style="height: 90%">
 
     <ion-row justify-content-center align-items-center>
-      <ion-col align-self-center>
-        <img class="logo" src="../../assets/Logo_versio3.png">
-      </ion-col>
+         <img class="imagen" src="../../assets/Logo_versio3.png">
     </ion-row>
         
+    <ion-row><ion-col></ion-col></ion-row>
+    <ion-row><ion-col></ion-col></ion-row>
+    <ion-row><ion-col></ion-col></ion-row>
+
     <ion-row>
       <ion-col>
-        <ion-item>
-          <!--<ion-label position="floating">Username</ion-label>-->
-          <ion-input type="text" placeholder="Username" #username></ion-input>
-         </ion-item>
+          <ion-input type="text" placeholder=" Username" #username></ion-input>
       </ion-col>
     </ion-row>
    
     <ion-row>
       <ion-col>
-        <ion-item>
-          <ion-label position="floating">Password</ion-label>
-          <ion-input type="password" #password></ion-input>
-        </ion-item>
+          <ion-input type="password" placeholder=" Password"#password></ion-input>
       </ion-col>
     </ion-row>
+
     <ion-row><ion-col></ion-col></ion-row>
+
     <ion-row>
       <ion-col>
         <ion-button expand="block" fill="solid" (click)="signIn()">Sign in</ion-button> 
@@ -38,7 +36,7 @@
 
     <ion-row>
       <ion-col>
-        <ion-button class="boton" color="grey" expand="block" fill="solid" href="http://localhost:8100/registre" (click)="goSignUp()">Sign up</ion-button> 
+        <ion-button class="boton" color="a2" expand="block" fill="solid" (click)="goSignUp()">Sign up</ion-button> 
       </ion-col>
     </ion-row>
   </ion-grid>
