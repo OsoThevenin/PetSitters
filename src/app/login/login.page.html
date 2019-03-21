@@ -1,20 +1,45 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Login Page</ion-title>
-  </ion-toolbar>
-</ion-header>
 
-<ion-content padding>
-  <ion-list>
-    <ion-item>
-      <ion-label color="primary" position="floating">Username</ion-label>
-      <ion-input type="text" #username></ion-input>
-  </ion-item>
+<ion-content padding color="a1">
+  <ion-grid class="alinea-centro-v" style="height: 90%">
 
-  <ion-item>
-      <ion-label color="primary" position="floating">Password</ion-label>
-      <ion-input type="password" #password></ion-input>
-  </ion-item>
-  </ion-list>
-  <ion-button expand="block" (click)="signIn()">Sign in</ion-button> 
+    <ion-row justify-content-center align-items-center>
+      <ion-col align-self-center>
+        <img class="logo" src="../../assets/Logo_versio3.png">
+      </ion-col>
+    </ion-row>
+        
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <!--<ion-label position="floating">Username</ion-label>-->
+          <ion-input type="text" placeholder="Username" #username></ion-input>
+         </ion-item>
+      </ion-col>
+    </ion-row>
+   
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating">Password</ion-label>
+          <ion-input type="password" #password></ion-input>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row><ion-col></ion-col></ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-button expand="block" fill="solid" (click)="signIn()">Sign in</ion-button> 
+      </ion-col>
+    </ion-row>
+
+    <ion-row justify-content-center align-items-center  style="height: 10%">
+        <ion-label>New to PetSitters?</ion-label>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-button class="boton" color="grey" expand="block" fill="solid" href="http://localhost:8100/registre" (click)="goSignUp()">Sign up</ion-button> 
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
