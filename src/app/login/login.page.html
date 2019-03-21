@@ -4,18 +4,19 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-  <ion-list>
+<ion-content padding class="scroll-content">
+  
+  <ion-list >
     <ion-item>
       <ion-label color="primary" position="floating">Username</ion-label>
       <ion-input type="text" #username></ion-input>
-  </ion-item>
+    </ion-item>
 
-  <ion-item>
+    <ion-item>
       <ion-label color="primary" position="floating">Password</ion-label>
       <ion-input type="password" #password></ion-input>
-  </ion-item>
+    </ion-item>
   </ion-list>
   <ion-button expand="block" (click)="LogIn()">Log in</ion-button> 
-  <ion-button expand="block" href="/registre">Sign Up</ion-button> 
+  <ion-button expand="block" color="light" href="/registre">Sign Up</ion-button> 
 </ion-content>
