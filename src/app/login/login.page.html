@@ -8,12 +8,12 @@
   <ion-list>
     <ion-item>
       <ion-label color="primary" position="floating">Username</ion-label>
-      <ion-input type="text" #username></ion-input>
+      <ion-input type="text" [(ngModel)]="username"></ion-input>
   </ion-item>
 
   <ion-item>
       <ion-label color="primary" position="floating">Password</ion-label>
-      <ion-input type="password" #password></ion-input>
+      <ion-input type="password" [(ngModel)]="password"></ion-input>
   </ion-item>
   </ion-list>
   <ion-button expand="block" (click)="signIn()">Sign in</ion-button> 

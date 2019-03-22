@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AuthProviderService } from './../providers/auth/auth-provider.service';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-login',
@@ -6,16 +7,20 @@ import { Component, OnInit, ViewChild } from '@angular/core';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-
-  @ViewChild('username') un;
-  @ViewChild('password') pw;
+  username: string = '';
+  password: string = '';
   
-  constructor() { }
+  constructor(private auth: AuthProviderService) { }
 
   ngOnInit() {
   }
 
   signIn(){
-    console.log('Estoy en la funcion signIn() de login.page.ts y tengo estos valores:',this.un.value,this.pw.value)
+    console.log('Estoy en la funcion signIn() de login.page.ts y tengo estos valores:',this.username,this.password);
+    const body: any = {
+      username: this.username,
+      password: this.password
+    };
+    this.auth.logIn(body);
   }
 }

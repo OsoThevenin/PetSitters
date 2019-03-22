@@ -1,4 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AuthProviderService } from './../providers/auth/auth-provider.service';
+import { GlobalService } from './../shared/global.service';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-registre',
@@ -6,20 +9,21 @@ import { Component, OnInit, ViewChild } from '@angular/core';
   styleUrls: ['./registre.page.scss'],
 })
 export class RegistrePage implements OnInit {
-
-  @ViewChild('firstName') fn;
-  @ViewChild('lastName') ln;
-  @ViewChild('username') un;
-  @ViewChild('password') pw;
-  @ViewChild('birthDate') bd;
-  
-  constructor() { }
+  body: any = {
+    firstName: '',
+    lastName: '',
+    username: '',
+    password: '',
+    birthdate: ''
+  };
+  constructor(private http: HttpClient, private global: GlobalService,
+    private auth: AuthProviderService) { }
 
   ngOnInit() {
   }
 
-  signUp(){
-    console.log('Estoy en la funcion signUp() de registre.page.ts y tengo estos valores:',this.fn.value,this.ln.value,this.un.value,this.pw.value,this.bd.value)
+  signUp() {
+    console.log('Registre signUp operation');
+    this.auth.signUp(this.body);
   }
-
 }

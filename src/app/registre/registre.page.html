@@ -16,27 +16,27 @@
   <ion-list>
     <ion-item>
       <ion-label color="primary" position="floating">First Name</ion-label>
-      <ion-input type="text" #firstName></ion-input>
+      <ion-input [(ngModel)]="body.firstName" type="text" #firstName></ion-input>
     </ion-item>
 
     <ion-item>
         <ion-label color="primary" position="floating">Last Name</ion-label>
-        <ion-input type="text" #lastName></ion-input>
+        <ion-input [(ngModel)]="body.lastName" type="text" #lastName></ion-input>
     </ion-item>
 
     <ion-item>
         <ion-label color="primary" position="floating">Username</ion-label>
-        <ion-input type="text" #username></ion-input>
+        <ion-input [(ngModel)]="body.username" type="text" #username></ion-input>
     </ion-item>
 
     <ion-item>
         <ion-label color="primary" position="floating">Password</ion-label>
-        <ion-input type="password" #password></ion-input>
+        <ion-input [(ngModel)]="body.password" type="password" #password></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label color="primary" position="floating">Birth Date (dd-mm-yyyy)</ion-label>
-      <ion-input type="text" #birthDate></ion-input> <!--preguntar a george si puede ser un type number para poner solo el año (o un scroll)-->
+      <ion-input [(ngModel)]="body.birthdate" type="text" #birthDate></ion-input> <!--preguntar a george si puede ser un type number para poner solo el año (o un scroll)-->
     </ion-item>
   </ion-list>
  
