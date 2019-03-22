@@ -1,18 +1,37 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>Create Account</ion-title>
+<ion-header no-border >
+  <ion-toolbar color="a1" text-center>
+    <ion-title>Create your account</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-  <!--<ion-input placeholder="First Name"></ion-input>
-  <ion-input placeholder="Last Name"></ion-input>
-  <ion-input placeholder="Username"></ion-input>
-  <ion-input placeholder="Password"></ion-input>
-  <ion-input placeholder="Birth Date dd-mm-yyyy"></ion-input>
-
-  input type can also be email! we will probably have to add it later on.
-  -->
+<ion-content padding color="a1">
+  <ion-grid class="alinea-centro-v" style="height: 90%">
+    <ion-row>
+      <ion-col>
+        <ion-input placeholder=" First Name" #firstName></ion-input>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-input placeholder=" Last Name" #lastName></ion-input>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-input placeholder=" Username" #username></ion-input>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-input placeholder=" Password" #password></ion-input>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-input placeholder=" Birth Date (dd-mm-yyyy)" #birthDate></ion-input>
+      </ion-col>
+    </ion-row>
+ <!--
   <ion-list>
     <ion-item>
       <ion-label color="primary" position="floating">First Name</ion-label>
@@ -36,13 +55,28 @@
 
     <ion-item>
       <ion-label color="primary" position="floating">Birth Date (dd-mm-yyyy)</ion-label>
-      <ion-input type="text" #birthDate></ion-input> <!--preguntar a george si puede ser un type number para poner solo el año (o un scroll)-->
+      <ion-input type="text" #birthDate></ion-input>
     </ion-item>
-  </ion-list>
-
-  <ion-button expand="block" (click)="signUp()">Sign up</ion-button> 
-  <ion-button class="boton" color="a2" expand="block" fill="solid" (click)="goSignIn()">Sign in</ion-button> 
   
-    
+  </ion-list>
+--> 
+<ion-row><ion-col></ion-col></ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-button expand="block" (click)="signUp()">Sign up</ion-button> 
+      </ion-col>
+    </ion-row>
+
+    <ion-row justify-content-center align-items-center  style="height: 10%">
+        <ion-label>Already have an account?</ion-label>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <ion-button class="boton" color="a2" expand="block" fill="solid" (click)="goSignIn()">Sign in</ion-button> 
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
 
