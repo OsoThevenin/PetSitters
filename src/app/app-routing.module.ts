@@ -13,7 +13,8 @@ const routes: Routes = [
     loadChildren: './intro/intro.module#IntroPageModule'
   },
   { path: 'registre', loadChildren: './registre/registre.module#RegistrePageModule' },
-  { path: 'login', loadChildren: './login/login.module#LoginPageModule' }
+  { path: 'login', loadChildren: './login/login.module#LoginPageModule' },  { path: 'trophies', loadChildren: './views/trophies/trophies.module#TrophiesPageModule' }
+
 
 ];
 @NgModule({

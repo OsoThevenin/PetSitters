@@ -35,6 +35,15 @@ const routes: Routes = [
         ]
       },
       {
+        path: 'trophies',
+        children: [
+          {
+            path: '',
+            loadChildren: '../views/trophies/trophies.module#TrophiesPageModule'
+          }
+        ]
+      },
+      {
         path: '',
         redirectTo: '/tabs/chats',
         pathMatch: 'full'
