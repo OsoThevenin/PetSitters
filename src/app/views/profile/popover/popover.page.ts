@@ -8,11 +8,6 @@ import { PopoverController } from '@ionic/angular';
 })
 export class PopoverPage implements OnInit {
 
-  public SettingsMenu = [
-    {title: "Log out", icon: "log-out"},
-    {title: "Delete Profile", icon: "trash"}
-  ];
-
   constructor(private popoverController: PopoverController) { }
 
   ngOnInit() {
@@ -20,6 +15,14 @@ export class PopoverPage implements OnInit {
 
   closePopover() {
     this.popoverController.dismiss();
+  }
+
+  LogOut() {
+    console.log("You click on Log out");
+  }
+
+  DeleteProfile() {
+    console.log("You click on Delete Profile");
   }
 
 }

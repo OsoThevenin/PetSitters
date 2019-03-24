@@ -1,7 +1,12 @@
 <ion-list>
-  <ion-item *ngFor="let p of SettingsMenu">
-    <ion-icon slot="start" [name]="p.icon"></ion-icon>
-    {{p.title}}
+  <ion-item (click)="LogOut()">
+  <ion-icon slot="start" name="log-out"></ion-icon>
+  Log out
+  </ion-item>
+
+  <ion-item (click)="DeleteProfile()">
+  <ion-icon slot="start" name="trash"></ion-icon>
+  Delete Profile
   </ion-item>
   
   <ion-item button color ="primary" (click)="closePopover()">
