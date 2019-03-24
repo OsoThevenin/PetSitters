@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PopoverController } from '@ionic/angular';
+import { PopoverController, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-popover',
@@ -8,7 +8,7 @@ import { PopoverController } from '@ionic/angular';
 })
 export class PopoverPage implements OnInit {
 
-  constructor(private popoverController: PopoverController) { }
+  constructor(private popoverController: PopoverController, private nav: NavController) { }
 
   ngOnInit() {
   }
@@ -18,7 +18,10 @@ export class PopoverPage implements OnInit {
   }
 
   LogOut() {
+    // Falta combinar amb la part del Pere
     console.log("You click on Log out");
+    this.nav.navigateForward(`/login`);
+    this.closePopover();
   }
 
   DeleteProfile() {
