@@ -1,51 +1,56 @@
 import { GlobalService } from './../../shared/global.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable, of } from 'rxjs';
+import { Storage } from '@ionic/storage';
+import { catchError, tap } from 'rxjs/operators';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthProviderService {
-  constructor(private http: HttpClient, private global: GlobalService) {}
-
-  // sending a POST login to API
-  logIn(body) {
-    const promise = new Promise((resolve, reject) => {
-      this.http.post(this.global.baseUrl + '/login', body,
-      {headers: new HttpHeaders({
-        'Content-Type': 'application/json'
-      })}).toPromise()
-      .then(res => {
-        console.log('Correct, your logged in ', res);
-        // Save token into global
-      }, msg => {
-        console.log('Error in promise login');
-        reject(msg);
-      });
-    });
-    return promise;
+  options: any;
+  constructor(private http: HttpClient, private global: GlobalService, private storage: Storage) {
+    let httpHeaders: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    httpHeaders = httpHeaders.append('Access-Control-Allow-Origin', '*');
+    this.options = {headers: httpHeaders};
   }
 
+  // sending a POST login to API
+  login(data): Observable<any> {
+    return this.http.post<any>(this.global.baseUrl + 'login', data, this.options)
+      .pipe(
+        tap(_ => console.log('login')),
+        catchError(this.handleError('login', []))
+      );
+  }
   // sending a POST register to API
-  signUp(body) {
-    const promise = new Promise((resolve, reject) => {
-      this.http.post(this.global.baseUrl + '/petsitters/register', body,
-        {headers: new HttpHeaders({
-          'Content-Type': 'application/json'
-        })})
-      .toPromise()
-      .then(res => {
-        console.log('Correct' + res);
-      }, msg => {
-        console.log('Error in promise signUp');
-        reject(msg);
-      });
-    });
-    return promise;
+  register(data): Observable<any> {
+    return this.http.post<any>(this.global.baseUrl + 'register', data, this.options)
+      .pipe(
+        tap(_ => console.log('register')),
+        catchError(this.handleError('register', []))
+      );
   }
 
   // changing global token variable to null
-  logOut() {
-    this.global.token = null;
+  async logOut() {
+    // Esborrar token de localStorage
+    await this.storage.remove('token');
+  }
+
+  private handleError<T> (operation = 'operation', result?: T) {
+    return (error: any): Observable<T> => {
+
+      // TODO: send the error to remote logging infrastructure
+      console.error(error); // log to console instead
+
+      // TODO: better job of transforming error for user consumption
+      console.log(`${operation} failed: ${error.message}`);
+
+      // Let the app keep running by returning an empty result.
+      return of(result as T);
+    };
   }
 }
