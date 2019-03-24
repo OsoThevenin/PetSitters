@@ -15,6 +15,7 @@ const routes: Routes = [
   { path: 'registre', loadChildren: './registre/registre.module#RegistrePageModule' },
   { path: 'login', loadChildren: './login/login.module#LoginPageModule' }
 
+
 ];
 @NgModule({
   imports: [

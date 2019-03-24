@@ -1,0 +1,11 @@
+<ion-list>
+  <ion-item *ngFor="let p of SettingsMenu">
+    <ion-icon slot="start" [name]="p.icon"></ion-icon>
+    {{p.title}}
+  </ion-item>
+  
+  <ion-item button color ="primary" (click)="closePopover()">
+    <ion-icon name="close" slot="start"></ion-icon>
+    Close Settings 
+  </ion-item>
+</ion-list>

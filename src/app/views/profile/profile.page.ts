@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { MenuController } from '@ionic/angular';
+import { PopoverController } from '@ionic/angular';
+import { PopoverPage } from './popover/popover.page';
 
 @Component({
   selector: 'app-profile',
@@ -8,15 +9,16 @@ import { MenuController } from '@ionic/angular';
 })
 export class ProfilePage {
 
-  public SettingsMenu = [
-    {title: "Log out", icon: "log-out"},
-    {title: "Delete Profile", icon: "trash"}
-  ];
-
-  constructor(private menuCtrl: MenuController) {}
+  constructor(private popoverCtrl: PopoverController) {}
   
-  OpenMenu() {
-    this.menuCtrl.toggle();
+  async OpenPopover(ev: Event) {
+    const popover = await this.popoverCtrl.create({
+      component: PopoverPage,
+      componentProps: {
+        ev: ev,
+      },
+    });
+    return await popover.present();
   }
 
 }
