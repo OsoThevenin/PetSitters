@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { PopoverController, NavController } from '@ionic/angular';
+import { PopoverController, NavController, AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-popover',
@@ -8,7 +8,7 @@ import { PopoverController, NavController } from '@ionic/angular';
 })
 export class PopoverPage implements OnInit {
 
-  constructor(private popoverController: PopoverController, private nav: NavController) { }
+  constructor(private popoverController: PopoverController, private nav: NavController, public alertController: AlertController) { }
 
   ngOnInit() {
   }
@@ -25,7 +25,20 @@ export class PopoverPage implements OnInit {
   }
 
   DeleteProfile() {
+    // Falta implementar el POST per esborrar l'usuari
     console.log("You click on Delete Profile");
+    this.presentAlert();
+    this.closePopover();
+  }
+
+  async presentAlert() {
+    const alert = await this.alertController.create({
+      header: 'Delete Profile',
+      message: 'Are you sure you want to delete your profile?',
+      buttons: ['Yes','No']
+    });
+
+    await alert.present();
   }
 
 }
