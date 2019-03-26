@@ -34,8 +34,31 @@ export class PopoverPage implements OnInit {
   async presentAlert() {
     const alert = await this.alertController.create({
       header: 'Delete Profile',
-      message: 'Are you sure you want to delete your profile?',
-      buttons: ['Yes','No']
+      message: 'Are you sure you want to delete your profile? Put your password to confirm this action.',
+      inputs: [
+        {
+          name: 'password',
+          placeholder: 'Password', 
+          type: 'password'
+        }
+      ],
+      buttons: [
+        {
+        text: 'Cancel',
+        role: 'cancel'
+        },
+        {
+          text: 'Confirm',
+          // funcionalitat de esborar perfil
+          handler: esborrar => {
+            if (esborrar.password == '') {
+              // a mes a mes comprovar que es correcte el password
+              console.log('No has posat el Password');
+            }
+            console.log('You click on Confirm button');
+          }
+        }
+      ]
     });
 
     await alert.present();
