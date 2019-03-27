@@ -95,15 +95,16 @@ export class RegistrePage implements OnInit {
 
   // Register a new User with the information provided
   signUp() {
-    const hashPassword = Md5.hashAsciiStr('petsitterplot420 ' + this.pw);
+    const hashPassword = Md5.hashAsciiStr('petsitterplot420 ' + this.pw.value);
     const body: any = {
-      firstName: this.fn,
-      lastName: this.ln,
-      username: this.un,
+      firstName: this.fn.value,
+      lastName: this.ln.value,
+      username: this.un.value,
       password: hashPassword,
-      birthdate: this.bd,
-      email: this.em
+      birthdate: this.bd.value,
+      email: this.em.value
     };
+    console.log(body);
     this.auth.register(body)
       .subscribe(res => {
         console.log(res);

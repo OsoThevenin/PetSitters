@@ -21,9 +21,9 @@ export class LoginPage implements OnInit {
   // Login a username with the information provided
   signIn() {
     // Hash password
-    const hashPassword = Md5.hashAsciiStr('petsitterplot420 ' + this.pw);
+    const hashPassword = Md5.hashAsciiStr('petsitterplot420 ' + this.pw.value);
     const body: any = {
-      username: this.un,
+      username: this.un.value,
       password: hashPassword
     };
     this.auth.login(body)
