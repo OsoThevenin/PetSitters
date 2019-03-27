@@ -63,4 +63,15 @@ describe('AuthProviderService', () => {
       });
     });
   });
+
+  describe('Testing the functionality, DeleteAccount', () => {
+    const service: AuthProviderService = TestBed.get(AuthProviderService);
+    httpMock = TestBed.get(HttpTestingController);
+    const body: any = {
+      password: '1234'
+    };
+    it('should be called once', () => {
+      expect(service.deleteAccount(body)).toBeTruthy();
+    });
+  });
 });

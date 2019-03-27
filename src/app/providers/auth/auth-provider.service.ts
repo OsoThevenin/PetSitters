@@ -11,10 +11,11 @@ import { catchError, tap } from 'rxjs/operators';
 })
 export class AuthProviderService {
   options: any;
+  httpHeaders: HttpHeaders;
   constructor(private http: HttpClient, private global: GlobalService, private storage: Storage) {
-    let httpHeaders: HttpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
-    httpHeaders = httpHeaders.append('Access-Control-Allow-Origin', '*');
-    this.options = {headers: httpHeaders};
+    this.httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    this.httpHeaders = this.httpHeaders.append('Access-Control-Allow-Origin', '*');
+    this.options = {headers: this.httpHeaders};
   }
 
   // sending a POST login to API
@@ -36,12 +37,19 @@ export class AuthProviderService {
 
   // sending a POST to delete account
   deleteAccount(data): Observable<any> {
-
-  };
+    const token = this.storage.get('token');
+    console.log('token: ' + token);
+    this.httpHeaders = this.httpHeaders.append('Authorization', 'Bearer ' + token);
+    this.options = {headers: this.httpHeaders};
+    return this.http.post<any>(this.global.baseUrl, data, this.options)
+      .pipe(
+        tap(_ => console.log('deleteAccount')),
+        catchError(this.handleError('deleteAccount', []))
+      );
+  }
 
   // changing global token variable to null
   async logOut() {
-    // Esborrar token de localStorage
     await this.storage.remove('token');
   }
 
