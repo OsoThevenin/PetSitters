@@ -1,9 +1,10 @@
+import { ToastController } from '@ionic/angular';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthProviderService } from './../providers/auth/auth-provider.service';
 import { GlobalService } from './../shared/global.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import {Md5} from 'ts-md5/dist/md5';
 
 @Component({
@@ -55,28 +56,28 @@ export class RegistrePage implements OnInit {
 
   constructor(private router: Router, public formBuilder: FormBuilder,
     private http: HttpClient, private global: GlobalService,
-    private auth: AuthProviderService) {
+    private auth: AuthProviderService, private toastController: ToastController) {
 
     this.signUpForm=this.formBuilder.group({
       fnfcn: new FormControl('', Validators.compose([
         Validators.required,
         Validators.maxLength(25),
-        Validators.pattern('^[a-zA-Z]+$') 
+        Validators.pattern('^[a-zA-Z]+$')
       ])),
       lnfcn: new FormControl('', Validators.compose([
         Validators.required,
         Validators.maxLength(25),
-        Validators.pattern('^[a-zA-Z]+$') 
+        Validators.pattern('^[a-zA-Z]+$')
       ])),
       unfcn: new FormControl('', Validators.compose([
         Validators.required,
-        Validators.maxLength(25), 
+        Validators.maxLength(25),
       ])),
       pwfcn: new FormControl('', Validators.compose([
         Validators.required,
         Validators.minLength(6),
         Validators.maxLength(25),
-        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$') 
+        Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
       ])),
       bdfcn: new FormControl('', Validators.compose([
         Validators.required,
@@ -107,11 +108,31 @@ export class RegistrePage implements OnInit {
     console.log(body);
     this.auth.register(body)
       .subscribe(res => {
+        // When the result is okay
         console.log(res);
+        this.router.navigateByUrl('/login');
+        this.presentToast('SignedUp successfully!');
+        },
+        err => {
+          const error: HttpErrorResponse = err;
+          console.log(error);
+          if (error.status === 400) {
+            this.presentToast('Username or email already exists. Please Log In or try it again');
+          } else if (error.status === 500) {
+            this.presentToast('Something went wrong, please try it again');
+          }
       });
   }
   // Navigates to Login Page
   goSignIn() {
     this.router.navigateByUrl('/login');
+  }
+
+  async presentToast(message) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 3000
+    });
+    toast.present();
   }
 }

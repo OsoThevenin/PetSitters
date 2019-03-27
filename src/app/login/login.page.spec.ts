@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
 import { LoginPage } from './login.page';
 import { IonicStorageModule } from '@ionic/storage';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('LoginPage', () => {
   let component: LoginPage;
@@ -12,7 +13,7 @@ describe('LoginPage', () => {
     TestBed.configureTestingModule({
       declarations: [ LoginPage ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-      imports: [HttpClientTestingModule, IonicStorageModule.forRoot()]
+      imports: [HttpClientTestingModule, IonicStorageModule.forRoot(), RouterTestingModule]
     })
     .compileComponents();
   }));

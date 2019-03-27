@@ -1,9 +1,10 @@
 import { GlobalService } from './../../shared/global.service';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { Storage } from '@ionic/storage';
 import { catchError, tap } from 'rxjs/operators';
+import { ToastController } from '@ionic/angular';
 
 
 @Injectable({
@@ -12,7 +13,8 @@ import { catchError, tap } from 'rxjs/operators';
 export class AuthProviderService {
   options: any;
   httpHeaders: HttpHeaders;
-  constructor(private http: HttpClient, private global: GlobalService, private storage: Storage) {
+  constructor(private http: HttpClient, private global: GlobalService, private storage: Storage,
+    private toastController: ToastController) {
     this.httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
     this.httpHeaders = this.httpHeaders.append('Access-Control-Allow-Origin', '*');
     this.options = {headers: this.httpHeaders};
@@ -20,19 +22,12 @@ export class AuthProviderService {
 
   // sending a POST login to API
   login(data): Observable<any> {
-    return this.http.post<any>(this.global.baseUrl + 'login', data, this.options)
-      .pipe(
-        tap(_ => console.log('login')),
-        catchError(this.handleError('login', []))
-      );
+    return this.http.post<any>(this.global.baseUrl + 'login', data, this.options);
   }
+
   // sending a POST register to API
   register(data): Observable<any> {
-    return this.http.post<any>(this.global.baseUrl + 'register', data, this.options)
-      .pipe(
-        tap(_ => console.log('register')),
-        catchError(this.handleError('register', []))
-      );
+    return this.http.post<any>(this.global.baseUrl + 'register', data, this.options);
   }
 
   // sending a POST to delete account
@@ -41,29 +36,11 @@ export class AuthProviderService {
     console.log('token: ' + token);
     this.httpHeaders = this.httpHeaders.append('Authorization', 'Bearer ' + token);
     this.options = {headers: this.httpHeaders};
-    return this.http.post<any>(this.global.baseUrl, data, this.options)
-      .pipe(
-        tap(_ => console.log('deleteAccount')),
-        catchError(this.handleError('deleteAccount', []))
-      );
+    return this.http.post<any>(this.global.baseUrl, data, this.options);
   }
 
   // changing global token variable to null
   async logOut() {
     await this.storage.remove('token');
-  }
-
-  private handleError<T> (operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-
-      // TODO: send the error to remote logging infrastructure
-      console.error(error); // log to console instead
-
-      // TODO: better job of transforming error for user consumption
-      console.log(`${operation} failed: ${error.message}`);
-
-      // Let the app keep running by returning an empty result.
-      return of(result as T);
-    };
   }
 }
