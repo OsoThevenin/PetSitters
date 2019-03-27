@@ -15,7 +15,8 @@ export class RegistrePage implements OnInit {
     lastName: '',
     username: '',
     password: '',
-    birthdate: ''
+    birthdate: '',
+    email: 'email@email.com'
   };
   constructor(private http: HttpClient, private global: GlobalService,
     private auth: AuthProviderService) { }
@@ -24,11 +25,8 @@ export class RegistrePage implements OnInit {
   }
 
   signUp() {
-    console.log('Registre signUp operation ' + this.body.password);
     const hashPassword = Md5.hashAsciiStr('petsitterplot420 ' + this.body.password);
-    console.log(hashPassword);
     this.body.password = hashPassword;
-    console.log(this.body);
     this.auth.register(this.body)
       .subscribe(res => {
         console.log(res);

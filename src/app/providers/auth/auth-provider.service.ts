@@ -34,6 +34,11 @@ export class AuthProviderService {
       );
   }
 
+  // sending a POST to delete account
+  deleteAccount(data): Observable<any> {
+
+  };
+
   // changing global token variable to null
   async logOut() {
     // Esborrar token de localStorage

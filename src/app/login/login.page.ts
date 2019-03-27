@@ -19,10 +19,8 @@ export class LoginPage implements OnInit {
   }
 
   signIn() {
-    console.log('Estoy en la funcion signIn() de login.page.ts y tengo estos valores:', this.username, this.password);
     // Hash password
     const hashPassword = Md5.hashAsciiStr('petsitterplot420 ' + this.password);
-    console.log(hashPassword);
     const body: any = {
       username: this.username,
       password: hashPassword
@@ -30,8 +28,7 @@ export class LoginPage implements OnInit {
     this.auth.login(body)
       .subscribe(res => {
         // Save token to storage
-        console.log(res);
-        this.storage.set('token', 'token1');
+        this.storage.set('token', res.result.token);
       });
   }
 }
