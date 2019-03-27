@@ -1,7 +1,8 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { IntroPage } from './intro.page';
+import { IonicStorageModule } from '@ionic/storage';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('IntroPage', () => {
   let component: IntroPage;
@@ -11,6 +12,7 @@ describe('IntroPage', () => {
     TestBed.configureTestingModule({
       declarations: [ IntroPage ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      imports: [IonicStorageModule.forRoot(), RouterTestingModule]
     })
     .compileComponents();
   }));

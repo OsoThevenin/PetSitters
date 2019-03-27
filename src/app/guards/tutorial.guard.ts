@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router, CanActivate } from '@angular/router';
 import { Storage } from '@ionic/storage';
-import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })

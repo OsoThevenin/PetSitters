@@ -1,5 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { Storage } from '@ionic/storage';
+import { AuthProviderService } from './../providers/auth/auth-provider.service';
+import {Md5} from 'ts-md5/dist/md5';
 
 @Component({
   selector: 'app-login',
@@ -10,16 +13,28 @@ export class LoginPage implements OnInit {
 
   @ViewChild('username') un;
   @ViewChild('password') pw;
-  
-  constructor(private router: Router) { }
+  constructor(private auth: AuthProviderService, private storage: Storage, private router: Router) { }
 
   ngOnInit() {
   }
 
-  signIn(){
-    console.log('Estoy en la funcion signIn() de login.page.ts y tengo estos valores:',this.un.value,this.pw.value)
+  // Login a username with the information provided
+  signIn() {
+    // Hash password
+    const hashPassword = Md5.hashAsciiStr('petsitterplot420 ' + this.pw);
+    const body: any = {
+      username: this.un,
+      password: hashPassword
+    };
+    this.auth.login(body)
+      .subscribe(res => {
+        // Save token to storage
+        this.storage.set('token', res.result.token);
+      });
   }
-  goSignUp(){
+
+  // Navigate to Register Page
+  goSignUp() {
     this.router.navigateByUrl('/registre');
   }
 }

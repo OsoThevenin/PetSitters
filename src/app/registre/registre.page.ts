@@ -1,7 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
-
+import { AuthProviderService } from './../providers/auth/auth-provider.service';
+import { GlobalService } from './../shared/global.service';
+import { HttpClient } from '@angular/common/http';
+import {Md5} from 'ts-md5/dist/md5';
 
 @Component({
   selector: 'app-registre',
@@ -41,7 +44,7 @@ export class RegistrePage implements OnInit {
       {type:'required', message: 'Email is required.'},
       {type:'pattern', message: 'Email must be valid.'}
     ],
-  }
+  };
 
   @ViewChild('firstName') fn;
   @ViewChild('lastName') ln;
@@ -50,7 +53,10 @@ export class RegistrePage implements OnInit {
   @ViewChild('birthDate') bd;
   @ViewChild('email') em;
 
-  constructor(private router: Router, public formBuilder: FormBuilder) { 
+  constructor(private router: Router, public formBuilder: FormBuilder,
+    private http: HttpClient, private global: GlobalService,
+    private auth: AuthProviderService) {
+
     this.signUpForm=this.formBuilder.group({
       fnfcn: new FormControl('', Validators.compose([
         Validators.required,
@@ -87,10 +93,24 @@ export class RegistrePage implements OnInit {
   ngOnInit() {
   }
 
-  signUp(){
-    console.log('Estoy en la funcion signUp() de registre.page.ts y tengo estos valores:',this.fn.value,this.ln.value,this.un.value,this.pw.value,this.bd.value,this.em.value)
+  // Register a new User with the information provided
+  signUp() {
+    const hashPassword = Md5.hashAsciiStr('petsitterplot420 ' + this.pw);
+    const body: any = {
+      firstName: this.fn,
+      lastName: this.ln,
+      username: this.un,
+      password: hashPassword,
+      birthdate: this.bd,
+      email: this.em
+    };
+    this.auth.register(body)
+      .subscribe(res => {
+        console.log(res);
+      });
   }
-  goSignIn(){
+  // Navigates to Login Page
+  goSignIn() {
     this.router.navigateByUrl('/login');
   }
 }
