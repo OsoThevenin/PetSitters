@@ -1,8 +1,10 @@
-.alinea-centro-v{
-    margin-top:10%;
-}
 .boton{
-    --color:black;
+    --color:#dfe9ee;
+    font-weight:bold;
+}
+.boton2{
+    --color: #004F79;
+    font-weight:bold;  
 }
 
 ion-input{
@@ -15,11 +17,12 @@ ion-input{
 }
 
 .imagen {
-    margin-bottom: 10%;
+    margin-top: 3%;
+    margin-bottom: 3%;
 }
 ion-title{
-    margin-bottom: 5%;
+    margin-bottom: 3%;
     font-weight:bold;
-    font-size: 175%;
-    color:black;
+    font-size: 180%;
+    color:white;
 }

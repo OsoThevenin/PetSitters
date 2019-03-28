@@ -68,7 +68,7 @@ export class RegistrePage implements OnInit {
       lnfcn: new FormControl('', Validators.compose([
         Validators.required,
         Validators.maxLength(25),
-        Validators.pattern('^[a-zA-ZÀ-ž ]+$') 
+        Validators.pattern('^[A-ZΆ-ΫÀ-ÖØ-Þa-zά-ώß-öø-ÿ ]+$') 
       ])),
       unfcn: new FormControl('', Validators.compose([
         Validators.required,
