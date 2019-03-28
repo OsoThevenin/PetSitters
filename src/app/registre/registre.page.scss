@@ -11,11 +11,14 @@ ion-input{
     color: black;
 }
 ion-title{
-    margin-top: 5%;
-    margin-bottom: 3%;
+    margin-top: 3%;
     font-weight:bold;
-    font-size: 210%;
+    font-size: 180%;
     color:white;
+}
+ion-grid{
+    margin-top:3%;
+    margin-bottom: 10%;
 }
 
 .error-message {
@@ -26,3 +29,4 @@ ion-title{
     --color: #004F79;
     font-weight:bold;  
 }
+
