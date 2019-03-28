@@ -55,15 +55,21 @@ export class PopoverPage implements OnInit {
           text: 'Confirm',
           // funcionalitat de esborar perfil
           handler: esborrar => {
-            if (esborrar.password == '') {
-              this.presentToast();
-              this.presentAlert();
-            } else {
+            if (esborrar.password !== '') {
               const data: any = {
                 password: esborrar.password
               };
-              this.auth.deleteAccount(data);
-              this.nav.navigateForward(`/registre`);
+              this.auth.deleteAccount(data).
+              subscribe(res => {
+                this.nav.navigateForward(`/registre`);
+                return true;
+              }, err => {
+                console.log(err);
+                return false;
+              });
+            } else {
+              this.presentToast('Password field cannot be empty');
+              return false;
             }
           }
         }
@@ -73,11 +79,10 @@ export class PopoverPage implements OnInit {
     await alert.present();
   }
 
-  async presentToast() {
+  async presentToast(message) {
     const toast = await this.toastCtrl.create({
-      message: 'Password field cannot be empty',
-      duration: 1000,
-      position: 'middle'
+      message: message,
+      duration: 2000
     });
     await toast.present();
   }
