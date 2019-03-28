@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { PopoverController, NavController, AlertController } from '@ionic/angular';
+import { PopoverController, NavController, AlertController, ToastController } from '@ionic/angular';
+import { AuthProviderService } from 'src/app/providers/auth/auth-provider.service';
+
+
 
 @Component({
   selector: 'app-popover',
@@ -8,7 +11,9 @@ import { PopoverController, NavController, AlertController } from '@ionic/angula
 })
 export class PopoverPage implements OnInit {
 
-  constructor(private popoverController: PopoverController, private nav: NavController, public alertController: AlertController) { }
+  constructor(private popoverController: PopoverController, private nav: NavController,
+     private alertController: AlertController, private auth: AuthProviderService,
+     private toastCtrl: ToastController) { }
 
   ngOnInit() {
   }
@@ -18,8 +23,7 @@ export class PopoverPage implements OnInit {
   }
 
   LogOut() {
-    // Falta combinar amb la part del Pere
-    console.log("You click on Log out");
+    this.auth.logOut();
     this.nav.navigateForward(`/login`);
     this.closePopover();
   }
@@ -51,11 +55,22 @@ export class PopoverPage implements OnInit {
           text: 'Confirm',
           // funcionalitat de esborar perfil
           handler: esborrar => {
-            if (esborrar.password == '') {
-              // a mes a mes comprovar que es correcte el password
-              console.log('No has posat el Password');
+            if (esborrar.password !== '') {
+              const data: any = {
+                password: esborrar.password
+              };
+              this.auth.deleteAccount(data).
+              subscribe(res => {
+                this.nav.navigateForward(`/registre`);
+                return true;
+              }, err => {
+                console.log(err);
+                return false;
+              });
+            } else {
+              this.presentToast('Password field cannot be empty');
+              return false;
             }
-            console.log('You click on Confirm button');
           }
         }
       ]
@@ -64,4 +79,13 @@ export class PopoverPage implements OnInit {
     await alert.present();
   }
 
+  async presentToast(message) {
+    const toast = await this.toastCtrl.create({
+      message: message,
+      duration: 2000
+    });
+    await toast.present();
+  }
+
 }
+
