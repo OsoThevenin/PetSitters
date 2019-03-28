@@ -5,10 +5,10 @@
 </ion-header>
 
 <ion-content padding color="a1">
-  <ion-grid class="alinea-centro-v" style="height: 90%">
+  <ion-grid class="alinea-centro-v" style="height: 80%">
     <form [formGroup]="signUpForm">
-      <ion-row>
-        <ion-col>
+      <ion-row justify-content-center align-items-center>
+        <ion-col size-lg="8" size-xl="4">
           <ion-input formControlName="fnfcn" type="text" placeholder=" First Name" #firstName></ion-input>
           <div class="error-messages">
             <ng-container *ngFor="let error of error_messages.firstName">
@@ -19,8 +19,8 @@
           </div>
         </ion-col>
       </ion-row>
-      <ion-row>
-        <ion-col>
+      <ion-row justify-content-center align-items-center>
+        <ion-col size-lg="8" size-xl="4">
           <ion-input formControlName="lnfcn" type="text" placeholder=" Last Name" #lastName></ion-input>
           <div class="error-messages">
             <ng-container *ngFor="let error of error_messages.lastName">
@@ -31,8 +31,8 @@
           </div>
         </ion-col>
       </ion-row>
-      <ion-row>
-        <ion-col>
+      <ion-row justify-content-center align-items-center>
+        <ion-col size-lg="8" size-xl="4">
           <ion-input formControlName="unfcn" type="text" placeholder=" Username" #username></ion-input>
           <div class="error-messages">
             <ng-container *ngFor="let error of error_messages.username">
@@ -43,8 +43,8 @@
           </div>
         </ion-col>
       </ion-row>
-      <ion-row>
-        <ion-col>
+      <ion-row justify-content-center align-items-center>
+        <ion-col size-lg="8" size-xl="4">
           <ion-input formControlName="pwfcn" type="password" placeholder=" Password" #password></ion-input>
           <div class="error-messages">
             <ng-container *ngFor="let error of error_messages.password">
@@ -55,8 +55,8 @@
           </div>
         </ion-col>
       </ion-row>
-      <ion-row>
-        <ion-col>
+      <ion-row justify-content-center align-items-center>
+        <ion-col size-lg="8" size-xl="4">
           <ion-input formControlName="bdfcn" type="text" placeholder=" Birth Date" #birthDate></ion-input>
           <div class="error-messages">
             <ng-container *ngFor="let error of error_messages.birthDate">
@@ -67,8 +67,8 @@
           </div>
         </ion-col>
       </ion-row>
-      <ion-row>
-        <ion-col>
+      <ion-row justify-content-center align-items-center>
+        <ion-col size-lg="8" size-xl="4">
           <ion-input formControlName="emfcn" type="email" placeholder=" Email" #email></ion-input>
           <div class="error-messages">
             <ng-container *ngFor="let error of error_messages.email">
@@ -82,20 +82,22 @@
     
 <ion-row><ion-col></ion-col></ion-row>
 
-    <ion-row>
-      <ion-col>
-        <ion-button [disabled]="!signUpForm.valid" expand="block" (click)="signUp()">Sign up</ion-button> 
+    <ion-row justify-content-center align-items-center>
+      <ion-col size-lg="8" size-xl="4">
+        <ion-button class="botton2" [disabled]="!signUpForm.valid" color="b2" expand="block" (click)="signUp()">
+          Sign up
+        </ion-button> 
       </ion-col>
     </ion-row>
   </form>
 
     <ion-row justify-content-center align-items-center  style="height: 10%">
-        <ion-label>Already have an account?</ion-label>
+        <ion-label color="white">Already have an account?</ion-label>
     </ion-row>
 
-    <ion-row>
-      <ion-col>
-        <ion-button class="boton" color="a2" expand="block" fill="solid" (click)="goSignIn()">Sign in</ion-button> 
+    <ion-row justify-content-center align-items-center>
+      <ion-col size-lg="8" size-xl="4">
+        <ion-button class="boton" color="b2" expand="block" fill="outline" (click)="goSignIn()">Sign in</ion-button> 
       </ion-col>
     </ion-row>
   </ion-grid>

@@ -95,11 +95,20 @@
     }
 
   .ion-color-a1 { 
-    --ion-color-base: #c9f1fd;
+    --ion-color-base: #004F79;
     --ion-color-base-rgb: 118, 166, 255;
     --ion-color-mel-contrast: #ffffff;
     --ion-color-mel-contrast-rgb: 255, 255, 255;
     --ion-color-mel-shade: rgb(97, 142, 226);
     --ion-color-mel-tint: rgb(151, 186, 252);
     }
+
+    .ion-color-b2 { 
+      --ion-color-base: #bfd3dd;
+      --ion-color-base-rgb: 118, 166, 255;
+      --ion-color-mel-contrast: #ffffff;
+      --ion-color-mel-contrast-rgb: 255, 255, 255;
+      --ion-color-mel-shade: rgb(97, 142, 226);
+      --ion-color-mel-tint: rgb(151, 186, 252);
+      }
 }
