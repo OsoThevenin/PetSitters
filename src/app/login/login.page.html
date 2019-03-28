@@ -14,22 +14,22 @@
       </ion-col>
     </ion-row>
 
-    <ion-row>
-      <ion-col>
+    <ion-row justify-content-center align-items-center>
+      <ion-col size-lg="8" size-xl="4">
           <ion-input type="text" placeholder=" Username" #username></ion-input>
       </ion-col>
     </ion-row>
    
-    <ion-row>
-      <ion-col>
+    <ion-row justify-content-center align-items-center>
+      <ion-col size-lg="8" size-xl="4">
           <ion-input type="password" placeholder=" Password"#password></ion-input>
       </ion-col>
     </ion-row>
 
     <ion-row><ion-col></ion-col></ion-row>
 
-    <ion-row>
-      <ion-col>
+    <ion-row justify-content-center align-items-center>
+      <ion-col size-lg="8" size-xl="4">
         <ion-button expand="block" fill="solid" (click)="signIn()">Sign in</ion-button> 
       </ion-col>
     </ion-row>
@@ -38,10 +38,13 @@
         <ion-label>New to PetSitters?</ion-label>
     </ion-row>
 
-    <ion-row>
-      <ion-col>
+    <ion-row justify-content-center align-items-center>
+      <ion-col size-lg="8" size-xl="4">
         <ion-button class="boton" color="a2" expand="block" fill="solid" (click)="goSignUp()">Sign up</ion-button> 
       </ion-col>
     </ion-row>
+
+    <ion-row style="height: 50%"><ion-col></ion-col></ion-row>
+
   </ion-grid>
 </ion-content>
