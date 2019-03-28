@@ -45,7 +45,7 @@
       </ion-row>
       <ion-row>
         <ion-col>
-          <ion-input formControlName="pwfcn" type="password" placeholder=" Password" #password></ion-input>
+          <ion-input formControlName="pwfcn"  type="password" placeholder=" Password" #password></ion-input>
           <div class="error-messages">
             <ng-container *ngFor="let error of error_messages.password">
               <div class="error-message" *ngIf="signUpForm.get('pwfcn').hasError(error.type) && (signUpForm.get('pwfcn').dirty || signUpForm.get('pwfcn').touched)">
@@ -69,7 +69,7 @@
       </ion-row>
       <ion-row>
         <ion-col>
-          <ion-input formControlName="emfcn" type="email" placeholder=" Email" #email></ion-input>
+          <ion-input formControlName="emfcn" type="text" placeholder=" Email" #email></ion-input>
           <div class="error-messages">
             <ng-container *ngFor="let error of error_messages.email">
               <div class="error-message" *ngIf="signUpForm.get('emfcn').hasError(error.type) && (signUpForm.get('emfcn').dirty || signUpForm.get('emfcn').touched)">
