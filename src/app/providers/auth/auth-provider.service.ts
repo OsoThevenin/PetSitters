@@ -13,8 +13,10 @@ import { ToastController } from '@ionic/angular';
 export class AuthProviderService {
   options: any;
   httpHeaders: HttpHeaders;
+  token: any;
   constructor(private http: HttpClient, private global: GlobalService, private storage: Storage,
     private toastController: ToastController) {
+    this.storage.get('token').then((data) => {this.token = data; });
     this.httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
     this.httpHeaders = this.httpHeaders.append('Access-Control-Allow-Origin', '*');
     this.options = {headers: this.httpHeaders};
@@ -32,11 +34,10 @@ export class AuthProviderService {
 
   // sending a POST to delete account
   deleteAccount(data): Observable<any> {
-    const token = this.storage.get('token');
-    console.log('token: ' + token);
-    this.httpHeaders = this.httpHeaders.append('Authorization', 'Bearer ' + token);
+    console.log(this.token);
+    this.httpHeaders = this.httpHeaders.append('Authorization', 'Bearer ' + this.token);
     this.options = {headers: this.httpHeaders};
-    return this.http.post<any>(this.global.baseUrl, data, this.options);
+    return this.http.post<any>(this.global.baseUrl + 'deleteAccount', data, this.options);
   }
 
   // changing global token variable to null

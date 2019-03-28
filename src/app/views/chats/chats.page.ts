@@ -5,4 +5,5 @@ import { Component } from '@angular/core';
   templateUrl: 'chats.page.html',
   styleUrls: ['chats.page.scss']
 })
-export class ChatsPage {}
+export class ChatsPage {
+}

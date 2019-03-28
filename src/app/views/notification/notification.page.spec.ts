@@ -10,7 +10,7 @@ describe('NotificationPage', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [NotificationPage],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
   }));
 

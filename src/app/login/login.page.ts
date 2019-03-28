@@ -1,3 +1,4 @@
+import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
@@ -11,34 +12,67 @@ import { ToastController } from '@ionic/angular';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-
+  unValid = true;
+  pwValid = true;
+  logInForm: FormGroup;
+  error_messages = {
+    'username': [
+      {type: 'required', message: 'Username is required.'},
+    ],
+    'password': [
+      {type: 'required', message: 'Password is required.'},
+    ]
+  };
   @ViewChild('username') un;
   @ViewChild('password') pw;
   constructor(private auth: AuthProviderService, private storage: Storage, private router: Router,
-    private toastController: ToastController) { }
+    private toastController: ToastController, private formBuilder: FormBuilder ) {
+      this.storage.get('token').then((val) => {
+        if (val !== null) {
+          this.router.navigateByUrl('');
+        }
+      });
+      this.logInForm = this.formBuilder.group({
+        unfcn: new FormControl('', Validators.compose([
+          Validators.required,
+        ])),
+        pwfcn: new FormControl('', Validators.compose([
+          Validators.required,
+        ]))
+      });
+    }
 
   ngOnInit() {
   }
 
   // Login a username with the information provided
   signIn() {
-    // Hash password
-    const hashPassword = Md5.hashAsciiStr('petsitterplot420 ' + this.pw.value);
-    const body: any = {
-      username: this.un.value,
-      password: hashPassword
-    };
-    this.auth.login(body)
-      .subscribe(res => {
-        // Save token to storage
-        console.log(res);
-        this.storage.set('token', res.result.token);
-        this.router.navigateByUrl('');
-      }, err => {
-        if (err.status === 401) {
-          this.presentToast('Bad credentials, please try again!');
-        }
-      });
+    if (this.logInForm.valid) {
+      // Hash password
+      const hashPassword = Md5.hashAsciiStr('petsitterplot420 ' + this.pw.value);
+      const body: any = {
+        username: this.un.value,
+        password: hashPassword
+      };
+      this.auth.login(body)
+        .subscribe(res => {
+          // Save token to storage
+          console.log(res);
+          this.storage.set('token', res.result.token);
+          this.router.navigateByUrl('');
+        }, err => {
+          if (err.status === 401) {
+            this.presentToast('Bad credentials, please try again!');
+          }
+        });
+    } else {
+      if (!this.logInForm.controls['unfcn'].valid) {
+        this.unValid = false;
+      }
+      if (!this.logInForm.controls['pwfcn'].valid) {
+        this.pwValid = false;
+      }
+    }
   }
 
   // Navigate to Register Page

@@ -9,8 +9,9 @@ import { PopoverPage } from './popover/popover.page';
 })
 export class ProfilePage {
 
-  constructor(private popoverCtrl: PopoverController) {}
-  
+  constructor(private popoverCtrl: PopoverController) {
+  }
+
   async OpenPopover(ev: Event) {
     const popover = await this.popoverCtrl.create({
       component: PopoverPage,

@@ -10,7 +10,7 @@ describe('TrophiesPage', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ TrophiesPage ],
-      schemas: [CUSTOM_ELEMENTS_SCHEMA],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     })
     .compileComponents();
   }));

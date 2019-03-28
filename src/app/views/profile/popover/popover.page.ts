@@ -1,3 +1,4 @@
+import { Md5 } from 'ts-md5/dist/md5';
 import { Component, OnInit } from '@angular/core';
 import { PopoverController, NavController, AlertController, ToastController } from '@ionic/angular';
 import { AuthProviderService } from 'src/app/providers/auth/auth-provider.service';
@@ -24,7 +25,7 @@ export class PopoverPage implements OnInit {
 
   LogOut() {
     this.auth.logOut();
-    this.nav.navigateForward(`/login`);
+    this.nav.navigateRoot(`/login`);
     this.closePopover();
   }
 
@@ -56,17 +57,20 @@ export class PopoverPage implements OnInit {
           // funcionalitat de esborar perfil
           handler: esborrar => {
             if (esborrar.password !== '') {
+              const hashPassword = Md5.hashAsciiStr('petsitterplot420 ' + esborrar.password);
               const data: any = {
-                password: esborrar.password
+                password: hashPassword
               };
+              let bool = true;
               this.auth.deleteAccount(data).
               subscribe(res => {
-                this.nav.navigateForward(`/registre`);
-                return true;
+                this.nav.navigateRoot(`/login`);
               }, err => {
                 console.log(err);
-                return false;
+                bool = false;
+                this.presentToast('Something went wrong, please try it again');
               });
+              return bool;
             } else {
               this.presentToast('Password field cannot be empty');
               return false;
@@ -82,7 +86,7 @@ export class PopoverPage implements OnInit {
   async presentToast(message) {
     const toast = await this.toastCtrl.create({
       message: message,
-      duration: 2000
+      duration: 2500
     });
     await toast.present();
   }

@@ -58,7 +58,7 @@ export class RegistrePage implements OnInit {
     private http: HttpClient, private global: GlobalService,
     private auth: AuthProviderService, private toastController: ToastController) {
 
-    this.signUpForm=this.formBuilder.group({
+    this.signUpForm = this.formBuilder.group({
       fnfcn: new FormControl('', Validators.compose([
         Validators.required,
         Validators.maxLength(25),
