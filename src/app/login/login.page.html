@@ -14,8 +14,8 @@
       </ion-col>
     </ion-row>
     <form [formGroup]="logInForm">
-      <ion-row>
-        <ion-col>
+      <ion-row justify-content-center align-items-center>
+        <ion-col size-lg="8" size-xl="4">
             <ion-input formControlName="unfcn" type="text" placeholder=" Username" #username></ion-input>
             <ng-container *ngFor="let error of error_messages.username">
               <div class="error-message" *ngIf="!unValid">
@@ -25,8 +25,8 @@
         </ion-col>
       </ion-row>
     
-      <ion-row>
-        <ion-col>
+      <ion-row justify-content-center align-items-center>
+        <ion-col size-lg="8" size-xl="4">
             <ion-input formControlName="pwfcn" type="password" placeholder=" Password"#password></ion-input>
             <ng-container *ngFor="let error of error_messages.password">
               <div class="error-message" *ngIf="!pwValid">

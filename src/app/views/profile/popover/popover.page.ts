@@ -64,7 +64,7 @@ export class PopoverPage implements OnInit {
               let bool = true;
               this.auth.deleteAccount(data).
               subscribe(res => {
-                this.nav.navigateRoot(`/login`);
+                this.LogOut();
               }, err => {
                 console.log(err);
                 bool = false;

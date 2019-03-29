@@ -3,6 +3,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage';
 import { AuthProviderService } from './../providers/auth/auth-provider.service';
+import { GlobalService } from './../shared/global.service';
 import {Md5} from 'ts-md5/dist/md5';
 import { ToastController } from '@ionic/angular';
 
@@ -26,7 +27,7 @@ export class LoginPage implements OnInit {
   @ViewChild('username') un;
   @ViewChild('password') pw;
   constructor(private auth: AuthProviderService, private storage: Storage, private router: Router,
-    private toastController: ToastController, private formBuilder: FormBuilder ) {
+    private toastController: ToastController, private formBuilder: FormBuilder, private global: GlobalService ) {
       this.storage.get('token').then((val) => {
         if (val !== null) {
           this.router.navigateByUrl('');
@@ -57,8 +58,9 @@ export class LoginPage implements OnInit {
       this.auth.login(body)
         .subscribe(res => {
           // Save token to storage
-          console.log(res);
+          console.log('token ' + res.result.token);
           this.storage.set('token', res.result.token);
+          this.global.token = res.result.token;
           this.router.navigateByUrl('');
         }, err => {
           if (err.status === 401) {
