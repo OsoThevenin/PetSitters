@@ -2,8 +2,6 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ProfilePage } from './profile.page';
-import { IonicStorageModule } from '@ionic/storage';
-import { RouterTestingModule } from '@angular/router/testing';
 import { PopoverController, AngularDelegate } from '@ionic/angular';
 
 describe('ProfilePage', () => {
