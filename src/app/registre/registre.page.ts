@@ -1,7 +1,7 @@
 import { ToastController } from '@ionic/angular';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { AuthProviderService } from './../providers/auth/auth-provider.service';
 import { GlobalService } from './../shared/global.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
@@ -12,29 +12,31 @@ import {Md5} from 'ts-md5/dist/md5';
   templateUrl: './registre.page.html',
   styleUrls: ['./registre.page.scss'],
 })
-export class RegistrePage implements OnInit {
+ 
 
+export class RegistrePage implements OnInit {
+  
   signUpForm: FormGroup;
 
   error_messages ={
     'firstName':[
       {type:'required', message: 'First Name is required.'},
       {type:'pattern', message: 'First Name must only contain uppercase and lowercase characters.'},
-      {type:'maxLength', message: 'First Name must be shorter than 25 characters.'}
+      {type:'maxlength', message: 'First Name must be shorter than 25 characters.'}
     ],
     'lastName':[
       {type:'required', message: 'Last Name is required.'},
       {type:'pattern', message: 'Last Name must only contain uppercase and lowercase characters.'},
-      {type:'maxLength', message: 'Last Name must be shorter than 25 characters.'}
+      {type:'maxlength', message: 'Last Name must be shorter than 25 characters.'}
     ],
     'username':[
       {type:'required', message: 'Username is required.'},
-      {type:'maxLength', message: 'Username must be shorter than 25 characters.'}
+      {type:'maxlength', message: 'Username must be shorter than 25 characters.'}
     ],
     'password':[
       {type:'required', message: 'Password is required.'},
-      {type:'minLength', message: 'Password length must be longer or equal than 6 characters.'},
-      {type:'maxLength', message: 'Password must be shorter than 25 characters.'},
+      {type:'minlength', message: 'Password length must be longer or equal than 6 characters.'},
+      {type:'maxlength', message: 'Password must be shorter than 25 characters.'},
       {type:'pattern', message: 'Password must contain numbers, uppercase and lowercase characters.'}
     ],
     'birthDate':[
@@ -62,12 +64,12 @@ export class RegistrePage implements OnInit {
       fnfcn: new FormControl('', Validators.compose([
         Validators.required,
         Validators.maxLength(25),
-        Validators.pattern('^[a-zA-Z]+$')
+        Validators.pattern('^[A-ZΆ-ΫÀ-ÖØ-Þa-zά-ώß-öø-ÿ ]+$') 
       ])),
       lnfcn: new FormControl('', Validators.compose([
         Validators.required,
         Validators.maxLength(25),
-        Validators.pattern('^[a-zA-Z]+$')
+        Validators.pattern('^[A-ZΆ-ΫÀ-ÖØ-Þa-zά-ώß-öø-ÿ ]+$') 
       ])),
       unfcn: new FormControl('', Validators.compose([
         Validators.required,
@@ -85,11 +87,12 @@ export class RegistrePage implements OnInit {
       ])),
       emfcn: new FormControl('', Validators.compose([
         Validators.required,
-        Validators.email
+        Validators.pattern("^((?!(^[.-].*|[^@]*[.-]@|.*\\.{2,}.*)|^.{254}.)([a-zA-Z0-9!#$%&'*+\\/=?^_`{|}~.-]+@)(?!-.*|.*-\\.)([a-zA-Z0-9-]{1,63}\\.)+[a-zA-Z]{2,15})$")
       ]))
     });
 
   }
+
 
   ngOnInit() {
   }
