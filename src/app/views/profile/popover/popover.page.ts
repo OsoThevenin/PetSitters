@@ -1,3 +1,4 @@
+import { GlobalService } from './../../../shared/global.service';
 import { Md5 } from 'ts-md5/dist/md5';
 import { Component, OnInit } from '@angular/core';
 import { PopoverController, NavController, AlertController, ToastController } from '@ionic/angular';
@@ -14,7 +15,7 @@ export class PopoverPage implements OnInit {
 
   constructor(private popoverController: PopoverController, private nav: NavController,
      private alertController: AlertController, private auth: AuthProviderService,
-     private toastCtrl: ToastController) { }
+     private toastCtrl: ToastController, private global: GlobalService) { }
 
   ngOnInit() {
   }
@@ -64,6 +65,7 @@ export class PopoverPage implements OnInit {
               let bool = true;
               this.auth.deleteAccount(data).
               subscribe(res => {
+                this.global.token = '';
                 this.LogOut();
               }, err => {
                 console.log(err);

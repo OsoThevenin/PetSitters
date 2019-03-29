@@ -34,9 +34,8 @@ export class AuthProviderService {
   deleteAccount(data): Observable<any> {
     let token = this.global.token;
     console.log(token);
-    this.global.token = '';
-    this.httpHeaders = this.httpHeaders.append('Authorization', 'Bearer ' + token);
-    this.options = {headers: this.httpHeaders};
+    let headers = this.httpHeaders.append('Authorization', 'Bearer ' + token);
+    this.options = {headers: headers};
     return this.http.post<any>(this.global.baseUrl + 'deleteAccount', data, this.options);
   }
 
