@@ -1,0 +1,31 @@
+.boton{
+    --color: #dfe9ee;
+    font-weight:bold;
+}
+ion-input{
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px;
+    border-radius: 8px;
+    margin-bottom: 10px;  
+    --background:white;
+    color: black;
+}
+ion-title{
+    margin-top: 3%;
+    font-weight:bold;
+    font-size: 180%;
+    color:white;
+}
+ion-grid{
+    margin-top:3%;
+}
+
+.error-message {
+    color: white;
+}
+
+.botton2{
+    --color: #004F79;
+    font-weight:bold;  
+}
+

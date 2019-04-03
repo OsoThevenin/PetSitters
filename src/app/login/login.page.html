@@ -1,0 +1,60 @@
+
+<ion-content padding color="a1">
+  <ion-grid style="height: 90%">
+
+    <ion-row justify-content-center align-items-center>
+         <img class="imagen" src="../../assets/Logo_versio4.png">
+    </ion-row>
+    
+    <ion-row>
+      <ion-col>
+        <ion-title text-center>
+          Welcome!
+        </ion-title>
+      </ion-col>
+    </ion-row>
+    <form [formGroup]="logInForm">
+      <ion-row justify-content-center align-items-center>
+        <ion-col size-lg="8" size-xl="4">
+            <ion-input formControlName="unfcn" type="text" placeholder=" Username" #username></ion-input>
+            <ng-container *ngFor="let error of error_messages.username">
+              <div class="error-message" *ngIf="!unValid">
+                {{error.message}}
+              </div>
+            </ng-container>
+        </ion-col>
+      </ion-row>
+    
+      <ion-row justify-content-center align-items-center>
+        <ion-col size-lg="8" size-xl="4">
+            <ion-input formControlName="pwfcn" type="password" placeholder=" Password"#password></ion-input>
+            <ng-container *ngFor="let error of error_messages.password">
+              <div class="error-message" *ngIf="!pwValid">
+                {{error.message}}
+              </div>
+            </ng-container>
+        </ion-col>
+      </ion-row>
+    </form>
+      <ion-row><ion-col></ion-col></ion-row>
+
+      <ion-row justify-content-center align-items-center>
+        <ion-col size-lg="8" size-xl="4">
+          <ion-button class="boton2" color="b2" expand="block" fill="solid" (click)="signIn()">Sign in</ion-button> 
+        </ion-col>
+      </ion-row>
+
+    <ion-row justify-content-center align-items-center  style="height: 10%">
+        <ion-label color="white">New to PetSitters?</ion-label>
+    </ion-row>
+
+    <ion-row justify-content-center align-items-center>
+      <ion-col size-lg="8" size-xl="4">
+        <ion-button class="boton" color="b2" expand="block" fill="outline" (click)="goSignUp()">Sign up</ion-button> 
+      </ion-col>
+    </ion-row>
+
+    
+
+  </ion-grid>
+</ion-content>

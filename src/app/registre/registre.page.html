@@ -1,0 +1,103 @@
+
+<ion-content padding color="a1">
+    <ion-toolbar color="a1" text-center>
+        <ion-title>Create your account</ion-title>
+      </ion-toolbar>
+  <ion-grid class="alinea-centro-v" style="height: 70%">
+    <form [formGroup]="signUpForm">
+      <ion-row justify-content-center align-items-center>
+        <ion-col size-lg="8" size-xl="4">
+          <ion-input formControlName="fnfcn" type="text" placeholder=" First Name" #firstName></ion-input>
+          <div class="error-messages">
+            <ng-container *ngFor="let error of error_messages.firstName">
+              <div class="error-message" *ngIf="signUpForm.get('fnfcn').hasError(error.type) && (signUpForm.get('fnfcn').dirty || signUpForm.get('fnfcn').touched)">
+                {{error.message}}
+              </div>
+            </ng-container>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row justify-content-center align-items-center>
+        <ion-col size-lg="8" size-xl="4">
+          <ion-input formControlName="lnfcn" type="text" placeholder=" Last Name" #lastName></ion-input>
+          <div class="error-messages">
+            <ng-container *ngFor="let error of error_messages.lastName">
+              <div class="error-message" *ngIf="signUpForm.get('lnfcn').hasError(error.type) && (signUpForm.get('lnfcn').dirty || signUpForm.get('lnfcn').touched)">
+                {{error.message}}
+              </div>
+            </ng-container>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row justify-content-center align-items-center>
+        <ion-col size-lg="8" size-xl="4">
+          <ion-input formControlName="unfcn" type="text" placeholder=" Username" #username></ion-input>
+          <div class="error-messages">
+            <ng-container *ngFor="let error of error_messages.username">
+              <div class="error-message" *ngIf="signUpForm.get('unfcn').hasError(error.type) && (signUpForm.get('unfcn').dirty || signUpForm.get('unfcn').touched)">
+                {{error.message}}
+              </div>
+            </ng-container>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row justify-content-center align-items-center>
+        <ion-col size-lg="8" size-xl="4">
+          <ion-input formControlName="pwfcn" type="password" placeholder=" Password" #password></ion-input>
+          <div class="error-messages">
+            <ng-container *ngFor="let error of error_messages.password">
+              <div class="error-message" *ngIf="signUpForm.get('pwfcn').hasError(error.type) && (signUpForm.get('pwfcn').dirty || signUpForm.get('pwfcn').touched)">
+                {{error.message}}
+              </div>
+            </ng-container>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row justify-content-center align-items-center>
+        <ion-col size-lg="8" size-xl="4">
+          <ion-input formControlName="bdfcn" type="text" placeholder=" Birth Date" #birthDate></ion-input>
+          <div class="error-messages">
+            <ng-container *ngFor="let error of error_messages.birthDate">
+              <div class="error-message" *ngIf="signUpForm.get('bdfcn').hasError(error.type) && (signUpForm.get('bdfcn').dirty || signUpForm.get('bdfcn').touched)">
+                {{error.message}}
+              </div>
+            </ng-container>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row justify-content-center align-items-center>
+        <ion-col size-lg="8" size-xl="4">
+          <ion-input formControlName="emfcn" type="email" placeholder=" Email" #email></ion-input>
+          <div class="error-messages">
+            <ng-container *ngFor="let error of error_messages.email">
+              <div class="error-message" *ngIf="signUpForm.get('emfcn').hasError(error.type) && (signUpForm.get('emfcn').dirty || signUpForm.get('emfcn').touched)">
+                {{error.message}}
+              </div>
+            </ng-container>
+          </div>
+        </ion-col>
+      </ion-row>
+    
+<ion-row><ion-col></ion-col></ion-row>
+
+    <ion-row justify-content-center align-items-center>
+      <ion-col size-lg="8" size-xl="4">
+        <ion-button class="botton2" [disabled]="!signUpForm.valid" color="b2" expand="block" (click)="signUp()">
+          Sign up
+        </ion-button> 
+      </ion-col>
+    </ion-row>
+  </form>
+
+    <ion-row justify-content-center align-items-center  style="height: 10%">
+        <ion-label color="white">Already have an account?</ion-label>
+    </ion-row>
+
+    <ion-row justify-content-center align-items-center>
+      <ion-col size-lg="8" size-xl="4">
+        <ion-button class="boton" color="b2" expand="block" fill="outline" (click)="goSignIn()">Sign in</ion-button> 
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+
