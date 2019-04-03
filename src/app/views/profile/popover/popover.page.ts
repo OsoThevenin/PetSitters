@@ -3,6 +3,7 @@ import { Md5 } from 'ts-md5/dist/md5';
 import { Component, OnInit } from '@angular/core';
 import { PopoverController, NavController, AlertController, ToastController } from '@ionic/angular';
 import { AuthProviderService } from 'src/app/providers/auth/auth-provider.service';
+import { throwError } from 'rxjs';
 
 
 
@@ -63,14 +64,21 @@ export class PopoverPage implements OnInit {
                 password: hashPassword
               };
               let bool = true;
-              this.auth.deleteAccount(data).
-              subscribe(res => {
-                this.global.token = '';
-                this.LogOut();
-              }, err => {
+              this.auth.getToken().then(result => {
+                const token = result;
+                console.log('token: ' + token);
+                this.auth.deleteAccount(data, token).
+                    subscribe(res => {
+                      this.global.token = '';
+                      this.LogOut();
+                    }, err => {
+                      console.log(err);
+                      bool = false;
+                      this.presentToast('Something went wrong, please try it again');
+                    });
+              }).catch(err => {
                 console.log(err);
-                bool = false;
-                this.presentToast('Something went wrong, please try it again');
+                return throwError;
               });
               return bool;
             } else {

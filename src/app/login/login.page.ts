@@ -58,7 +58,7 @@ export class LoginPage implements OnInit {
       this.auth.login(body)
         .subscribe(res => {
           // Save token to storage
-          console.log('token ' + res.result.token);
+          console.log('result ' + JSON.stringify(res));
           this.storage.set('token', res.result.token);
           this.global.token = res.result.token;
           this.router.navigateByUrl('');
