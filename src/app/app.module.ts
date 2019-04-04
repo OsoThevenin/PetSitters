@@ -14,6 +14,7 @@ import { PopoverPageModule } from './views/profile/popover/popover.module';
 
 import { GlobalService } from './shared/global.service';
 import { AuthProviderService } from './providers/auth/auth-provider.service';
+import { ModalPageModule } from './views/profile/modal/modal.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -24,6 +25,7 @@ import { AuthProviderService } from './providers/auth/auth-provider.service';
     IonicModule.forRoot(),
     AppRoutingModule,
     PopoverPageModule,
+    ModalPageModule,
     IonicStorageModule.forRoot({
       name: '__mydb',
       driverOrder: ['indexeddb', 'sqlite', 'websql']
