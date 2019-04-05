@@ -9,8 +9,12 @@
 <ion-content>
     <ion-label>Chats</ion-label>
     <ion-list *ngFor="let chat of chatsUsuario">
-      <ion-item (click)="abreChat()">
-        <ion-label>hola</ion-label>
-      </ion-item>
+          <ion-item (click)="abreChat()">
+              <ion-thumbnail slot="end">
+                  <ion-img [src]=chat.avatar></ion-img>
+              </ion-thumbnail>
+              <ion-label slot="start">{{chat.nombre}}</ion-label>
+              <ion-note>{{chat.mensaje}}</ion-note>
+            </ion-item>
     </ion-list>
 </ion-content>
