@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-search',
@@ -6,7 +7,28 @@ import { Component } from '@angular/core';
   styleUrls: ['search.page.scss']
 })
 export class SearchPage {
-  goToPerfilCuidador() {
-    console.log('hola');
+
+  constructor(private nav: NavController) {
   }
+
+  data = [
+    {avatar: '../../../assets/default_avatar.png', stars: 'Star rating', nombre: 'Firstname, Lastname'},
+    {avatar: '../../../assets/default_avatar.png', stars: 'Star rating', nombre: 'Firstname, Lastname'},
+    {avatar: '../../../assets/default_avatar.png', stars: 'Star rating', nombre: 'Firstname, Lastname'},
+    {avatar: '../../../assets/default_avatar.png', stars: 'Star rating', nombre: 'Firstname, Lastname'},
+    {avatar: '../../../assets/default_avatar.png', stars: 'Star rating', nombre: 'Firstname, Lastname'},
+    {avatar: '../../../assets/default_avatar.png', stars: 'Star rating', nombre: 'Firstname, Lastname'},
+    {avatar: '../../../assets/default_avatar.png', stars: 'Star rating', nombre: 'Firstname, Lastname'},
+];
+
+perfilsCuidadors = this.devuelvePerfilesCuidadores();
+
+  goToPerfilCuidador(cuidadorConcret) {
+    console.log('hola');
+    this.nav.navigateRoot(`/perfil-cuidador`, cuidadorConcret);
+  }
+
+  devuelvePerfilesCuidadores(): any {
+    return this.data;
+    }
 }

@@ -5,38 +5,18 @@
 </ion-header>
 
 <ion-content>
-  <ion-grid style="height: 100%">
-      <ion-row justify-content: center align-items: center>
-        <ion-col>
-           <ion-card (click)="goToPerfilCuidador()" >
-                <img class="avatar" src="../../../assets/default_avatar.png">
-                <ion-card-header>
-                    <ion-card-subtitle style="text-align: center">Star Rating</ion-card-subtitle>
-                    <ion-card-title style="text-align: center">FirstName, LastName</ion-card-title>
-                </ion-card-header>
-            </ion-card>
-        </ion-col>
+    <ion-grid style="height: 100%">
+        <ion-row justify-content: center align-items: center >
+          <ion-col *ngFor="let cuidador of perfilsCuidadors">
+             <ion-card (click)="goToPerfilCuidador(cuidador)" >
+                  <img class="avatar" [src]=cuidador.avatar>
+                  <ion-card-header>
+                      <ion-card-subtitle style="text-align: center">{{cuidador.stars}}</ion-card-subtitle>
+                      <ion-card-title style="text-align: center">{{cuidador.nombre}}</ion-card-title>
+                  </ion-card-header>
+              </ion-card>
+          </ion-col>
+        </ion-row>
+    </ion-grid>
+  </ion-content>
 
-        <ion-col>
-            <ion-card>
-                 <img class="avatar" src="../../../assets/default_avatar.png">
-                 <ion-card-header>
-                     <ion-card-subtitle style="text-align: center">Star Rating</ion-card-subtitle>
-                     <ion-card-title style="text-align: center">FirstName, LastName</ion-card-title>
-                 </ion-card-header>
-             </ion-card>
-         </ion-col>
-
-         <ion-col>
-            <ion-card>
-                 <img class="avatar" src="../../../assets/default_avatar.png">
-                 <ion-card-header>
-                     <ion-card-subtitle style="text-align: center">Star Rating</ion-card-subtitle>
-                     <ion-card-title style="text-align: center">FirstName, LastName</ion-card-title>
-                 </ion-card-header>
-             </ion-card>
-         </ion-col>
-
-      </ion-row>
-  </ion-grid>
-</ion-content>
