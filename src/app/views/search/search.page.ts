@@ -6,4 +6,7 @@ import { Component } from '@angular/core';
   styleUrls: ['search.page.scss']
 })
 export class SearchPage {
+  goToPerfilCuidador() {
+    console.log('hola');
+  }
 }
