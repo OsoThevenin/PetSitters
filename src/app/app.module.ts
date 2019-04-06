@@ -1,3 +1,4 @@
+import { CameraOptions } from '@ionic-native/camera/ngx';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouteReuseStrategy } from '@angular/router';
@@ -7,6 +8,10 @@ import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 import { IonicStorageModule } from '@ionic/storage';
 import { SplashScreen } from '@ionic-native/splash-screen/ngx';
 import { StatusBar } from '@ionic-native/status-bar/ngx';
+import { Camera } from '@ionic-native/camera/ngx';
+import { WebView } from '@ionic-native/ionic-webview/ngx';
+import { File } from '@ionic-native/file/ngx';
+import { ImagePicker } from '@ionic-native/image-picker/ngx';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -34,7 +39,11 @@ import { AuthProviderService } from './providers/auth/auth-provider.service';
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     GlobalService,
-    AuthProviderService
+    AuthProviderService,
+    Camera,
+    WebView,
+    File,
+    ImagePicker
   ],
   bootstrap: [AppComponent]
 })
