@@ -33,7 +33,7 @@ export class AuthProviderService {
   }
 
   // sending a POST to delete account
-  deleteAccount(data, token): any {
+  deleteAccount(data, token): Observable<any> {
     // Add token to headers
     let httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
     httpHeaders = httpHeaders.append('Access-Control-Allow-Origin', '*');
@@ -41,6 +41,16 @@ export class AuthProviderService {
     const options = {headers: httpHeaders};
 
     return this.http.post<any>(this.global.baseUrl + 'deleteAccount', data, options);
+  }
+
+  changePassword(data, token): Observable<any> {
+    // Add token to headers
+    let httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    httpHeaders = httpHeaders.append('Access-Control-Allow-Origin', '*');
+    httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token);
+    const options = {headers: httpHeaders};
+
+    return this.http.post<any>(this.global.baseUrl + 'changePassword', data, options);
   }
 
   // changing global token variable to null
