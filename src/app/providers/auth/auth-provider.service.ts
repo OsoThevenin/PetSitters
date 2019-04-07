@@ -53,6 +53,14 @@ export class AuthProviderService {
     return this.http.post<any>(this.global.baseUrl + 'changePassword', data, options);
   }
 
+  requestResetPassword(data): Observable<any> {
+    let httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    httpHeaders = httpHeaders.append('Access-Control-Allow-Origin', '*');
+    const options = {headers: httpHeaders};
+
+    return this.http.post<any>(this.global.baseUrl + 'requestResetPassword', data, options);
+  }
+
   // changing global token variable to null
   async logOut() {
     this.global.token = '';
