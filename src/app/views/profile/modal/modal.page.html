@@ -4,30 +4,45 @@
   <ion-label>To change your password, please enter old and new password:</ion-label>
   
   <ion-grid>
-  <ion-col size-lg="8" size-xl="4">
-    <form>
+    <form [formGroup]="changePasswordForm">
+        <ion-col size-lg="8" size-xl="4">
       <p style="font-weight:bold; font-size:100%">Current Password: </p>
       <ion-item>
-        <ion-input name='current' type='password' placeholder='Current Password'></ion-input>
+        <ion-input name='current' type='password' placeholder='Current Password' #current></ion-input>
       </ion-item>
 
       <p style="font-weight:bold; font-size:100%">New Password: </p>
       <ion-item>
-        <ion-input name='new' type='password'  placeholder='New Password'></ion-input>
+        <ion-input  formControlName="pw1fc" name='new' type='password'  placeholder='New Password' #new></ion-input>
       </ion-item>
+      <div class="error-messages">
+          <ng-container *ngFor="let error of error_messages.password">
+            <div class="error-message" *ngIf="changePasswordForm.get('pw1fc').hasError(error.type) && (changePasswordForm.get('pw1fc').dirty || changePasswordForm.get('pw1fc').touched)">
+              {{error.message}}
+            </div>
+          </ng-container>
+        </div>
       
       <p style="font-weight:bold; font-size:100%">Confirmed Password: </p>
       <ion-item>
-        <ion-input name='confirmed' type='password'  placeholder='Confirmed Password'></ion-input>
+        <ion-input  formControlName="pw2fc" name='confirmed' type='password'  placeholder='Confirmed Password' #confirmed></ion-input>
       </ion-item>
+      <div class="error-messages">
+          <ng-container *ngFor="let error of error_messages.password">
+            <div class="error-message" *ngIf="changePasswordForm.get('pw2fc').hasError(error.type) && (changePasswordForm.get('pw2fc').dirty || changePasswordForm.get('pw2fc').touched)">
+              {{error.message}}
+            </div>
+          </ng-container>
+        </div>
+    </ion-col>
     </form>
-  </ion-col>
+  
   </ion-grid>
 
   <ion-grid>
   <ion-row>
   <ion-col size-lg="8" size-xl="4">
-   <ion-button fill='clear' float-right>Confirm</ion-button>
+   <ion-button fill='clear' [disabled]="!changePasswordForm.valid" (click)="Confirm()" float-right>Confirm</ion-button>
    <ion-button fill='clear' (click)="Cancel()" float-right>Cancel</ion-button>
   </ion-col>
   </ion-row>
