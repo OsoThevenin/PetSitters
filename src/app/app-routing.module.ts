@@ -14,7 +14,8 @@ const routes: Routes = [
   },
   { path: 'registre', loadChildren: './registre/registre.module#RegistrePageModule' },
   { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
-  { path: 'trophies', loadChildren: './views/trophies/trophies.module#TrophiesPageModule' }
+  { path: 'trophies', loadChildren: './views/trophies/trophies.module#TrophiesPageModule' },  { path: 'chat', loadChildren: './views/chat/chat.module#ChatPageModule' }
+
 
 ];
 @NgModule({
