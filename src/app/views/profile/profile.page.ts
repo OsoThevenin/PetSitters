@@ -9,6 +9,25 @@ import { PopoverPage } from './popover/popover.page';
 })
 export class ProfilePage {
 
+  commentsProfile: any =[
+    {
+      avatar: '../../../assets/default_avatar.png',
+      name: 'David Garcia',
+      rating: 5,
+      date: '23/03/2016',
+      text: 'Very good experience with this petsitter.'
+
+    },
+    {
+      avatar: '../../../assets/default_avatar.png',
+      name: 'Pere Bruy',
+      rating: 1,
+      date: '23/03/2019',
+      text: 'Very bad experience with this petsitter.'
+
+    }
+  ]
+
   constructor(private popoverCtrl: PopoverController) {
   }
 

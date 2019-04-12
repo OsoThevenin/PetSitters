@@ -1,6 +1,53 @@
 <ion-content>
-    <ion-button class="my-button" fill = "clear" shape="round" size="small" (click)="OpenPopover($event)">
-        <ion-icon name="settings"></ion-icon>
-        <ion-label>Settings</ion-label>
-    </ion-button>
+    <ion-toolbar color="primary">
+        <img class="logo" src="../../assets/Logo_versio4.png">
+        <ion-button class="my-button" fill="clear" shape="round" size="small" (click)="OpenPopover($event)">
+            <ion-icon name="settings"></ion-icon>
+        </ion-button>
+    </ion-toolbar>
+    <img class="avatar_profile" src="../../../assets/default_avatar.png">
+    <ion-grid>
+        <ion-row justify-content-center align-items-center>
+            <ion-icon size="large" name="star-outline"></ion-icon>
+            <ion-icon size="large" name="star-outline"></ion-icon>
+            <ion-icon size="large" name="star-outline"></ion-icon>
+            <ion-icon size="large" name="star-outline"></ion-icon>
+            <ion-icon size="large" name="star-outline"></ion-icon>
+        </ion-row>
+    </ion-grid>
+    <ion-grid>
+        <ion-row>
+            <ion-col>
+                <h1>John Wick</h1>
+            </ion-col>
+            <ion-col>
+                <ion-button class="my-button2" fill="clear" shape="round" size="default" (click)="OpenPopover($event)">
+                    <ion-icon name="chatboxes"></ion-icon>
+                </ion-button>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-icon name="pin"></ion-icon>
+            <ion-label>Barcelona, Spain</ion-label>
+        </ion-row>
+    </ion-grid>
+    <ion-text>
+        <p class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni dolore molestias
+            voluptates. Labore cupiditate ipsum voluptate, illo quo unde odio laborum esse, quod repudiandae magnam
+            aliquid est dignissimos quibusdam ducimus!</p>
+    </ion-text>
+    <ion-grid>
+        <ion-row *ngFor="let comment of commentsProfile">
+            <ion-card>
+                <ion-card-header>
+                    <img class="avatar" [src]=comment.avatar size="small">
+                    <ion-card-title class="name">{{comment.name}} {{comment.rating}}</ion-card-title>
+                    <ion-card-subtitle style="text-align: center">{{comment.date}}</ion-card-subtitle>
+                </ion-card-header>
+                <ion-card-content>
+                    <p class="text">{{comment.text}}</p>
+                </ion-card-content>
+            </ion-card>
+        </ion-row>
+    </ion-grid>
 </ion-content>

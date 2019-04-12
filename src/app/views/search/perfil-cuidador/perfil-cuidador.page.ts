@@ -15,7 +15,6 @@ export class PerfilCuidadorPage implements OnInit {
   }
 
   goToSearch() {
-    console.log('hola');
     this.nav.navigateRoot('/tabs/search');
   }
 }
