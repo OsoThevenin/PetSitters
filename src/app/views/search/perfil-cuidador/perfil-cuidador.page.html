@@ -1,9 +1,56 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-icon style="margin-left: 2px" (click)="goToSearch()" name="arrow-round-back"></ion-icon>
+  <ion-toolbar color="primary">
+      <ion-button class="my-button" fill="clear" shape="round" size="small" (click)="goToSearch()" >
+          <ion-icon name="arrow-round-back"></ion-icon>
+      </ion-button>
+    <img class="logo" src="../../assets/Logo_versio4.png">
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
-  <p>JA JA si soy io, el Coeadador</p>
+<ion-content>
+  <img class="avatar_profile" src="../../../assets/default_avatar.png">
+  <ion-grid>
+      <ion-row justify-content-center align-items-center>
+          <ion-icon size="large" name="star-outline"></ion-icon>
+          <ion-icon size="large" name="star-outline"></ion-icon>
+          <ion-icon size="large" name="star-outline"></ion-icon>
+          <ion-icon size="large" name="star-outline"></ion-icon>
+          <ion-icon size="large" name="star-outline"></ion-icon>
+      </ion-row>
+  </ion-grid>
+  <ion-grid>
+      <ion-row>
+          <ion-col>
+              <h1>Cuidador concreto</h1>
+          </ion-col>
+          <ion-col>
+              <ion-button class="my-button2" fill="clear" shape="round" size="default" (click)="OpenPopover($event)">
+                  <ion-icon name="chatboxes"></ion-icon>
+              </ion-button>
+          </ion-col>
+      </ion-row>
+      <ion-row>
+          <ion-icon name="pin"></ion-icon>
+          <ion-label>Barcelona, Spain</ion-label>
+      </ion-row>
+  </ion-grid>
+  <ion-text>
+      <p class="description"> Did you ever hear the tragedy of Darth Plagueis The Wise?  I thought not. It's not a story the Jedi 
+        would tell you. It's a Sith legend. Darth Plagueis was a Dark Lord of the Sith, so powerful and so wise he could use the 
+        Force to influence the midichlorians to create life</p>
+  </ion-text>
+  <ion-grid>
+      <ion-row *ngFor="let comment of commentsProfile">
+          <ion-card>
+              <ion-card-header>
+                  <img class="avatar" [src]=comment.avatar size="small">
+                  <ion-card-title class="name">{{comment.name}} {{comment.rating}}</ion-card-title>
+                  <ion-card-subtitle style="text-align: center">{{comment.date}}</ion-card-subtitle>
+              </ion-card-header>
+              <ion-card-content>
+                  <p class="text">{{comment.text}}</p>
+              </ion-card-content>
+          </ion-card>
+      </ion-row>
+  </ion-grid>
 </ion-content>

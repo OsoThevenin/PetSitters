@@ -1,0 +1,59 @@
+.my-button{ 
+    position: fixed; 
+    left: 0; 
+    top: 10px; 
+    color: white;
+}
+
+.my-button2{ 
+    color: black;
+}
+
+.logo {
+    width: 25%;
+    height: 100%;
+    // el código para centrar la imagen
+    margin: auto;
+	display: block;
+}
+
+h1{
+    margin:auto;
+    align-content: center;
+}
+.avatar_profile {
+    width: 10em;
+    margin: auto;
+	display: block;
+}
+
+.description{
+    margin: 25px;
+    text-align: left;
+}
+
+.avatar{
+    width: 25%;
+    height: 25%;
+    float: left;
+    clear:left;
+    display: block;
+}
+
+.name{
+    text-align: center;
+}
+
+ion-card{
+    width: 100%;
+    background-color: white
+}
+
+.text{
+    margin:auto;
+    float:left;
+}
+
+ion-content{
+    --ion-background-color: #97c7f3;
+}
