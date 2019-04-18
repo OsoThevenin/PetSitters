@@ -14,7 +14,8 @@ const routes: Routes = [
   },
   { path: 'registre', loadChildren: './registre/registre.module#RegistrePageModule' },
   { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
-  { path: 'trophies', loadChildren: './views/trophies/trophies.module#TrophiesPageModule' },  { path: 'resetpassword', loadChildren: './resetpassword/resetpassword.module#ResetpasswordPageModule' }
+  { path: 'trophies', loadChildren: './views/trophies/trophies.module#TrophiesPageModule' },  { path: 'resetpassword', loadChildren: './resetpassword/resetpassword.module#ResetpasswordPageModule' },
+  { path: 'newpassword', loadChildren: './newpassword/newpassword.module#NewpasswordPageModule' }
 
 
 ];
