@@ -40,7 +40,7 @@ export class PopoverPage implements OnInit {
   async openModal() {
     const modal = await this.modalController.create({
       component: ModalPage,
-      cssClass: 'my-custom-modal-css'
+      cssClass: 'my-changePW-modal-css'
     });
     return await modal.present();
   }
