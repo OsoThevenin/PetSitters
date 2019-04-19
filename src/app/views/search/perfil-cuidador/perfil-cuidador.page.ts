@@ -8,7 +8,7 @@ import { NavController } from '@ionic/angular';
 })
 export class PerfilCuidadorPage implements OnInit {
 
-  commentsProfile: any =[
+  commentsProfile: any = [
     {
       avatar: '../../../assets/default_avatar.png',
       name: 'David Garcia',
@@ -25,7 +25,7 @@ export class PerfilCuidadorPage implements OnInit {
       text: 'Very bad experience with this petsitter.'
 
     }
-  ]
+  ];
 
   constructor(private nav: NavController) {
   }
@@ -34,6 +34,10 @@ export class PerfilCuidadorPage implements OnInit {
   }
 
   goToSearch() {
+    this.nav.navigateRoot('/tabs/search');
+  }
+
+  goToChat() {
     this.nav.navigateRoot('/tabs/search');
   }
 }

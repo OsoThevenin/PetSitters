@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { SearchService } from 'src/app/providers/Search/search.service';
 
 @Component({
   selector: 'app-search',
@@ -8,7 +9,7 @@ import { NavController } from '@ionic/angular';
 })
 export class SearchPage {
 
-  constructor(private nav: NavController) {
+  constructor(private nav: NavController, private search: SearchService) {
   }
 
   data = [
@@ -23,12 +24,13 @@ export class SearchPage {
 
 perfilsCuidadors = this.devuelvePerfilesCuidadores();
 
-  goToPerfilCuidador(cuidadorConcret) {
-    console.log('hola');
-    this.nav.navigateRoot(`/perfil-cuidador`, cuidadorConcret);
-  }
+goToPerfilCuidador(cuidadorConcret) {
+  console.log('hola');
+  this.nav.navigateRoot(`/perfil-cuidador`, cuidadorConcret);
+}
 
-  devuelvePerfilesCuidadores(): any {
-    return this.data;
-    }
+devuelvePerfilesCuidadores(): any {
+  this.search.getUsers().subscribe(data => {console.log(data)});
+  return this.data;
+  }
 }

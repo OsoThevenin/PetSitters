@@ -14,6 +14,7 @@ import { PopoverPageModule } from './views/profile/popover/popover.module';
 
 import { GlobalService } from './shared/global.service';
 import { AuthProviderService } from './providers/auth/auth-provider.service';
+import { SearchService } from 'src/app/providers/Search/search.service';
 
 @NgModule({
   declarations: [AppComponent],
@@ -34,7 +35,8 @@ import { AuthProviderService } from './providers/auth/auth-provider.service';
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     GlobalService,
-    AuthProviderService
+    AuthProviderService,
+    SearchService
   ],
   bootstrap: [AppComponent]
 })
