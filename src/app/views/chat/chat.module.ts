@@ -8,18 +8,18 @@ import { IonicModule } from '@ionic/angular';
 import { ChatPage } from './chat.page';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: ChatPage
-  }
+{
+path: '',
+component: ChatPage
+}
 ];
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    RouterModule.forChild(routes)
+imports: [
+CommonModule,
+FormsModule,
+IonicModule,
+RouterModule.forChild(routes)
   ],
   declarations: [ChatPage]
 })

@@ -1,20 +1,34 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Tab One
+      Chats
     </ion-title>
   </ion-toolbar>
 </ion-header>
+<style>
+    ion-list.ex1 {
+        
+        padding: 0px 15px 10px 20px;
+    }
 
+    ion-label.mensaje {
+        padding: 0px 0px 0px 20px;
+    }
+
+</style>
 <ion-content>
-    <ion-label>Chats</ion-label>
-    <ion-list *ngFor="let chat of chatsUsuario">
-          <ion-item (click)="abreChat()">
-              <ion-thumbnail slot="end">
-                  <ion-img [src]=chat.avatar></ion-img>
-              </ion-thumbnail>
-              <ion-label slot="start">{{chat.nombre}}</ion-label>
-              <ion-note>{{chat.mensaje}}</ion-note>
-            </ion-item>
+    <!-- <ion-label>Chats</ion-label> -->
+    <ion-list class=" ex1" *ngFor="let chat of chatsUsuario">
+        <ion-item (click)="abreChat()">
+            <ion-avatar>
+                <ion-img [src]=chat.avatar></ion-img>
+            </ion-avatar>
+            <ion-label class="mensaje"><strong>{{chat.nombre}}</strong></ion-label>
+
+
+        </ion-item>
+        <br />
+        <ion-label class="mensaje" (click)="abreChat()">{{chat.mensaje}}</ion-label>
+
     </ion-list>
 </ion-content>

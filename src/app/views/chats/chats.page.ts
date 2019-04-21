@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { stringify } from '@angular/compiler/src/util';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-chats',
@@ -7,6 +8,9 @@ import { stringify } from '@angular/compiler/src/util';
   styleUrls: ['chats.page.scss']
 })
 export class ChatsPage {
+
+constructor( private router: Router) { }
+
   data = [
     {avatar:'../../../assets/default_avatar.png', mensaje:'hey ther as,akefei fefwiefibh ew efi wiebhfihwih ef we fiwfi wi fw i e11111', nombre:'user1'},
     {avatar:'../../../assets/default_avatar.png', mensaje:'hey there2222', nombre:'user2'},
@@ -24,6 +28,6 @@ export class ChatsPage {
   }
 
   abreChat(){
-    console.log("hola")
+    this.router.navigateByUrl('/chat');
   }
 }
