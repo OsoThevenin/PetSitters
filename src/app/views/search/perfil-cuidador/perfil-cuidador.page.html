@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content>
-  <img class="avatar_profile" src="../../../assets/default_avatar.png">
+  <img class="avatar_profile" *ngIf='cuidador.profile_image == "" ' src="../../../assets/default_avatar.png">
   <ion-grid>
       <ion-row justify-content-center align-items-center>
           <ion-icon size="large" name="star-outline"></ion-icon>
@@ -21,7 +21,7 @@
   <ion-grid>
       <ion-row>
           <ion-col>
-              <h1>Cuidador concreto</h1>
+              <h1>{{cuidador.name}}</h1>
           </ion-col>
           <ion-col>
               <ion-button class="my-button2" fill="clear" shape="round" size="default" (click)="goToChat()">

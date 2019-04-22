@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { ActivatedRoute } from '@angular/router';
+import { AuthProviderService } from 'src/app/providers/auth/auth-provider.service';
+import { SearchService } from 'src/app/providers/Search/search.service';
+import { throwError } from 'rxjs';
+
 
 @Component({
   selector: 'app-perfil-cuidador',
@@ -7,6 +12,16 @@ import { NavController } from '@ionic/angular';
   styleUrls: ['./perfil-cuidador.page.scss'],
 })
 export class PerfilCuidadorPage implements OnInit {
+
+  cuidador: any = {
+    commentaries: null,
+    description: null,
+    localization: null,
+    name: null,
+    profile_image: null,
+    stars: 0,
+    username: null,
+  };
 
   commentsProfile: any = [
     {
@@ -27,10 +42,26 @@ export class PerfilCuidadorPage implements OnInit {
     }
   ];
 
-  constructor(private nav: NavController) {
+  constructor(private nav: NavController, private actrout: ActivatedRoute,
+    private search: SearchService, private auth: AuthProviderService) {
   }
 
   ngOnInit() {
+    const dataRev = this.actrout.snapshot.paramMap.get('username');
+    this.auth.getToken().then(result => {
+      const token = result;
+      // console.log('token: ' + token);
+      this.search.getUser(dataRev, token).subscribe(res => {
+        console.log(res);
+        this.cuidador = res;
+        console.log(this.cuidador);
+      });
+    }).catch(err => {
+      console.log(err);
+      return throwError;
+    });
+    console.log(dataRev);
+    console.log(this.cuidador);
   }
 
   goToSearch() {
@@ -40,4 +71,5 @@ export class PerfilCuidadorPage implements OnInit {
   goToChat() {
     this.nav.navigateRoot('/tabs/search');
   }
+
 }

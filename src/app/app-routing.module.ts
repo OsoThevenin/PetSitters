@@ -14,7 +14,8 @@ const routes: Routes = [
   },
   { path: 'registre', loadChildren: './registre/registre.module#RegistrePageModule' },
   { path: 'login', loadChildren: './login/login.module#LoginPageModule' },
-  { path: 'trophies', loadChildren: './views/trophies/trophies.module#TrophiesPageModule' },  { path: 'perfil-cuidador', loadChildren: './views/search/perfil-cuidador/perfil-cuidador.module#PerfilCuidadorPageModule' }
+  { path: 'trophies', loadChildren: './views/trophies/trophies.module#TrophiesPageModule' },
+  { path: 'perfil-cuidador/:username', loadChildren: './views/search/perfil-cuidador/perfil-cuidador.module#PerfilCuidadorPageModule' }
 
 
 ];
