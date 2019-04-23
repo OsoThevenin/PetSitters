@@ -52,4 +52,15 @@ export class AuthProviderService {
   async getToken() {
     return await this.storage.get('token');
   }
+
+  // sending a POST modify to API
+  modify(token,atribute,data): Observable<any> {
+    // Add token to headers
+    let httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    httpHeaders = httpHeaders.append('Access-Control-Allow-Origin', '*');
+    httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token);
+    const options = {headers: httpHeaders};
+
+    return this.http.post<any>(this.global.baseUrl + 'modify/' + atribute, data, options);
+  }
 }
