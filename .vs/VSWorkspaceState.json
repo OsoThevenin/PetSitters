@@ -1,0 +1,12 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\app",
+    "\\src\\app\\email-confirm",
+    "\\src\\app\\login",
+    "\\src\\app\\registre"
+  ],
+  "SelectedNode": "\\src\\app\\registre\\registre.page.ts",
+  "PreviewInSolutionExplorer": false
+}
