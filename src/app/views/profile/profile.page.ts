@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { PopoverPage } from './popover/popover.page';
 
@@ -28,7 +28,16 @@ export class ProfilePage {
     }
   ]
 
-  constructor(private popoverCtrl: PopoverController) {
+  note: string ;
+
+  @ViewChild('description') desc;
+
+  constructor(private popoverCtrl: PopoverController) {}
+
+
+  TakeText() {
+    // Recoger el texto y enviarlo a backend
+    console.log(this.desc.value);
   }
 
   async OpenPopover(ev: Event) {

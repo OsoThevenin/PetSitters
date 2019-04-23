@@ -31,11 +31,13 @@
             <ion-label>Barcelona, Spain</ion-label>
         </ion-row>
     </ion-grid>
-    <ion-text>
-        <p class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni dolore molestias
-            voluptates. Labore cupiditate ipsum voluptate, illo quo unde odio laborum esse, quod repudiandae magnam
-            aliquid est dignissimos quibusdam ducimus!</p>
-    </ion-text>
+
+    <ion-label position="floating">Description</ion-label>
+    <ion-textarea placeholder="Tap here to enter a description" [(ngModel)]="note" name="note" #description></ion-textarea>
+    <ion-button class="my-button2" fill="clear" shape="round" size="default" (click)="TakeText()">
+        <ion-icon name="create"></ion-icon>
+    </ion-button>
+
     <ion-grid>
         <ion-row *ngFor="let comment of commentsProfile">
             <ion-card>
