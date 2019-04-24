@@ -36,15 +36,22 @@
         </ion-col>
       </ion-row>
     </form>
-      <ion-row><ion-col></ion-col></ion-row>
+    
+    <ion-row><ion-col></ion-col></ion-row>
 
-      <ion-row justify-content-center align-items-center>
-        <ion-col size-lg="8" size-xl="4">
-          <ion-button class="boton2" color="b2" expand="block" fill="solid" (click)="signIn()">Sign in</ion-button> 
-        </ion-col>
-      </ion-row>
+    <ion-row justify-content-center align-items-center>
+      <ion-col size-lg="8" size-xl="4">
+        <ion-button class="boton2" color="b2" expand="block" fill="solid" (click)="signIn()">Sign in</ion-button> 
+      </ion-col>
+    </ion-row>
 
-    <ion-row justify-content-center align-items-center  style="height: 10%">
+    <ion-row justify-content-center align-items-center>
+      <a href="/resetpassword" style="color:white">
+        <ion-label class='label_NoLogin'>Can't log in?</ion-label>
+      </a>
+    </ion-row>
+
+    <ion-row justify-content-center align-items-center  style="height: 15%">
         <ion-label color="white">New to PetSitters?</ion-label>
     </ion-row>
 
@@ -53,8 +60,6 @@
         <ion-button class="boton" color="b2" expand="block" fill="outline" (click)="goSignUp()">Sign up</ion-button> 
       </ion-col>
     </ion-row>
-
-    
 
   </ion-grid>
 </ion-content>
