@@ -63,7 +63,6 @@ export class ProfilePage {
   editable: boolean = false;
   availabilityEditable: boolean = false;
   expertEditable: boolean = false;
-  reportMotive: any = 'Spoiler Alert! Luffy vs Big Mom!';
 
   @ViewChild('description') desc;
   @ViewChild('availability') av;
@@ -189,36 +188,8 @@ export class ProfilePage {
   });
   }
 
-  ReportUser() {
-    this.auth.getToken().then(result => {
-      this.search.reportUser(this.reportMotive, this.cuidador.username, result)
-        .subscribe(res => {
-          console.log('User reported successfully');
-          // Present toast with success message
-        }, err => {
-          console.log(err);
-          // Present toast with error message
-        });
-    }, error => {
-      console.log('Unable to get the token');
-      // Maybe we should redirect the user to login page or show the rror to try it again
-    });
-  }
 
-  startChat() {
-    this.auth.getToken().then(result => {
-      let body: any = {
-        otherUsername: this.cuidador.username
-      };
-
-      this.chatsService.startChat(body, result)
-      .subscribe(res => {
-        this.router.navigateByUrl('chat');
-      }, err => {
-        console.log('Error al abrir chat');
-      });
-    });
-  }
+  
   async OpenPopover(ev: Event) {
     const popover = await this.popoverCtrl.create({
       component: PopoverPage,
