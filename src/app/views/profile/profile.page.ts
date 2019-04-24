@@ -96,7 +96,7 @@ export class ProfilePage {
   NoEditExpert(){
     this.expertEditable = false;
   }
-  TakeText() {
+  TakeTextDescription() {
     // Coger el valor nuevo y enviar a backend
     console.log(this.desc.value);
 
