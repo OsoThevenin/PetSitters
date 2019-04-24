@@ -27,4 +27,18 @@ export class SearchService {
 
     return this.http.get<any>(this.global.baseUrl + 'user/' + name, options);
   }
+
+  reportUser(description, reported, token): Observable<any> {
+    let httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    httpHeaders = httpHeaders.append('Access-Control-Allow-Origin', '*');
+    httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token);
+    const options = {headers: httpHeaders};
+
+    let body: any = {
+      description: description,
+      reported: reported
+    };
+
+    return this.http.post<any>(this.global.baseUrl + 'report', body, options);
+  }
 }
