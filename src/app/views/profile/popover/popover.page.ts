@@ -1,11 +1,10 @@
 import { GlobalService } from './../../../shared/global.service';
 import { Md5 } from 'ts-md5/dist/md5';
 import { Component, OnInit } from '@angular/core';
-import { PopoverController, NavController, AlertController, ToastController } from '@ionic/angular';
+import { PopoverController, NavController, AlertController, ToastController, ModalController } from '@ionic/angular';
 import { AuthProviderService } from 'src/app/providers/auth/auth-provider.service';
 import { throwError } from 'rxjs';
-
-
+import { ModalPage } from '../modal/modal.page';
 
 @Component({
   selector: 'app-popover',
@@ -16,7 +15,8 @@ export class PopoverPage implements OnInit {
 
   constructor(private popoverController: PopoverController, private nav: NavController,
      private alertController: AlertController, private auth: AuthProviderService,
-     private toastCtrl: ToastController, private global: GlobalService) { }
+     private toastCtrl: ToastController, private global: GlobalService,
+     private modalController: ModalController) { }
 
   ngOnInit() {
   }
@@ -31,14 +31,26 @@ export class PopoverPage implements OnInit {
     this.closePopover();
   }
 
+  ChangePassword() {
+    console.log("Clic on Change Password")
+    this.openModal();
+  }
+
+  
+  async openModal() {
+    const modal = await this.modalController.create({
+      component: ModalPage,
+      cssClass: 'my-changePW-modal-css'
+    });
+    return await modal.present();
+  }
+
   DeleteProfile() {
-    // Falta implementar el POST per esborrar l'usuari
-    console.log("You click on Delete Profile");
-    this.presentAlert();
+    this.presentAlert_D();
     this.closePopover();
   }
 
-  async presentAlert() {
+  async presentAlert_D() {
     const alert = await this.alertController.create({
       header: 'Delete Profile',
       message: 'Are you sure you want to delete your profile? Put your password to confirm this action.',
