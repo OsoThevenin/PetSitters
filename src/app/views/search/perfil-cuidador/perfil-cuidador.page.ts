@@ -21,6 +21,7 @@ export class PerfilCuidadorPage implements OnInit {
     profile_image: null,
     stars: 0,
     username: null,
+    expert: null,
   };
 
   commentsProfile: any = [
