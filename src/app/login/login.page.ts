@@ -60,6 +60,7 @@ export class LoginPage implements OnInit {
           // Save token to storage
           console.log('result ' + JSON.stringify(res));
           this.storage.set('token', res.result.token);
+          this.global.username = this.un.value;
           this.global.token = res.result.token;
           this.router.navigateByUrl('');
         }, err => {

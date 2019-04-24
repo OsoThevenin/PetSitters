@@ -5,6 +5,7 @@ import { Injectable } from '@angular/core';
 })
 export class GlobalService {
   baseUrl: string = 'https://sitterpet.herokuapp.com/petsitters/';
+  username: string = "";
   token: any = '';
   constructor() { }
 }

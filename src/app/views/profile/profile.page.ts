@@ -8,6 +8,7 @@ import { throwError } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { SearchService } from 'src/app/providers/Search/search.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { GlobalService } from './../../shared/global.service';
 
 @Component({
   selector: 'app-profile',
@@ -59,7 +60,7 @@ export class ProfilePage {
   @ViewChild('description') desc;
 
   constructor(private popoverCtrl: PopoverController, private auth: AuthProviderService, private actrout: ActivatedRoute,
-    private search: SearchService,private modalCtrl:ModalController) {}
+    private search: SearchService,private modalCtrl:ModalController , private global: GlobalService) {}
 
 
   EditText() {
@@ -96,7 +97,7 @@ export class ProfilePage {
 
   ngOnInit() {
     // obtener username mio
-    const dataRev = "AlexV98"
+    const dataRev = this.global.username;
    // this.actrout.snapshot.paramMap.get('username');
     this.auth.getToken().then(result => {
       const token = result;
