@@ -76,6 +76,7 @@ export class PerfilCuidadorPage implements OnInit {
       this.search.reportUser(this.reportMotive, this.cuidador.username, result)
         .subscribe(res => {
            this.presentToast('User reported successfully!');
+           this.router.navigateByUrl('/tabs/search');
         }, err => {
           console.log(err);
 		  this.presentToast('There was an error reporting the user ' + err);
