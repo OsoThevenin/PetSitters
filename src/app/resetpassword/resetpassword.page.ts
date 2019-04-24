@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { AuthProviderService } from '../providers/auth/auth-provider.service';
 
 @Component({
   selector: 'app-resetpassword',
@@ -20,7 +21,7 @@ export class ResetpasswordPage implements OnInit {
 
   EmailForm: FormGroup;
 
-  constructor( private toastCtrl: ToastController, public formBuilder: FormBuilder,) { 
+  constructor( private toastCtrl: ToastController, public formBuilder: FormBuilder, private auth: AuthProviderService) { 
     this.EmailForm = this.formBuilder.group({
       emfcn: new FormControl('', Validators.compose([
         Validators.required,
@@ -32,15 +33,21 @@ export class ResetpasswordPage implements OnInit {
   ngOnInit() {
   }
 
+  
+
   send() {
     //Creo json para requestResetPassword
     const body: any = {
       email: this.em.value
     };
-    //Falta comunicació amb el request de backend i tractament de possibles errors
-    this.presentToast('Something went wrong, please try it again');
-
-    //Si tot ha anat bé, redirigir a la pàgina o modal per introduir el password nou
+    this.auth.requestResetPassword(body)
+        .subscribe(res => {
+          // si todo ha ido bien
+          this.presentToast('Please check your inbox: An email is on the way');
+        }, err => {
+          this.presentToast('Something went wrong, please try it again');
+          console.log(err);
+    });
   }
 
     //Funció per mostra missatges
