@@ -1,13 +1,22 @@
 import { Component } from '@angular/core';
-import { PopoverController } from '@ionic/angular';
+import { PopoverController, ModalController } from '@ionic/angular';
 import { PopoverPage } from './popover/popover.page';
-
+import * as moment from 'moment';
 @Component({
   selector: 'app-profile',
   templateUrl: 'profile.page.html',
   styleUrls: ['profile.page.scss']
 })
 export class ProfilePage {
+  eventSource = [];
+  viewTitle: string;
+  selectedDay = new Date();
+  
+  calendar = {
+    mode: 'month',
+    currentDate: this.selectedDay
+  }
+
 
   commentsProfile: any =[
     {
@@ -28,7 +37,7 @@ export class ProfilePage {
     }
   ]
 
-  constructor(private popoverCtrl: PopoverController) {
+  constructor(private popoverCtrl: PopoverController, private modalCtrl:ModalController) {
   }
 
   async OpenPopover(ev: Event) {
@@ -41,4 +50,21 @@ export class ProfilePage {
     return await popover.present();
   }
 
+  addEvent(){
+  
+  }
+
+  onEventSelected(event){
+    let start =moment(event.startTime).format('LLLL');
+    let end =moment(event.startTime).format('LLLL');
+
+    let alert = this
+  }
+
+  onTimeSelected(event){
+    this.selectedDay=event.selectedDay;
+  }
+  onViewTitleChanged(title){
+    this.viewTitle=title;
+  }
 }
