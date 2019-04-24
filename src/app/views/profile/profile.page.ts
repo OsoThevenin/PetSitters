@@ -1,6 +1,6 @@
 
 import { PopoverController, ModalController } from '@ionic/angular';
-import * as moment from 'moment';
+//import * as moment from 'moment';
 import { Component, ViewChild } from '@angular/core';
 import { AuthProviderService } from 'src/app/providers/auth/auth-provider.service';
 import { Router } from '@angular/router';
@@ -19,16 +19,25 @@ import { Storage } from '@ionic/storage';
   styleUrls: ['profile.page.scss']
 })
 export class ProfilePage {
-  eventSource = [];
-  viewTitle: string;
-  selectedDay = new Date();
+ // eventSource = [];
+ // viewTitle: string;
+ // selectedDay = new Date();
   
-  calendar = {
-    mode: 'month',
-    currentDate: this.selectedDay
-  }
-
-
+ // calendar = {
+ //   mode: 'month',
+  //  currentDate: this.selectedDay
+ // }
+  monday: any ={from: '8:00', to: '17:00'}
+  tuesday: any ={from:'06:00', to: '09:00'}
+  wednesday: any ={from:'00:00', to: '23:59'}
+  thursday: any ={from:'06:00', to: '09:00'}
+  friday: any ={from:'06:00', to: '09:00'}
+  saturday: any ={from:'06:00', to: '09:00'}
+  sunday: any ={from:'06:00', to: '09:00'}
+ 
+  botonEditar:boolean = true;
+  readonlyBool: boolean = true;
+  dia: string;
   commentsProfile: any =[
     {
       avatar: '../../../assets/default_avatar.png',
@@ -64,10 +73,13 @@ export class ProfilePage {
   availabilityEditable: boolean = false;
   expertEditable: boolean = false;
   reportMotive: any = 'Spoiler Alert! Luffy vs Big Mom!';
+  diaSegment: string;
 
   @ViewChild('description') desc;
   @ViewChild('availability') av;
   @ViewChild('expert') exp;
+  @ViewChild('from') f;
+  @ViewChild('to') t;
 
   constructor(private popoverCtrl: PopoverController, private auth: AuthProviderService, private actrout: ActivatedRoute,
     private search: SearchService,private modalCtrl:ModalController , private global: GlobalService,private chatsService: ChatsService,
@@ -229,21 +241,38 @@ export class ProfilePage {
     return await popover.present();
   }
 
-  addEvent(){
+  editButton(){
+    this.readonlyBool=false;
+    this.botonEditar=false;
+  }
+  guardarButton(){
+    if(this.dia="monday") {
+      this.monday.from=this.f.value;
+      this.monday.to=this.t.value;
+    }
+    this.readonlyBool=true;
+    this.botonEditar=true;
+    this.diaSegment="Mon";
+  }
+
+  segmentButtonClicked(event){
+    this.dia="monday";
+  }
+  //addEvent(){
   
-  }
+  //}
 
-  onEventSelected(event){
-    let start =moment(event.startTime).format('LLLL');
-    let end =moment(event.startTime).format('LLLL');
+  //onEventSelected(event){
+  //  let start =moment(event.startTime).format('LLLL');
+  //  let end =moment(event.startTime).format('LLLL');
 
-    let alert = this
-  }
+  //  let alert = this
+ // }
 
-  onTimeSelected(event){
-    this.selectedDay=event.selectedDay;
-  }
-  onViewTitleChanged(title){
-    this.viewTitle=title;
-  }
+  //onTimeSelected(event){
+  //  this.selectedDay=event.selectedDay;
+  //}
+  //onViewTitleChanged(title){
+  //  this.viewTitle=title;
+  //}
 }

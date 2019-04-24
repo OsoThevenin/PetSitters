@@ -57,3 +57,7 @@ ion-card{
 ion-content{
     --ion-background-color: #97c7f3;
 }
+ion-segment-button{
+    -webkit-padding-end:0;
+    -webkit-padding-start: 0;
+}

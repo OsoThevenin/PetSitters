@@ -106,6 +106,7 @@
             </ion-card>
         </ion-row>
     </ion-grid>
+    <!--
     <ion-toolbar>
         <ion-title>
             {{viewTitle}}
@@ -116,7 +117,8 @@
             </button>
         </ion-buttons>
     </ion-toolbar>
-        <calendar [eventSource]="eventSource"
+        
+    <calendar [eventSource]="eventSource"
         [calendarMode]="calendar.mode"
         [currentDate]="calendar.currentDate"
         (onEventSelected)="onEventSelected($event)"
@@ -125,84 +127,61 @@
         step="30"
         class="calendar">
         </calendar>
-        <ion-grid>
-        <ion-row style="border-bottom: groove;">
-            <ion-col col-4>
-                <ion-label >Time</ion-label>
-              </ion-col>
-            <ion-col col-4>
-            <ion-label >Mon</ion-label>
-          </ion-col>
-          <ion-col col-4>
-            <ion-label >Tue</ion-label>
-          </ion-col>
-            <ion-col col-4>
-            <ion-label >Wed</ion-label>
-          </ion-col>
-            <ion-col col-4>
-            <ion-label >Thu</ion-label>
-          </ion-col>
-            <ion-col col-4>
-            <ion-label >Fri</ion-label>
-          </ion-col>
-            <ion-col col-4>
-            <ion-label >Sat</ion-label>
-          </ion-col>
-            <ion-col col-4>
-            <ion-label >Sun</ion-label>
-          </ion-col>
-        </ion-row>
-        <ion-row >
-            <ion-col col-4>
-            <ion-label >cell</ion-label>
-          </ion-col>
-            <ion-col col-4>
-            <ion-label >cell</ion-label>
-          </ion-col>
-          <ion-col col-4>
-            <ion-label >cell</ion-label>
-          </ion-col>
-            <ion-col col-4>
-            <ion-label >cell</ion-label>
-          </ion-col>
-            <ion-col col-4>
-            <ion-label >cell</ion-label>
-          </ion-col>
-            <ion-col col-4>
-            <ion-label >cell</ion-label>
-          </ion-col>
-            <ion-col col-4>
-            <ion-label >cell</ion-label>
-          </ion-col>
-            <ion-col col-4>
-            <ion-label >cell</ion-label>
-          </ion-col>
-        </ion-row>
-        <ion-row>
-            <ion-col col-4>
-            <ion-label >cell</ion-label>
-          </ion-col>
-            <ion-col col-4>
-            <ion-label >cell</ion-label>
-          </ion-col>
-          <ion-col col-4>
-            <ion-label >cell</ion-label>
-          </ion-col>
-            <ion-col col-4>
-            <ion-label >cell</ion-label>
-          </ion-col>
-            <ion-col col-4>
-            <ion-label >cell</ion-label>
-          </ion-col>
-            <ion-col col-4>
-            <ion-label >cell</ion-label>
-          </ion-col>
-            <ion-col col-4>
-            <ion-label >cell</ion-label>
-          </ion-col>
-            <ion-col col-4>
-            <ion-label >cell</ion-label>
-          </ion-col>
-        </ion-row>
-        </ion-grid>
+      -->
+      <ion-item>
+      <ion-segment [value]="diaSegment" [(ngModel)]="day">  <!--(ionChange)="segmentChanged($event)"--> 
+        <ion-segment-button value="Mon" (ionSelect)="segmentButtonClicked($event)" checked>
+          <ion-label>Mon</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="Tue">
+          <ion-label>Tue</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="Wed">
+          <ion-label>Wed</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="Thu" >
+          <ion-label>Thu</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="Fri">
+          <ion-label>Fri</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="Sat">
+          <ion-label>Sat</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="Sun">
+          <ion-label>Sun</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+      </ion-item>
+
+      <ion-item [ngSwitch]="day">
+        <table *ngSwitchCase="'Mon'">
+        <tr>
+         <th>
+            From: 
+         </th>
+         <th>
+           <ion-input [readonly]="readonlyBool" [placeholder]="monday.from" #from>
+           </ion-input>
+         </th>
+         <th>
+         </th>
+        <th>
+            To: 
+        </th>
+        <th>
+            <ion-input [readonly]="readonlyBool" [placeholder]="monday.to" #to>
+              </ion-input> 
+        </th>
+         <th>
+            <ion-button *ngIf="botonEditar" (click)="editButton()">
+                <ion-icon slot="icon-only" name="create"></ion-icon>
+              </ion-button>
+              <ion-button *ngIf="!botonEditar" (click)="guardarButton()">
+                  <ion-icon slot="icon-only" name="save"></ion-icon>
+                </ion-button>
+            </th>
+          </tr>
+        </table>
+      </ion-item>
 </ion-content>
