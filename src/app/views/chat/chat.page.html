@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-button (click)="goBack()">
+        <ion-icon name="arrow-back"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons (click)="goProfile()" layout="icon-start">
+      <ion-avatar>
+        <img src="../../../assets/default_avatar.png">
+      </ion-avatar>
+      <ion-label>
+        Jesus
+      </ion-label>
+    </ion-buttons>
+    <ion-buttons slot="end">
+      <ion-button (click)="contratar()">
+        <ion-icon name="checkmark-circle-outline">
+        </ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+
+
+  <!--
+      <ion-segment>
+          <ion-segment-button (click)="goBack()">
+              <ion-icon name="arrow-back"></ion-icon>
+          </ion-segment-button>
+          <ion-segment-button layout="icon-start" (click)="goProfile()">
+              <ion-avatar>
+                  <img src="../../../assets/default_avatar.png">
+              </ion-avatar>
+              <ion-label>
+                Jesus
+              </ion-label>
+          </ion-segment-button>
+          <ion-segment-button (click)="contratar()">
+              <ion-icon name="checkmark-circle-outline"></ion-icon>
+          </ion-segment-button>
+        </ion-segment>
+      -->
+</ion-header>
+
+<ion-content padding>
+
+</ion-content>
+
+<ion-footer>
+  <ion-item>
+    <ion-button (click)="abrirCamara()" icon-only fill="solid" shape="round">
+      <ion-icon name="camera"></ion-icon>
+    </ion-button>
+    <ion-input placeholder="   Write a message" spellcheck type="text" maxlength="1000"></ion-input>
+    <ion-button icon-only fill="solid" shape="round">
+      <ion-icon name="send"></ion-icon>
+    </ion-button>
+  </ion-item>
+</ion-footer>

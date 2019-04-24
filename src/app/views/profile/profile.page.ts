@@ -2,8 +2,10 @@
 import { PopoverController, ModalController } from '@ionic/angular';
 import * as moment from 'moment';
 import { Component, ViewChild } from '@angular/core';
-import { PopoverPage } from './popover/popover.page';
 import { AuthProviderService } from 'src/app/providers/auth/auth-provider.service';
+import { Router } from '@angular/router';
+import { ChatsService } from './../../providers/chats/chats.service';
+import { PopoverPage } from './popover/popover.page';
 import { throwError } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { SearchService } from 'src/app/providers/Search/search.service';
@@ -66,7 +68,8 @@ export class ProfilePage {
   @ViewChild('expert') exp;
 
   constructor(private popoverCtrl: PopoverController, private auth: AuthProviderService, private actrout: ActivatedRoute,
-    private search: SearchService,private modalCtrl:ModalController , private global: GlobalService,
+    private search: SearchService,private modalCtrl:ModalController , private global: GlobalService,private chatsService: ChatsService,
+    private router: Router,
      private storage: Storage) {}
 
 
@@ -184,6 +187,20 @@ export class ProfilePage {
   }
 
 
+  startChat() {
+    this.auth.getToken().then(result => {
+      let body: any = {
+        otherUsername: this.cuidador.username
+      };
+
+      this.chatsService.startChat(body, result)
+      .subscribe(res => {
+        this.router.navigateByUrl('chat');
+      }, err => {
+        console.log('Error al abrir chat');
+      });
+    });
+  }
   async OpenPopover(ev: Event) {
     const popover = await this.popoverCtrl.create({
       component: PopoverPage,
