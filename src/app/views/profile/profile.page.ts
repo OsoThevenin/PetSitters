@@ -63,6 +63,8 @@ export class ProfilePage {
   editable: boolean = false;
   availabilityEditable: boolean = false;
   expertEditable: boolean = false;
+  reportMotive: any = 'Spoiler Alert! Luffy vs Big Mom!';
+
   @ViewChild('description') desc;
   @ViewChild('availability') av;
   @ViewChild('expert') exp;
@@ -103,6 +105,7 @@ export class ProfilePage {
     const body: any = this.desc.value;
     const atr: string = "description";
     console.log(body);
+    // Aqui hauriem de enviar el user al login si no te token
     this.auth.getToken().then(result => {
       const token = result;
       this.auth.modify(token,atr,body)
@@ -186,6 +189,21 @@ export class ProfilePage {
   });
   }
 
+  ReportUser() {
+    this.auth.getToken().then(result => {
+      this.search.reportUser(this.reportMotive, this.cuidador.username, result)
+        .subscribe(res => {
+          console.log('User reported successfully');
+          // Present toast with success message
+        }, err => {
+          console.log(err);
+          // Present toast with error message
+        });
+    }, error => {
+      console.log('Unable to get the token');
+      // Maybe we should redirect the user to login page or show the rror to try it again
+    });
+  }
 
   startChat() {
     this.auth.getToken().then(result => {
