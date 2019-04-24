@@ -1,0 +1,41 @@
+<ion-content padding color="a1">
+    <ion-grid style="height: 90%">
+        <ion-row justify-content-center align-items-center>
+            <img class="imagen" src="../../assets/Logo_versio4.png">
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-title text-center>
+                    Confirm your email
+                    <br />
+                </ion-title>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-label>
+                    Please check your inbox for a confirmation email. Click the link in the email to confirm your email address.
+                </ion-label>
+                <br />
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-label>
+                    After you confirm click Continue
+                </ion-label>
+                <br />
+            </ion-col>
+        </ion-row>
+        <ion-row justify-content-center align-items-center>
+            <ion-col size-lg="8" size-xl="4">
+                <ion-button class="boton2" color="b2" expand="block" fill="solid" (click)="continue()">Continue</ion-button>
+            </ion-col>
+        </ion-row>
+        <ion-row justify-content-center align-items-center>
+            <ion-col size-lg="8" size-xl="4">
+                <ion-button class="boton" color="b2" expand="block" fill="outline" (click)="resend()">Resend confirmation email</ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+</ion-content>
