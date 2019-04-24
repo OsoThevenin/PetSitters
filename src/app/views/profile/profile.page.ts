@@ -9,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 import { SearchService } from 'src/app/providers/Search/search.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { GlobalService } from './../../shared/global.service';
+import { Storage } from '@ionic/storage';
 
 @Component({
   selector: 'app-profile',
@@ -46,6 +47,7 @@ export class ProfilePage {
   ]
 
   cuidador: any = {
+    availability: null,
     commentaries: null,
     description: null,
     localization: null,
@@ -56,11 +58,13 @@ export class ProfilePage {
   };
 
   editable: boolean = false;
-
+  availabilityEditable: boolean = false;
   @ViewChild('description') desc;
+  @ViewChild('availability') av;
 
   constructor(private popoverCtrl: PopoverController, private auth: AuthProviderService, private actrout: ActivatedRoute,
-    private search: SearchService,private modalCtrl:ModalController , private global: GlobalService) {}
+    private search: SearchService,private modalCtrl:ModalController , private global: GlobalService,
+     private storage: Storage) {}
 
 
   EditText() {
@@ -69,6 +73,14 @@ export class ProfilePage {
 
   NoEditText() {
     this.editable = false;
+  }
+
+  EditAvailability() {
+    this.availabilityEditable = true;
+  }
+
+  NoEditAvailability() {
+    this.availabilityEditable = false;
   }
 
   TakeText() {
@@ -94,21 +106,49 @@ export class ProfilePage {
       this.editable = false;
   }
 
+  TakeAvailability() {
+    // Coger el valor nuevo y enviar a backend
+    console.log(this.av.value);
+
+    const body: any = this.av.value;
+    const atr: string = "availability";
+    console.log(body);
+    this.auth.getToken().then(result => {
+      const token = result;
+      this.auth.modify(token,atr,body)
+        .subscribe(res => {
+          // When the result is okay
+          //this.editable = false;
+          },
+          err => {
+            const error: HttpErrorResponse = err;
+            console.log(error);
+        });
+      });
+      // Para que vuelva apparecer el lapis
+      this.availabilityEditable = false;
+  }
+
 
   ngOnInit() {
     // obtener username mio
-    const dataRev = this.global.username;
+    this.auth.getUsername().then(uname => {
+    const username = uname;
+    console.log(username);
+    
+
    // this.actrout.snapshot.paramMap.get('username');
     this.auth.getToken().then(result => {
       const token = result;
       // De momento usa el provider de search!!
-      this.search.getUser(dataRev, token).subscribe(res => {
+      this.search.getUser(username, token).subscribe(res => {
         this.cuidador = res;
       });
     }).catch(err => {
       console.log(err);
       return throwError;
     });
+  });
   }
 
 

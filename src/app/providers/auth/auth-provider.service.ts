@@ -52,7 +52,10 @@ export class AuthProviderService {
   async getToken() {
     return await this.storage.get('token');
   }
-
+  
+  async getUsername() {
+    return await this.storage.get('username');
+  }
   // sending a POST modify to API
   modify(token,atribute,data): Observable<any> {
     // Add token to headers
