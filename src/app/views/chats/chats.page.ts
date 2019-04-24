@@ -1,3 +1,5 @@
+import { GlobalService } from './../../shared/global.service';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { Storage } from '@ionic/storage';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
@@ -19,7 +21,7 @@ export class ChatsPage implements OnInit {
     private actionSheetController: ActionSheetController, private webview: WebView,
     private toastController: ToastController, private storage: Storage,
     private ref: ChangeDetectorRef, private loadingController: LoadingController,
-    private imagePicker: ImagePicker) { }
+    private imagePicker: ImagePicker, private http: HttpClient, private global: GlobalService) { }
 
   ngOnInit() {
     // Carregar images guardades
@@ -90,6 +92,7 @@ export class ChatsPage implements OnInit {
         sourceType: sourceType,
         destinationType: this.camera.DestinationType.FILE_URI,
         mediaType: this.camera.MediaType.PICTURE,
+        encodingType: this.camera.EncodingType.JPEG,
         saveToPhotoAlbum: false,
         correctOrientation: true
       };
@@ -98,37 +101,7 @@ export class ChatsPage implements OnInit {
         let currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
         let correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
         this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
-      });
-    } else {
-      console.log(`I'm not in cordova`);
-    }
-  }
-
-  getImageFromGallery() {
-    if (this.platform.is('cordova')) {
-      const options: CameraOptions = {
-        quality: 100,
-        sourceType: this.camera.PictureSourceType.SAVEDPHOTOALBUM,
-        destinationType: this.camera.DestinationType.DATA_URL,
-        mediaType: this.camera.MediaType.PICTURE,
-        saveToPhotoAlbum: false
-      };
-
-      this.camera.getPicture(options).then((imageData) => {
-        let myImage = 'data:image/jpeg;base64,' + imageData;
-        const name = this.createFileName();
-        let filePath = this.file.dataDirectory + name;
-        let newEntry = {
-          name: name,
-          path: myImage,
-          filePath: filePath
-        };
-        this.images.push(newEntry);
-        console.log(this.images.length);
-        this.ref.detectChanges(); // trigger change detection cycle
-      }, err => {
-        // Handle error
-        this.presentToast('Error while opening image from gallery');
+        this.startUpload(imagePath);
       });
     } else {
       console.log(`I'm not in cordova`);
@@ -222,8 +195,8 @@ export class ChatsPage implements OnInit {
   }
 
   // When we want to send the picture to the api
-  startUpload(imgEntry) {
-    this.file.resolveLocalFilesystemUrl(imgEntry.filePath)
+  async startUpload(imgEntry) {
+    this.file.resolveLocalFilesystemUrl(imgEntry)
     .then(entry => {
       (<FileEntry>entry).file(file => this.readFile(file));
     }).catch(error => {
@@ -232,6 +205,7 @@ export class ChatsPage implements OnInit {
   }
 
   readFile(file: any) {
+    //let extension = file.split('.');
     const reader = new FileReader();
     reader.onloadend = () => {
       const formData = new FormData();
@@ -245,6 +219,7 @@ export class ChatsPage implements OnInit {
   }
 
   async uploadImageData(formData: FormData) {
+    console.log('FormData:' +  JSON.stringify(formData));
     const loading = await this.loadingController.create({
       message: 'Sending image...',
       spinner: 'bubbles',
@@ -253,14 +228,32 @@ export class ChatsPage implements OnInit {
     await loading.present();
 
     // Send HTTP post to API
-    /*
-      subscribe(res => {
-        if (res['success']) {
+    const token = this.storage.get('token');
+    token.then(res => {
+      this.sendApiRequest(formData, res);
+    }).catch(err => {
+      console.log('Error when getting token' + err);
+    });
+  }
+
+  sendApiRequest(formData: FormData, token) {
+    console.log('Token:' + token);
+    let httpHeaders = new HttpHeaders().set('Access-Control-Allow-Origin', '*');
+    httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token);
+    httpHeaders = httpHeaders.append('Content-Type', 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW');
+    //httpHeaders = httpHeaders.append('Content-type', )
+    const options = {headers: httpHeaders, withCredentials: true};
+
+    let body: any = {
+      file: formData
+    };
+    this.http.post(this.global.baseUrl + 'store', body, options)
+      .subscribe(res => {
           // SUCCESS YEAH
-        } else {
-          // Errooooor
-        }
-      })
-    */
+          this.presentToast('Successfullly');
+          console.log('Response: ' + res);
+      }, err => {
+        console.log('Error: ' + JSON.stringify(err));
+      });
   }
 }
