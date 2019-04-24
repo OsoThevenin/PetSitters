@@ -37,17 +37,19 @@
     </ion-grid>
 
     <!-- De Base de Datos -->
-    <div *ngIf="editable; else elseBlock">
+
+    <!-- Description edit -->
+    <div *ngIf="editable; else elseBlockDesc">
         <ion-label class="description">Description</ion-label>
         <ion-textarea placeholder="Tap here to enter a description" [(ngModel)]="cuidador.description" #description></ion-textarea>
-        <ion-button class="my-button2" fill="clear" shape="round" size="default" (click)="TakeText()">
+        <ion-button class="my-button2" fill="clear" shape="round" size="default" (click)="TakeTextDescription()">
             <ion-icon name="save"></ion-icon>
         </ion-button>
         <ion-button class="my-button2" fill="clear" shape="round" size="default" (click)="NoEditText()">
             <ion-icon name="close"></ion-icon>
         </ion-button>
     </div>
-    <ng-template #elseBlock>
+    <ng-template #elseBlockDesc>
         <ion-label class="description">Description</ion-label>
         <ion-button class="my-button2" fill="clear" shape="round" size="default" (click)="EditText()">
                 <ion-icon name="create"></ion-icon>
@@ -55,7 +57,30 @@
         <ion-textarea placeholder="Tap here to enter a description" [(ngModel)]="cuidador.description" disabled readonly></ion-textarea>
     </ng-template>
 
+    
+
     <ion-grid>
+
+    <ion-grid>
+        <!-- Expert edit -->
+    <div *ngIf="expertEditable; else elseBlockExp">
+            <ion-label class="expert">Expert on</ion-label>
+            <ion-textarea placeholder="Example: Dogs''Cats''Snakes''...'" [(ngModel)]="cuidador.expert" #expert></ion-textarea>
+            <ion-button class="my-button2" fill="clear" shape="round" size="default" (click)="TakeTextExpert()">
+                <ion-icon name="save"></ion-icon>
+            </ion-button>
+            <ion-button class="my-button2" fill="clear" shape="round" size="default" (click)="NoEditExpert()">
+                <ion-icon name="close"></ion-icon>
+            </ion-button>
+        </div>
+        <ng-template #elseBlockExp>
+            <ion-label class="expert">Expert on</ion-label>
+            <ion-button class="my-button2" fill="clear" shape="round" size="default" (click)="EditExpert()">
+                    <ion-icon name="create"></ion-icon>
+            </ion-button>
+            <ion-textarea placeholder="Tap here to enter your favourite animals to take care of" [(ngModel)]="cuidador.expert" disabled readonly></ion-textarea>
+        </ng-template>
+    </ion-grid>
         <!-- Mock-up -->
         <ion-row *ngFor="let comment of commentsProfile">
             <ion-card>

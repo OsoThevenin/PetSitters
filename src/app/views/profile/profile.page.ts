@@ -53,11 +53,14 @@ export class ProfilePage {
     profile_image: null,
     stars: 0,
     username: null,
+    expert: null,
   };
 
   editable: boolean = false;
+  expertEditable: boolean = false;
 
   @ViewChild('description') desc;
+  @ViewChild('expert') exp;
 
   constructor(private popoverCtrl: PopoverController, private auth: AuthProviderService, private actrout: ActivatedRoute,
     private search: SearchService,private modalCtrl:ModalController , private global: GlobalService) {}
@@ -71,7 +74,15 @@ export class ProfilePage {
     this.editable = false;
   }
 
-  TakeText() {
+  EditExpert(){
+    this.expertEditable = true;
+  }
+
+  NoEditExpert(){
+    this.expertEditable = false;
+  }
+
+  TakeTextDescription() {
     // Coger el valor nuevo y enviar a backend
     console.log(this.desc.value);
 
@@ -92,6 +103,29 @@ export class ProfilePage {
       });
       // Para que vuelva apparecer el lapis
       this.editable = false;
+  }
+
+  TakeTextExpert() {
+    // Coger el valor nuevo y enviar a backend
+    console.log(this.exp.value);
+
+    const body: any = this.exp.value;
+    const atr: string = "expert";
+    console.log(body);
+    this.auth.getToken().then(result => {
+      const token = result;
+      this.auth.modify(token,atr,body)
+        .subscribe(res => {
+          // When the result is okay
+          //this.editable = false;
+          },
+          err => {
+            const error: HttpErrorResponse = err;
+            console.log(error);
+        });
+      });
+      // Para que vuelva apparecer el lapis
+      this.expertEditable = false;
   }
 
 
