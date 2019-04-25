@@ -5,7 +5,7 @@
 </ion-header>
 
 <ion-content>  
-    <ion-searchbar></ion-searchbar>
+    <ion-searchbar [(ngModel)]="searchTerm" (ionChange)="devuelvePerfilesCuidadores()"></ion-searchbar>
     <ion-grid style="height: 100%">
         <ion-row justify-content: center align-items: center >
           <ion-col *ngFor="let cuidador of perfilsCuidadors">

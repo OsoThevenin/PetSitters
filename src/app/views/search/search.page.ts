@@ -10,6 +10,7 @@ import { throwError } from 'rxjs';
   styleUrls: ['search.page.scss']
 })
 export class SearchPage {
+  public searchTerm: string = "";
 
   constructor(private nav: NavController, private search: SearchService, private auth: AuthProviderService) {
   }
@@ -43,16 +44,25 @@ goToPerfilCuidador(cuidadorConcret) {
 devuelvePerfilesCuidadores(): any {
   this.auth.getToken().then(result => {
     const token = result;
-    console.log('token: ' + token);
-    this.search.getUsersList(token).subscribe(res => {
-      // console.log(res);
-      this.perfilsCuidadors = res;
-      // console.log(this.perfilsCuidadors);
-    });
-  }).catch(err => {
-    console.log(err);
-    return throwError;
-  });
+	
+	if (this.searchTerm != ""){
+	  this.search.filterName(this.searchTerm,token).subscribe(res => {
+	  	  this.perfilsCuidadors = res;
+	  });
+	}
+	else{
+	 console.log('token: ' + token);
+	 this.search.getUsersList(token).subscribe(res => {
+	   // console.log(res);
+	   this.perfilsCuidadors = res;
+	   // console.log(this.perfilsCuidadors);
+	  });
+	}
+	}).catch(err => {
+	  console.log(err);
+	 return throwError;
+	});
+  
   return this.perfilsCuidadors;
   }
 }

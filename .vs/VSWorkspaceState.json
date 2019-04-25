@@ -3,10 +3,14 @@
     "",
     "\\src",
     "\\src\\app",
-    "\\src\\app\\email-confirm",
-    "\\src\\app\\login",
-    "\\src\\app\\registre"
+    "\\src\\app\\providers",
+    "\\src\\app\\providers\\chats",
+    "\\src\\app\\views",
+    "\\src\\app\\views\\chat",
+    "\\src\\app\\views\\chats",
+    "\\src\\app\\views\\profile",
+    "\\src\\app\\views\\profile\\popover"
   ],
-  "SelectedNode": "\\src\\app\\registre\\registre.page.ts",
+  "SelectedNode": "\\src\\app\\views\\profile\\profile.page.ts",
   "PreviewInSolutionExplorer": false
 }

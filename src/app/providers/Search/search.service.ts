@@ -41,4 +41,13 @@ export class SearchService {
 
     return this.http.post<any>(this.global.baseUrl + 'report', body, options);
   }
+
+  filterName(body, token): Observable <any> {
+	let httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    httpHeaders = httpHeaders.append('Access-Control-Allow-Origin', '*');
+    httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token);
+    const options = {headers: httpHeaders};
+
+	return this.http.get<any>(this.global.baseUrl + 'user/filterName', body, options);
+  }
 }
