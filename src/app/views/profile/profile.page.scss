@@ -6,6 +6,7 @@
 }
 
 .my-button2{ 
+    padding: 0px !important;
     color: black;
 }
 
@@ -15,6 +16,11 @@
     // el código para centrar la imagen
     margin: auto;
 	display: block;
+}
+.fondoblanco{
+    background-color: white;
+    color:black;
+    border-radius: 8px;
 }
 
 h1{
@@ -26,9 +32,18 @@ h1{
     margin: auto;
 	display: block;
 }
+.columnacentrada{
+    margin-top: 10px;
+}
+
+.alineacentro{
+    text-align: center;
+    align-items: center;
+    align-content: center;
+}
 
 .description{
-    margin: 25px;
+    margin: 10px;
     text-align: left;
 }
 
@@ -49,6 +64,7 @@ ion-card{
     background-color: white
 }
 
+
 .text{
     margin:auto;
     float:left;
@@ -58,6 +74,49 @@ ion-content{
     --ion-background-color: #97c7f3;
 }
 ion-segment-button{
-    -webkit-padding-end:0;
-    -webkit-padding-start: 0;
+    width: 12%;
+    --border-width:0px !important;
+    --border-width:0px !important;
+    --margin-end :0px !important;
+    --margin-start :0px !important; 
+    -webkit-padding-end:0px !important;
+    -webkit-padding-start: 0px !important;
+    padding-left: 0%;
+    padding-right: 0%;
+    --border-radius:0px !important;
+}
+
+.labelsegmento{
+    font-size: 0.8em;
+    color: white;
+}
+.espacio{
+    height: 10px;
+}
+.gridavailability{
+    height: 100%;
+    justify-content: center;
+}
+.segmentos{
+    margin:auto;
+    width: 100%;
+}
+
+.nombrelabel{
+    font-size:30px;
+    font-weight: bold;
+}
+
+.ubicacionlabel{
+    font-size: 20px;
+}
+
+ion-input{
+    --padding-end:0;
+    --padding-start:0;
+    --webkit-padding-end: 0;
+    --webkit-padding-start: 0;
+    border-radius: 5px;
+    --background:white;
+    --color: black;
 }

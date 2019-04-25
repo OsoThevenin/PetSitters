@@ -6,8 +6,13 @@
         </ion-button>
     </ion-toolbar>
     <!-- De Base de Datos -->
-    <img class="avatar_profile" *ngIf='cuidador.profile_image == "" ' src="../../../assets/default_avatar.png">
     <ion-grid>
+    <ion-row justify-content-center align-items-center>
+    
+                <img class="avatar_profile" *ngIf='cuidador.profile_image == "" ' src="../../../assets/default_avatar.png">
+
+    </ion-row>
+    
         <ion-row justify-content-center align-items-center>
             <!-- Mock-up -->
             <ion-icon size="large" name="star-outline"></ion-icon>
@@ -16,64 +21,74 @@
             <ion-icon size="large" name="star-outline"></ion-icon>
             <ion-icon size="large" name="star-outline"></ion-icon>
         </ion-row>
-    </ion-grid>
-    <ion-grid>
-        <ion-row>
-            <ion-col>
+        <ion-row class="espacio"></ion-row>
+        <ion-row class="espacio"></ion-row>
+        <ion-row justify-content-center align-items-center>
+
                 <!-- De Base de Datos -->
-                <h1>{{cuidador.name}}</h1>
-            </ion-col>
+                <ion-label class="nombrelabel">{{cuidador.name}}</ion-label>
+
         </ion-row>
+        <ion-row class="espacio"></ion-row>
+        <ion-row class="espacio"></ion-row>
         <ion-row>
+            <ion-col size="8">
             <ion-icon name="pin"></ion-icon>
             <!-- Mock-up -->
-            <ion-label>Barcelona, Spain</ion-label>
+            <ion-label class="ubicacionlabel">Barcelona, Spain</ion-label>
+        </ion-col>
         </ion-row>
-    </ion-grid>
+        <ion-row class="espacio"></ion-row>
+        <ion-row class="espacio"></ion-row>
+    
 
     <!-- De Base de Datos -->
 
     <!-- Description edit -->
     <div *ngIf="editable; else elseBlockDesc">
+        <ion-row>
         <ion-label class="description">Description</ion-label>
-        <ion-textarea placeholder="Tap here to enter a description" [(ngModel)]="cuidador.description" #description></ion-textarea>
+        </ion-row>
+        <ion-row padding>
+        <ion-textarea class="fondoblanco" placeholder="Tap here to enter a description" [(ngModel)]="cuidador.description" #description></ion-textarea>
+    </ion-row>
+        <ion-row>
+            <ion-col class="alineacentro">
         <ion-button class="my-button2" fill="clear" shape="round" size="default" (click)="TakeTextDescription()">
             <ion-icon name="save"></ion-icon>
         </ion-button>
+    </ion-col>
+    <ion-col class="alineacentro">
         <ion-button class="my-button2" fill="clear" shape="round" size="default" (click)="NoEditText()">
             <ion-icon name="close"></ion-icon>
         </ion-button>
+    </ion-col>
+        </ion-row>
     </div>
     <ng-template #elseBlockDesc>
+        <ion-row>
         <ion-label class="description">Description</ion-label>
-        <ion-button class="my-button2" fill="clear" shape="round" size="default" (click)="EditText()">
+        </ion-row>
+        <ion-row>
+                <ion-col size=10>
+                        <ion-textarea placeholder="Tap here to enter a description" [(ngModel)]="cuidador.description" disabled readonly></ion-textarea>
+                        </ion-col>
+                <ion-col class="alineacentro" size=2>
+        <ion-button no-padding class="my-button2" fill="clear" shape="round" size="default" (click)="EditText()">
                 <ion-icon name="create"></ion-icon>
         </ion-button>
-        <ion-textarea placeholder="Tap here to enter a description" [(ngModel)]="cuidador.description" disabled readonly></ion-textarea>
+                </ion-col>
+        </ion-row>
     </ng-template>
-    <!--
-    <div *ngIf="availabilityEditable; else elseBlockDisponibilidad">
-        <ion-label class="description">Availability</ion-label>
-        <ion-textarea placeholder="Tap here to enter your availability" [(ngModel)]="cuidador.availability" #availability></ion-textarea>
-        <ion-button class="my-button2" fill="clear" shape="round" size="default" (click)="TakeAvailability()">
-            <ion-icon name="save"></ion-icon>
-        </ion-button>
-        <ion-button class="my-button2" fill="clear" shape="round" size="default" (click)="NoEditAvailability()">
-            <ion-icon name="close"></ion-icon>
-        </ion-button>
-    </div>
-    <ng-template #elseBlockDisponibilidad>
-        <ion-label class="description">Availability</ion-label>
-        <ion-button class="my-button2" fill="clear" shape="round" size="default" (click)="EditAvailability()">
-                <ion-icon name="create"></ion-icon>
-        </ion-button>
-        <ion-textarea placeholder="Tap here to enter your availability" [(ngModel)]="cuidador.availability" disabled readonly></ion-textarea>
-    </ng-template>
-  -->
+    
+  <ion-row class="espacio"></ion-row>
+  <ion-row class="espacio"></ion-row>
 
-  <ion-item>
-      <ion-segment [disabled]="disableSegmentBool" [(ngModel)]="day"  (ionChange)="segmentChanged($event)">  <!--(ionChange)="segmentChanged($event)"   [value]="diaSegment"--> 
-        <ion-segment-button value="Mon">
+  <ion-row>
+  <ion-card class="segmentos">  
+      <ion-row>
+      <ion-segment scrollable="true" [disabled]="disableSegmentBool" [(ngModel)]="day"  (ionChange)="segmentChanged($event)">  <!--(ionChange)="segmentChanged($event)"   [value]="diaSegment"--> 
+        <ion-segment-button size="small" value="Mon">
           <ion-label>Mon</ion-label>
         </ion-segment-button>
         <ion-segment-button value="Tue">
@@ -95,60 +110,69 @@
           <ion-label>Sun</ion-label>
         </ion-segment-button>
       </ion-segment>
-      </ion-item>
+      </ion-row>
+    
 
-      <ion-item *ngIf="diaActual != null"> <!-- [ngSwitch]="day"-->
-        <table > <!-- *ngSwitchCase="'Mon'" -->
-          <tr>
-            <th>From:</th>
-            <th><ion-input [readonly]="readonlyBool" [placeholder]="diaActual.from" #from></ion-input></th>
-            <th></th>
-            <th>To:</th>
-            <th><ion-input [readonly]="readonlyBool" [placeholder]="diaActual.to" #to></ion-input></th>
-            <th><ion-button *ngIf="botonEditar" (click)="editButton()">
-                  <ion-icon slot="icon-only" name="create"></ion-icon>
-                </ion-button>
-                <ion-button *ngIf="!botonEditar" (click)="guardarButton()">
-                  <ion-icon slot="icon-only" name="save"></ion-icon>
-                </ion-button>
-            </th>
-          </tr>
-        </table>
-      </ion-item>
-
-
-
-
-
-
+      <form [formGroup]="horasForm">
+      <ion-row *ngIf="diaActual != null"> <!-- [ngSwitch]="day"-->
+        <!-- <table > *ngSwitchCase="'Mon'" -->
+                <ion-col text-center class="columnacentrada">From:</ion-col>
+                <ion-col><ion-input formControlName="fromfcn" type="text" [readonly]="readonlyBool" [placeholder]="diaActual.from" #from></ion-input></ion-col>
+                <ion-col text-center class="columnacentrada">To:</ion-col>
+                <ion-col><ion-input formControlName="tofcn" type="text" [readonly]="readonlyBool" [placeholder]="diaActual.to" #to></ion-input></ion-col>
+                <ion-col><ion-button *ngIf="botonEditar" (click)="editButton()">
+                    <ion-icon slot="icon-only" name="create"></ion-icon>
+                    </ion-button>
+                    <ion-button *ngIf="!botonEditar" [disabled]="!horasForm.valid" (click)="guardarButton()">
+                    <ion-icon slot="icon-only" name="save"></ion-icon>
+                    </ion-button>
+                </ion-col>
+            
+        </ion-row>
+    </form>
+</ion-card>
+</ion-row>
+<ion-row class="espacio"></ion-row>
+  <ion-row class="espacio"></ion-row>
 
 
-
-
-
-
-    <ion-grid>
-
-    <ion-grid>
         <!-- Expert edit -->
     <div *ngIf="expertEditable; else elseBlockExp">
-            <ion-label class="expert">Expert on</ion-label>
-            <ion-textarea placeholder="Example: Dogs''Cats''Snakes''...'" [(ngModel)]="cuidador.expert" #expert></ion-textarea>
+        <ion-row>
+            <ion-label class="description">Expert on</ion-label>
+        </ion-row>
+        <ion-row padding>
+            <ion-textarea class="fondoblanco" placeholder="Example: Dogs''Cats''Snakes''...'" [(ngModel)]="cuidador.expert" #expert></ion-textarea>
+        </ion-row>   
+        <ion-row>
+            <ion-col class="alineacentro">
             <ion-button class="my-button2" fill="clear" shape="round" size="default" (click)="TakeTextExpert()">
                 <ion-icon name="save"></ion-icon>
             </ion-button>
+            </ion-col>
+            <ion-col class="alineacentro">
             <ion-button class="my-button2" fill="clear" shape="round" size="default" (click)="NoEditExpert()">
                 <ion-icon name="close"></ion-icon>
             </ion-button>
+            </ion-col>
+        </ion-row>
         </div>
         <ng-template #elseBlockExp>
-            <ion-label class="expert">Expert on</ion-label>
-            <ion-button class="my-button2" fill="clear" shape="round" size="default" (click)="EditExpert()">
-                    <ion-icon name="create"></ion-icon>
-            </ion-button>
-            <ion-textarea placeholder="Tap here to enter your favourite animals to take care of" [(ngModel)]="cuidador.expert" disabled readonly></ion-textarea>
+            <ion-row>
+                    <ion-label class="description">Expert on</ion-label>
+            </ion-row>
+            <ion-row>
+                <ion-col size=10>
+                        <ion-textarea placeholder="Tap here to enter your favourite animals to take care of" [(ngModel)]="cuidador.expert" disabled readonly></ion-textarea>
+                </ion-col>
+                <ion-col  class="alineacentro" size=2>
+                        <ion-button no-padding class="my-button2" fill="clear" shape="round" size="default" (click)="EditExpert()">
+                                <ion-icon name="create"></ion-icon>
+                        </ion-button>
+                </ion-col>
+        </ion-row>
         </ng-template>
-    </ion-grid>
+    
         <!-- Mock-up -->
         <ion-row *ngFor="let comment of commentsProfile">
             <ion-card>
@@ -163,27 +187,5 @@
             </ion-card>
         </ion-row>
     </ion-grid>
-    <!--
-    <ion-toolbar>
-        <ion-title>
-            {{viewTitle}}
-        </ion-title>
-        <ion-buttons end>
-            <button ion-button icon-only (click)="addEvent()">
-                <ion-icon name="add"></ion-icon>
-            </button>
-        </ion-buttons>
-    </ion-toolbar>
-        
-    <calendar [eventSource]="eventSource"
-        [calendarMode]="calendar.mode"
-        [currentDate]="calendar.currentDate"
-        (onEventSelected)="onEventSelected($event)"
-        (onTitleChanged)="onViewTitleChanged($event)"
-        (onTimeSelected)="onTimeSelected($event)"
-        step="30"
-        class="calendar">
-        </calendar>
-      -->
- 
+
 </ion-content>

@@ -1,7 +1,6 @@
 
 import { PopoverController, ModalController } from '@ionic/angular';
-//import * as moment from 'moment';
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { AuthProviderService } from 'src/app/providers/auth/auth-provider.service';
 import { Router } from '@angular/router';
 import { ChatsService } from './../../providers/chats/chats.service';
@@ -12,46 +11,33 @@ import { SearchService } from 'src/app/providers/Search/search.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { GlobalService } from './../../shared/global.service';
 import { Storage } from '@ionic/storage';
+import { FormControl, FormGroup, FormBuilder, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-profile',
   templateUrl: 'profile.page.html',
   styleUrls: ['profile.page.scss']
 })
-export class ProfilePage {
- // eventSource = [];
- // viewTitle: string;
- // selectedDay = new Date();
-  
- // calendar = {
- //   mode: 'month',
-  //  currentDate: this.selectedDay
- // }
- //dias: any = [
-   //{
-     //dia:"Mon",
-     //from:"8:00",
-     //to:"17:00"
-   //},
-   //{
-    //dia:"tuesday",
-    //from:"9:00",
-    //to:"13:00"
-  //}
- //]
-  diaActual: any = null;
-  monday: any ={from: '8:00', to: '17:00'}
-  tuesday: any ={from:'06:00', to: '09:00'}
-  wednesday: any ={from:'00:00', to: '23:59'}
-  thursday: any ={from:'06:00', to: '09:00'}
-  friday: any ={from:'06:00', to: '09:00'}
-  saturday: any ={from:'06:00', to: '09:00'}
-  sunday: any ={from:'06:00', to: '09:00'}
+export class ProfilePage implements OnInit {
+
+    
+ monday: any ={from: '', to: ''}
+ tuesday: any ={from: '', to: ''}
+ wednesday: any ={from: '', to: ''}
+ thursday: any ={from: '', to: ''}
+ friday: any ={from: '', to: ''}
+ saturday: any ={from: '', to: ''}
+ sunday: any ={from: '', to: ''}
+
+  horasForm: FormGroup;
+  diaActual: any = this.monday;
+
+
 
   disableSegmentBool:boolean = false;
   botonEditar:boolean = true;
   readonlyBool: boolean = true;
-  day: string;
+  day: string = "Mon";
   
   commentsProfile: any =[
     {
@@ -85,12 +71,10 @@ export class ProfilePage {
   };
 
   editable: boolean = false;
-  availabilityEditable: boolean = false;
   expertEditable: boolean = false;
   reportMotive: any = 'Spoiler Alert! Luffy vs Big Mom!';
 
   @ViewChild('description') desc;
-  @ViewChild('availability') av;
   @ViewChild('expert') exp;
   @ViewChild('from') f;
   @ViewChild('to') t;
@@ -98,7 +82,18 @@ export class ProfilePage {
   constructor(private popoverCtrl: PopoverController, private auth: AuthProviderService, private actrout: ActivatedRoute,
     private search: SearchService,private modalCtrl:ModalController , private global: GlobalService,private chatsService: ChatsService,
     private router: Router,
-     private storage: Storage) {}
+     private storage: Storage, public formBuilder: FormBuilder) {
+      this.horasForm = this.formBuilder.group({
+        fromfcn: new FormControl('', Validators.compose([
+          Validators.required,
+          Validators.pattern('^([0-1][0-9]|2[0-3]):[0-5][0-9]$') 
+        ])),
+        tofcn: new FormControl('', Validators.compose([
+          Validators.required,
+          Validators.pattern('^([0-1][0-9]|2[0-3]):[0-5][0-9]$') 
+        ]))
+      });
+     }
 
 
   EditText() {
@@ -109,13 +104,6 @@ export class ProfilePage {
     this.editable = false;
   }
 
-  EditAvailability() {
-    this.availabilityEditable = true;
-  }
-
-  NoEditAvailability() {
-    this.availabilityEditable = false;
-  }
 
   EditExpert(){
     this.expertEditable = true;
@@ -126,11 +114,9 @@ export class ProfilePage {
   }
   TakeTextDescription() {
     // Coger el valor nuevo y enviar a backend
-    console.log(this.desc.value);
 
     const body: any = this.desc.value;
     const atr: string = "description";
-    console.log(body);
     // Aqui hauriem de enviar el user al login si no te token
     this.auth.getToken().then(result => {
       const token = result;
@@ -150,11 +136,16 @@ export class ProfilePage {
 
   TakeAvailability() {
     // Coger el valor nuevo y enviar a backend
-    console.log(this.av.value);
 
-    const body: any = this.av.value;
+    const body: any = this.monday.from + ',' + this.monday.to + ',' 
+    + this.tuesday.from + ',' + this.tuesday.to + ',' 
+    + this.wednesday.from + ',' + this.wednesday.to + ',' 
+    + this.thursday.from + ',' + this.thursday.to + ',' 
+    + this.friday.from + ',' + this.friday.to + ',' 
+    + this.saturday.from + ',' + this.saturday.to + ',' 
+    + this.sunday.from + ',' + this.sunday.to + ',';
+
     const atr: string = "availability";
-    console.log(body);
     this.auth.getToken().then(result => {
       const token = result;
       this.auth.modify(token,atr,body)
@@ -168,15 +159,13 @@ export class ProfilePage {
         });
       });
       // Para que vuelva apparecer el lapis
-      this.availabilityEditable = false;
+      //this.availabilityEditable = false;
     }
   TakeTextExpert() {
     // Coger el valor nuevo y enviar a backend
-    console.log(this.exp.value);
 
     const body: any = this.exp.value;
     const atr: string = "expert";
-    console.log(body);
     this.auth.getToken().then(result => {
       const token = result;
       this.auth.modify(token,atr,body)
@@ -198,7 +187,6 @@ export class ProfilePage {
     // obtener username mio
     this.auth.getUsername().then(uname => {
     const username = uname;
-    console.log(username);
     
 
    // this.actrout.snapshot.paramMap.get('username');
@@ -207,12 +195,29 @@ export class ProfilePage {
       // De momento usa el provider de search!!
       this.search.getUser(username, token).subscribe(res => {
         this.cuidador = res;
+        if (this.cuidador.availability != "None") {
+          let horasdias: string[]=this.cuidador.availability.split(','); 
+           this.monday.from=horasdias[0];
+           this.monday.to=horasdias[1];
+           this.tuesday.from=horasdias[2];
+           this.tuesday.to=horasdias[3];
+           this.wednesday.from=horasdias[4];
+           this.wednesday.to=horasdias[5];
+           this.thursday.from=horasdias[6];
+           this.thursday.to=horasdias[7];
+           this.friday.from=horasdias[8];
+           this.friday.to=horasdias[9];
+           this.saturday.from=horasdias[10];
+           this.saturday.to=horasdias[11];
+           this.sunday.from=horasdias[12];
+           this.sunday.to=horasdias[13];
+        }
       });
     }).catch(err => {
       console.log(err);
       return throwError;
     });
-  });
+  });  
   }
 
   ReportUser() {
@@ -295,10 +300,14 @@ export class ProfilePage {
       this.saturday.to=this.t.value;
     }
 
-    this.readonlyBool=true;
-    this.botonEditar=true;
+    this.TakeAvailability();
+
     this.f.value="";
     this.t.value="";
+
+    this.readonlyBool=true;
+    this.botonEditar=true;
+    
     this.disableSegmentBool=false;
   }
 
@@ -326,21 +335,4 @@ export class ProfilePage {
     }
   }
 
-  //addEvent(){
-  
-  //}
-
-  //onEventSelected(event){
-  //  let start =moment(event.startTime).format('LLLL');
-  //  let end =moment(event.startTime).format('LLLL');
-
-  //  let alert = this
- // }
-
-  //onTimeSelected(event){
-  //  this.selectedDay=event.selectedDay;
-  //}
-  //onViewTitleChanged(title){
-  //  this.viewTitle=title;
-  //}
 }
