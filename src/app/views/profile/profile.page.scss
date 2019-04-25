@@ -1,7 +1,7 @@
 .my-button{ 
     position: fixed; 
     right: 0; 
-    top: 0; 
+    top: 10px; 
     color: white;
 }
 
@@ -23,10 +23,6 @@
     border-radius: 8px;
 }
 
-h1{
-    margin:auto;
-    align-content: center;
-}
 .avatar_profile {
     width: 10em;
     margin: auto;
@@ -43,8 +39,11 @@ h1{
 }
 
 .description{
-    margin: 10px;
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-left:10px;
     text-align: left;
+    font-weight: bold;
 }
 
 .avatar{
@@ -97,10 +96,10 @@ ion-segment-button{
     height: 100%;
     justify-content: center;
 }
-.segmentos{
-    margin:auto;
-    width: 100%;
-}
+//.segmentos{
+//    margin:auto;
+  //  width: 100%;
+//}
 
 .nombrelabel{
     font-size:30px;

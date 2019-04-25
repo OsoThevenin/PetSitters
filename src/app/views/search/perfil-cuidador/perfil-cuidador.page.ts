@@ -16,6 +16,19 @@ import { Router } from '@angular/router';
 })
 export class PerfilCuidadorPage implements OnInit {
 
+     
+ monday: any ={from: '', to: ''}
+ tuesday: any ={from: '', to: ''}
+ wednesday: any ={from: '', to: ''}
+ thursday: any ={from: '', to: ''}
+ friday: any ={from: '', to: ''}
+ saturday: any ={from: '', to: ''}
+ sunday: any ={from: '', to: ''}
+
+ diaActual: any = this.monday;
+ readonlyBool: boolean = true;
+ day: string = "Mon";
+
   cuidador: any = {
     commentaries: null,
     description: null,
@@ -61,7 +74,23 @@ export class PerfilCuidadorPage implements OnInit {
       this.search.getUser(dataRev, token).subscribe(res => {
         //console.log(res);
         this.cuidador = res;
-        console.log(this.cuidador);
+        if (this.cuidador.availability != "None") {
+          let horasdias: string[]=this.cuidador.availability.split(','); 
+           this.monday.from=horasdias[0];
+           this.monday.to=horasdias[1];
+           this.tuesday.from=horasdias[2];
+           this.tuesday.to=horasdias[3];
+           this.wednesday.from=horasdias[4];
+           this.wednesday.to=horasdias[5];
+           this.thursday.from=horasdias[6];
+           this.thursday.to=horasdias[7];
+           this.friday.from=horasdias[8];
+           this.friday.to=horasdias[9];
+           this.saturday.from=horasdias[10];
+           this.saturday.to=horasdias[11];
+           this.sunday.from=horasdias[12];
+           this.sunday.to=horasdias[13];
+        }
       });
     }).catch(err => {
       console.log(err);
@@ -151,6 +180,30 @@ export class PerfilCuidadorPage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  segmentChanged(event){
+    if(this.day=="Mon"){
+      this.diaActual=this.monday;
+    }
+    else if(this.day=="Tue"){
+      this.diaActual=this.tuesday;
+    }
+    else if(this.day=="Wed"){
+      this.diaActual=this.wednesday;
+    }
+    else if(this.day=="Thu"){
+      this.diaActual=this.thursday;
+    }
+    else if(this.day=="Fri"){
+      this.diaActual=this.friday;
+    }
+    else if(this.day=="Sat"){
+      this.diaActual=this.saturday;
+    }
+    else if(this.day=="Sun"){
+      this.diaActual=this.sunday;
+    }
   }
 
 }

@@ -6,11 +6,21 @@
 }
 
 .my-button2{ 
+    position: fixed; 
+    top:10px;
+    right: 0; 
+    color: white;
+}
+.my-button3{ 
     color: black;
-    position: relative;
-    right: -25%;
 }
 
+.espacio{
+    height: 10px;
+}
+.ubicacionlabel{
+    font-size: 20px;
+}
 .logo {
     width: 25%;
     height: 100%;
@@ -18,20 +28,25 @@
     margin: auto;
 	display: block;
 }
-
-h1{
-    margin:auto;
-    align-content: center;
+.nombrelabel{
+    font-size:30px;
+    font-weight: bold;
 }
+
 .avatar_profile {
     width: 10em;
     margin: auto;
 	display: block;
 }
-
+.columnacentrada{
+    margin-top: 10px;
+}
 .description{
-    margin: 25px;
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-left:10px;
     text-align: left;
+    font-weight: bold;
 }
 
 .avatar{

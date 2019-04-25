@@ -35,7 +35,7 @@
             <ion-col size="8">
             <ion-icon name="pin"></ion-icon>
             <!-- Mock-up -->
-            <ion-label class="ubicacionlabel">Barcelona, Spain</ion-label>
+            <ion-label class="ubicacionlabel">  Barcelona, Spain</ion-label>
         </ion-col>
         </ion-row>
         <ion-row class="espacio"></ion-row>
@@ -69,7 +69,7 @@
         <ion-row>
         <ion-label class="description">Description</ion-label>
         </ion-row>
-        <ion-row>
+        <ion-row padding>
                 <ion-col size=10>
                         <ion-textarea placeholder="Tap here to enter a description" [(ngModel)]="cuidador.description" disabled readonly></ion-textarea>
                         </ion-col>
@@ -81,14 +81,15 @@
         </ion-row>
     </ng-template>
     
-  <ion-row class="espacio"></ion-row>
-  <ion-row class="espacio"></ion-row>
-
+  <ion-row>
+        <ion-label class="description">Availability</ion-label>
+      </ion-row>
+      <ion-row class="espacio"></ion-row>
   <ion-row>
   <ion-card class="segmentos">  
       <ion-row>
       <ion-segment scrollable="true" [disabled]="disableSegmentBool" [(ngModel)]="day"  (ionChange)="segmentChanged($event)">  <!--(ionChange)="segmentChanged($event)"   [value]="diaSegment"--> 
-        <ion-segment-button size="small" value="Mon">
+        <ion-segment-button value="Mon">
           <ion-label>Mon</ion-label>
         </ion-segment-button>
         <ion-segment-button value="Tue">
@@ -161,7 +162,7 @@
             <ion-row>
                     <ion-label class="description">Expert on</ion-label>
             </ion-row>
-            <ion-row>
+            <ion-row padding>
                 <ion-col size=10>
                         <ion-textarea placeholder="Tap here to enter your favourite animals to take care of" [(ngModel)]="cuidador.expert" disabled readonly></ion-textarea>
                 </ion-col>
