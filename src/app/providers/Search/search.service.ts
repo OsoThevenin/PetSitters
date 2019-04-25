@@ -48,6 +48,6 @@ export class SearchService {
     httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token);
     const options = {headers: httpHeaders};
 
-	return this.http.get<any>(this.global.baseUrl + 'user/filterName', body, options);
+	return this.http.get<any>(this.global.baseUrl + 'user/filterName?name='+ body, options);
   }
 }
