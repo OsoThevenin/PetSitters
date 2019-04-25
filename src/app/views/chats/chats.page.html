@@ -8,11 +8,11 @@
 <style>
     ion-list.ex1 {
         
-        padding: 0px 15px 10px 20px;
+        padding: 0px 0px 0px 0px;
     }
 
     ion-label.mensaje {
-        padding: 0px 0px 0px 20px;
+        padding: 20px 0px 0px 50px;
     }
 
 </style>
@@ -20,15 +20,24 @@
     <!-- <ion-label>Chats</ion-label> -->
     <ion-list class=" ex1" *ngFor="let chat of chatsUsuario">
         <ion-item (click)="abreChat()">
-            <ion-avatar>
-                <ion-img [src]=chat.avatar></ion-img>
-            </ion-avatar>
-            <ion-label class="mensaje"><strong>{{chat.nombre}}</strong></ion-label>
-
+            <ion-grid>
+                <ion-row>
+                    <ion-avatar>
+                        <ion-img [src]=chat.avatar></ion-img>
+                    </ion-avatar>
+                    <ion-label class="mensaje"><strong>{{chat.nombre}}</strong></ion-label>
+                </ion-row>
+                <ion-row>
+                    <p class="mensaje">{{chat.mensaje}}</p>
+                </ion-row>
+            </ion-grid>
+            
+            
+            
 
         </ion-item>
         <br />
-        <ion-label class="mensaje" (click)="abreChat()">{{chat.mensaje}}</ion-label>
+        
 
     </ion-list>
 </ion-content>

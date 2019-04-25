@@ -1,9 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { NavController, AlertController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { AuthProviderService } from 'src/app/providers/auth/auth-provider.service';
 import { SearchService } from 'src/app/providers/Search/search.service';
 import { throwError } from 'rxjs';
+import { ToastController } from '@ionic/angular';
+import { ChatsService } from './../../../providers/chats/chats.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -23,6 +26,8 @@ export class PerfilCuidadorPage implements OnInit {
     username: null,
     expert: null,
   };
+
+  reportMotive: any = 'Spoiler Alert! Luffy vs Big Mom!';
 
   commentsProfile: any = [
     {
@@ -44,7 +49,8 @@ export class PerfilCuidadorPage implements OnInit {
   ];
 
   constructor(private nav: NavController, private actrout: ActivatedRoute,
-    private search: SearchService, private auth: AuthProviderService) {
+    private search: SearchService, private auth: AuthProviderService, private chatsService: ChatsService,
+   private router: Router, private toastController: ToastController, private alertController: AlertController) {
   }
 
   ngOnInit() {
@@ -53,7 +59,7 @@ export class PerfilCuidadorPage implements OnInit {
       const token = result;
       // console.log('token: ' + token);
       this.search.getUser(dataRev, token).subscribe(res => {
-        console.log(res);
+        //console.log(res);
         this.cuidador = res;
         console.log(this.cuidador);
       });
@@ -61,16 +67,90 @@ export class PerfilCuidadorPage implements OnInit {
       console.log(err);
       return throwError;
     });
-    console.log(dataRev);
-    console.log(this.cuidador);
+    //console.log(dataRev);
+    //console.log(this.cuidador);
+  }
+
+  ReportUser() {
+    this.auth.getToken().then(result => {
+
+      console.log(this.reportMotive);
+
+      this.search.reportUser(this.reportMotive, this.cuidador.username, result)
+        .subscribe(res => {
+           this.presentToast('User reported successfully!');
+           this.router.navigateByUrl('/tabs/search');
+        }, err => {
+          console.log(err);
+		      this.presentToast('There was an error reporting the user ' + err);
+        });
+    }, error => {
+      console.log('Unable to get the token');
+      // Maybe we should redirect the user to login page or show the error to try it again
+    });
+  }
+
+
+  startChat() {
+	console.log(this.cuidador.username);
+    this.auth.getToken().then(result => {
+      let body: any = {
+        otherUsername: this.cuidador.username
+      };
+
+      this.chatsService.startChat(body, result)
+      .subscribe(res => {
+        this.router.navigateByUrl('chat');
+		//De momento solo va al mockup
+      }, err => {
+        console.log('Error al abrir chat');
+      });
+    });
   }
 
   goToSearch() {
     this.nav.navigateRoot('/tabs/search');
   }
 
-  goToChat() {
-    this.nav.navigateRoot('/tabs/search');
+
+  async presentToast(message) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 3000
+    });
+    toast.present();
+  }
+
+  async presentAlert_Report() {
+    const alert = await this.alertController.create({
+      header: 'Report User',
+      message: 'Please tell us why you are sending us this report',
+      inputs: [
+        {
+          name: 'reportMotive',
+          placeholder: 'Add an explanation (optional)', 
+          type: 'text'
+        }
+      ],
+      buttons: [
+        {
+        text: 'Cancel',
+        role: 'cancel'
+        },
+        {
+          text: 'Confirm',
+          // funcionalitat de reportar usuario
+          handler: report => {
+            if (report.reportMotive !== '') {
+              this.reportMotive = report.reportMotive;
+            }
+            this.ReportUser();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
 }
