@@ -32,7 +32,7 @@ export class PopoverPage implements OnInit {
   }
 
   ChangePassword() {
-    console.log("Clic on Change Password")
+    //console.log("Clic on Change Password")
     this.openModal();
   }
 

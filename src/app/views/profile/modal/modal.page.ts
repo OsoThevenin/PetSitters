@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ModalController, ToastController } from '@ionic/angular';
+import { ModalController, ToastController, PopoverController } from '@ionic/angular';
 import { FormControl, FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl} from '@angular/forms';
+import { AuthProviderService } from 'src/app/providers/auth/auth-provider.service';
+import {Md5} from 'ts-md5/dist/md5';
 
 @Component({
   selector: 'app-modal',
@@ -30,7 +32,8 @@ export class ModalPage implements OnInit {
   @ViewChild('confirmed') confirmed;
   
 
-  constructor(private modalController: ModalController, public formBuilder: FormBuilder, private toastCtrl: ToastController,) { 
+  constructor(private modalController: ModalController, public formBuilder: FormBuilder, private toastCtrl: ToastController,
+    private auth: AuthProviderService, private popoverController: PopoverController) { 
 
     this.changePasswordForm = this.formBuilder.group({
       pw0fc: new FormControl('', Validators.compose([
@@ -63,14 +66,24 @@ export class ModalPage implements OnInit {
   }
 
   Confirm(){
-    //Creo un json amb els paràmetres necessaris per canviar la contrasenya
-    const body: any = {
-      newPassword: this.new.value,
-      oldPassword: this.current.value
-    };
-    //Falta comunicació amb el backend i tractament de possibles errors/missatge de succés.
-    this.presentToast('Something went wrong, please try it again');
-    this.presentToast('Your password has been successfully changed');
+    //Comunicació amb el backend i tractament de possibles errors/missatge de succés.
+    this.auth.getToken().then(result => {
+      //Creo un json amb els paràmetres necessaris per canviar la contrasenya
+      const data: any = {
+        newPassword: Md5.hashAsciiStr('petsitterplot420 ' + this.new.value),
+        oldPassword: Md5.hashAsciiStr('petsitterplot420 ' + this.current.value)
+      };
+      //console.log(data);
+      this.auth.changePassword(data, result)
+      .subscribe(res => {
+        this.presentToast('Your password has been successfully changed');
+        this.modalController.dismiss();
+        this.popoverController.dismiss();
+      }, err => {
+        this.presentToast('Something went wrong, please try it again');
+        console.log(err);
+      });
+    });
   }
 
   //Funció per mostra missatges
