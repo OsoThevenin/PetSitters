@@ -35,9 +35,12 @@
       </ion-row>
   </ion-grid>
   <ion-text>
-      <p class="description"> Did you ever hear the tragedy of Darth Plagueis The Wise?  I thought not. It's not a story the Jedi 
-        would tell you. It's a Sith legend. Darth Plagueis was a Dark Lord of the Sith, so powerful and so wise he could use the 
-        Force to influence the midichlorians to create life</p>
+      <p class="description">Description</p>
+      <p class="description">{{cuidador.description}}</p>
+      <p class="description">Availability</p>
+      <p class="description">{{cuidador.availability}}</p>
+      <p class="description">Expert in:</p>
+      <p class="description">{{cuidador.expert}}</p>
   </ion-text>
   <ion-grid>
       <ion-row *ngFor="let comment of commentsProfile">

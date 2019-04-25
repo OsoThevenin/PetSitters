@@ -11,7 +11,13 @@
              <ion-card (click)="goToPerfilCuidador(cuidador)" >
                   <img class="avatar" *ngIf="cuidador.profile_image == null" src="../../../assets/default_avatar.png">
                   <ion-card-header>
-                      <ion-card-subtitle style="text-align: center">{{cuidador.stars}}</ion-card-subtitle>
+                      <ion-row justify-content-center align-items-center>
+                          <ion-icon class="stars" name="star-outline"></ion-icon>
+                          <ion-icon class="stars" name="star-outline"></ion-icon>
+                          <ion-icon class="stars" name="star-outline"></ion-icon>
+                          <ion-icon class="stars" name="star-outline"></ion-icon>
+                          <ion-icon class="stars" name="star-outline"></ion-icon>
+                      </ion-row>
                       <ion-card-title style="text-align: center">{{cuidador.name}}</ion-card-title>
                   </ion-card-header>
               </ion-card>
