@@ -51,7 +51,7 @@
         </ion-button>
         <ion-textarea placeholder="Tap here to enter a description" [(ngModel)]="cuidador.description" disabled readonly></ion-textarea>
     </ng-template>
-
+    <!--
     <div *ngIf="availabilityEditable; else elseBlockDisponibilidad">
         <ion-label class="description">Availability</ion-label>
         <ion-textarea placeholder="Tap here to enter your availability" [(ngModel)]="cuidador.availability" #availability></ion-textarea>
@@ -69,6 +69,63 @@
         </ion-button>
         <ion-textarea placeholder="Tap here to enter your availability" [(ngModel)]="cuidador.availability" disabled readonly></ion-textarea>
     </ng-template>
+  -->
+
+  <ion-item>
+      <ion-segment [disabled]="disableSegmentBool" [(ngModel)]="day"  (ionChange)="segmentChanged($event)">  <!--(ionChange)="segmentChanged($event)"   [value]="diaSegment"--> 
+        <ion-segment-button value="Mon">
+          <ion-label>Mon</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="Tue">
+          <ion-label>Tue</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="Wed">
+          <ion-label>Wed</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="Thu" >
+          <ion-label>Thu</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="Fri">
+          <ion-label>Fri</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="Sat">
+          <ion-label>Sat</ion-label>
+        </ion-segment-button>
+        <ion-segment-button value="Sun">
+          <ion-label>Sun</ion-label>
+        </ion-segment-button>
+      </ion-segment>
+      </ion-item>
+
+      <ion-item *ngIf="diaActual != null"> <!-- [ngSwitch]="day"-->
+        <table > <!-- *ngSwitchCase="'Mon'" -->
+          <tr>
+            <th>From:</th>
+            <th><ion-input [readonly]="readonlyBool" [placeholder]="diaActual.from" #from></ion-input></th>
+            <th></th>
+            <th>To:</th>
+            <th><ion-input [readonly]="readonlyBool" [placeholder]="diaActual.to" #to></ion-input></th>
+            <th><ion-button *ngIf="botonEditar" (click)="editButton()">
+                  <ion-icon slot="icon-only" name="create"></ion-icon>
+                </ion-button>
+                <ion-button *ngIf="!botonEditar" (click)="guardarButton()">
+                  <ion-icon slot="icon-only" name="save"></ion-icon>
+                </ion-button>
+            </th>
+          </tr>
+        </table>
+      </ion-item>
+
+
+
+
+
+
+
+
+
+
+
 
     <ion-grid>
 
@@ -128,60 +185,5 @@
         class="calendar">
         </calendar>
       -->
-      <ion-item>
-      <ion-segment [value]="diaSegment" [(ngModel)]="day">  <!--(ionChange)="segmentChanged($event)"--> 
-        <ion-segment-button value="Mon" (ionSelect)="segmentButtonClicked($event)" checked>
-          <ion-label>Mon</ion-label>
-        </ion-segment-button>
-        <ion-segment-button value="Tue">
-          <ion-label>Tue</ion-label>
-        </ion-segment-button>
-        <ion-segment-button value="Wed">
-          <ion-label>Wed</ion-label>
-        </ion-segment-button>
-        <ion-segment-button value="Thu" >
-          <ion-label>Thu</ion-label>
-        </ion-segment-button>
-        <ion-segment-button value="Fri">
-          <ion-label>Fri</ion-label>
-        </ion-segment-button>
-        <ion-segment-button value="Sat">
-          <ion-label>Sat</ion-label>
-        </ion-segment-button>
-        <ion-segment-button value="Sun">
-          <ion-label>Sun</ion-label>
-        </ion-segment-button>
-      </ion-segment>
-      </ion-item>
-
-      <ion-item [ngSwitch]="day">
-        <table *ngSwitchCase="'Mon'">
-        <tr>
-         <th>
-            From: 
-         </th>
-         <th>
-           <ion-input [readonly]="readonlyBool" [placeholder]="monday.from" #from>
-           </ion-input>
-         </th>
-         <th>
-         </th>
-        <th>
-            To: 
-        </th>
-        <th>
-            <ion-input [readonly]="readonlyBool" [placeholder]="monday.to" #to>
-              </ion-input> 
-        </th>
-         <th>
-            <ion-button *ngIf="botonEditar" (click)="editButton()">
-                <ion-icon slot="icon-only" name="create"></ion-icon>
-              </ion-button>
-              <ion-button *ngIf="!botonEditar" (click)="guardarButton()">
-                  <ion-icon slot="icon-only" name="save"></ion-icon>
-                </ion-button>
-            </th>
-          </tr>
-        </table>
-      </ion-item>
+ 
 </ion-content>

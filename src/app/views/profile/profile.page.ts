@@ -27,6 +27,19 @@ export class ProfilePage {
  //   mode: 'month',
   //  currentDate: this.selectedDay
  // }
+ //dias: any = [
+   //{
+     //dia:"Mon",
+     //from:"8:00",
+     //to:"17:00"
+   //},
+   //{
+    //dia:"tuesday",
+    //from:"9:00",
+    //to:"13:00"
+  //}
+ //]
+  diaActual: any = null;
   monday: any ={from: '8:00', to: '17:00'}
   tuesday: any ={from:'06:00', to: '09:00'}
   wednesday: any ={from:'00:00', to: '23:59'}
@@ -34,10 +47,12 @@ export class ProfilePage {
   friday: any ={from:'06:00', to: '09:00'}
   saturday: any ={from:'06:00', to: '09:00'}
   sunday: any ={from:'06:00', to: '09:00'}
- 
+
+  disableSegmentBool:boolean = false;
   botonEditar:boolean = true;
   readonlyBool: boolean = true;
-  dia: string;
+  day: string;
+  
   commentsProfile: any =[
     {
       avatar: '../../../assets/default_avatar.png',
@@ -73,7 +88,6 @@ export class ProfilePage {
   availabilityEditable: boolean = false;
   expertEditable: boolean = false;
   reportMotive: any = 'Spoiler Alert! Luffy vs Big Mom!';
-  diaSegment: string;
 
   @ViewChild('description') desc;
   @ViewChild('availability') av;
@@ -241,23 +255,77 @@ export class ProfilePage {
     return await popover.present();
   }
 
+
+
   editButton(){
+    this.disableSegmentBool=true;
     this.readonlyBool=false;
     this.botonEditar=false;
+    this.f.value=this.diaActual.from;
+    this.t.value=this.diaActual.to;
   }
+
   guardarButton(){
-    if(this.dia="monday") {
+    if(this.day=="Mon") {
       this.monday.from=this.f.value;
       this.monday.to=this.t.value;
     }
+    else if(this.day=="Tue") {
+      this.tuesday.from=this.f.value;
+      this.tuesday.to=this.t.value;
+    }
+    else if(this.day=="Wed") {
+      this.wednesday.from=this.f.value;
+      this.wednesday.to=this.t.value;
+    }
+    else if(this.day=="Thu") {
+      this.thursday.from=this.f.value;
+      this.thursday.to=this.t.value;
+    }
+    else if(this.day=="Fri") {
+      this.friday.from=this.f.value;
+      this.friday.to=this.t.value;
+    }
+    else if(this.day=="Sat") {
+      this.saturday.from=this.f.value;
+      this.saturday.to=this.t.value;
+    }
+    else if(this.day=="Sun") {
+      this.saturday.from=this.f.value;
+      this.saturday.to=this.t.value;
+    }
+
     this.readonlyBool=true;
     this.botonEditar=true;
-    this.diaSegment="Mon";
+    this.f.value="";
+    this.t.value="";
+    this.disableSegmentBool=false;
   }
 
-  segmentButtonClicked(event){
-    this.dia="monday";
+  segmentChanged(event){
+    if(this.day=="Mon"){
+      this.diaActual=this.monday;
+    }
+    else if(this.day=="Tue"){
+      this.diaActual=this.tuesday;
+    }
+    else if(this.day=="Wed"){
+      this.diaActual=this.wednesday;
+    }
+    else if(this.day=="Thu"){
+      this.diaActual=this.thursday;
+    }
+    else if(this.day=="Fri"){
+      this.diaActual=this.friday;
+    }
+    else if(this.day=="Sat"){
+      this.diaActual=this.saturday;
+    }
+    else if(this.day=="Sun"){
+      this.diaActual=this.sunday;
+    }
   }
+
   //addEvent(){
   
   //}
