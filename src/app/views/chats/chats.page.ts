@@ -17,6 +17,7 @@ const STORAGE_KEY = 'my_images';
 
 export class ChatsPage implements OnInit {
   images = [];
+
   constructor(private camera: Camera, private file: File, private platform: Platform,
     private actionSheetController: ActionSheetController, private webview: WebView,
     private toastController: ToastController, private storage: Storage,
@@ -198,27 +199,27 @@ export class ChatsPage implements OnInit {
   async startUpload(imgEntry) {
     this.file.resolveLocalFilesystemUrl(imgEntry)
     .then(entry => {
+      this.presentToast('Reading file...');
       (<FileEntry>entry).file(file => this.readFile(file));
     }).catch(error => {
       this.presentToast('Error while reading the file');
     });
   }
 
-  readFile(file: any) {
+  readFile(fileIncoming: any) {
     //let extension = file.split('.');
     const reader = new FileReader();
     reader.onloadend = () => {
-      const formData = new FormData();
-      const imgBlob = new Blob([reader.result], {
-        type: file.type
-      });
-      formData.append('file', imgBlob, file.name);
+      var formData = {
+        file: reader.result
+      };
+      this.presentToast('Uploading file...');
       this.uploadImageData(formData);
     };
-    reader.readAsArrayBuffer(file);
+    reader.readAsArrayBuffer(fileIncoming);
   }
 
-  async uploadImageData(formData: FormData) {
+  async uploadImageData(formData: any) {
     console.log('FormData:' +  JSON.stringify(formData));
     const loading = await this.loadingController.create({
       message: 'Sending image...',
@@ -226,17 +227,19 @@ export class ChatsPage implements OnInit {
       duration: 2000
     });
     await loading.present();
-
+    this.presentToast('Spinning a little bit...');
     // Send HTTP post to API
     const token = this.storage.get('token');
     token.then(res => {
+      this.presentToast('Sending to the API REST...');
       this.sendApiRequest(formData, res);
     }).catch(err => {
+      this.presentToast('Error from the API REST...');
       console.log('Error when getting token' + err);
     });
   }
 
-  sendApiRequest(formData: FormData, token) {
+  sendApiRequest(formData: any, token) {
     console.log('Token:' + token);
     let httpHeaders = new HttpHeaders().set('Access-Control-Allow-Origin', '*');
     httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token);
@@ -245,14 +248,17 @@ export class ChatsPage implements OnInit {
     const options = {headers: httpHeaders, withCredentials: true};
 
     let body: any = {
-      file: formData
+      formData: formData
     };
+    this.presentToast('Posting...');
     this.http.post(this.global.baseUrl + 'store', body, options)
       .subscribe(res => {
           // SUCCESS YEAH
+          this.presentToast('Success');
           this.presentToast('Successfullly');
           console.log('Response: ' + res);
       }, err => {
+        this.presentToast('Terrible error: ' + JSON.stringify(err));
         console.log('Error: ' + JSON.stringify(err));
       });
   }
