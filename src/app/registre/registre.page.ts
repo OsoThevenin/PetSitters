@@ -1,7 +1,7 @@
 import { ToastController } from '@ionic/angular';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl, FormGroup, FormBuilder, Validators} from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl} from '@angular/forms';
 import { AuthProviderService } from './../providers/auth/auth-provider.service';
 import { GlobalService } from './../shared/global.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
@@ -38,6 +38,10 @@ export class RegistrePage implements OnInit {
       {type:'minlength', message: 'Password length must be longer or equal than 6 characters.'},
       {type:'maxlength', message: 'Password must be shorter than 25 characters.'},
       {type:'pattern', message: 'Password must contain numbers, uppercase and lowercase characters.'}
+    ],
+    'confirm' :[
+      {type:'required', message: 'Confirm password is required.'},
+      {type:'equalTo', message: 'Password mismatch.'}
     ],
     'birthDate':[
       {type:'required', message: 'Birth Date is required.'},
@@ -81,6 +85,7 @@ export class RegistrePage implements OnInit {
         Validators.maxLength(25),
         Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
       ])),
+      pw2fc: new FormControl('', [Validators.required, this.equalto('pwfcn')]),
       bdfcn: new FormControl('', Validators.compose([
         Validators.required,
         Validators.pattern('^([0-2][0-9]|(3)[0-1])(-)(((0)[0-9])|((1)[0-2]))(-)((1)(9)[0-9][0-9]|(2)(0)[0-5][0-9])$')
@@ -91,6 +96,19 @@ export class RegistrePage implements OnInit {
       ]))
     });
 
+  }
+
+  equalto(field_name): ValidatorFn {
+    return (control: AbstractControl): {[key: string]: any} => {
+    
+    let input = control.value;
+    
+    let isValid=control.root.value[field_name]==input
+    if(!isValid) 
+    return { 'equalTo': {isValid} }
+    else 
+    return null;
+    };
   }
 
 
