@@ -64,8 +64,11 @@ export class LoginPage implements OnInit {
           this.global.token = res.result.token;
           this.router.navigateByUrl('');
         }, err => {
+          console.log(err);
           if (err.status === 401) {
             this.presentToast('Bad credentials, please try again!');
+          } else if (err.status === 500) {
+            this.presentToast("Something went wrong, we can't sign you in. Please try sign up first!");
           }
         });
     } else {
