@@ -5,6 +5,7 @@ import { Storage } from '@ionic/storage';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { Platform, ActionSheetController, ToastController, LoadingController } from '@ionic/angular';
 import { File, FileEntry } from '@ionic-native/file/ngx';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { Camera, CameraOptions, PictureSourceType } from '@ionic-native/camera/ngx';
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 
@@ -17,8 +18,9 @@ const STORAGE_KEY = 'my_images';
 
 export class ChatsPage implements OnInit {
   images = [];
+  error: any = 'Sense error';
 
-  constructor(private camera: Camera, private file: File, private platform: Platform,
+  constructor(private camera: Camera, private transfer: FileTransfer, private file: File, private platform: Platform,
     private actionSheetController: ActionSheetController, private webview: WebView,
     private toastController: ToastController, private storage: Storage,
     private ref: ChangeDetectorRef, private loadingController: LoadingController,
@@ -94,15 +96,16 @@ export class ChatsPage implements OnInit {
         destinationType: this.camera.DestinationType.FILE_URI,
         mediaType: this.camera.MediaType.PICTURE,
         encodingType: this.camera.EncodingType.JPEG,
-        saveToPhotoAlbum: false,
-        correctOrientation: true
+        saveToPhotoAlbum: true,
+        correctOrientation: true,
       };
 
       this.camera.getPicture(options).then(imagePath => {
         let currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
         let correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
         this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
-        this.startUpload(imagePath);
+        console.log('Image path:' + JSON.stringify(imagePath) + 'correctPath:' + JSON.stringify(correctPath));
+        this.uploadImageData(imagePath);
       });
     } else {
       console.log(`I'm not in cordova`);
@@ -126,6 +129,7 @@ export class ChatsPage implements OnInit {
               let currentName = results[i].substring(results[i].lastIndexOf('/') + 1);
               let correctPath = results[i].substring(0, results[i].lastIndexOf('/') + 1);
               this.copyFileToLocalDir(correctPath, currentName, this.createFileName());
+              this.uploadImageData(results[i]);
           }
         }, (err) => {
           this.presentToast('Error while opening the images');
@@ -196,68 +200,119 @@ export class ChatsPage implements OnInit {
   }
 
   // When we want to send the picture to the api
-  async startUpload(imgEntry) {
+  /*async startUpload(imgEntry) {
     this.file.resolveLocalFilesystemUrl(imgEntry)
     .then(entry => {
       this.presentToast('Reading file...');
-      (<FileEntry>entry).file(file => this.readFile(file));
+      (<FileEntry>entry).file(file => this.uploadImageData(file));
     }).catch(error => {
       this.presentToast('Error while reading the file');
     });
+  }*/
+
+  upload(file: any, token: any) {
+    const fileTransfer: FileTransferObject = new FileTransferObject();
+    let filename = file.substring(file.lastIndexOf('/') + 1);
+    console.log('FileName from URI: ' + filename);
+    let options: FileUploadOptions = {
+       fileKey: 'file',
+       fileName: filename,
+       headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Authorization': 'Bearer ' + token,
+        'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW'
+       },
+       mimeType: 'image/jpeg'
+    };
+    let uri = this.global.baseUrl + 'store';
+    fileTransfer.upload(file, encodeURI(uri), options)
+     .then((data) => {
+        // success
+        this.error = JSON.stringify(data);
+        this.presentToast('Successfullly');
+        console.log('Response: ' + data);
+     }, (err) => {
+        // error
+        this.error = JSON.stringify(err);
+        console.log('Hi ha un error tet');
+        this.presentToast('Terrible error: ' + JSON.stringify(err));
+        console.log('Error: ' + JSON.stringify(err));
+     });
   }
 
-  readFile(fileIncoming: any) {
-    //let extension = file.split('.');
-    const reader = new FileReader();
+  /*readFile(fileIncoming: any) {
+    console.log("Nom fitxer: " + JSON.stringify(fileIncoming));
+    //const blb    = new Blob(["Lorem ipsum sit"], {type: "text/plain"});
+    /*reader.onloadend = function() {
+      var text = console.log("result read: " + text);
+      console.log(text);
+      const formData = new FormData();
+      formData.append('file', blb, fileIncoming);
+      self.presentToast('Uploading file...');
+      self.uploadImageData(formData);
+    };*/
+
+    /*
+
     reader.onloadend = () => {
-      var formData = {
-        file: reader.result
-      };
-      this.presentToast('Uploading file...');
+      console.log('Reader result: ' + JSON.stringify(reader.result));
+      const formData = new FormData();
+      const imgBlob = new Blob([reader.result], {
+          type: fileIncoming.type
+      });
+      formData.append('file', imgBlob, fileIncoming.name);
       this.uploadImageData(formData);
     };
-    reader.readAsArrayBuffer(fileIncoming);
+
+
+    // reader.readAsText(blb);
+    reader.readAsText(fileIncoming);
+
+
+  var formData = {
+    file: createReadStream(fileIncoming.localURL),
+  };
+
+  this.uploadImageData(formData);
+}*/
+
+  uploadImageData(file: any) {
+    // Send HTTP post to API
+    const token = this.storage.get('token');
+    token.then(res => {
+      this.upload(file, res);
+    }).catch(err => {
+      console.log('Error when getting token' + err);
+    });
   }
 
-  async uploadImageData(formData: any) {
-    console.log('FormData:' +  JSON.stringify(formData));
+  async sendApiRequest(formData: any, token) {
     const loading = await this.loadingController.create({
       message: 'Sending image...',
       spinner: 'bubbles',
       duration: 2000
     });
     await loading.present();
-    this.presentToast('Spinning a little bit...');
-    // Send HTTP post to API
-    const token = this.storage.get('token');
-    token.then(res => {
-      this.presentToast('Sending to the API REST...');
-      this.sendApiRequest(formData, res);
-    }).catch(err => {
-      this.presentToast('Error from the API REST...');
-      console.log('Error when getting token' + err);
-    });
-  }
 
-  sendApiRequest(formData: any, token) {
+    let body: any = {
+      formData: FormData
+    };
     console.log('Token:' + token);
     let httpHeaders = new HttpHeaders().set('Access-Control-Allow-Origin', '*');
     httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token);
     httpHeaders = httpHeaders.append('Content-Type', 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW');
-    //httpHeaders = httpHeaders.append('Content-type', )
     const options = {headers: httpHeaders, withCredentials: true};
 
-    let body: any = {
-      formData: formData
-    };
     this.presentToast('Posting...');
     this.http.post(this.global.baseUrl + 'store', body, options)
       .subscribe(res => {
           // SUCCESS YEAH
-          this.presentToast('Success');
+          this.error = JSON.stringify(res);
           this.presentToast('Successfullly');
           console.log('Response: ' + res);
       }, err => {
+        this.error = JSON.stringify(err);
+        console.log('Hi ha un error tet');
         this.presentToast('Terrible error: ' + JSON.stringify(err));
         console.log('Error: ' + JSON.stringify(err));
       });

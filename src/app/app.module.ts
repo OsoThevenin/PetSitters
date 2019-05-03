@@ -12,6 +12,7 @@ import { Camera } from '@ionic-native/camera/ngx';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { File } from '@ionic-native/file/ngx';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -43,6 +44,7 @@ import { AuthProviderService } from './providers/auth/auth-provider.service';
     Camera,
     WebView,
     File,
+    FileTransfer,
     ImagePicker
   ],
   bootstrap: [AppComponent]
