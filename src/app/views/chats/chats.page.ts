@@ -199,18 +199,7 @@ export class ChatsPage implements OnInit {
     });
   }
 
-  // When we want to send the picture to the api
-  /*async startUpload(imgEntry) {
-    this.file.resolveLocalFilesystemUrl(imgEntry)
-    .then(entry => {
-      this.presentToast('Reading file...');
-      (<FileEntry>entry).file(file => this.uploadImageData(file));
-    }).catch(error => {
-      this.presentToast('Error while reading the file');
-    });
-  }*/
-
-  upload(file: any, token: any) {
+  async upload(file: any, token: any) {
     const fileTransfer: FileTransferObject = new FileTransferObject();
     let filename = file.substring(file.lastIndexOf('/') + 1);
     console.log('FileName from URI: ' + filename);
@@ -219,8 +208,7 @@ export class ChatsPage implements OnInit {
        fileName: filename,
        headers: {
         'Access-Control-Allow-Origin': '*',
-        'Authorization': 'Bearer ' + token,
-        'Content-Type': 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW'
+        'Authorization': 'Bearer ' + token
        },
        mimeType: 'image/jpeg'
     };
@@ -228,53 +216,14 @@ export class ChatsPage implements OnInit {
     fileTransfer.upload(file, encodeURI(uri), options)
      .then((data) => {
         // success
-        this.error = JSON.stringify(data);
-        this.presentToast('Successfullly');
+        this.presentToast('The image has been successfully uploaded');
         console.log('Response: ' + data);
      }, (err) => {
         // error
-        this.error = JSON.stringify(err);
-        console.log('Hi ha un error tet');
-        this.presentToast('Terrible error: ' + JSON.stringify(err));
+        this.presentToast('An error has occurred');
         console.log('Error: ' + JSON.stringify(err));
      });
   }
-
-  /*readFile(fileIncoming: any) {
-    console.log("Nom fitxer: " + JSON.stringify(fileIncoming));
-    //const blb    = new Blob(["Lorem ipsum sit"], {type: "text/plain"});
-    /*reader.onloadend = function() {
-      var text = console.log("result read: " + text);
-      console.log(text);
-      const formData = new FormData();
-      formData.append('file', blb, fileIncoming);
-      self.presentToast('Uploading file...');
-      self.uploadImageData(formData);
-    };*/
-
-    /*
-
-    reader.onloadend = () => {
-      console.log('Reader result: ' + JSON.stringify(reader.result));
-      const formData = new FormData();
-      const imgBlob = new Blob([reader.result], {
-          type: fileIncoming.type
-      });
-      formData.append('file', imgBlob, fileIncoming.name);
-      this.uploadImageData(formData);
-    };
-
-
-    // reader.readAsText(blb);
-    reader.readAsText(fileIncoming);
-
-
-  var formData = {
-    file: createReadStream(fileIncoming.localURL),
-  };
-
-  this.uploadImageData(formData);
-}*/
 
   uploadImageData(file: any) {
     // Send HTTP post to API
@@ -284,37 +233,5 @@ export class ChatsPage implements OnInit {
     }).catch(err => {
       console.log('Error when getting token' + err);
     });
-  }
-
-  async sendApiRequest(formData: any, token) {
-    const loading = await this.loadingController.create({
-      message: 'Sending image...',
-      spinner: 'bubbles',
-      duration: 2000
-    });
-    await loading.present();
-
-    let body: any = {
-      formData: FormData
-    };
-    console.log('Token:' + token);
-    let httpHeaders = new HttpHeaders().set('Access-Control-Allow-Origin', '*');
-    httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token);
-    httpHeaders = httpHeaders.append('Content-Type', 'multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW');
-    const options = {headers: httpHeaders, withCredentials: true};
-
-    this.presentToast('Posting...');
-    this.http.post(this.global.baseUrl + 'store', body, options)
-      .subscribe(res => {
-          // SUCCESS YEAH
-          this.error = JSON.stringify(res);
-          this.presentToast('Successfullly');
-          console.log('Response: ' + res);
-      }, err => {
-        this.error = JSON.stringify(err);
-        console.log('Hi ha un error tet');
-        this.presentToast('Terrible error: ' + JSON.stringify(err));
-        console.log('Error: ' + JSON.stringify(err));
-      });
   }
 }
