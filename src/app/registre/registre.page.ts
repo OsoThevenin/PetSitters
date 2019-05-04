@@ -131,7 +131,7 @@ export class RegistrePage implements OnInit {
       .subscribe(res => {
         // When the result is okay
         console.log(res);
-        this.router.navigateByUrl('/email-confirm');
+        this.router.navigateByUrl('/email-confirm/' + body.username);
         this.presentToast('SignedUp successfully!');
         },
         err => {
