@@ -6,6 +6,11 @@
 
 <ion-content>  
     <ion-searchbar [(ngModel)]="searchTerm" (ionChange)="devuelvePerfilesCuidadores()"></ion-searchbar>
+    <ion-select [(ngModel)]="searchFilter">
+        <ion-select-option value="Name">Name</ion-select-option>
+        <ion-select-option value="Expert">Expert</ion-select-option>
+        <ion-select-option value="Distance">Distance</ion-select-option>
+    </ion-select>
     <ion-grid style="height: 100%">
         <ion-row justify-content: center align-items: center >
           <ion-col *ngFor="let cuidador of perfilsCuidadors">

@@ -11,6 +11,7 @@ import { throwError } from 'rxjs';
 })
 export class SearchPage {
   public searchTerm: string = "";
+  public searchFilter: string;
 
   constructor(private nav: NavController, private search: SearchService, private auth: AuthProviderService) {
   }
@@ -46,9 +47,21 @@ devuelvePerfilesCuidadores(): any {
     const token = result;
 	
 	if (this.searchTerm != ""){
-	  this.search.filterName(this.searchTerm,token).subscribe(res => {
+		if (this.searchFilter == "Name"){
+		  this.search.filterName(this.searchTerm,token).subscribe(res => {
 	  	  this.perfilsCuidadors = res;
-	  });
+		  });
+		}
+		else if (this.searchFilter == "Expert"){
+		  this.search.filterExpert(this.searchTerm,token).subscribe(res => {
+	  	  this.perfilsCuidadors = res;
+		  });
+		}
+		else if (this.searchFilter == "Distance"){
+		  this.search.filterDistance(this.searchTerm,token).subscribe(res => {
+	  	  this.perfilsCuidadors = res;
+		  });
+		}
 	}
 	else{
 	 console.log('token: ' + token);
