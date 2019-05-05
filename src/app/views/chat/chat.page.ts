@@ -8,7 +8,12 @@ styleUrls: ['./chat.page.scss'],
 })
 export class ChatPage implements OnInit {
 
-constructor( private router: Router) { }
+  missatge: String = "";
+  missatges = [];
+
+constructor( private router: Router) { 
+  this.getMissatges();
+}
 
   ngOnInit() {
   }
@@ -24,5 +29,13 @@ constructor( private router: Router) { }
   }
   contratar(){
     console.log("contrato")
+  }
+
+  getMissatges(){
+    console.log("cdemano missatges")
+  }
+
+  enviaMissatge(){
+    console.log(this.missatge);
   }
 }
