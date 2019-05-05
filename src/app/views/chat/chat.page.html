@@ -44,7 +44,23 @@
 </ion-header>
 
 <ion-content padding>
+  <ion-grid>
+    <ion-row *ngFor="let mesg of messages">
+        <ion-card *ngIf='mesg.user == "me"'class="missatge-meu">
+          <ion-card-content style="color:white">
+            {{mesg.message}}
+          </ion-card-content>
+        </ion-card>
+        <ion-card *ngIf='mesg.user !== "me"'class="missatge-altre">
+          <ion-card-content style="color:white">
+            {{mesg.message}}
+          </ion-card-content>
+          
+        </ion-card>
 
+    </ion-row>
+  </ion-grid>
+  
 </ion-content>
 
 <ion-footer>
@@ -52,7 +68,7 @@
     <ion-button (click)="abrirCamara()" icon-only fill="solid" shape="round">
       <ion-icon name="camera"></ion-icon>
     </ion-button>
-    <ion-input placeholder="   Write a message" spellcheck type="text" maxlength="1000" [(ngModel)]="missatge"></ion-input>
+    <ion-input placeholder="   Write a message" spellcheck type="text" maxlength="1000" [(ngModel)]="message"></ion-input>
     <ion-button icon-only fill="solid" shape="round"(click)="enviaMissatge()">
       <ion-icon name="send"></ion-icon>
     </ion-button>

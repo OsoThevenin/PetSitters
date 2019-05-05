@@ -8,8 +8,12 @@ styleUrls: ['./chat.page.scss'],
 })
 export class ChatPage implements OnInit {
 
-  missatge: String = "";
-  missatges = [];
+  message = '';
+  messages = [
+    {message: 'hola', user: 'user2'},
+    {message: 'bon dia', user: 'me'},
+    {message: 'que tal', user: 'user2'},
+  ];
 
 constructor( private router: Router) { 
   this.getMissatges();
@@ -22,20 +26,22 @@ constructor( private router: Router) {
     this.router.navigateByUrl('/tabs/chats');
   }
   abrirCamara(){
-    console.log("Juntar con lo de Pere")
+    console.log('Juntar con lo de Pere')
   }
   goProfile(){
-    console.log("voyprofile")
+    console.log('voyprofile')
   }
   contratar(){
-    console.log("contrato")
+    console.log('contrato')
   }
 
   getMissatges(){
-    console.log("cdemano missatges")
+    console.log('demano missatges')
   }
 
   enviaMissatge(){
-    console.log(this.missatge);
+    console.log(this.message);
+    this.messages.push({message: this.message, user: 'me'});
+    this.message = '';
   }
 }
