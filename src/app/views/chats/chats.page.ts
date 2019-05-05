@@ -26,8 +26,25 @@ export class ChatsPage implements OnInit {
     private actionSheetController: ActionSheetController, private webview: WebView,
     private toastController: ToastController, private storage: Storage,
     private ref: ChangeDetectorRef, private loadingController: LoadingController,
-    private imagePicker: ImagePicker, private http: HttpClient, private global: GlobalService) { }
+    private imagePicker: ImagePicker, private http: HttpClient, private global: GlobalService, private router: Router) { }
 
+    data = [
+      {avatar:'../../../assets/default_avatar.png', mensaje:'hey ther as,akefei fefwiefibh ew efi wiebhfihwih ef we fiwfi wi fw i e11111', nombre:'user1'},
+      {avatar:'../../../assets/default_avatar.png', mensaje:'hey there2222', nombre:'user2'},
+      {avatar:'../../../assets/default_avatar.png', mensaje:'hey ther333e', nombre:'user3'},
+      {avatar:'../../../assets/default_avatar.png', mensaje:'hey ther444e', nombre:'user4'},
+  ];
+
+  chatsUsuario=this.data;
+
+  devuelveChatsUsuario(): any{
+  return this.data;
+  }
+
+  abreChat(){
+    this.router.navigateByUrl('/chat');
+  }
+  
   ngOnInit() {
     // Carregar images guardades
     this.platform.ready().then(() => {
