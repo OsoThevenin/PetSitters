@@ -61,6 +61,8 @@ export class PerfilCuidadorPage implements OnInit {
     }
   ];
 
+  favorito: boolean = false; //Eso hay que pedirlo a backe-end!!!
+
   constructor(private nav: NavController, private actrout: ActivatedRoute,
     private search: SearchService, private auth: AuthProviderService, private chatsService: ChatsService,
    private router: Router, private toastController: ToastController, private alertController: AlertController) {
@@ -96,8 +98,6 @@ export class PerfilCuidadorPage implements OnInit {
       console.log(err);
       return throwError;
     });
-    //console.log(dataRev);
-    //console.log(this.cuidador);
   }
 
   ReportUser() {
@@ -133,6 +133,35 @@ export class PerfilCuidadorPage implements OnInit {
 		//De momento solo va al mockup
       }, err => {
         console.log('Error al abrir chat');
+      });
+    });
+  }
+
+  desmarcarFavorito() {
+    console.log("He clicado desmarcar como favorito");
+    this.auth.getToken().then(result => {
+      const dataRev = this.actrout.snapshot.paramMap.get('username');
+      this.auth.addFavorites(dataRev, result)
+      .subscribe(res => {
+        this.favorito = true;
+      }, err => {
+        this.presentToast('Something went wrong, please try it again');
+        console.log(err);
+      });
+    });
+  }
+
+  marcarFavorito(){
+    console.log("He clicado marcar como favorito");
+    this.auth.getToken().then(result => {
+      const dataRev = this.actrout.snapshot.paramMap.get('username');
+      console.log(result);
+      this.auth.addFavorites(dataRev, result)
+      .subscribe(res => {
+        this.favorito = false;
+      }, err => {
+        this.presentToast('Something went wrong, please try it again');
+        console.log(err);
       });
     });
   }
