@@ -43,7 +43,7 @@ import { ModalPageModule } from './views/profile/modal/modal.module';
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     GlobalService,
-    SearchService
+    SearchService,
     AuthProviderService,
     Camera,
     WebView,
