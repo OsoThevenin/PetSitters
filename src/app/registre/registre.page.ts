@@ -12,7 +12,6 @@ import {Md5} from 'ts-md5/dist/md5';
   templateUrl: './registre.page.html',
   styleUrls: ['./registre.page.scss'],
 })
- 
 
 export class RegistrePage implements OnInit {
   

@@ -11,33 +11,26 @@
         padding: 0px 0px 0px 0px;
     }
 
-    ion-label.mensaje {
-        padding: 20px 0px 0px 50px;
-    }
+<ion-content padding>
+    <h3 *ngIf="images.length == 0" text-center> Please select an image</h3>
+    <ion-list>
+      <ion-item *ngFor = "let img of images; index as pos">
+        <ion-thumbnail slot="start">
+          <ion-img [src]="img.path"></ion-img>
+        </ion-thumbnail>
 
-</style>
-<ion-content>
-    <!-- <ion-label>Chats</ion-label> -->
-    <ion-list class=" ex1" *ngFor="let chat of chatsUsuario">
-        <ion-item (click)="abreChat()">
-            <ion-grid>
-                <ion-row>
-                    <ion-avatar>
-                        <ion-img [src]=chat.avatar></ion-img>
-                    </ion-avatar>
-                    <ion-label class="mensaje"><strong>{{chat.nombre}}</strong></ion-label>
-                </ion-row>
-                <ion-row>
-                    <p class="mensaje">{{chat.mensaje}}</p>
-                </ion-row>
-            </ion-grid>
-            
-            
-            
-
-        </ion-item>
-        <br />
-        
-
+        <ion-button slot="end" fill="clear" (click)="deleteImage(img, pos)">
+          <ion-icon slot="icon-only" name="trash"></ion-icon>
+        </ion-button>
+      </ion-item>
     </ion-list>
 </ion-content>
+
+<ion-footer>
+  <ion-toolbar color="primary">
+    <ion-button (click)="selectImage()" shape="round" color="light" expand= "full" fill="clear">
+      <ion-icon name="camera" slot="start"></ion-icon>
+      Select Image
+    </ion-button>
+  </ion-toolbar>
+</ion-footer>
