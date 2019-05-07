@@ -104,7 +104,7 @@ export class AuthProviderService {
     httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token);
     const options = {headers: httpHeaders};
 
-    return this.http.post<any>(this.global.baseUrl + 'addFavorites?userList=' + data, options);
+    return this.http.post<any>(this.global.baseUrl + 'addFavorites?userList=' + data, "", options);
   }
 
   // sending a POST to unset Favorites
@@ -115,8 +115,17 @@ export class AuthProviderService {
     httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token);
     const options = {headers: httpHeaders};
 
-    return this.http.post<any>(this.global.baseUrl + 'unsetFavorites?userList=' + data, options);
+    return this.http.post<any>(this.global.baseUrl + 'unsetFavorites?userList=' + data, "", options);
   }
 
+  // sending GET favorites request
+  getFavorites(token): Observable<any> {
+    let httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    httpHeaders = httpHeaders.append('Access-Control-Allow-Origin', '*');
+    httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token);
+    const options = {headers: httpHeaders};
+
+    return this.http.get<any>(this.global.baseUrl + 'getFavorites', options);
+  }
 
 }
