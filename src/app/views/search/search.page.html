@@ -6,7 +6,7 @@
 
 <ion-content>  
     <ion-searchbar [(ngModel)]="searchTerm" (ionChange)="devuelvePerfilesCuidadores()"></ion-searchbar>
-    <ion-select [(ngModel)]="searchFilter">
+    <ion-select [(ngModel)]="searchFilter" value="Name">
         <ion-select-option value="Name">Name</ion-select-option>
         <ion-select-option value="Expert">Expert</ion-select-option>
         <ion-select-option value="Distance">Distance</ion-select-option>
