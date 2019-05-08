@@ -5,6 +5,7 @@
     </ion-title>
   </ion-toolbar>
 </ion-header>
+
 <style>
     ion-list.ex1 {
         
@@ -16,29 +17,26 @@
     }
 
 </style>
+
 <ion-content>
     <!-- <ion-label>Chats</ion-label> -->
-    <ion-list class=" ex1" *ngFor="let chat of chatsUsuario">
+    <ion-list class=" ex1" *ngFor="let chat of activeChats">
         <ion-item (click)="abreChat()">
             <ion-grid>
                 <ion-row>
-                    <ion-avatar>
-                        <ion-img [src]=chat.avatar></ion-img>
-                    </ion-avatar>
-                    <ion-label class="mensaje"><strong>{{chat.nombre}}</strong></ion-label>
-                </ion-row>
-                <ion-row>
-                    <p class="mensaje">{{chat.mensaje}}</p>
+                    <ion-label class="mensaje"><strong>{{chat}}</strong></ion-label>
                 </ion-row>
             </ion-grid>
-            
-            
-            
-
         </ion-item>
-        <br />
-      </ion-list>
+    </ion-list>
 </ion-content>
+
+
+
+
+
+
+
 <!--
 <ion-content padding>
     <h3 *ngIf="images.length == 0" text-center> Please select an image</h3>

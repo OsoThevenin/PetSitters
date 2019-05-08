@@ -19,4 +19,13 @@ export class ChatsService {
     return this.http.post<any>(this.global.baseUrl + 'startChat', body, options);
   }
 
+  getActiveChats(token): Observable<any> {
+    let httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    httpHeaders = httpHeaders.append('Access-Control-Allow-Origin', '*');
+    httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token);
+    const options = {headers: httpHeaders};
+
+    return this.http.get<any>(this.global.baseUrl + 'getOpenedChats', options);
+  }
+
 }

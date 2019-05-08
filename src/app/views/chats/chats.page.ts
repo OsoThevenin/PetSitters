@@ -10,6 +10,10 @@ import { Camera, CameraOptions, PictureSourceType } from '@ionic-native/camera/n
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { stringify } from '@angular/compiler/src/util';
 import { Router } from '@angular/router';
+import { AuthProviderService } from 'src/app/providers/auth/auth-provider.service';
+import { ChatsService } from 'src/app/providers/chats/chats.service';
+import { throwError } from 'rxjs';
+
 
 const STORAGE_KEY = 'my_images';
 @Component({
@@ -21,31 +25,28 @@ const STORAGE_KEY = 'my_images';
 export class ChatsPage implements OnInit {
   images = [];
   error: any = 'Sense error';
+  activeChats = [];
 
   constructor(private camera: Camera, private transfer: FileTransfer, private file: File, private platform: Platform,
     private actionSheetController: ActionSheetController, private webview: WebView,
     private toastController: ToastController, private storage: Storage,
     private ref: ChangeDetectorRef, private loadingController: LoadingController,
-    private imagePicker: ImagePicker, private http: HttpClient, private global: GlobalService, private router: Router) { }
+    private imagePicker: ImagePicker, private http: HttpClient, private global: GlobalService, private router: Router, private auth: AuthProviderService, private chats: ChatsService) { }
+    
 
     data = [
-      {avatar:'../../../assets/default_avatar.png', mensaje:'hey ther as,akefei fefwiefibh ew efi wiebhfihwih ef we fiwfi wi fw i e11111', nombre:'user1'},
-      {avatar:'../../../assets/default_avatar.png', mensaje:'hey there2222', nombre:'user2'},
-      {avatar:'../../../assets/default_avatar.png', mensaje:'hey ther333e', nombre:'user3'},
-      {avatar:'../../../assets/default_avatar.png', mensaje:'hey ther444e', nombre:'user4'},
+      {username: "Pere"},
+      {username: "David"},
+      {username: "Hector"},
+      {username: "Ruben"}
   ];
-
-  chatsUsuario=this.data;
-
-  devuelveChatsUsuario(): any{
-  return this.data;
-  }
 
   abreChat(){
     this.router.navigateByUrl('/chat');
   }
   
   ngOnInit() {
+    this.activeChats = this.showActiveChats();
     // Carregar images guardades
     this.platform.ready().then(() => {
       this.loadStoredImages();
@@ -252,5 +253,21 @@ export class ChatsPage implements OnInit {
     }).catch(err => {
       console.log('Error when getting token' + err);
     });
+  }
+
+  showActiveChats(): any {
+    this.auth.getToken().then(result => {
+      const token = result;
+      console.log('token: ' + token);
+	    this.chats.getActiveChats(token).subscribe(res => {
+	   // console.log(res);
+	      this.activeChats = res;
+	   // console.log(this.perfilsCuidadors);
+	    });
+    }).catch(err => {
+	    console.log(err);
+	    return throwError;
+	  });
+  return this.activeChats;
   }
 }
