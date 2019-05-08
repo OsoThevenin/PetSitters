@@ -43,6 +43,7 @@ export class AuthProviderService {
     return this.http.post<any>(this.global.baseUrl + 'deleteAccount', data, options);
   }
 
+  // sending a POST to change password
   changePassword(data, token): Observable<any> {
     // Add token to headers
     let httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
@@ -53,6 +54,7 @@ export class AuthProviderService {
     return this.http.post<any>(this.global.baseUrl + 'changePassword', data, options);
   }
 
+  // sending a POST to reset password
   requestResetPassword(data): Observable<any> {
     let httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
     httpHeaders = httpHeaders.append('Access-Control-Allow-Origin', '*');
@@ -84,4 +86,46 @@ export class AuthProviderService {
 
     return this.http.post<any>(this.global.baseUrl + 'modify/' + atribute, data, options);
   }
+
+  // sending a POST to send confirmation email
+  resendEmail(data): Observable<any> {
+    let httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    httpHeaders = httpHeaders.append('Access-Control-Allow-Origin', '*');
+    const options = {headers: httpHeaders};
+    
+    return this.http.post<any>(this.global.baseUrl + 'sendEmail?username=' + data, options);
+  }
+
+  // sending a POST to add Favorites
+  addFavorites(data, token): Observable<any> {
+    // Add token to headers
+    let httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    httpHeaders = httpHeaders.append('Access-Control-Allow-Origin', '*');
+    httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token);
+    const options = {headers: httpHeaders};
+
+    return this.http.post<any>(this.global.baseUrl + 'addFavorites?userList=' + data, "", options);
+  }
+
+  // sending a POST to unset Favorites
+  unsetFavorites(data, token): Observable<any> {
+    // Add token to headers
+    let httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    httpHeaders = httpHeaders.append('Access-Control-Allow-Origin', '*');
+    httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token);
+    const options = {headers: httpHeaders};
+
+    return this.http.post<any>(this.global.baseUrl + 'unsetFavorites?userList=' + data, "", options);
+  }
+
+  // sending GET favorites request
+  getFavorites(token): Observable<any> {
+    let httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    httpHeaders = httpHeaders.append('Access-Control-Allow-Origin', '*');
+    httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token);
+    const options = {headers: httpHeaders};
+
+    return this.http.get<any>(this.global.baseUrl + 'getFavorites', options);
+  }
+
 }

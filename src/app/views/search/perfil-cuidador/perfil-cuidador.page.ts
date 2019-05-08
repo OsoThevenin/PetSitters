@@ -61,17 +61,20 @@ export class PerfilCuidadorPage implements OnInit {
     }
   ];
 
+  favorito: boolean = false;
+  favorites: any;
+  dataRev = this.actrout.snapshot.paramMap.get('username');
+
   constructor(private nav: NavController, private actrout: ActivatedRoute,
     private search: SearchService, private auth: AuthProviderService, private chatsService: ChatsService,
    private router: Router, private toastController: ToastController, private alertController: AlertController) {
   }
 
   ngOnInit() {
-    const dataRev = this.actrout.snapshot.paramMap.get('username');
     this.auth.getToken().then(result => {
       const token = result;
       // console.log('token: ' + token);
-      this.search.getUser(dataRev, token).subscribe(res => {
+      this.search.getUser(this.dataRev, token).subscribe(res => {
         //console.log(res);
         this.cuidador = res;
         if (this.cuidador.availability != "None") {
@@ -92,12 +95,24 @@ export class PerfilCuidadorPage implements OnInit {
            this.sunday.to=horasdias[13];
         }
       });
+
+      this.auth.getFavorites(token).subscribe(res => {
+        //console.log("res:", res)
+        this.favorites = res;
+        if (typeof this.favorites !== null) {
+          for (var i of this.favorites) {
+            if (i.username == this.dataRev) {
+              this.favorito = true;
+            }
+          }
+        }
+
+      });
+
     }).catch(err => {
       console.log(err);
       return throwError;
     });
-    //console.log(dataRev);
-    //console.log(this.cuidador);
   }
 
   ReportUser() {
@@ -134,6 +149,38 @@ export class PerfilCuidadorPage implements OnInit {
       }, err => {
         console.log('Error al abrir chat');
       });
+    });
+  }
+  
+  desmarcarFavorito() {
+    console.log("He clicado desmarcar como favorito");
+    this.auth.getToken().then(result => {
+      const dataRev = this.actrout.snapshot.paramMap.get('username');
+      this.auth.unsetFavorites(dataRev, result).subscribe(res => {
+        this.favorito = false;
+      }, err => {
+        this.presentToast('Something went wrong, please try it again');
+        console.log(err);
+      });
+    });
+  }
+
+  marcarFavorito(){
+    console.log("He clicado marcar como favorito");
+    this.auth.getToken().then(result => {
+      const token = result;
+      const data = this.actrout.snapshot.paramMap.get('username');
+      //console.log('token: ' + token);
+      this.auth.addFavorites(data, token).
+          subscribe(res => {
+            this.favorito = true;
+          }, err => {
+            console.log(err);
+            this.presentToast('Something went wrong, please try it again');
+          });
+    }).catch(err => {
+      console.log(err);
+      return throwError;
     });
   }
 

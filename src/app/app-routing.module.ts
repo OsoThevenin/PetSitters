@@ -17,9 +17,8 @@ const routes: Routes = [
   { path: 'trophies', loadChildren: './views/trophies/trophies.module#TrophiesPageModule' },
   { path: 'perfil-cuidador/:username', loadChildren: './views/search/perfil-cuidador/perfil-cuidador.module#PerfilCuidadorPageModule' },
   { path: 'chat', loadChildren: './views/chat/chat.module#ChatPageModule' },
-  { path: 'email-confirm', loadChildren: './email-confirm/email-confirm.module#EmailConfirmPageModule' },
-  { path: 'resetpassword', loadChildren: './resetpassword/resetpassword.module#ResetpasswordPageModule' },
-  { path: 'newpassword', loadChildren: './newpassword/newpassword.module#NewpasswordPageModule' }
+  { path: 'email-confirm/:username', loadChildren: './email-confirm/email-confirm.module#EmailConfirmPageModule' },
+  { path: 'resetpassword', loadChildren: './resetpassword/resetpassword.module#ResetpasswordPageModule' }
 ];
 @NgModule({
   imports: [
