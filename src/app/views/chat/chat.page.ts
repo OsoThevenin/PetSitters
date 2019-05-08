@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthProviderService } from 'src/app/providers/auth/auth-provider.service';
+
 
 @Component({
 selector: 'app-chat',
@@ -7,19 +9,25 @@ templateUrl: './chat.page.html',
 styleUrls: ['./chat.page.scss'],
 })
 export class ChatPage implements OnInit {
-
+  username: any;
   message = '';
-  messages = [
-    {message: 'hola', user: 'user2'},
-    {message: 'bon dia', user: 'me'},
-    {message: 'que tal', user: 'user2'},
-  ];
+  messages = [];
+  @ViewChild('content') content: any;
 
-constructor( private router: Router) { 
+constructor( private router: Router, private auth: AuthProviderService) {
   this.getMissatges();
 }
 
   ngOnInit() {
+    this.auth.getUsername().then(user =>{
+      this.username = user;
+      this.messages = [
+        {message: 'hola', user: 'user2'},
+        {message: 'bon dia', user: user},
+        {message: 'que tal', user: 'user2'},
+      ];
+    });
+    
   }
 
   goBack(){
@@ -40,8 +48,15 @@ constructor( private router: Router) {
   }
 
   enviaMissatge(){
-    console.log(this.message);
-    this.messages.push({message: this.message, user: 'me'});
-    this.message = '';
+    console.log(this.messages);
+    if (this.message !== ''){
+      this.messages.push({message: this.message, user: this.username});
+      this.message = '';
+      this.content.scrollToBottom();
+    }
   }
+  ionViewDidEnter(){
+    this.content.scrollToBottom();
+  }
+
 }
