@@ -46,6 +46,10 @@
     font-weight: bold;
 }
 
+ion-datetime{
+    background-color: #97c7f3;
+    border-radius: 8px;
+}
 .avatar{
     width: 25%;
     height: 25%;
@@ -71,6 +75,7 @@ ion-card{
 
 ion-content{
     --ion-background-color: #97c7f3;
+    font-weight: bold;
 }
 ion-segment-button{
     width: 12%;

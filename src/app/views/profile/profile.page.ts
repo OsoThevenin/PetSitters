@@ -84,12 +84,10 @@ export class ProfilePage implements OnInit {
      private storage: Storage, public formBuilder: FormBuilder) {
       this.horasForm = this.formBuilder.group({
         fromfcn: new FormControl('', Validators.compose([
-          Validators.required,
-          Validators.pattern('^([0-1][0-9]|2[0-3]):[0-5][0-9]$') 
+          Validators.required
         ])),
         tofcn: new FormControl('', Validators.compose([
-          Validators.required,
-          Validators.pattern('^([0-1][0-9]|2[0-3]):[0-5][0-9]$') 
+          Validators.required 
         ]))
       });
      }
@@ -143,7 +141,6 @@ export class ProfilePage implements OnInit {
     + this.friday.from + ',' + this.friday.to + ',' 
     + this.saturday.from + ',' + this.saturday.to + ',' 
     + this.sunday.from + ',' + this.sunday.to + ',';
-
     const atr: string = "availability";
     this.auth.getToken().then(result => {
       const token = result;
@@ -242,39 +239,45 @@ export class ProfilePage implements OnInit {
   }
 
   guardarButton(){
+    let f1=this.f.value;
+    let t1=this.t.value;
+    if(this.f.value.length > 5) {
+      f1=this.f.value.substring(11,16);
+      t1=this.t.value.substring(11,16);
+    }
     if(this.day=="Mon") {
-      this.monday.from=this.f.value;
-      this.monday.to=this.t.value;
+      this.monday.from=f1;
+      this.monday.to=t1;
     }
     else if(this.day=="Tue") {
-      this.tuesday.from=this.f.value;
-      this.tuesday.to=this.t.value;
+      this.tuesday.from=f1;
+      this.tuesday.to=t1;
     }
     else if(this.day=="Wed") {
-      this.wednesday.from=this.f.value;
-      this.wednesday.to=this.t.value;
+      this.wednesday.from=f1;
+      this.wednesday.to=t1;
     }
     else if(this.day=="Thu") {
-      this.thursday.from=this.f.value;
-      this.thursday.to=this.t.value;
+      this.thursday.from=f1;
+      this.thursday.to=t1;
     }
     else if(this.day=="Fri") {
-      this.friday.from=this.f.value;
-      this.friday.to=this.t.value;
+      this.friday.from=f1;
+      this.friday.to=t1;
     }
     else if(this.day=="Sat") {
-      this.saturday.from=this.f.value;
-      this.saturday.to=this.t.value;
+      this.saturday.from=f1;
+      this.saturday.to=t1;
     }
     else if(this.day=="Sun") {
-      this.saturday.from=this.f.value;
-      this.saturday.to=this.t.value;
+      this.saturday.from=f1;
+      this.saturday.to=t1;
     }
 
     this.TakeAvailability();
 
-    this.f.value="";
-    this.t.value="";
+    //this.f.value="";
+    //this.t.value="";
 
     this.readonlyBool=true;
     this.botonEditar=true;

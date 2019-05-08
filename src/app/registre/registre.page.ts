@@ -39,8 +39,7 @@ export class RegistrePage implements OnInit {
       {type:'pattern', message: 'Password must contain numbers, uppercase and lowercase characters.'}
     ],
     'birthDate':[
-      {type:'required', message: 'Birth Date is required.'},
-      {type:'pattern', message: 'Birth Date must have a valid format (dd-mm-yyyy).'}
+      {type:'required', message: 'Birth Date is required.'}
     ],
     'email':[
       {type:'required', message: 'Email is required.'},
@@ -82,7 +81,6 @@ export class RegistrePage implements OnInit {
       ])),
       bdfcn: new FormControl('', Validators.compose([
         Validators.required,
-        Validators.pattern('^([0-2][0-9]|(3)[0-1])(-)(((0)[0-9])|((1)[0-2]))(-)((1)(9)[0-9][0-9]|(2)(0)[0-5][0-9])$')
       ])),
       emfcn: new FormControl('', Validators.compose([
         Validators.required,
@@ -98,13 +96,17 @@ export class RegistrePage implements OnInit {
 
   // Register a new User with the information provided
   signUp() {
+    let dia = this.bd.value.substring(8,10);
+    let mes = this.bd.value.substring(4,7);
+    let any = this.bd.value.substring(0,4);
+    let b = dia.concat(mes,'-',any);
     const hashPassword = Md5.hashAsciiStr('petsitterplot420 ' + this.pw.value);
     const body: any = {
       firstName: this.fn.value,
       lastName: this.ln.value,
       username: this.un.value,
       password: hashPassword,
-      birthdate: this.bd.value,
+      birthdate: b,
       email: this.em.value
     };
     console.log(body);

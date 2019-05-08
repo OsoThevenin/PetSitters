@@ -50,7 +50,7 @@
         <ion-label class="description">Description</ion-label>
         </ion-row>
         <ion-row padding>
-        <ion-textarea class="fondoblanco" placeholder="Tap here to enter a description" [(ngModel)]="cuidador.description" #description></ion-textarea>
+        <ion-textarea class="fondoblanco" placeholder="Please enter a description" [(ngModel)]="cuidador.description" #description></ion-textarea>
     </ion-row>
         <ion-row>
             <ion-col class="alineacentro">
@@ -71,7 +71,7 @@
         </ion-row>
         <ion-row padding>
                 <ion-col size=10>
-                        <ion-textarea placeholder="Tap here to enter a description" [(ngModel)]="cuidador.description" disabled readonly></ion-textarea>
+                        <ion-textarea placeholder="Please enter a description" [(ngModel)]="cuidador.description" disabled readonly></ion-textarea>
                         </ion-col>
                 <ion-col class="alineacentro" size=2>
         <ion-button no-padding class="my-button2" fill="clear" shape="round" size="default" (click)="EditText()">
@@ -118,9 +118,11 @@
       <ion-row *ngIf="diaActual != null"> <!-- [ngSwitch]="day"-->
         <!-- <table > *ngSwitchCase="'Mon'" -->
                 <ion-col text-center class="columnacentrada">From:</ion-col>
-                <ion-col><ion-input formControlName="fromfcn" type="text" [readonly]="readonlyBool" [placeholder]="diaActual.from" #from></ion-input></ion-col>
+                <ion-col><ion-datetime formControlName="fromfcn" [readonly]="readonlyBool" [value]="diaActual.from" pickerFormat="HH:mm" displayFormat="HH:mm" #from></ion-datetime></ion-col>
+                <!--<ion-col><ion-input formControlName="fromfcn" type="text" [readonly]="readonlyBool" [placeholder]="diaActual.from" #from></ion-input></ion-col>-->
                 <ion-col text-center class="columnacentrada">To:</ion-col>
-                <ion-col><ion-input formControlName="tofcn" type="text" [readonly]="readonlyBool" [placeholder]="diaActual.to" #to></ion-input></ion-col>
+                <ion-col><ion-datetime formControlName="tofcn" [readonly]="readonlyBool" [value]="diaActual.to" displayFormat="HH:mm" #to></ion-datetime></ion-col>
+                <!--<ion-col><ion-input formControlName="tofcn" type="text" [readonly]="readonlyBool" [placeholder]="diaActual.to" #to></ion-input></ion-col>-->
                 <ion-col><ion-button *ngIf="botonEditar" (click)="editButton()">
                     <ion-icon slot="icon-only" name="create"></ion-icon>
                     </ion-button>
@@ -160,11 +162,11 @@
         </div>
         <ng-template #elseBlockExp>
             <ion-row>
-                    <ion-label class="description">Expert on</ion-label>
+                <ion-label class="description">Expert on</ion-label>
             </ion-row>
             <ion-row padding>
                 <ion-col size=10>
-                        <ion-textarea placeholder="Tap here to enter your favourite animals to take care of" [(ngModel)]="cuidador.expert" disabled readonly></ion-textarea>
+                        <ion-textarea placeholder="Please enter an expertise" [(ngModel)]="cuidador.expert" disabled readonly></ion-textarea>
                 </ion-col>
                 <ion-col  class="alineacentro" size=2>
                         <ion-button no-padding class="my-button2" fill="clear" shape="round" size="default" (click)="EditExpert()">

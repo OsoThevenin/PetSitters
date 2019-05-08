@@ -55,7 +55,13 @@
       </ion-row>
       <ion-row justify-content-center align-items-center>
         <ion-col size-lg="8" size-xl="4">
-          <ion-input formControlName="bdfcn" type="text" placeholder=" Birth Date" #birthDate></ion-input>
+         <!-- <ion-input formControlName="bdfcn" type="text" placeholder=" Birth Date" #birthDate></ion-input> -->
+          
+            <ion-item class="bddp">
+                <ion-datetime  formControlName="bdfcn" placeholder=" Birth Date" displayFormat="DD-MM-YYYY" #birthDate></ion-datetime>
+            </ion-item>
+            
+
           <div class="error-messages">
             <ng-container *ngFor="let error of error_messages.birthDate">
               <div class="error-message" *ngIf="signUpForm.get('bdfcn').hasError(error.type) && (signUpForm.get('bdfcn').dirty || signUpForm.get('bdfcn').touched)">
