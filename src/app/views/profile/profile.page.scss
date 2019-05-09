@@ -23,6 +23,12 @@
     padding-top:  16px;
     padding-bottom: 0px;
 }
+.sixPaddingSides {
+    padding-left: 6px;
+    padding-right: 6px;
+    padding-top:  0px;
+    padding-bottom: 0px;
+}
 ion-list{
     background-color: white;
     border-radius: 8px;
@@ -58,6 +64,10 @@ ion-item{
 .align-text-middle {
     display: flex;
     align-items: center;
+}
+.labelDeshabilitada{
+    color:black;
+    opacity: 1;
 }
 .experto{
     align-content: center;

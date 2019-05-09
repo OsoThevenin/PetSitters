@@ -180,7 +180,7 @@
             <ion-row >
                         <ion-label class="experto">Expert on</ion-label>
                 </ion-row>
-                <ion-row justify-content-center align-items-center no-padding>
+                <ion-row justify-content-center align-items-center class="sixPaddingSides">
                     <ion-col>
                             <ion-list>
                                     <div *ngFor="let animal of expertise">
@@ -207,7 +207,7 @@
         </ion-row>
     </div>
     <ng-template #elseBlockExp>
-        <ion-row>
+        <ion-row >
             <ion-col class="align-text-middle">
                     <ion-label class="description">Expert on</ion-label>
             </ion-col>
@@ -217,12 +217,12 @@
                         </ion-button>
                 </ion-col>
         </ion-row>
-        <ion-row justify-content-center align-items-center no-padding>
-                <ion-col>
-                    <ion-list lines="none">
+        <ion-row justify-content-center align-items-center class="sixPaddingSides">
+                <ion-col col-12>
+                    <ion-list *ngIf="hazlista" lines="none">
                             <div *ngFor="let animal of expertise">
                                     <ion-item  color="white" *ngIf="animal.isChecked">    
-                                        <ion-label >{{animal.type}}</ion-label>
+                                        <ion-label class="labelDeshabilitada">{{animal.type}}</ion-label>
                                         <ion-checkbox disabled="true" slot="end" [(ngModel)]="animal.isChecked"></ion-checkbox>
                                     </ion-item>
                                 </div>
@@ -231,9 +231,7 @@
         </ion-row>
         
     </ng-template>
-    
-    
-        
+
         <!-- Mock-up -->
         <ion-row *ngFor="let comment of commentsProfile">
             <ion-card>

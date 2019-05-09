@@ -33,6 +33,8 @@ export class ProfilePage implements OnInit {
     { type: 'Other', isChecked: false }
   ];
   
+hazlista=false;
+
  monday: any ={from: '', to: ''}
  tuesday: any ={from: '', to: ''}
  wednesday: any ={from: '', to: ''}
@@ -174,6 +176,8 @@ export class ProfilePage implements OnInit {
     }
   TakeTextExpert() {
     // Coger el valor nuevo y enviar a backend
+    if(this.expertise[0].isChecked == false && this.expertise[1].isChecked == false && this.expertise[2].isChecked == false && this.expertise[3].isChecked == false && this.expertise[4].isChecked == false && this.expertise[5].isChecked == false && this.expertise[6].isChecked == false && this.expertise[7].isChecked == false) this.hazlista=false;
+    else this.hazlista=true;
     const body: any = this.expertise;
     const atr: string = "expert";
     this.auth.getToken().then(result => {
@@ -206,6 +210,9 @@ export class ProfilePage implements OnInit {
       this.search.getUser(username, token).subscribe(res => {
         this.cuidador = res;
         if (this.cuidador.expert.length != 0) this.expertise=JSON.parse(this.cuidador.expert);
+        else this.expertise=JSON.parse('[{"type":"Dogs","isChecked":false},{"type":"Cats","isChecked":false},{"type":"Ferrets","isChecked":false},{"type":"Reptiles","isChecked":false},{"type":"Birds","isChecked":false},{"type":"Rodents","isChecked":false},{"type":"Fishes","isChecked":false},{"type":"Amphibians","isChecked":false},{"type":"Arthropods","isChecked":false},{"type":"Other","isChecked":false}]');
+        if(this.expertise[0].isChecked == false && this.expertise[1].isChecked == false && this.expertise[2].isChecked == false && this.expertise[3].isChecked == false && this.expertise[4].isChecked == false && this.expertise[5].isChecked == false && this.expertise[6].isChecked == false && this.expertise[7].isChecked == false) this.hazlista=false;
+        else this.hazlista=true;
         if (this.cuidador.availability != "None") {
           let horasdias: string[]=this.cuidador.availability.split(','); 
            this.monday.from=horasdias[0];
