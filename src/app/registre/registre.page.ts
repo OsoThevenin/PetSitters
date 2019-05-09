@@ -51,6 +51,7 @@ export class RegistrePage implements OnInit {
   @ViewChild('lastName') ln;
   @ViewChild('username') un;
   @ViewChild('password') pw;
+  @ViewChild('city') ct;
   @ViewChild('birthDate') bd;
   @ViewChild('email') em;
 

@@ -20,7 +20,19 @@ import { FormControl, FormGroup, FormBuilder, Validators} from '@angular/forms';
 })
 export class ProfilePage implements OnInit {
 
-    
+  public expertise = [
+    { type: 'Dogs', isChecked: false },
+    { type: 'Cats', isChecked: false },
+    { type: 'Ferrets', isChecked: false },
+    { type: 'Reptiles', isChecked: false },
+    { type: 'Birds', isChecked: false },
+    { type: 'Rodents', isChecked: false },
+    { type: 'Fishes', isChecked: false },
+    { type: 'Amphibians', isChecked: false },
+    { type: 'Arthropods', isChecked: false },
+    { type: 'Other', isChecked: false }
+  ];
+  
  monday: any ={from: '', to: ''}
  tuesday: any ={from: '', to: ''}
  wednesday: any ={from: '', to: ''}
@@ -32,6 +44,7 @@ export class ProfilePage implements OnInit {
   horasForm: FormGroup;
   diaActual: any = this.monday;
 
+  showExpert:boolean = false;
 
 
   disableSegmentBool:boolean = false;
@@ -74,7 +87,7 @@ export class ProfilePage implements OnInit {
   expertEditable: boolean = false;
 
   @ViewChild('description') desc;
-  @ViewChild('expert') exp;
+ // @ViewChild('expert') exp;
   @ViewChild('from') f;
   @ViewChild('to') t;
 
@@ -99,6 +112,7 @@ export class ProfilePage implements OnInit {
 
   NoEditText() {
     this.editable = false;
+    
   }
 
 
@@ -108,6 +122,7 @@ export class ProfilePage implements OnInit {
 
   NoEditExpert(){
     this.expertEditable = false;
+    this.ngOnInit()
   }
   TakeTextDescription() {
     // Coger el valor nuevo y enviar a backend
@@ -159,8 +174,7 @@ export class ProfilePage implements OnInit {
     }
   TakeTextExpert() {
     // Coger el valor nuevo y enviar a backend
-
-    const body: any = this.exp.value;
+    const body: any = this.expertise;
     const atr: string = "expert";
     this.auth.getToken().then(result => {
       const token = result;
@@ -191,6 +205,7 @@ export class ProfilePage implements OnInit {
       // De momento usa el provider de search!!
       this.search.getUser(username, token).subscribe(res => {
         this.cuidador = res;
+        if (this.cuidador.expert.length != 0) this.expertise=JSON.parse(this.cuidador.expert);
         if (this.cuidador.availability != "None") {
           let horasdias: string[]=this.cuidador.availability.split(','); 
            this.monday.from=horasdias[0];

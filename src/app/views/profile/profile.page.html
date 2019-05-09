@@ -49,7 +49,7 @@
         <ion-row>
         <ion-label class="description">Description</ion-label>
         </ion-row>
-        <ion-row padding>
+        <ion-row class="noPaddingBottom">
         <ion-textarea class="fondoblanco" placeholder="Please enter a description" [(ngModel)]="cuidador.description" #description></ion-textarea>
     </ion-row>
         <ion-row>
@@ -138,13 +138,12 @@
 <ion-row class="espacio"></ion-row>
   <ion-row class="espacio"></ion-row>
 
-
-        <!-- Expert edit -->
+        <!-- Expert edit 
     <div *ngIf="expertEditable; else elseBlockExp">
         <ion-row>
             <ion-label class="description">Expert on</ion-label>
         </ion-row>
-        <ion-row padding>
+        <ion-row class="noPaddingBottom">
             <ion-textarea class="fondoblanco" placeholder="Example: Dogs''Cats''Snakes''...'" [(ngModel)]="cuidador.expert" #expert></ion-textarea>
         </ion-row>   
         <ion-row>
@@ -175,7 +174,66 @@
                 </ion-col>
         </ion-row>
         </ng-template>
+    -->
     
+    <div *ngIf="expertEditable; else elseBlockExp">
+            <ion-row >
+                        <ion-label class="experto">Expert on</ion-label>
+                </ion-row>
+                <ion-row justify-content-center align-items-center no-padding>
+                    <ion-col>
+                            <ion-list>
+                                    <div *ngFor="let animal of expertise">
+                                            <ion-item color="white">    
+                                                <ion-label>{{animal.type}}</ion-label>
+                                                <ion-checkbox slot="end" [(ngModel)]="animal.isChecked"></ion-checkbox>
+                                            </ion-item>
+                                        </div>
+                                </ion-list>
+                    </ion-col>
+
+                </ion-row>
+        <ion-row>
+            <ion-col class="alineacentro">
+                <ion-button class="my-button2" fill="clear" shape="round" size="default" (click)="TakeTextExpert()">
+                    <ion-icon name="save"></ion-icon>
+                </ion-button>
+            </ion-col>
+            <ion-col class="alineacentro">
+                <ion-button class="my-button2" fill="clear" shape="round" size="default" (click)="NoEditExpert()">
+                    <ion-icon name="close"></ion-icon>
+                </ion-button>
+            </ion-col>
+        </ion-row>
+    </div>
+    <ng-template #elseBlockExp>
+        <ion-row>
+            <ion-col class="align-text-middle">
+                    <ion-label class="description">Expert on</ion-label>
+            </ion-col>
+                <ion-col  class="alineacentro" size=2>
+                        <ion-button no-padding class="my-button2" fill="clear" shape="round" size="default" (click)="EditExpert()">
+                            <ion-icon name="create"></ion-icon>
+                        </ion-button>
+                </ion-col>
+        </ion-row>
+        <ion-row justify-content-center align-items-center no-padding>
+                <ion-col>
+                    <ion-list lines="none">
+                            <div *ngFor="let animal of expertise">
+                                    <ion-item  color="white" *ngIf="animal.isChecked">    
+                                        <ion-label >{{animal.type}}</ion-label>
+                                        <ion-checkbox disabled="true" slot="end" [(ngModel)]="animal.isChecked"></ion-checkbox>
+                                    </ion-item>
+                                </div>
+                    </ion-list>
+            </ion-col>
+        </ion-row>
+        
+    </ng-template>
+    
+    
+        
         <!-- Mock-up -->
         <ion-row *ngFor="let comment of commentsProfile">
             <ion-card>
