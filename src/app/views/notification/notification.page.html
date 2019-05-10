@@ -7,6 +7,41 @@
 </ion-header>
 
 <ion-content>
+
+  <ion-card>
+    <ion-card-header class="contractHeader">
+      <ion-item lines="none">
+        <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+        <ion-label class="userContractLabel">Alexandra Volkova</ion-label>   
+      </ion-item>
+    </ion-card-header>
+
+    <ion-card-content class="contractContent">
+      <ion-row>
+          <ion-label class="timeContractLabel">Start Date: 10/05/2019 2:01</ion-label>  
+      </ion-row>
+        <ion-row>
+            <ion-label class="timeContractLabel">End Date: 17/05/2019 23:59</ion-label>    
+        </ion-row>
+       <ion-row>
+          <ion-label class="animalTypeContractLabel">Animal type: Ferret</ion-label>
+       </ion-row>     
+       <ion-row>
+          <ion-label class="animalNameContractLabel">Animal name: Aragon</ion-label>
+       </ion-row>
+       <ion-row>
+          <ion-label class="feedbackContractLabel">Feedback required?  Yes</ion-label>
+       </ion-row>  
+    </ion-card-content>
+    <ion-card-content>
+      <ion-toolbar>
+        <ion-button color="danger" fill="solid" slot="start">Decline</ion-button>
+        <ion-button color="success" fill="solid" slot="end">Accept</ion-button>
+      </ion-toolbar>
+    </ion-card-content>
+    
+  </ion-card>
+  
   <ion-card>
     <ion-card-header>
       <ion-card-title>
