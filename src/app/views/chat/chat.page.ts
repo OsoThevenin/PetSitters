@@ -1,9 +1,9 @@
 import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
-import { Platform, ToastController } from '@ionic/angular';
+import { Platform, ToastController, NavController } from '@ionic/angular';
 import { File } from '@ionic-native/file/ngx';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { CameraService } from 'src/app/services/camera.service';
 
 const STORAGE_KEY = 'my_images';
@@ -19,6 +19,7 @@ import { AuthProviderService } from 'src/app/providers/auth/auth-provider.servic
 })
 export class ChatPage implements OnInit {
   username: any;
+  usernameCuidador: any;
   message = '';
   messages = [];
   @ViewChild('content') content: any;
@@ -28,7 +29,8 @@ export class ChatPage implements OnInit {
   constructor(private file: File, private platform: Platform, private webview: WebView,
     private toastController: ToastController, private storage: Storage,
     private ref: ChangeDetectorRef,  private router: Router,
-    private auth: AuthProviderService) { this.getMissatges(); }
+    private auth: AuthProviderService , private actrout: ActivatedRoute,
+    private nav: NavController) { this.getMissatges(); }
 
   ngOnInit() {
     // Carregar images guardades
@@ -43,7 +45,8 @@ export class ChatPage implements OnInit {
         {message: 'que tal', user: 'user2'},
       ];
     });
-    
+    this.usernameCuidador = this.actrout.snapshot.paramMap.get('username');
+    console.log(this.usernameCuidador );
   }
 
   goBack() {
@@ -54,7 +57,7 @@ export class ChatPage implements OnInit {
     console.log("Juntar con lo de Pere")
   }
   goProfile() {
-    console.log("voyprofile")
+    this.nav.navigateRoot(`/perfil-cuidador/` + this.usernameCuidador);
   }
   contratar() {
     console.log("contrato")
