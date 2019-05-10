@@ -97,4 +97,5 @@
     <plugin name="cordova-plugin-file-transfer" spec="1.7.1" />
     <engine name="ios" spec="4.5.5" />
     <engine name="browser" spec="5.0.4" />
+    <engine name="android" spec="8.0.0" />
 </widget>
