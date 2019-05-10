@@ -1,8 +1,8 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
-import { Platform, ActionSheetController, ToastController, LoadingController } from '@ionic/angular';
-import { File, FileEntry } from '@ionic-native/file/ngx';
+import { Platform, ToastController } from '@ionic/angular';
+import { File } from '@ionic-native/file/ngx';
 import { Router } from '@angular/router';
 import { CameraService } from 'src/app/services/camera.service';
 
@@ -35,7 +35,7 @@ export class ChatPage implements OnInit {
     this.router.navigateByUrl('/tabs/chats');
   }
   abrirCamara() {
-    this.cameraService.selectImage();
+    //this.cameraService.selectImage();
     console.log("Juntar con lo de Pere")
   }
   goProfile() {
@@ -102,7 +102,7 @@ export class ChatPage implements OnInit {
       this.storage.set(STORAGE_KEY, JSON.stringify(filtered));
 
       let correctPath = imgEntry.filePath.substr(0, imgEntry.filePath.lastIndexOf('/') + 1);
-      this.file.removeFile(correctPath, imgEntry.name).then(res => {
+      this.file.removeFile(correctPath, imgEntry.name).then(() => {
         this.presentToast('Image correctly removed');
       });
     });

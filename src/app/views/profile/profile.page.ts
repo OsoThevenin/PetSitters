@@ -8,6 +8,7 @@ import { PopoverPage } from './popover/popover.page';
 import { throwError } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { SearchService } from 'src/app/providers/Search/search.service';
+import { CameraService } from 'src/app/services/camera.service.ts';
 import { HttpErrorResponse } from '@angular/common/http';
 import { GlobalService } from './../../shared/global.service';
 import { Storage } from '@ionic/storage';
@@ -81,7 +82,7 @@ export class ProfilePage implements OnInit {
   constructor(private popoverCtrl: PopoverController, private auth: AuthProviderService, private actrout: ActivatedRoute,
     private search: SearchService,private modalCtrl:ModalController , private global: GlobalService,private chatsService: ChatsService,
     private router: Router,
-     private storage: Storage, public formBuilder: FormBuilder) {
+     private storage: Storage, public formBuilder: FormBuilder, private cameraService: CameraService) {
       this.horasForm = this.formBuilder.group({
         fromfcn: new FormControl('', Validators.compose([
           Validators.required,
