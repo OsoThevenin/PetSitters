@@ -40,7 +40,7 @@ goToPerfilCuidador(cuidadorConcret) {
     console.log(err);
     return throwError;
   });*/
-  this.nav.navigateRoot(`/perfil-cuidador/` + cuidadorConcret.username);
+  this.nav.navigateRoot(`tabs/search/perfil-cuidador/` + cuidadorConcret.username);
 }
 
 devuelvePerfilesCuidadores(): any {

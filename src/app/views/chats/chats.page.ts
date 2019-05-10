@@ -28,6 +28,6 @@ constructor( private router: Router) { }
   }
 
   abreChat(){
-    this.router.navigateByUrl('/chat');
+    this.router.navigateByUrl('tabs/chats/chat');
   }
 }
