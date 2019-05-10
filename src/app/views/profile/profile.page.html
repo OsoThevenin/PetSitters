@@ -217,6 +217,11 @@
                         </ion-button>
                 </ion-col>
         </ion-row>
+    <ion-row *ngIf="!hazlista" class="noPaddingTop">
+            <ion-col size=10>
+                <ion-textarea placeholder="Please select the animals you are willing to take care of" disabled readonly></ion-textarea>
+            </ion-col>
+    </ion-row>
         <ion-row justify-content-center align-items-center class="sixPaddingSides">
                 <ion-col col-12>
                     <ion-list *ngIf="hazlista" lines="none">
