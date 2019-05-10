@@ -41,16 +41,13 @@ export class ChatsPage implements OnInit {
       {username: "Ruben"}
   ];
 
-  abreChat(){
-    this.router.navigateByUrl('/chat');
+  abreChat(chatUser){
+    this.router.navigateByUrl('/chat/' + chatUser);
   }
   
   ngOnInit() {
     this.activeChats = this.showActiveChats();
     // Carregar images guardades
-    this.platform.ready().then(() => {
-      this.loadStoredImages();
-    });
   }
 
   loadStoredImages() {
@@ -260,9 +257,9 @@ export class ChatsPage implements OnInit {
       const token = result;
       console.log('token: ' + token);
 	    this.chats.getActiveChats(token).subscribe(res => {
-	   // console.log(res);
+	      //console.log(res);
 	      this.activeChats = res;
-	   // console.log(this.perfilsCuidadors);
+	      //console.log(this.activeChats);
 	    });
     }).catch(err => {
 	    console.log(err);
