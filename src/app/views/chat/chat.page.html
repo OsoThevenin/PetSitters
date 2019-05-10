@@ -43,8 +43,15 @@
       -->
 </ion-header>
 
-<ion-content padding>
-
+<ion-content #content padding>
+    <ion-grid>
+        <div *ngFor="let mesg of messages" >
+          <div [class]="mesg.user == username ? 'messageRight' : ' messageLeft'">
+            <ion-card-content >{{ mesg.message }}</ion-card-content>
+          </div>
+        </div>
+    </ion-grid>
+  
 </ion-content>
 
 <ion-footer>
@@ -52,8 +59,8 @@
     <ion-button (click)="abrirCamara()" icon-only fill="solid" shape="round">
       <ion-icon name="camera"></ion-icon>
     </ion-button>
-    <ion-input placeholder="   Write a message" spellcheck type="text" maxlength="1000"></ion-input>
-    <ion-button icon-only fill="solid" shape="round">
+    <ion-input placeholder="Write a message" spellcheck type="text" maxlength="1000" [(ngModel)]="message" padding></ion-input>
+    <ion-button icon-only fill="solid" shape="round"(click)="enviaMissatge()">
       <ion-icon name="send"></ion-icon>
     </ion-button>
   </ion-item>

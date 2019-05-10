@@ -1,0 +1,31 @@
+
+.messageLeft {
+    content: '';
+    display: block;
+    clear: both;
+    display: inline-block;
+    background: #86888f;
+    margin: 5px;
+    color: white;
+    border-radius: 3px;
+    float: left;
+}
+
+.messageRight {
+    content: '';
+    display: block;
+    clear: both;
+    display: inline-block;
+    background: #3880ff;
+    margin: 5px;
+    color: white;
+    border-radius: 3px;
+    float: right;
+}
+
+ion-input{
+    padding-left: 15px;
+    margin-left: 10px;
+    font-size: 125%;
+}
+

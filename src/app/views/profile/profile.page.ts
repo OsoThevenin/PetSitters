@@ -8,7 +8,7 @@ import { PopoverPage } from './popover/popover.page';
 import { throwError } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { SearchService } from 'src/app/providers/Search/search.service';
-import { CameraService } from 'src/app/services/camera.service.ts';
+import { CameraService } from 'src/app/services/camera.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { GlobalService } from './../../shared/global.service';
 import { Storage } from '@ionic/storage';

@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
 import { Platform, ToastController } from '@ionic/angular';
@@ -9,6 +9,8 @@ import { CameraService } from 'src/app/services/camera.service';
 const STORAGE_KEY = 'my_images';
 
 const PETSITTERS_DIRECTORY = 'PetSitters';
+import { AuthProviderService } from 'src/app/providers/auth/auth-provider.service';
+
 
 @Component({
   selector: 'app-chat',
@@ -16,19 +18,32 @@ const PETSITTERS_DIRECTORY = 'PetSitters';
   styleUrls: ['./chat.page.scss'],
 })
 export class ChatPage implements OnInit {
+  username: any;
+  message = '';
+  messages = [];
+  @ViewChild('content') content: any;
 
   images = [];
 
   constructor(private file: File, private platform: Platform, private webview: WebView,
     private toastController: ToastController, private storage: Storage,
     private ref: ChangeDetectorRef,  private router: Router,
-    private cameraService: CameraService) {  }
+    private auth: AuthProviderService) { this.getMissatges(); }
 
   ngOnInit() {
     // Carregar images guardades
     this.platform.ready().then(() => {
       this.loadStoredImages();
     });
+    this.auth.getUsername().then(user =>{
+      this.username = user;
+      this.messages = [
+        {message: 'hola', user: 'user2'},
+        {message: 'bon dia', user: user},
+        {message: 'que tal', user: 'user2'},
+      ];
+    });
+    
   }
 
   goBack() {
@@ -115,4 +130,21 @@ export class ChatPage implements OnInit {
     });
     toast.present();
   }
+
+  getMissatges(){
+    console.log('demano missatges')
+  }
+
+  enviaMissatge(){
+    console.log(this.messages);
+    if (this.message !== ''){
+      this.messages.push({message: this.message, user: this.username});
+      this.message = '';
+      this.content.scrollToBottom();
+    }
+  }
+  ionViewDidEnter(){
+    this.content.scrollToBottom();
+  }
+
 }

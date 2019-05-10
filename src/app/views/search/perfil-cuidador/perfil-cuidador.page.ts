@@ -134,6 +134,10 @@ export class PerfilCuidadorPage implements OnInit {
 		//De momento solo va al mockup
       }, err => {
         console.log('Error al abrir chat');
+        console.log(err.error.error);
+        if(err.error.error === 'Chat already exists'){
+          this.router.navigateByUrl('chat/' + this.cuidador.username);
+        }
       });
     });
   }
