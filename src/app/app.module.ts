@@ -16,6 +16,7 @@ import { GlobalService } from './shared/global.service';
 import { AuthProviderService } from './providers/auth/auth-provider.service';
 import { SearchService } from 'src/app/providers/Search/search.service';
 import { ModalPageModule } from './views/profile/modal/modal.module';
+import { ModalSolicitudPageModule } from './views/chat/modal-solicitud/modal-solicitud.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,6 +28,7 @@ import { ModalPageModule } from './views/profile/modal/modal.module';
     AppRoutingModule,
     PopoverPageModule,
     ModalPageModule,
+    ModalSolicitudPageModule,
     IonicStorageModule.forRoot({
       name: '__mydb',
       driverOrder: ['indexeddb', 'sqlite', 'websql']
