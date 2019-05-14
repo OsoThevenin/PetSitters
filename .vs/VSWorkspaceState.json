@@ -4,12 +4,13 @@
     "\\src",
     "\\src\\app",
     "\\src\\app\\providers",
+    "\\src\\app\\providers\\auth",
     "\\src\\app\\providers\\Search",
     "\\src\\app\\views",
-    "\\src\\app\\views\\profile",
-    "\\src\\app\\views\\profile\\popover",
+    "\\src\\app\\views\\chat",
+    "\\src\\app\\views\\chat\\modal-solicitud",
     "\\src\\app\\views\\search"
   ],
-  "SelectedNode": "\\src\\app\\views\\profile\\popover\\popover.page.ts",
+  "SelectedNode": "\\src\\app\\views\\chat\\modal-solicitud\\modal-solicitud.page.ts",
   "PreviewInSolutionExplorer": false
 }
