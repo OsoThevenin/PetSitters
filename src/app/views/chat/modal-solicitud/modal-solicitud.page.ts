@@ -20,25 +20,24 @@ export class ModalSolicitudPage implements OnInit {
   constructor(private chats: ChatsService, private auth: AuthProviderService) { }
 
   enviaSolicitud(): any {
-
-
-  console.log("Envia algo");
-  console.log(this.startDate.substring(5,10));
-  console.log(this.startHour);
+	console.log("Envia algo");
+	console.log(this.startDate.substring(5,10));
+	console.log(this.startHour);
 
 
 	this.auth.getToken().then(result => {
     const token = result;
 	let startTime=this.startDate.substring(5,10)+" "+this.startHour;
 	let endTime=this.endDate.substring(5,10)+" "+this.endHour;
+	//console.log(endTime);
 	let body: any = {
 	  animal: [{
 		name: this.animalName,
 		tipus: this.animalSelected
 		}],
-	  end: this.endTime,
+	  end: endTime,
 	  feedback: this.feedback,
-	  start: this.startTime,
+	  start: startTime,
 	  username: "daniel",
 	};
 	console.log(body);
