@@ -48,8 +48,8 @@ ion-item{
 }
 
 .fondoblanco{
-    background-color: white;
-    color:black;
+    background-color: #dfe9ee;
+    color: #004F79;
     border-radius: 8px;
 }
 
@@ -61,7 +61,9 @@ ion-item{
 .columnacentrada{
     margin-top: 10px;
 }
-
+.littlepadding{
+    padding-bottom: 3px;
+}
 .alineacentro{
     text-align: center;
     align-items: center;
@@ -73,6 +75,7 @@ ion-item{
 }
 .labelDeshabilitada{
     opacity: 1;
+    //font-weight: bold;
 }
 .experto{
     align-content: center;
@@ -89,6 +92,7 @@ ion-item{
     margin-left:10px;
     text-align: left;
     font-weight: bold;
+    //font-family: Georgia;
 }
 
 ion-datetime{
@@ -173,4 +177,3 @@ ion-input{
     --background:white;
     --color: black;
 }
-

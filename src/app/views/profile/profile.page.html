@@ -66,18 +66,22 @@
         </ion-row>
     </div>
     <ng-template #elseBlockDesc>
-        <ion-row>
-        <ion-label class="description">Description</ion-label>
-        </ion-row>
-        <ion-row padding>
-                <ion-col size=10>
-                        <ion-textarea placeholder="Please enter a description" [(ngModel)]="cuidador.description" disabled readonly></ion-textarea>
-                        </ion-col>
-                <ion-col class="alineacentro" size=2>
-        <ion-button no-padding class="my-button2" fill="clear" shape="round" size="default" (click)="EditText()">
-                <ion-icon name="create"></ion-icon>
-        </ion-button>
+        <ion-row >
+            <ion-col class="align-text-middle">
+                    <ion-label class="description">Description</ion-label>
+            </ion-col>
+                <ion-col  class="alineacentro" size=2>
+                        <ion-button no-padding class="my-button2" fill="clear" shape="round" size="default" (click)="EditText()">
+                            <ion-icon name="create"></ion-icon>
+                        </ion-button>
                 </ion-col>
+        </ion-row>
+        <ion-row  justify-content-center align-items-center  class="sixPaddingSides">
+            <ion-col size=12>
+                <ion-item lines="none" color="a1">    
+                    <ion-textarea color="white" placeholder="Please enter a description" [(ngModel)]="cuidador.description" readonly></ion-textarea>
+                </ion-item>
+            </ion-col>
         </ion-row>
     </ng-template>
     
@@ -182,7 +186,7 @@
                 </ion-row>
                 <ion-row justify-content-center align-items-center class="sixPaddingSides">
                     <ion-col>
-                            <ion-list>
+                            <ion-list >
                                     <div *ngFor="let animal of expertise">
                                             <ion-item color="white">    
                                                 <ion-label>{{animal.type}}</ion-label>
@@ -226,7 +230,7 @@
                 <ion-col col-12>
                     <ion-list *ngIf="hazlista" lines="none">
                             <div *ngFor="let animal of expertise">
-                                    <ion-item  color="a1" *ngIf="animal.isChecked">    
+                                    <ion-item class="littlepadding" color="a1" *ngIf="animal.isChecked">    
                                         <ion-label color="white" class="labelDeshabilitada">{{animal.type}}</ion-label>
                                         <ion-checkbox disabled="true" slot="end" [(ngModel)]="animal.isChecked"></ion-checkbox>
                                     </ion-item>
