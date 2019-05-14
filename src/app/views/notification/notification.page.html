@@ -7,79 +7,45 @@
 </ion-header>
 
 <ion-content>
-
+  <ng-container *ngFor="let contract of contracts">
   <ion-card>
     <ion-card-header class="contractHeader">
       <ion-item lines="none">
         <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
-        <ion-label class="userContractLabel">Alexandra Volkova</ion-label>   
+        <ion-label class="userContractLabel">{{contract.usernameFrom}}</ion-label>   
       </ion-item>
     </ion-card-header>
 
     <ion-card-content class="contractContent">
       <ion-row>
-          <ion-label class="timeContractLabel">Start Date: 10/05/2019 2:01</ion-label>  
+          <ion-label class="timeContractLabel">Start Date: {{contract.start}}</ion-label>  
       </ion-row>
         <ion-row>
-            <ion-label class="timeContractLabel">End Date: 17/05/2019 23:59</ion-label>    
+            <ion-label class="timeContractLabel">End Date: {{contract.end}}</ion-label>    
         </ion-row>
+        <ng-container *ngFor="let an of contract.animal">
        <ion-row>
-          <ion-label class="animalTypeContractLabel">Animal type: Ferret</ion-label>
-       </ion-row>     
-       <ion-row>
-          <ion-label class="animalNameContractLabel">Animal name: Aragon</ion-label>
+         <ion-col>
+            <ion-label class="animalTypeContractLabel">Animal type: {{an.tipus}}</ion-label>
+         </ion-col>
+        <ion-col>
+            <ion-label class="animalNameContractLabel">Animal name: {{an.name}}</ion-label>
+        </ion-col>
        </ion-row>
-       <ion-row>
-          <ion-label class="feedbackContractLabel">Feedback required?  Yes</ion-label>
+      </ng-container>
+       <ion-row *ngIf="contract.feedback"> 
+          <ion-label class="feedbackContractLabel">Feedback required? Yes</ion-label>
+       </ion-row>  
+       <ion-row *ngIf="!contract.feedback"> 
+          <ion-label class="feedbackContractLabel">Feedback required? No</ion-label>
        </ion-row>  
     </ion-card-content>
-    <ion-card-content>
+    <ion-card-content *ngIf="!contract.accepted">
       <ion-toolbar>
-        <ion-button color="danger" fill="solid" slot="start" (click)="decline()">Decline</ion-button>
-        <ion-button color="success" fill="solid" slot="end" (click)="accept()">Accept</ion-button>
+        <ion-button color="danger" fill="solid" slot="start" (click)="decline(contract.usernameFrom)">Decline</ion-button>
+        <ion-button color="success" fill="solid" slot="end" (click)="accept(contract.usernameFrom)">Accept</ion-button>
       </ion-toolbar>
     </ion-card-content>
-    
   </ion-card>
-  
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>
-          <ion-icon name="notifications-outline"></ion-icon>
-        You have a notification
-      </ion-card-title>
-    </ion-card-header>
-  </ion-card>
-  <ion-card>
-    <ion-card-header>
-      <ion-card-title>
-          <ion-icon name="notifications-outline"></ion-icon>
-        You have a notification
-      </ion-card-title>
-    </ion-card-header>
-  </ion-card>
-  <ion-card>
-      <ion-card-header>
-        <ion-card-title>
-            <ion-icon name="notifications-outline"></ion-icon>
-          You have a notification
-        </ion-card-title>
-      </ion-card-header>
-  </ion-card>
-  <ion-card>
-      <ion-card-header>
-        <ion-card-title>
-            <ion-icon name="notifications-outline"></ion-icon>
-          You have a notification
-        </ion-card-title>
-      </ion-card-header>
-  </ion-card>
-  <ion-card>
-      <ion-card-header>
-        <ion-card-title>
-            <ion-icon name="notifications-outline"></ion-icon>
-          You have a notification
-        </ion-card-title>
-      </ion-card-header>
-  </ion-card>
+  </ng-container>
 </ion-content>
