@@ -1,5 +1,5 @@
 <ion-content>
-    <ion-toolbar color="primary">
+    <ion-toolbar color="a1">
         <img class="logo" src="../../assets/Logo_versio4.png">
         <ion-button class="my-button" fill="clear" shape="round" size="small" (click)="OpenPopover($event)">
             <ion-icon name="settings"></ion-icon>
@@ -226,8 +226,8 @@
                 <ion-col col-12>
                     <ion-list *ngIf="hazlista" lines="none">
                             <div *ngFor="let animal of expertise">
-                                    <ion-item  color="white" *ngIf="animal.isChecked">    
-                                        <ion-label class="labelDeshabilitada">{{animal.type}}</ion-label>
+                                    <ion-item  color="a1" *ngIf="animal.isChecked">    
+                                        <ion-label color="white" class="labelDeshabilitada">{{animal.type}}</ion-label>
                                         <ion-checkbox disabled="true" slot="end" [(ngModel)]="animal.isChecked"></ion-checkbox>
                                     </ion-item>
                                 </div>
