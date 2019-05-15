@@ -6,10 +6,12 @@ import { File } from '@ionic-native/file/ngx';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CameraService } from 'src/app/services/camera.service';
 
+
 const STORAGE_KEY = 'my_images';
 
 const PETSITTERS_DIRECTORY = 'PetSitters';
 import { AuthProviderService } from 'src/app/providers/auth/auth-provider.service';
+import { ChatsService } from 'src/app/providers/chats/chats.service';
 
 
 @Component({
@@ -22,6 +24,7 @@ export class ChatPage implements OnInit {
   usernameCuidador: any;
   message = '';
   messages = [];
+  id: any;
   @ViewChild('content') content: any;
 
   images = [];
@@ -30,7 +33,9 @@ export class ChatPage implements OnInit {
     private toastController: ToastController, private storage: Storage,
     private ref: ChangeDetectorRef,  private router: Router,
     private auth: AuthProviderService , private actrout: ActivatedRoute,
-    private nav: NavController) { this.getMissatges(); }
+    private nav: NavController, private chats: ChatsService) { 
+      
+    }
 
   ngOnInit() {
     // Carregar images guardades
@@ -39,18 +44,27 @@ export class ChatPage implements OnInit {
     });
     this.auth.getUsername().then(user =>{
       this.username = user;
-      this.messages = [
-        {message: 'hola', user: 'user2'},
-        {message: 'bon dia', user: user},
-        {message: 'que tal', user: 'user2'},
-      ];
     });
     this.usernameCuidador = this.actrout.snapshot.paramMap.get('username');
     console.log(this.usernameCuidador );
+    this.getMissatges();
+    setTimeout(() => {
+      this.content.scrollToBottom(0);
+    });
+  }
+
+  doRefresh(event) {
+    console.log('Begin async operation');
+
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 20);
   }
 
   goBack() {
     this.router.navigateByUrl('/tabs/chats');
+    clearInterval(this.id);
   }
   abrirCamara() {
     //this.cameraService.selectImage();
@@ -135,15 +149,59 @@ export class ChatPage implements OnInit {
   }
 
   getMissatges(){
-    console.log('demano missatges')
+    console.log('demano missatges');
+    setTimeout(() => {
+      this.content.scrollToBottom(0);
+    });
+    this.id = setInterval(function(){
+      this.auth.getToken().then(result => {
+        const token = result;
+        this.chats.getMessagesFromChat(this.usernameCuidador, token).subscribe(res => {
+          console.log(res);
+          let aux = res;
+          if(aux.length > this.messages.length){
+            this.messages = res;
+          }
+          });
+      });
+      setTimeout(() => {
+        this.content.scrollToBottom(0);
+      });
+    }.bind(this), 1000);
   }
 
-  enviaMissatge(){
-    console.log(this.messages);
+  enviaMissatge(){ 
     if (this.message !== ''){
-      this.messages.push({message: this.message, user: this.username});
+      this.auth.getToken().then(result => {
+        const token = result;
+        console.log(token);
+        let body = {
+          content: this.message,
+          isMultimedia: false,
+          userWhoReceives: this.usernameCuidador
+        };
+        console.log(body);
+        this.chats.sendMessage(body,token).subscribe(res => {},err => {console.log(err)});
+        console.log("en teoria ha enviao");
+        this.messages.push({content: this.message,
+                            multimedia: false,
+                            userWhoReceives: this.usernameCuidador,
+                            userWhoSends: this.username,
+                            visible: true,
+                            whenSent: ""});
       this.message = '';
-      this.content.scrollToBottom();
+      setTimeout(() => {
+        this.content.scrollToBottom(0);
+      });
+      }, err =>{
+        console.log(err);
+      }).catch(err => {
+        console.log(err);
+      });
+      console.log(this.messages);
+      setTimeout(() => {
+        this.content.scrollToBottom(200);
+      });
     }
   }
   ionViewDidEnter(){

@@ -10,7 +10,7 @@
         <img src="../../../assets/default_avatar.png">
       </ion-avatar>
       <ion-label>
-        Jesus
+        {{usernameCuidador}}
       </ion-label>
     </ion-buttons>
     <ion-buttons slot="end">
@@ -44,10 +44,13 @@
 </ion-header>
 
 <ion-content #content padding>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
     <ion-grid>
         <div *ngFor="let mesg of messages" >
-          <div [class]="mesg.user == username ? 'messageRight' : ' messageLeft'">
-            <ion-card-content >{{ mesg.message }}</ion-card-content>
+          <div [class]="mesg.userWhoSends == username ? 'messageRight' : ' messageLeft'">
+            <ion-card-content >{{ mesg.content }}</ion-card-content>
           </div>
         </div>
     </ion-grid>
@@ -55,13 +58,21 @@
 </ion-content>
 
 <ion-footer>
-  <ion-item>
-    <ion-button (click)="abrirCamara()" icon-only fill="solid" shape="round">
-      <ion-icon name="camera"></ion-icon>
-    </ion-button>
-    <ion-input placeholder="Write a message" spellcheck type="text" maxlength="1000" [(ngModel)]="message" padding></ion-input>
-    <ion-button icon-only fill="solid" shape="round"(click)="enviaMissatge()">
-      <ion-icon name="send"></ion-icon>
-    </ion-button>
-  </ion-item>
+  <ion-toolbar color="light">
+    <ion-row no-padding align-items-center>
+      <ion-col size="2">
+          <ion-button expand="block" icon-only fill="solid" shape="round" class="ChatButton" (click)="abrirCamara()" >
+            <ion-icon name="camera" slot="icon-only"></ion-icon>
+          </ion-button>
+        </ion-col>
+      <ion-col size="8">
+        <textarea autosize class="message-input" placeholder="Write a message" maxRows="4" maxlength="1000" [(ngModel)]="message"></textarea>
+      </ion-col>
+      <ion-col size="2">
+        <ion-button expand="block" icon-only fill="solid" shape="round" class="ChatButton" (click)="enviaMissatge()" >
+          <ion-icon name="ios-send" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-toolbar>
 </ion-footer>
