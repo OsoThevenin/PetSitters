@@ -117,7 +117,7 @@ export class RegistrePage implements OnInit {
         },
         err => {
           const error: HttpErrorResponse = err;
-          console.log(error);
+          console.log(JSON.stringify(error));
           if (error.status === 400) {
             this.presentToast('Username or email already exists. Please Log In or try it again');
           } else if (error.status === 500) {

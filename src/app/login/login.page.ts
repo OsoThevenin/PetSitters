@@ -66,6 +66,9 @@ export class LoginPage implements OnInit {
         }, err => {
           if (err.status === 401) {
             this.presentToast('Bad credentials, please try again!');
+          } else {
+            this.presentToast('Something went wrong');
+            console.log('')
           }
         });
     } else {
