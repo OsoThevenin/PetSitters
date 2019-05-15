@@ -54,7 +54,7 @@ export class NotificationPage implements OnInit  {
       const data: any = {///daniel:borra esto si no lo usas
         contract: un
       };
-      this.auth.acceptContract(un, result)
+      this.auth.rejectContract(un, result)
       .subscribe(res => {
         this.presentToast('You have rejected the contract successfully!');
       }, err => {
