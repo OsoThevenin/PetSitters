@@ -12,7 +12,7 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: '../views/chats/chats.module#ChatsPageModule'
+            loadChildren: '../views/chat/chat.module#ChatPageModule'
           }
         ]
       },

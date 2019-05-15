@@ -26,10 +26,10 @@ export class ChatsPage implements OnInit {
       {username: "Ruben"}
   ];
 
-  abreChat(chatUser){
+  abreChat(chatUser) {
     this.router.navigateByUrl('/chat/' + chatUser);
   }
-  
+
   ngOnInit() {
     this.activeChats = this.showActiveChats();
     // Carregar images guardades

@@ -1,16 +1,19 @@
+import { ImageService } from './../../services/image/image.service';
+import { GlobalService } from './../../shared/global.service';
+import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer/ngx';
 import { Component, OnInit, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { Storage } from '@ionic/storage';
 import { WebView } from '@ionic-native/ionic-webview/ngx';
-import { Platform, ToastController, NavController } from '@ionic/angular';
+import { Platform, ToastController, NavController, ActionSheetController } from '@ionic/angular';
 import { File } from '@ionic-native/file/ngx';
+import { Camera, CameraOptions, PictureSourceType } from '@ionic-native/camera/ngx';
 import { Router, ActivatedRoute } from '@angular/router';
-import { CameraService } from 'src/app/services/camera.service';
+import { AuthProviderService } from 'src/app/providers/auth/auth-provider.service';
+import { ImageCompressorService } from 'src/app/services/compression.service';
+import { ImagePicker } from '@ionic-native/image-picker/ngx';
 
 const STORAGE_KEY = 'my_images';
-
 const PETSITTERS_DIRECTORY = 'PetSitters';
-import { AuthProviderService } from 'src/app/providers/auth/auth-provider.service';
-
 
 @Component({
   selector: 'app-chat',
@@ -25,12 +28,17 @@ export class ChatPage implements OnInit {
   @ViewChild('content') content: any;
 
   images = [];
+  compression: ImageCompressorService = new ImageCompressorService();
 
   constructor(private file: File, private platform: Platform, private webview: WebView,
     private toastController: ToastController, private storage: Storage,
     private ref: ChangeDetectorRef,  private router: Router,
     private auth: AuthProviderService , private actrout: ActivatedRoute,
-    private nav: NavController) { this.getMissatges(); }
+    private nav: NavController, private actionSheetController: ActionSheetController,
+    private camera: Camera, private imagePicker: ImagePicker, private imageService: ImageService)
+    {
+        this.getMissatges();
+    }
 
   ngOnInit() {
     // Carregar images guardades
@@ -53,14 +61,14 @@ export class ChatPage implements OnInit {
     this.router.navigateByUrl('/tabs/chats');
   }
   abrirCamara() {
-    //this.cameraService.selectImage();
-    console.log("Juntar con lo de Pere")
+    console.log('Open Camera');
+    this.selectImage();
   }
   goProfile() {
     this.nav.navigateRoot(`/perfil-cuidador/` + this.usernameCuidador);
   }
   contratar() {
-    console.log("contrato")
+    console.log("contrato");
   }
 
   loadStoredImages() {
@@ -75,14 +83,6 @@ export class ChatPage implements OnInit {
         }
       }
     });
-  }
-  pathForImage(img) {
-    if (img === null) {
-      return '';
-    } else {
-      let converted = this.webview.convertFileSrc(img);
-      return converted;
-    }
   }
   updateStoredImages(name, filePath) { // FilePath contains the complete path + name of the image
     return new Promise((resolve) => {   
@@ -134,8 +134,8 @@ export class ChatPage implements OnInit {
     toast.present();
   }
 
-  getMissatges(){
-    console.log('demano missatges')
+  getMissatges() {
+    console.log('demano missatges');
   }
 
   enviaMissatge(){
@@ -148,6 +148,136 @@ export class ChatPage implements OnInit {
   }
   ionViewDidEnter(){
     this.content.scrollToBottom();
+  }
+
+
+  // FUNCIONALITATS DE CAMERA
+
+  pathForImage(img) {
+    if (img === null) {
+      return '';
+    } else {
+      let converted = this.webview.convertFileSrc(img);
+      return converted;
+    }
+  }
+
+  async selectImage() {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Select Image Source',
+      buttons: [{
+        text: 'Load from Library',
+        handler: () => {
+          this.openGallery();
+        }
+      },
+      {
+        text: 'Use Camera',
+        icon: 'camera',
+        handler: () => {
+          this.takePicture(this.camera.PictureSourceType.CAMERA);
+        }
+      },
+      {
+        text: 'Cancel',
+        role: 'cancel'
+      },
+      {
+        text: 'Get image',
+        handler: () => {
+          this.imageService.getImageData('hector_2019-05-15 14:41:44.592');
+        }
+      }]
+    });
+    await actionSheet.present();
+  }
+
+  takePicture(sourceType: PictureSourceType) {
+    if (this.platform.is('cordova')) {
+      const options: CameraOptions = {
+        quality: 100,
+        sourceType: sourceType,
+        destinationType: this.camera.DestinationType.FILE_URI,
+        mediaType: this.camera.MediaType.PICTURE,
+        encodingType: this.camera.EncodingType.JPEG,
+        saveToPhotoAlbum: true,
+        correctOrientation: true,
+      };
+
+      this.camera.getPicture(options).then(imagePath => {
+        let currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
+        let correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
+        let generatedName: string = this.createFileName();
+        this.copyAndCompress(correctPath, currentName, generatedName).then((OutputDir: String) => {
+          let file_name = this.imageService.uploadImageData(OutputDir);
+          console.log(file_name);
+        });
+      });
+    } else {
+      console.log(`I'm not in cordova`);
+    }
+  }
+
+  openGallery() {
+    let options = {
+      maximumImagesCount: 8,
+      width: 500,
+      height: 500,
+      quality: 100
+    };
+    this.imagePicker.hasReadPermission().then(res => {
+      if (res === false) {
+        this.requestReadPermission();
+      } else {
+        this.imagePicker.getPictures(options).then((results) => {
+          for (let i = 0; i < results.length; i++) {
+              console.log('Image URI: ' + results[i]);
+              let currentName = results[i].substring(results[i].lastIndexOf('/') + 1);
+              let correctPath = results[i].substring(0, results[i].lastIndexOf('/') + 1);
+              let generatedName:string = this.createFileName();
+              this.copyAndCompress(correctPath, currentName, generatedName).then((OutputDir:string) => {
+                console.log("UPLOADING IMAGE: " + OutputDir);
+                this.imageService.uploadImageData(OutputDir);
+              });
+          }
+        }, (err) => {
+          this.presentToast('Error while opening the images');
+        });
+      }
+    });
+  }
+  createFileName() {
+    let d = new Date();
+    let n = d.getTime();
+    return (n + '.jpg');
+  }
+
+
+  async requestReadPermission() {
+    this.imagePicker.requestReadPermission();
+  }
+
+  copyAndCompress(namePath, currentName, newFileName) {
+    // Image Compression
+    return new Promise((resolve, reject) => {
+      let dataDirectory = this.file.externalRootDirectory + PETSITTERS_DIRECTORY + '/';
+      let completePath: String = dataDirectory + newFileName;
+      this.compression.compress(namePath + currentName).then((filePathOutput:string) => {
+        let compressionDir = filePathOutput.substring(0, filePathOutput.lastIndexOf('/') + 1);
+        let compressionFile = filePathOutput.substring(filePathOutput.lastIndexOf('/') + 1);
+        this.file.removeFile(namePath, currentName).then(() => {this.file.removeFile(namePath, currentName)
+          .catch(() => console.log('The temporal file has been successfully removed')); });
+        this.file.moveFile(compressionDir, compressionFile, dataDirectory, newFileName).then(_ => {
+        // Aquí s'ha de pujar les imatges a la memoria del telefon, amb la referencia del xat
+        this.updateStoredImages(newFileName, completePath).then(() => resolve(completePath));
+      }, error => {
+        console.log('Error while storing the image: ' + error);
+        this.presentToast('Error while storing the image');
+        reject(error);
+      });
+    })
+    .catch(() => {console.log('Failure when compressiong the image.'); });
+    });
   }
 
 }
