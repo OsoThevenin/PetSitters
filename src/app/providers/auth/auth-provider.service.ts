@@ -112,7 +112,7 @@ export class AuthProviderService {
     httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token);
     const options = {headers: httpHeaders};
 
-    return this.http.delete<any>(this.global.baseUrl + 'acceptContract?contract='+ data, options);
+    return this.http.delete<any>(this.global.baseUrl + 'rejectContract?contract='+ data, options);
   }
 
 }
