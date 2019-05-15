@@ -41,6 +41,11 @@ export class RegistrePage implements OnInit {
     'birthDate':[
       {type:'required', message: 'Birth Date is required.'}
     ],
+    'city':[
+      {type:'required', message: 'City is required.'},
+      {type:'pattern', message: 'City must be valid.'},
+      {type:'maxlength', message: 'City must be shorter than 25 characters.'},
+    ],
     'email':[
       {type:'required', message: 'Email is required.'},
       {type:'pattern', message: 'Email must be valid.'}
@@ -83,6 +88,11 @@ export class RegistrePage implements OnInit {
       bdfcn: new FormControl('', Validators.compose([
         Validators.required,
       ])),
+      ctfcn: new FormControl('', Validators.compose([
+        Validators.required,
+        Validators.maxLength(25),
+        Validators.pattern('^([a-zA-Z]+|[a-zA-Z]+\s[a-zA-Z]+)$')
+      ])),
       emfcn: new FormControl('', Validators.compose([
         Validators.required,
         Validators.pattern("^((?!(^[.-].*|[^@]*[.-]@|.*\\.{2,}.*)|^.{254}.)([a-zA-Z0-9!#$%&'*+\\/=?^_`{|}~.-]+@)(?!-.*|.*-\\.)([a-zA-Z0-9-]{1,63}\\.)+[a-zA-Z]{2,15})$")
@@ -108,6 +118,7 @@ export class RegistrePage implements OnInit {
       username: this.un.value,
       password: hashPassword,
       birthdate: b,
+      city: this.ct.value,
       email: this.em.value
     };
     console.log(body);
