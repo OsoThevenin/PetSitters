@@ -22,7 +22,7 @@ export class NotificationPage implements OnInit  {
   getContracts() {
     this.auth.getToken().then(result => {
       const token = result;
-
+      console.log(token);
      this.auth.getReceivedContracts(token).subscribe(res => {
        console.log(res);
        this.contracts=res;
@@ -38,6 +38,7 @@ export class NotificationPage implements OnInit  {
       const data: any = {///daniel:borra esto si no lo usas
         contract: un
       };
+  
       this.auth.acceptContract(un, result)
       .subscribe(res => {
         this.presentToast('You have accepted the contract successfully!');

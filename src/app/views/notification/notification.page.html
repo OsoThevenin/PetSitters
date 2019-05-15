@@ -18,10 +18,14 @@
 
     <ion-card-content class="contractContent">
       <ion-row>
+          <ion-item lines="none">
           <ion-label class="timeContractLabel">Start Date: {{contract.start}}</ion-label>  
+          </ion-item>
       </ion-row>
         <ion-row>
+            <ion-item lines="none">
             <ion-label class="timeContractLabel">End Date: {{contract.end}}</ion-label>    
+          </ion-item>
         </ion-row>
         <ng-container *ngFor="let an of contract.animal">
        <ion-row>
