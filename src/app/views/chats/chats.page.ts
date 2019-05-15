@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { AuthProviderService } from 'src/app/providers/auth/auth-provider.service';
 import { ChatsService } from 'src/app/providers/chats/chats.service';
 import { throwError } from 'rxjs';
+import { bindPlayerFactory } from '@angular/core/src/render3/styling/player_factory';
 
 @Component({
   selector: 'app-chats',
@@ -43,11 +44,12 @@ export class ChatsPage implements OnInit {
     });
     toast.present();
   }
+
   showActiveChats(): any {
     this.auth.getToken().then(result => {
       const token = result;
-	    this.chats.getActiveChats(token).subscribe(res => {
-	      //console.log(res);
+      this.chats.getActiveChats(token).subscribe(res => {
+	      console.log(res);
 	      this.activeChats = res;
 	      //console.log(this.activeChats);
 	    });

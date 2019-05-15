@@ -25,7 +25,7 @@ export class ChatsService {
     httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token);
     const options = {headers: httpHeaders};
 
-    return this.http.get<any>(this.global.baseUrl + 'getOpenedChats', options);
+    return this.http.get<any>(this.global.baseUrl + 'getOpenedChats' , options);
   }
 
 }
