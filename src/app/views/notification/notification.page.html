@@ -18,14 +18,14 @@
 
     <ion-card-content class="contractContent">
       <ion-row>
-          <ion-item lines="none">
-          <ion-label class="timeContractLabel">Start Date: {{contract.start}}</ion-label>  
-          </ion-item>
+        <ion-col>
+          <ion-label class="timeContractLabel">Start Date: {{contract.start}}</ion-label> 
+        </ion-col>
       </ion-row>
         <ion-row>
-            <ion-item lines="none">
+          <ion-col>
             <ion-label class="timeContractLabel">End Date: {{contract.end}}</ion-label>    
-          </ion-item>
+          </ion-col>
         </ion-row>
         <ng-container *ngFor="let an of contract.animal">
        <ion-row>
@@ -38,10 +38,14 @@
        </ion-row>
       </ng-container>
        <ion-row *ngIf="contract.feedback"> 
+         <ion-col>
           <ion-label class="feedbackContractLabel">Feedback required? Yes</ion-label>
+         </ion-col>
        </ion-row>  
        <ion-row *ngIf="!contract.feedback"> 
+         <ion-col>
           <ion-label class="feedbackContractLabel">Feedback required? No</ion-label>
+         </ion-col>
        </ion-row>  
     </ion-card-content>
     <ion-card-content *ngIf="!contract.accepted">
