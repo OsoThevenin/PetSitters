@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ModalSolicitudPage } from './modal-solicitud/modal-solicitud.page';
-import { ModalController } from '@ionic/angular';
+import { ModalController, AlertController } from '@ionic/angular';
 import {ChatsService } from 'src/app/providers/chats/chats.service';
 import { AuthProviderService } from 'src/app/providers/auth/auth-provider.service';
 import { throwError } from 'rxjs';
@@ -13,14 +13,16 @@ styleUrls: ['./chat.page.scss'],
 })
 export class ChatPage implements OnInit {
   public contratado: boolean = false;
-constructor( private router: Router, private modalController: ModalController, private chats: ChatsService, private auth: AuthProviderService) { }
+constructor( private router: Router, private modalController: ModalController,
+			 private chats: ChatsService, private auth: AuthProviderService,
+			 private alertController: AlertController) { }
 
   ngOnInit() {
 	this.auth.getToken().then(result => {
     const token = result;
 
 	this.chats.isContracted("daniel",token).subscribe(res =>{
-	  if(res!=null) contratado=true;
+	  if(res!=null) this.contratado=true;
 	});
 
 	}).catch(err => {
