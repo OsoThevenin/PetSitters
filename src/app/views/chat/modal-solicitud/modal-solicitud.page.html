@@ -44,6 +44,14 @@
         <ion-label>Feedback</ion-label>
         <ion-checkbox [(ngModel)]="feedback" value="false"></ion-checkbox>
     </ion-item>
+    <ion-item>
+        <ion-label>Data Inici:</ion-label>
+        <ion-datetime display-format="DD-MM-YYYY, HH:mm"  #dataInici></ion-datetime>
+    </ion-item>
+    <ion-item>
+        <ion-label>Data Final:</ion-label>
+        <ion-datetime display-format="DD-MM-YYYY, HH:mm" #dataFinal></ion-datetime>
+    </ion-item>
     <ion-button float-right (click)="enviaSolicitud()">Accept</ion-button>
     <ion-button float-right (click)="Cancel()">Cancel</ion-button>
 </ion-content>

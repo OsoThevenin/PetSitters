@@ -58,6 +58,7 @@ export class ChatPage implements OnInit {
       const token = result;
   
     this.chats.isContracted(this.usernameCuidador,token).subscribe(res =>{
+      console.log(res);
       if(res!=null) this.contratado=true;
     });
   
@@ -109,7 +110,7 @@ export class ChatPage implements OnInit {
     return await modal.present();
   }
   
-  cancelar(){
+  botonCancelar(){
     this.presentAlert_D();
   }
 
@@ -117,7 +118,7 @@ export class ChatPage implements OnInit {
   async presentAlert_D() {
     const alert = await this.alertController.create({
       header: 'Cancel contract',
-      message: 'Are you sure you want to can the contract?',
+      message: 'Are you sure you want to cancel the contract?',
       
       buttons: [
         {
@@ -126,7 +127,17 @@ export class ChatPage implements OnInit {
         },
         {
           text: 'Confirm',
-          // funcionalitat de cancelar contracte
+          handler: cancelar => {
+            this.auth.getToken().then(result => {
+              this.auth.rejectContract(this.usernameCuidador, result)
+              .subscribe(res => {
+                this.presentToast('You have cancelled the contract successfully!');
+              }, err => {
+                this.presentToast('Something went wrong, please try again');
+                console.log(err);
+              });
+            });
+          }
         }
       ]
     });

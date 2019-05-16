@@ -6,10 +6,12 @@
         </ion-button>
     </ion-toolbar>
     <!-- De Base de Datos -->
+    
     <ion-grid>
     <ion-row justify-content-center align-items-center>
-    
+
         <img class="avatar_profile" *ngIf='cuidador.profile_image == "" ' src="../../../assets/default_avatar.png">
+          
         <ion-content padding>
                 <h3 *ngIf="images.length == 0" text-center> Please select an image</h3>
                 <ion-list>
@@ -34,7 +36,7 @@
                 </ion-toolbar>
             </ion-footer>
     </ion-row>
-    
+
         <ion-row justify-content-center align-items-center>
             <!-- Mock-up -->
             <ion-icon size="large" name="star-outline"></ion-icon>

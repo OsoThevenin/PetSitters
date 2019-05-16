@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ChatsService } from 'src/app/providers/chats/chats.service';
 import { AuthProviderService } from 'src/app/providers/auth/auth-provider.service';
 import { throwError } from 'rxjs';
@@ -10,6 +10,10 @@ import { NavParams, ModalController } from '@ionic/angular';
   styleUrls: ['./modal-solicitud.page.scss'],
 })
 export class ModalSolicitudPage implements OnInit {
+
+	@ViewChild('dataInici') dI;
+	@ViewChild('dataFinal') dF;
+
   public animalName: string;
   public animalSelected: string;
   public startDate = new Date().toISOString();
@@ -22,6 +26,13 @@ export class ModalSolicitudPage implements OnInit {
   constructor(private modalController: ModalController,private chats: ChatsService, private auth: AuthProviderService, private navParams: NavParams) { }
 
   enviaSolicitud(): any {
+
+		console.log(this.dI.value);
+		console.log(this.dF.value);
+
+		let dia=this.dI.value.substring(5,8);
+		//let mes=this.dI.substring(8,11);
+		/*
 	console.log("Envia algo");
 	console.log(this.startDate.substring(5,10));
 	console.log(this.startHour);
@@ -49,7 +60,7 @@ export class ModalSolicitudPage implements OnInit {
 	}).catch(err => {
 	  console.log(err);
 	 return throwError;
-	});
+	});*/
   }
 
   ngOnInit() {
