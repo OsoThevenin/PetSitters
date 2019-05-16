@@ -101,6 +101,9 @@ export class ChatPage implements OnInit {
   async openModal() {
     const modal = await this.modalController.create({
       component: ModalSolicitudPage,
+      componentProps: {
+          usernameCuidador: this.usernameCuidador
+      },
       cssClass: 'my-changePW-modal-css'
     });
     return await modal.present();

@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {ChatsService } from 'src/app/providers/chats/chats.service';
+import { ChatsService } from 'src/app/providers/chats/chats.service';
 import { AuthProviderService } from 'src/app/providers/auth/auth-provider.service';
 import { throwError } from 'rxjs';
+import { NavParams } from '@ionic/angular';
 
 @Component({
   selector: 'app-modal-solicitud',
@@ -15,9 +16,10 @@ export class ModalSolicitudPage implements OnInit {
   public startHour: string;
   public endDate = new Date().toISOString();
   public endHour: string;
-  public feedback: boolean;
+	public feedback: boolean;
+	public cuidadorContrato: any;
 
-  constructor(private chats: ChatsService, private auth: AuthProviderService) { }
+  constructor(private chats: ChatsService, private auth: AuthProviderService, private navParams: NavParams) { }
 
   enviaSolicitud(): any {
 	console.log("Envia algo");
@@ -38,7 +40,7 @@ export class ModalSolicitudPage implements OnInit {
 	  end: endTime,
 	  feedback: this.feedback,
 	  start: startTime,
-	  username: "daniel",
+	  username: this.cuidadorContrato,
 	};
 	console.log(body);
 	this.chats.proposeContract(body,token).subscribe(res =>{
@@ -51,6 +53,7 @@ export class ModalSolicitudPage implements OnInit {
   }
 
   ngOnInit() {
+		this.cuidadorContrato = this.navParams.get('usernameCuidador');
   }
 
   dateChanged(date) {
