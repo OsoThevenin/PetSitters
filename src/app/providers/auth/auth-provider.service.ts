@@ -38,9 +38,12 @@ export class AuthProviderService {
     let httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
     httpHeaders = httpHeaders.append('Access-Control-Allow-Origin', '*');
     httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token);
-    const options = {headers: httpHeaders};
-
-    return this.http.post<any>(this.global.baseUrl + 'deleteAccount', data, options);
+    const options = {
+      headers: httpHeaders,
+      body: data
+    };
+    //return this.http.delete<any>(this.global.baseUrl + 'deleteAccount?account='+ data, options);
+    return this.http.delete<any>(this.global.baseUrl + 'deleteAccount', options);
   }
 
   // sending a POST to change password

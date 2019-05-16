@@ -72,6 +72,7 @@ export class PopoverPage implements OnInit {
           handler: esborrar => {
             if (esborrar.password !== '') {
               const hashPassword = Md5.hashAsciiStr('petsitterplot420 ' + esborrar.password);
+              console.log(hashPassword);
               const data: any = {
                 password: hashPassword
               };
