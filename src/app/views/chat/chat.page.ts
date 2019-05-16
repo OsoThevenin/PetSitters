@@ -25,6 +25,7 @@ import { throwError } from 'rxjs';
   styleUrls: ['./chat.page.scss'],
 })
 export class ChatPage implements OnInit {
+  ini: boolean = true;
   username: any;
   usernameCuidador: any;
   message = '';
@@ -70,16 +71,6 @@ export class ChatPage implements OnInit {
     setTimeout(() => {
       this.content.scrollToBottom(0);
     });
-  }
-
-
-  doRefresh(event) {
-    console.log('Begin async operation');
-
-    setTimeout(() => {
-      console.log('Async operation has ended');
-      event.target.complete();
-    }, 20);
   }
 
   goBack() {
@@ -218,12 +209,18 @@ export class ChatPage implements OnInit {
           let aux = res;
           if(aux.length > this.messages.length){
             this.messages = res;
+            setTimeout(() => {
+              this.content.scrollToBottom(0);
+            });
           }
           });
       });
-      setTimeout(() => {
-        this.content.scrollToBottom(0);
-      });
+      if(this.ini && this.messages.length > 0){
+        this.ini = false;
+        setTimeout(() => {
+          this.content.scrollToBottom(0);
+        });
+      }
     }.bind(this), 1000);
   }
 
@@ -239,7 +236,6 @@ export class ChatPage implements OnInit {
         };
         console.log(body);
         this.chats.sendMessage(body,token).subscribe(res => {},err => {console.log(err)});
-        console.log("en teoria ha enviao");
         this.messages.push({content: this.message,
                             multimedia: false,
                             userWhoReceives: this.usernameCuidador,
@@ -257,7 +253,7 @@ export class ChatPage implements OnInit {
       });
       console.log(this.messages);
       setTimeout(() => {
-        this.content.scrollToBottom(200);
+        this.content.scrollToBottom(0);
       });
     }
   }
