@@ -1,0 +1,48 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>modal-solicitud</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content padding>
+    <ion-item>
+        <ion-label>Pet name</ion-label>
+        <ion-input [(ngModel)]="animalName"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>Animal</ion-label>
+        <ion-select [(ngModel)]="animalSelected">
+            <ion-select-option value="Dogs">Dogs</ion-select-option>
+            <ion-select-option value="Cats">Cats</ion-select-option>
+            <ion-select-option value="Ferrets">Ferrets</ion-select-option>
+            <ion-select-option value="Reptiles">Reptiles</ion-select-option>
+            <ion-select-option value="Birds">Birds</ion-select-option>
+            <ion-select-option value="Rodents">Rodents</ion-select-option>
+            <ion-select-option value="Fishes">Fishes</ion-select-option>
+            <ion-select-option value="Amphibians">Amphibians</ion-select-option>
+            <ion-select-option value="Arthropods">Arthropods</ion-select-option>
+            <ion-select-option value="Other">Other</ion-select-option>
+        </ion-select>
+    </ion-item>
+    <ion-item>
+        <ion-label>Start Date</ion-label>
+        <ion-datetime [(ngModel)]="startDate" display-format="MMM DD" (ionChange)="dateChanged($event)"></ion-datetime>
+    </ion-item>
+    <ion-item>
+        <ion-label>Start Hour</ion-label>
+        <ion-datetime [(ngModel)]="startHour" display-format="HH:mm"></ion-datetime>
+    </ion-item>
+    <ion-item>
+        <ion-label>End Date</ion-label>
+        <ion-datetime [(ngModel)]="endDate" display-format="MMM DD" (ionChange)="dateChanged($event)"></ion-datetime>
+    </ion-item>
+    <ion-item>
+        <ion-label>End Hour</ion-label>
+        <ion-datetime [(ngModel)]="endHour" display-format="HH:mm"></ion-datetime>
+    </ion-item>
+    <ion-item>
+        <ion-label>Feedback</ion-label>
+        <ion-checkbox [(ngModel)]="feedback" value="false"></ion-checkbox>
+    </ion-item>
+    <ion-button (click)="enviaSolicitud()">Accept</ion-button>
+</ion-content>

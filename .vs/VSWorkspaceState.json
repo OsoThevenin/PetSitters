@@ -4,11 +4,13 @@
     "\\src",
     "\\src\\app",
     "\\src\\app\\providers",
+    "\\src\\app\\providers\\auth",
+    "\\src\\app\\providers\\chats",
     "\\src\\app\\providers\\Search",
+    "\\src\\app\\registre",
     "\\src\\app\\views",
     "\\src\\app\\views\\profile",
-    "\\src\\app\\views\\profile\\popover",
-    "\\src\\app\\views\\search"
+    "\\src\\app\\views\\profile\\popover"
   ],
   "SelectedNode": "\\src\\app\\views\\profile\\popover\\popover.page.ts",
   "PreviewInSolutionExplorer": false

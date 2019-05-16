@@ -24,18 +24,38 @@ export class ChatsService {
     httpHeaders = httpHeaders.append('Access-Control-Allow-Origin', '*');
     httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token);
     const options = {headers: httpHeaders};
-
     return this.http.get<any>(this.global.baseUrl + 'getOpenedChats', options);
   }
+
+  proposeContract(contract, token): Observable <any> {
+	  let httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    httpHeaders = httpHeaders.append('Access-Control-Allow-Origin', '*');
+    httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token);
+    const options = {headers: httpHeaders};
+    return this.http.post<any>(this.global.baseUrl + 'proposeContract', contract, options);
+  }
+
+    
 
   getMessagesFromChat(param,token): Observable<any> {
     let httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
     httpHeaders = httpHeaders.append('Access-Control-Allow-Origin', '*');
     httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token);
     const options = {headers: httpHeaders};
-
     return this.http.get<any>(this.global.baseUrl + 'getMessagesFromChat?userWhoReceives=' + param, options);
   }
+    
+
+  isContracted(contract, token): Observable <any> {
+	let httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    httpHeaders = httpHeaders.append('Access-Control-Allow-Origin', '*');
+    httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token);
+    const options = {headers: httpHeaders};
+    return this.http.post<any>(this.global.baseUrl + 'isContracted', contract, options);
+  }
+
+
+    
 
   sendMessage(body, token): Observable<any>{
     let httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
@@ -45,4 +65,5 @@ export class ChatsService {
 
     return this.http.post<any>(this.global.baseUrl + 'sendMessage', body, options);
   }
+    
 }

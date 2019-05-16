@@ -14,6 +14,11 @@ import { AuthProviderService } from 'src/app/providers/auth/auth-provider.servic
 import { ChatsService } from 'src/app/providers/chats/chats.service';
 
 
+
+import { ModalSolicitudPage } from './modal-solicitud/modal-solicitud.page';
+import { ModalController, AlertController } from '@ionic/angular';
+import { throwError } from 'rxjs';
+
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.page.html',
@@ -29,13 +34,14 @@ export class ChatPage implements OnInit {
 
   images = [];
 
+  public contratado: boolean = false;
+
   constructor(private file: File, private platform: Platform, private webview: WebView,
     private toastController: ToastController, private storage: Storage,
     private ref: ChangeDetectorRef,  private router: Router,
     private auth: AuthProviderService , private actrout: ActivatedRoute,
-    private nav: NavController, private chats: ChatsService) { 
-      
-    }
+    private nav: NavController, private chats: ChatsService, private modalController: ModalController,
+    private alertController: AlertController) {}
 
   ngOnInit() {
     // Carregar images guardades
@@ -47,11 +53,25 @@ export class ChatPage implements OnInit {
     });
     this.usernameCuidador = this.actrout.snapshot.paramMap.get('username');
     console.log(this.usernameCuidador );
+
+    this.auth.getToken().then(result => {
+      const token = result;
+  
+    this.chats.isContracted(this.usernameCuidador,token).subscribe(res =>{
+      if(res!=null) this.contratado=true;
+    });
+  
+    }).catch(err => {
+      console.log(err);
+     return throwError;
+    });
+
     this.getMissatges();
     setTimeout(() => {
       this.content.scrollToBottom(0);
     });
   }
+
 
   doRefresh(event) {
     console.log('Begin async operation');
@@ -73,8 +93,42 @@ export class ChatPage implements OnInit {
   goProfile() {
     this.nav.navigateRoot(`/perfil-cuidador/` + this.usernameCuidador);
   }
-  contratar() {
-    console.log("contrato")
+  contratar(){
+    //console.log("contrato")
+    this.openModal();
+  }
+
+  async openModal() {
+    const modal = await this.modalController.create({
+      component: ModalSolicitudPage,
+      cssClass: 'my-changePW-modal-css'
+    });
+    return await modal.present();
+  }
+  
+  cancelar(){
+    this.presentAlert_D();
+  }
+
+
+  async presentAlert_D() {
+    const alert = await this.alertController.create({
+      header: 'Cancel contract',
+      message: 'Are you sure you want to can the contract?',
+      
+      buttons: [
+        {
+        text: 'Cancel',
+        role: 'cancel'
+        },
+        {
+          text: 'Confirm',
+          // funcionalitat de cancelar contracte
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
   loadStoredImages() {
