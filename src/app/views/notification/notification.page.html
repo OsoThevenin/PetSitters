@@ -7,7 +7,13 @@
 </ion-header>
 
 <ion-content>
-  <ng-container *ngFor="let contract of contracts">
+  <ion-row>
+    <ion-label>Notifications</ion-label>
+  </ion-row>
+  <ion-row>
+    <ion-label>Received Contracts</ion-label>
+  </ion-row>
+  <ng-container *ngFor="let contract of received">
   <ion-card>
     <ion-card-header class="contractHeader">
       <ion-item lines="none">
@@ -56,4 +62,56 @@
     </ion-card-content>
   </ion-card>
   </ng-container>
+  <ion-row>
+    <ion-label>Proposed Contracts</ion-label>
+  </ion-row>
+  <ng-container *ngFor="let contract of proposed">
+      <ion-card>
+        <ion-card-header class="contractHeader">
+          <ion-item lines="none">
+            <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+            <ion-label class="userContractLabel">{{contract.usernameFrom}}</ion-label>   
+          </ion-item>
+        </ion-card-header>
+    
+        <ion-card-content class="contractContent">
+          <ion-row>
+            <ion-col>
+              <ion-label class="timeContractLabel">Start Date: {{contract.start}}</ion-label> 
+            </ion-col>
+          </ion-row>
+            <ion-row>
+              <ion-col>
+                <ion-label class="timeContractLabel">End Date: {{contract.end}}</ion-label>    
+              </ion-col>
+            </ion-row>
+            <ng-container *ngFor="let an of contract.animal">
+           <ion-row>
+             <ion-col>
+                <ion-label class="animalTypeContractLabel">Animal type: {{an.tipus}}</ion-label>
+             </ion-col>
+            <ion-col>
+                <ion-label class="animalNameContractLabel">Animal name: {{an.name}}</ion-label>
+            </ion-col>
+           </ion-row>
+          </ng-container>
+           <ion-row *ngIf="contract.feedback"> 
+             <ion-col>
+              <ion-label class="feedbackContractLabel">Feedback required? Yes</ion-label>
+             </ion-col>
+           </ion-row>  
+           <ion-row *ngIf="!contract.feedback"> 
+             <ion-col>
+              <ion-label class="feedbackContractLabel">Feedback required? No</ion-label>
+             </ion-col>
+           </ion-row>  
+        </ion-card-content>
+        <ion-card-content *ngIf="!contract.accepted">
+          <ion-label>CONTRATO NO ACEPTADO</ion-label>
+        </ion-card-content>
+        <ion-card-content *ngIf="contract.accepted">
+            <ion-label>CONTRATO ACEPTADO</ion-label>
+        </ion-card-content>
+      </ion-card>
+      </ng-container>
 </ion-content>

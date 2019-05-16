@@ -10,20 +10,22 @@ import { ToastController } from '@ionic/angular';
 })
 export class NotificationPage implements OnInit  {
   
-  contracts: any;
+  received: any;
+  proposed: any;
 
   constructor( private toastCtrl: ToastController, private auth: AuthProviderService) {
   }
 
   ngOnInit() {
-    this.getContracts();
+    this.getReceived();
+    this.getProposed();
   }
 
-  getContracts() {
+  getReceived() {
     this.auth.getToken().then(result => {
       const token = result;
      this.auth.getReceivedContracts(token).subscribe(res => {
-       this.contracts=res;
+       this.received=res;
       });
     }).catch(err => {
       console.log(err);
@@ -31,6 +33,18 @@ export class NotificationPage implements OnInit  {
     });
   }
  
+  getProposed(){
+    this.auth.getToken().then(result => {
+      const token = result;
+     this.auth.getProposedContracts(token).subscribe(res => {
+       this.proposed=res;
+      });
+    }).catch(err => {
+      console.log(err);
+     return throwError;
+    });
+  }
+
   accept(un:string){
     this.auth.getToken().then(result => {
       this.auth.acceptContract(un, result)
