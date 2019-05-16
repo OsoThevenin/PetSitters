@@ -1,12 +1,16 @@
+
+<ion-header>
+        <ion-toolbar color="a1">
+                <img class="logo" src="../../assets/Logo_versio4.png">
+                <ion-button class="my-button" fill="clear" shape="round" size="small" (click)="OpenPopover($event)">
+                    <ion-icon name="settings"></ion-icon>
+                </ion-button>
+            </ion-toolbar>
+</ion-header>
 <ion-content>
-    <ion-toolbar color="a1">
-        <img class="logo" src="../../assets/Logo_versio4.png">
-        <ion-button class="my-button" fill="clear" shape="round" size="small" (click)="OpenPopover($event)">
-            <ion-icon name="settings"></ion-icon>
-        </ion-button>
-    </ion-toolbar>
+    
     <!-- De Base de Datos -->
-    <ion-grid>
+    <ion-grid class="background">
     <ion-row justify-content-center align-items-center>
     
                 <img class="avatar_profile" *ngIf='cuidador.profile_image == "" ' src="../../../assets/default_avatar.png">
