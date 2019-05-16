@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>modal-solicitud</ion-title>
+    <ion-title>New Contract</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -44,5 +44,6 @@
         <ion-label>Feedback</ion-label>
         <ion-checkbox [(ngModel)]="feedback" value="false"></ion-checkbox>
     </ion-item>
-    <ion-button (click)="enviaSolicitud()">Accept</ion-button>
+    <ion-button float-right (click)="enviaSolicitud()">Accept</ion-button>
+    <ion-button float-right (click)="Cancel()">Cancel</ion-button>
 </ion-content>

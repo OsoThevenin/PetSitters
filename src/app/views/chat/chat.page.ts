@@ -214,7 +214,7 @@ export class ChatPage implements OnInit {
       this.auth.getToken().then(result => {
         const token = result;
         this.chats.getMessagesFromChat(this.usernameCuidador, token).subscribe(res => {
-          console.log(res);
+          //console.log(res);
           let aux = res;
           if(aux.length > this.messages.length){
             this.messages = res;

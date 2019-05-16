@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ChatsService } from 'src/app/providers/chats/chats.service';
 import { AuthProviderService } from 'src/app/providers/auth/auth-provider.service';
 import { throwError } from 'rxjs';
-import { NavParams } from '@ionic/angular';
+import { NavParams, ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-modal-solicitud',
@@ -19,7 +19,7 @@ export class ModalSolicitudPage implements OnInit {
 	public feedback: boolean;
 	public cuidadorContrato: any;
 
-  constructor(private chats: ChatsService, private auth: AuthProviderService, private navParams: NavParams) { }
+  constructor(private modalController: ModalController,private chats: ChatsService, private auth: AuthProviderService, private navParams: NavParams) { }
 
   enviaSolicitud(): any {
 	console.log("Envia algo");
@@ -56,9 +56,13 @@ export class ModalSolicitudPage implements OnInit {
 		this.cuidadorContrato = this.navParams.get('usernameCuidador');
   }
 
+  Cancel() {
+    this.modalController.dismiss();
+  }
+
   dateChanged(date) {
     console.log(date.detail.value);
     //console.log(this.myDate);
-}
+	}
 
 }
