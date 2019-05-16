@@ -1,18 +1,31 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Notifications
+      Taskboard
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-row>
-    <ion-label>Notifications</ion-label>
+
+  <ion-row justify-content-center align-items-center> 
+    <ion-col size-lg="8" size-xl="4">
+      <ion-card>
+        <ion-card-header>
+      <ion-label class="sectionTitle">Notifications</ion-label>
+    </ion-card-header>
+      </ion-card>
+  </ion-col>
   </ion-row>
-  <ion-row>
-    <ion-label>Received Contracts</ion-label>
-  </ion-row>
+
+
+  <ion-row justify-content-center align-items-center> 
+    <ion-col size-lg="8" size-xl="4">
+  <ion-card>
+      <ion-card-header>
+          <ion-label class="sectionTitle">Received Contracts</ion-label>
+      </ion-card-header>
+      <ion-card-content>
   <ng-container *ngFor="let contract of received">
   <ion-card>
     <ion-card-header class="contractHeader">
@@ -62,9 +75,18 @@
     </ion-card-content>
   </ion-card>
   </ng-container>
-  <ion-row>
-    <ion-label>Proposed Contracts</ion-label>
-  </ion-row>
+</ion-card-content>
+</ion-card>
+</ion-col>
+</ion-row>
+
+<ion-row justify-content-center align-items-center> 
+    <ion-col size-lg="8" size-xl="4">
+      <ion-card>
+          <ion-card-header>
+              <ion-label class="sectionTitle">Proposed Contracts</ion-label>
+          </ion-card-header>
+          <ion-card-content>
   <ng-container *ngFor="let contract of proposed">
       <ion-card>
         <ion-card-header class="contractHeader">
@@ -114,4 +136,10 @@
         </ion-card-content>
       </ion-card>
       </ng-container>
+    </ion-card-content>
+  </ion-card>
+</ion-col>
+</ion-row>
+
+
 </ion-content>
