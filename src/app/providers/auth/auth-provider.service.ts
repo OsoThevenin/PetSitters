@@ -102,7 +102,7 @@ export class AuthProviderService {
     httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token);
     const options = {headers: httpHeaders};
 
-    return this.http.get<any>(this.global.baseUrl + 'getReceivedContracts', options);
+    return this.http.get<any>(this.global.baseUrl + 'getProposedContracts', options);
   }
 
   acceptContract(data, token): Observable<any> {
