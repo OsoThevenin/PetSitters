@@ -144,7 +144,7 @@ export class PerfilCuidadorPage implements OnInit {
 
       this.chatsService.startChat(body, result)
       .subscribe(res => {
-        this.router.navigateByUrl('tabs/chats/chat');
+        this.router.navigateByUrl('chat');
 		//De momento solo va al mockup
       }, err => {
         console.log('Error al abrir chat');
