@@ -18,6 +18,7 @@ import { throwError } from 'rxjs';
 const STORAGE_KEY = 'my_images';
 const PETSITTERS_DIRECTORY = 'PetSitters';
 
+
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.page.html',
@@ -79,8 +80,8 @@ export class ChatPage implements OnInit {
   }
 
   goBack() {
-    this.router.navigateByUrl('/tabs/chats');
     clearInterval(this.id);
+    this.router.navigateByUrl('/tabs/chats');
   }
   abrirCamara() {
     console.log('Open Camera');
@@ -154,7 +155,7 @@ export class ChatPage implements OnInit {
     });
   }
   updateStoredImages(name, filePath) { // FilePath contains the complete path + name of the image
-    return new Promise((resolve) => {   
+    return new Promise((resolve) => {
       this.storage.get(STORAGE_KEY).then(images => {
         let arr = JSON.parse(images);
         if (!arr) {

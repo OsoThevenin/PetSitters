@@ -53,17 +53,18 @@ export class ImageService {
      });
   }
 
-  getImageData(name: string) {
+  async getImageData(name: string): Promise<any> {
     // Send HTTP GET to api
     const token = this.storage.get('token');
     token.then(res => {
-       this.getImage(name, res);
+      console.log('return promise image');
+      return this.getImage(name, res);
     }).catch(err => {
       console.log('Error when getting token' + err);
     });
   }
 
-  async getImage(name: string, token: string) {
+  getImage(name: string, token: string): Promise<any> {
     const fileTransfer: FileTransferObject = new FileTransferObject();
     let dataDirectory = this.file.externalRootDirectory + PETSITTERS_DIRECTORY + '/';
     let options: FileUploadOptions = {
@@ -75,12 +76,7 @@ export class ImageService {
    };
 
     let url = this.global.baseUrl;
-    fileTransfer.download(url + 'get/' + name, dataDirectory + 'received/' + name + '.jpg', true, options)
-    .then((res) => {
-      console.log('download complete:' + res.toURL());
-    }, (error) => {
-      console.log(JSON.stringify(error));
-    });
+    return fileTransfer.download(url + 'get/' + name, dataDirectory + 'received/' + name + '.jpg', true, options);
   }
 
   async presentToast(text) {
