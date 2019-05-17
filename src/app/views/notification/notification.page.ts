@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthProviderService } from 'src/app/providers/auth/auth-provider.service';
 import { throwError } from 'rxjs/internal/observable/throwError';
-import { ToastController } from '@ionic/angular';
+import { ToastController, AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-notification',
@@ -13,7 +13,7 @@ export class NotificationPage implements OnInit  {
   received: any;
   proposed: any;
 
-  constructor( private toastCtrl: ToastController, private auth: AuthProviderService) {
+  constructor( private toastCtrl: ToastController, private auth: AuthProviderService, private alertController: AlertController) {
   }
 
   ngOnInit() {
@@ -77,6 +77,8 @@ export class NotificationPage implements OnInit  {
   }
 
   cancel(un:string){
+    this.presentAlert_D(un);
+    /* Sin Alerta de confirmacion 
     this.auth.getToken().then(result => {
       this.auth.rejectContract(un, result)
       .subscribe(res => {
@@ -87,6 +89,38 @@ export class NotificationPage implements OnInit  {
         console.log(err);
       });
     });
+    */
+  }
+
+  async presentAlert_D(un:string) {
+    const alert = await this.alertController.create({
+      header: 'Cancel contract',
+      message: 'Are you sure you want to cancel the contract?',
+      
+      buttons: [
+        {
+        text: 'Cancel',
+        role: 'cancel'
+        },
+        {
+          text: 'Confirm',
+          handler: cancelar => {
+            this.auth.getToken().then(result => {
+              this.auth.rejectContract(un, result)
+              .subscribe(res => {
+                this.ngOnInit();
+                this.presentToast('You have cancelled the contract successfully!');
+              }, err => {
+                this.presentToast('Something went wrong, please try again');
+                console.log(err);
+              });
+            });
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
   async presentToast(message) {

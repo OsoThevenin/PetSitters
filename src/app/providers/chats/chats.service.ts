@@ -46,12 +46,12 @@ export class ChatsService {
   }
     
 
-  isContracted(contract, token): Observable <any> {
+  hasContracted(contract, token): Observable <any> {
 	let httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
     httpHeaders = httpHeaders.append('Access-Control-Allow-Origin', '*');
     httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token);
     const options = {headers: httpHeaders};
-    return this.http.get<any>(this.global.baseUrl + 'isContracted?contract=' + contract, options);
+    return this.http.get<any>(this.global.baseUrl + 'hasContracted?contract=' + contract, options);
   }
 
 

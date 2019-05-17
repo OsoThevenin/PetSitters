@@ -62,7 +62,7 @@ export class ChatPage implements OnInit {
     this.auth.getToken().then(result => {
       const token = result;
   
-    this.chats.isContracted(this.usernameCuidador,token).subscribe(res =>{
+    this.chats.hasContracted(this.usernameCuidador,token).subscribe(res =>{
       console.log(res);
       if(res!=null) this.contratado=true;
     });
