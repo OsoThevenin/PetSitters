@@ -1,8 +1,8 @@
+import { AuthProviderService } from './../../../providers/auth/auth-provider.service';
+import { SearchService } from './../../../providers/Search/search.service';
 import { Component, OnInit } from '@angular/core';
 import { NavController, AlertController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
-import { AuthProviderService } from 'src/app/providers/auth/auth-provider.service';
-import { SearchService } from 'src/app/providers/Search/search.service';
 import { throwError } from 'rxjs';
 import { ToastController } from '@ionic/angular';
 import { ChatsService } from './../../../providers/chats/chats.service';
