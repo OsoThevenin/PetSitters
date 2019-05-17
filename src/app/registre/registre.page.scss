@@ -10,6 +10,15 @@ ion-input{
     --background:white;
     color: black;
 }
+
+ion-datetime{
+    -moz-border-radius: 50px;
+    -webkit-border-radius: 50px !important;
+    border-radius: 8px !important;
+    margin-bottom: 10px;  
+    background:white;
+}
+
 ion-title{
     margin-top: 3%;
     font-weight:bold;
