@@ -180,6 +180,7 @@ hazlista=false;
     else this.hazlista=true;
     const body: any = this.expertise;
     const atr: string = "expert";
+    console.log(this.expertise);
     this.auth.getToken().then(result => {
       const token = result;
       this.auth.modify(token,atr,body)
