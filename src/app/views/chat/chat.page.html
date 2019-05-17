@@ -49,11 +49,11 @@
     <ion-grid>
         <div *ngFor="let mesg of messages" >
           <div [class]="mesg.userWhoSends == username ? 'messageRight' : ' messageLeft'">
-            <ion-card-content *ngIf="!mesg.isMultimedia">{{ mesg.content }}</ion-card-content>
-            <ion-card-content *ngIf="mesg.isMultimedia">
+            <ion-card-content>{{ mesg.content }}</ion-card-content>
+            <!-- <ion-card-content *ngIf="mesg.isMultimedia">
               <img src="mesg.url" alt="imatge">
               Imatge
-            </ion-card-content>
+            </ion-card-content> -->
           </div>
         </div>
     </ion-grid>
