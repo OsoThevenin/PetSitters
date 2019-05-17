@@ -76,4 +76,16 @@ export class ChatsService {
     return this.http.delete<any>(this.global.baseUrl + 'rejectContract?contract='+ data, options);
   }
 
+  deleteChat(data, token): Observable<any> {
+    // Add token to headers
+    let httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    httpHeaders = httpHeaders.append('Access-Control-Allow-Origin', '*');
+    httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token);
+    const options = {
+      headers: httpHeaders,
+      body: data
+    };
+    return this.http.delete<any>(this.global.baseUrl + 'deleteChat', options);
+  }
+
 }

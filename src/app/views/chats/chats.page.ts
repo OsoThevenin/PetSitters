@@ -30,6 +30,29 @@ export class ChatsPage implements OnInit {
   abreChat(chatUser){
     this.router.navigateByUrl('/chat/' + chatUser);
   }
+
+  borrarChat(chatUser){
+    const data: any = {
+      otherUsername: chatUser
+    };
+    this.auth.getToken().then(result => {
+      const token = result;
+      //console.log('token: ' + token);
+      this.chats.deleteChat(data, token).
+          subscribe(res => {
+            console.log(res);
+            this.ngOnInit();
+            this.presentToast('You have successfully deleted this chat');
+          }, err => {
+            console.log(err);
+            this.presentToast('Something went wrong, please try it again');
+          });
+      }).catch(err => {
+          console.log(err);
+          return throwError;
+        });
+  }
+
   
   ngOnInit() {
     this.activeChats = this.showActiveChats();
