@@ -65,7 +65,7 @@ export class ProfilePage implements OnInit {
     description: null,
     localization: null,
     name: null,
-    profile_image: null,
+    profile_image: "",
     stars: 0,
     username: null,
     expert: null,
@@ -82,7 +82,7 @@ export class ProfilePage implements OnInit {
   constructor(private popoverCtrl: PopoverController, private auth: AuthProviderService, private actrout: ActivatedRoute,
     private search: SearchService,private modalCtrl:ModalController , private global: GlobalService,private chatsService: ChatsService,
     private router: Router,
-     private storage: Storage, public formBuilder: FormBuilder, private cameraService: CameraService) {
+     private storage: Storage, public formBuilder: FormBuilder) {
       this.horasForm = this.formBuilder.group({
         fromfcn: new FormControl('', Validators.compose([
           Validators.required,

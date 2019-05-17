@@ -121,25 +121,7 @@ export class PerfilCuidadorPage implements OnInit {
 
 
   startChat() {
-	console.log(this.cuidador.username);
-    this.auth.getToken().then(result => {
-      let body: any = {
-        otherUsername: this.cuidador.username
-      };
-
-      this.chatsService.startChat(body, result)
-      .subscribe(res => {
-        console.log(this.cuidador.username);
-        this.router.navigateByUrl('chat/' + this.cuidador.username);
-		//De momento solo va al mockup
-      }, err => {
-        console.log('Error al abrir chat');
-        console.log(err.error.error);
-        if(err.error.error === 'Chat already exists'){
-          this.router.navigateByUrl('chat/' + this.cuidador.username);
-        }
-      });
-    });
+    this.router.navigateByUrl('chat/' + this.cuidador.username);
   }
 
   goToSearch() {

@@ -21,10 +21,13 @@
 <ion-content>
     <!-- <ion-label>Chats</ion-label> -->
     <ion-list class=" ex1" *ngFor="let chat of activeChats">
-        <ion-item (click)="abreChat(chat)">
+        <ion-item (click)="abreChat('hector')">
             <ion-grid>
                 <ion-row>
-                    <ion-label class="mensaje"><strong>{{chat}}</strong></ion-label>
+                    <ion-label class="mensaje"><strong>{{chat.name}}</strong></ion-label>
+                </ion-row>
+                <ion-row>
+                    <ion-label class="lastMessage"><strong>{{chat.lastMessage}}</strong></ion-label>
                 </ion-row>
             </ion-grid>
         </ion-item>
