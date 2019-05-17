@@ -379,8 +379,7 @@ export class ChatPage implements OnInit {
             }).then((data) => {
               this.presentToast('Image sent correctly');
               console.log('Response chat:' + JSON.stringify(data));
-              let str = OutputDir.split('///');
-              let path = str[1];
+              let path = this.pathForImage(correctPath);
               this.enviaImatge(data.response, path);
             });
         });

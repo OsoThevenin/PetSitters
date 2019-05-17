@@ -51,7 +51,7 @@
           <div [class]="mesg.userWhoSends == username ? 'messageRight' : ' messageLeft'">
             <ion-card-content *ngIf="!mesg.multimedia">{{ mesg.content }}</ion-card-content>
             <ion-card-content *ngIf="mesg.multimedia">
-              <img src="{{mesg.url}}" alt="imatge">
+              <img [src]="mesg.url" alt="Error al carregar la imatge">
             </ion-card-content>
           </div>
         </div>
