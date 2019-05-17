@@ -1,7 +1,7 @@
 import { ToastController } from '@ionic/angular';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormControl, FormGroup, FormBuilder, Validators} from '@angular/forms';
+import { FormControl, FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl} from '@angular/forms';
 import { AuthProviderService } from './../providers/auth/auth-provider.service';
 import { GlobalService } from './../shared/global.service';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
@@ -38,9 +38,17 @@ export class RegistrePage implements OnInit {
       {type:'maxlength', message: 'Password must be shorter than 25 characters.'},
       {type:'pattern', message: 'Password must contain numbers, uppercase and lowercase characters.'}
     ],
+    'confirm' :[
+      {type:'required', message: 'Confirm password is required.'},
+      {type:'equalTo', message: 'Password mismatch.'}
+    ],
     'birthDate':[
-      {type:'required', message: 'Birth Date is required.'},
-      {type:'pattern', message: 'Birth Date must have a valid format (dd-mm-yyyy).'}
+      {type:'required', message: 'Birth Date is required.'}
+    ],
+    'city':[
+      {type:'required', message: 'City is required.'},
+      {type:'pattern', message: 'City must be valid.'},
+      {type:'maxlength', message: 'City must be shorter than 25 characters.'},
     ],
     'email':[
       {type:'required', message: 'Email is required.'},
@@ -52,6 +60,7 @@ export class RegistrePage implements OnInit {
   @ViewChild('lastName') ln;
   @ViewChild('username') un;
   @ViewChild('password') pw;
+  @ViewChild('city') ct;
   @ViewChild('birthDate') bd;
   @ViewChild('email') em;
 
@@ -80,9 +89,14 @@ export class RegistrePage implements OnInit {
         Validators.maxLength(25),
         Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')
       ])),
+      pw2fc: new FormControl('', [Validators.required, this.equalto('pwfcn')]),
       bdfcn: new FormControl('', Validators.compose([
         Validators.required,
-        Validators.pattern('^([0-2][0-9]|(3)[0-1])(-)(((0)[0-9])|((1)[0-2]))(-)((1)(9)[0-9][0-9]|(2)(0)[0-5][0-9])$')
+      ])),
+      ctfcn: new FormControl('', Validators.compose([
+        Validators.required,
+        Validators.maxLength(25),
+        Validators.pattern('^([a-zA-Z]+|[a-zA-Z]+\s[a-zA-Z]+)$')
       ])),
       emfcn: new FormControl('', Validators.compose([
         Validators.required,
@@ -92,19 +106,37 @@ export class RegistrePage implements OnInit {
 
   }
 
+  equalto(field_name): ValidatorFn {
+    return (control: AbstractControl): {[key: string]: any} => {
+    
+    let input = control.value;
+    
+    let isValid=control.root.value[field_name]==input
+    if(!isValid) 
+    return { 'equalTo': {isValid} }
+    else 
+    return null;
+    };
+  }
+
 
   ngOnInit() {
   }
 
   // Register a new User with the information provided
   signUp() {
+    let dia = this.bd.value.substring(8,10);
+    let mes = this.bd.value.substring(4,7);
+    let any = this.bd.value.substring(0,4);
+    let b = dia.concat(mes,'-',any);
     const hashPassword = Md5.hashAsciiStr('petsitterplot420 ' + this.pw.value);
     const body: any = {
       firstName: this.fn.value,
       lastName: this.ln.value,
       username: this.un.value,
       password: hashPassword,
-      birthdate: this.bd.value,
+      birthdate: b,
+      city: this.ct.value,
       email: this.em.value
     };
     console.log(body);
@@ -112,7 +144,7 @@ export class RegistrePage implements OnInit {
       .subscribe(res => {
         // When the result is okay
         console.log(res);
-        this.router.navigateByUrl('/email-confirm');
+        this.router.navigateByUrl('/email-confirm/' + body.username);
         this.presentToast('SignedUp successfully!');
         },
         err => {

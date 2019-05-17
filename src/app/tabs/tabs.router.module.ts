@@ -14,6 +14,17 @@ const routes: Routes = [
             path: '',
             loadChildren: '../views/chat/chat.module#ChatPageModule'
           }
+          /*
+          {
+            path: 'chat',
+            children: [
+              {
+                path: '',
+                loadChildren: '../views/chat/chat.module#ChatPageModule'
+              }
+            ]
+          }
+          */
         ]
       },
       {
@@ -22,6 +33,15 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: '../views/search/search.module#SearchPageModule'
+          },
+          {
+            path: 'perfil-cuidador/:username',
+            children: [
+              {
+                path: '',
+                loadChildren: '../views/search/perfil-cuidador/perfil-cuidador.module#PerfilCuidadorPageModule'
+              }
+            ]
           }
         ]
       },

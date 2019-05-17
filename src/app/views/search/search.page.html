@@ -4,26 +4,52 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>  
+<ion-content>
     <ion-searchbar [(ngModel)]="searchTerm" (ionChange)="devuelvePerfilesCuidadores()"></ion-searchbar>
+    <ion-item>
+    <ion-label>Filter by:</ion-label>
+        <ion-select [(ngModel)]="searchFilter" (ionChange)="devuelvePerfilesCuidadores()" value="Name">
+            <ion-select-option value="Name">Name</ion-select-option>
+            <ion-select-option value="Expert">Expert</ion-select-option>
+            <ion-select-option value="Distance">Distance</ion-select-option>
+            <ion-select-option value="Favorites">Favorites</ion-select-option>
+        </ion-select>
+    </ion-item>
+    <div *ngIf="searchFilter == 'Expert'">
+        <ion-item>
+            <ion-label>With expertise in:</ion-label>
+            <ion-select [(ngModel)]="expertFilter" (ionChange)="devuelvePerfilesCuidadores()">
+                <ion-select-option value="Dogs">Dogs</ion-select-option>
+                <ion-select-option value="Cats">Cats</ion-select-option>
+                <ion-select-option value="Ferrets">Ferrets</ion-select-option>
+                <ion-select-option value="Reptiles">Reptiles</ion-select-option>
+                <ion-select-option value="Birds">Birds</ion-select-option>
+                <ion-select-option value="Rodents">Rodents</ion-select-option>
+                <ion-select-option value="Fishes">Fishes</ion-select-option>
+                <ion-select-option value="Amphibians">Amphibians</ion-select-option>
+                <ion-select-option value="Arthropods">Arthropods</ion-select-option>
+                <ion-select-option value="Other">Other</ion-select-option>
+            </ion-select>
+        </ion-item>
+    </div>
     <ion-grid style="height: 100%">
-        <ion-row justify-content: center align-items: center >
-          <ion-col *ngFor="let cuidador of perfilsCuidadors">
-             <ion-card (click)="goToPerfilCuidador(cuidador)" >
-                  <img class="avatar" *ngIf="cuidador.profile_image == null" src="../../../assets/default_avatar.png">
-                  <ion-card-header>
-                      <ion-row justify-content-center align-items-center>
-                          <ion-icon class="stars" name="star-outline"></ion-icon>
-                          <ion-icon class="stars" name="star-outline"></ion-icon>
-                          <ion-icon class="stars" name="star-outline"></ion-icon>
-                          <ion-icon class="stars" name="star-outline"></ion-icon>
-                          <ion-icon class="stars" name="star-outline"></ion-icon>
-                      </ion-row>
-                      <ion-card-title style="text-align: center">{{cuidador.name}}</ion-card-title>
-                  </ion-card-header>
-              </ion-card>
-          </ion-col>
+        <ion-row justify-content: center align-items: center>
+            <ion-col *ngFor="let cuidador of perfilsCuidadors">
+                <ion-card (click)="goToPerfilCuidador(cuidador)">
+                    <img class="avatar" *ngIf="cuidador.profile_image == null" src="../../../assets/default_avatar.png">
+                    <ion-card-header>
+                        <ion-row justify-content-center align-items-center>
+                            <ion-icon class="stars" name="star-outline"></ion-icon>
+                            <ion-icon class="stars" name="star-outline"></ion-icon>
+                            <ion-icon class="stars" name="star-outline"></ion-icon>
+                            <ion-icon class="stars" name="star-outline"></ion-icon>
+                            <ion-icon class="stars" name="star-outline"></ion-icon>
+                        </ion-row>
+                        <ion-card-title style="text-align: center">{{cuidador.name}}</ion-card-title>
+                    </ion-card-header>
+                </ion-card>
+            </ion-col>
         </ion-row>
     </ion-grid>
-  </ion-content>
+</ion-content>
 

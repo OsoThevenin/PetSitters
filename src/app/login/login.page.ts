@@ -58,18 +58,21 @@ export class LoginPage implements OnInit {
       this.auth.login(body)
         .subscribe(res => {
           // Save token to storage
+          if (res.result == null) this.presentToast('Please confirm your email!');
           console.log('result ' + JSON.stringify(res));
           this.storage.set('token', res.result.token);
           this.storage.set('username', this.un.value);
           this.global.token = res.result.token;
           this.router.navigateByUrl('');
         }, err => {
+          console.log(err);
           if (err.status === 401) {
             this.presentToast('Bad credentials, please try again!');
+          } else if (err.status === 500) {
+            this.presentToast("Something went wrong, we can't sign you in. Please try sign up first!");
           } else {
             this.presentToast('Something went wrong');
-            console.log('')
-          }
+          } 
         });
     } else {
       if (!this.logInForm.controls['unfcn'].valid) {

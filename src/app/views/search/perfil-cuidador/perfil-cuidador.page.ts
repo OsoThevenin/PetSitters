@@ -16,6 +16,20 @@ import { Router } from '@angular/router';
 })
 export class PerfilCuidadorPage implements OnInit {
 
+  public expertise = [
+    { type: 'Dogs', isChecked: false },
+    { type: 'Cats', isChecked: false },
+    { type: 'Ferrets', isChecked: false },
+    { type: 'Reptiles', isChecked: false },
+    { type: 'Birds', isChecked: false },
+    { type: 'Rodents', isChecked: false },
+    { type: 'Fishes', isChecked: false },
+    { type: 'Amphibians', isChecked: false },
+    { type: 'Arthropods', isChecked: false },
+    { type: 'Other', isChecked: false }
+  ];
+  hazlista=false;
+
      
  monday: any ={from: '', to: ''}
  tuesday: any ={from: '', to: ''}
@@ -61,19 +75,26 @@ export class PerfilCuidadorPage implements OnInit {
     }
   ];
 
+  favorito: boolean = false;
+  favorites: any;
+  dataRev = this.actrout.snapshot.paramMap.get('username');
+
   constructor(private nav: NavController, private actrout: ActivatedRoute,
     private search: SearchService, private auth: AuthProviderService, private chatsService: ChatsService,
    private router: Router, private toastController: ToastController, private alertController: AlertController) {
   }
 
   ngOnInit() {
-    const dataRev = this.actrout.snapshot.paramMap.get('username');
     this.auth.getToken().then(result => {
       const token = result;
       // console.log('token: ' + token);
-      this.search.getUser(dataRev, token).subscribe(res => {
+      this.search.getUser(this.dataRev, token).subscribe(res => {
         //console.log(res);
         this.cuidador = res;
+        if (this.cuidador.expert.length != 0) this.expertise=JSON.parse(this.cuidador.expert);
+        else this.expertise=JSON.parse('[{"type":"Dogs","isChecked":false},{"type":"Cats","isChecked":false},{"type":"Ferrets","isChecked":false},{"type":"Reptiles","isChecked":false},{"type":"Birds","isChecked":false},{"type":"Rodents","isChecked":false},{"type":"Fishes","isChecked":false},{"type":"Amphibians","isChecked":false},{"type":"Arthropods","isChecked":false},{"type":"Other","isChecked":false}]');
+        if(this.expertise[0].isChecked == false && this.expertise[1].isChecked == false && this.expertise[2].isChecked == false && this.expertise[3].isChecked == false && this.expertise[4].isChecked == false && this.expertise[5].isChecked == false && this.expertise[6].isChecked == false && this.expertise[7].isChecked == false) this.hazlista=false;
+        else this.hazlista=true;
         if (this.cuidador.availability != "None") {
           let horasdias: string[]=this.cuidador.availability.split(','); 
            this.monday.from=horasdias[0];
@@ -92,12 +113,24 @@ export class PerfilCuidadorPage implements OnInit {
            this.sunday.to=horasdias[13];
         }
       });
+
+      this.auth.getFavorites(token).subscribe(res => {
+        //console.log("res:", res)
+        this.favorites = res;
+        if (typeof this.favorites !== null) {
+          for (var i of this.favorites) {
+            if (i.username == this.dataRev) {
+              this.favorito = true;
+            }
+          }
+        }
+
+      });
+
     }).catch(err => {
       console.log(err);
       return throwError;
     });
-    //console.log(dataRev);
-    //console.log(this.cuidador);
   }
 
   ReportUser() {
@@ -122,6 +155,38 @@ export class PerfilCuidadorPage implements OnInit {
 
   startChat() {
     this.router.navigateByUrl('chat/' + this.cuidador.username);
+  }
+  
+  desmarcarFavorito() {
+    console.log("He clicado desmarcar como favorito");
+    this.auth.getToken().then(result => {
+      const dataRev = this.actrout.snapshot.paramMap.get('username');
+      this.auth.unsetFavorites(dataRev, result).subscribe(res => {
+        this.favorito = false;
+      }, err => {
+        this.presentToast('Something went wrong, please try it again');
+        console.log(err);
+      });
+    });
+  }
+
+  marcarFavorito(){
+    console.log("He clicado marcar como favorito");
+    this.auth.getToken().then(result => {
+      const token = result;
+      const data = this.actrout.snapshot.paramMap.get('username');
+      //console.log('token: ' + token);
+      this.auth.addFavorites(data, token).
+          subscribe(res => {
+            this.favorito = true;
+          }, err => {
+            console.log(err);
+            this.presentToast('Something went wrong, please try it again');
+          });
+    }).catch(err => {
+      console.log(err);
+      return throwError;
+    });
   }
 
   goToSearch() {

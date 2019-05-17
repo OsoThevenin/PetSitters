@@ -11,6 +11,8 @@ import { throwError } from 'rxjs';
 })
 export class SearchPage {
   public searchTerm: string = "";
+  public searchFilter: string;
+  public expertFilter: string;
 
   constructor(private nav: NavController, private search: SearchService, private auth: AuthProviderService) {
   }
@@ -38,25 +40,44 @@ goToPerfilCuidador(cuidadorConcret) {
     console.log(err);
     return throwError;
   });*/
-  this.nav.navigateRoot(`/perfil-cuidador/` + cuidadorConcret.username);
+  this.nav.navigateRoot(`tabs/search/perfil-cuidador/` + cuidadorConcret.username);
 }
 
 devuelvePerfilesCuidadores(): any {
   this.auth.getToken().then(result => {
     const token = result;
-	
-	if (this.searchTerm != ""){
-	  this.search.filterName(this.searchTerm,token).subscribe(res => {
-	  	  this.perfilsCuidadors = res;
-	  });
+	if (this.searchFilter == "Favorites"){
+		this.auth.getFavorites(token).subscribe(res => {
+			this.perfilsCuidadors = res;
+		});
 	}
+	else if (this.searchFilter == "Expert"){
+			  this.search.filterExpert(this.expertFilter,token).subscribe(res => {
+	  		  this.perfilsCuidadors = res;
+			  });
+			}
 	else{
-	 console.log('token: ' + token);
-	 this.search.getUsersList(token).subscribe(res => {
-	   // console.log(res);
-	   this.perfilsCuidadors = res;
-	   // console.log(this.perfilsCuidadors);
-	  });
+		if (this.searchTerm != ""){
+			if (this.searchFilter == "Name"){
+			  this.search.filterName(this.searchTerm,token).subscribe(res => {
+	  		  this.perfilsCuidadors = res;
+			  });
+			}
+			
+			else if (this.searchFilter == "Distance"){
+			  this.search.filterDistance(this.searchTerm,token).subscribe(res => {
+	  		  this.perfilsCuidadors = res;
+			  });
+			}
+		}
+		else{
+		 console.log('token: ' + token);
+		 this.search.getUsersList(token).subscribe(res => {
+		   // console.log(res);
+		   this.perfilsCuidadors = res;
+		   // console.log(this.perfilsCuidadors);
+		  });
+		}
 	}
 	}).catch(err => {
 	  console.log(err);

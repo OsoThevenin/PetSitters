@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 import { FormControl, FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthProviderService } from '../providers/auth/auth-provider.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-resetpassword',
@@ -21,7 +22,7 @@ export class ResetpasswordPage implements OnInit {
 
   EmailForm: FormGroup;
 
-  constructor( private toastCtrl: ToastController, public formBuilder: FormBuilder, private auth: AuthProviderService) { 
+  constructor( private toastCtrl: ToastController, public formBuilder: FormBuilder, private auth: AuthProviderService, private router: Router) { 
     this.EmailForm = this.formBuilder.group({
       emfcn: new FormControl('', Validators.compose([
         Validators.required,
@@ -43,6 +44,7 @@ export class ResetpasswordPage implements OnInit {
     this.auth.requestResetPassword(body)
         .subscribe(res => {
           // si todo ha ido bien
+          this.router.navigateByUrl('/login');
           this.presentToast('Please check your inbox: An email is on the way');
         }, err => {
           this.presentToast('Something went wrong, please try it again');
