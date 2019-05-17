@@ -122,6 +122,7 @@ export class ChatPage implements OnInit {
             this.auth.getToken().then(result => {
               this.chats.rejectContract(this.usernameCuidador, result)
               .subscribe(res => {
+                this.ngOnInit();
                 this.presentToast('You have cancelled the contract successfully!');
               }, err => {
                 this.presentToast('Something went wrong, please try again');

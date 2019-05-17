@@ -17,8 +17,8 @@ export class NotificationPage implements OnInit  {
   }
 
   ngOnInit() {
-    this.getReceived();
-    this.getProposed();
+    this.received=this.getReceived();
+    this.proposed=this.getProposed();
   }
 
   getReceived() {
@@ -32,6 +32,7 @@ export class NotificationPage implements OnInit  {
       console.log(err);
      return throwError;
     });
+    return this.received;
   }
  
   getProposed(){
@@ -39,18 +40,21 @@ export class NotificationPage implements OnInit  {
       const token = result;
      this.auth.getProposedContracts(token).subscribe(res => {
        this.proposed=res;
+       console.log(res);
        console.log("proposed:",this.proposed);
       });
     }).catch(err => {
       console.log(err);
      return throwError;
     });
+    return this.proposed;
   }
 
   accept(un:string){
     this.auth.getToken().then(result => {
       this.auth.acceptContract(un, result)
       .subscribe(res => {
+        this.ngOnInit();
         this.presentToast('You have accepted the contract successfully!');
       }, err => {
         this.presentToast('Something went wrong, please try again');
@@ -63,6 +67,7 @@ export class NotificationPage implements OnInit  {
     this.auth.getToken().then(result => {
       this.auth.rejectContract(un, result)
       .subscribe(res => {
+        this.ngOnInit();
         this.presentToast('You have rejected the contract successfully!');
       }, err => {
         this.presentToast('Something went wrong, please try again');
@@ -75,6 +80,7 @@ export class NotificationPage implements OnInit  {
     this.auth.getToken().then(result => {
       this.auth.rejectContract(un, result)
       .subscribe(res => {
+        this.ngOnInit();
         this.presentToast('You have cancelled the contract successfully!');
       }, err => {
         this.presentToast('Something went wrong, please try again');
@@ -89,6 +95,5 @@ export class NotificationPage implements OnInit  {
       duration: 2500
     });
     await toast.present();
-    this.ngOnInit();
   }
 }

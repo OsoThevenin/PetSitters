@@ -18,7 +18,7 @@ export class ModalSolicitudPage implements OnInit {
 	@ViewChild('dataFinal') dF;
 	@ViewChild('animalName') aN;
 	@ViewChild('animalSelected') aS;
-	@ViewChild('feedback') fb;
+	public fb: boolean = false;
 
 
 	public cuidadorContrato: any;
@@ -61,8 +61,7 @@ export class ModalSolicitudPage implements OnInit {
 
 		let horaF = this.dF.value.substring(11,16);
 		b=b.concat(", ");
-    b = b.concat(horaF);
-
+		b = b.concat(horaF);
 	this.auth.getToken().then(result => {
     const token = result;
 	let body: any = {
@@ -71,10 +70,11 @@ export class ModalSolicitudPage implements OnInit {
 		tipus: this.aS.value
 		}],
 	  end: a,
-	  feedback: this.fb.value,
+	  feedback: this.fb,
 	  start: b,
 	  username: this.cuidadorContrato,
 	};
+	console.log(body);
 	this.chats.proposeContract(body,token).subscribe(res =>{
 		console.log(res); //Daniel: deberia devolver null cuando no hay contratos y algo diferente cuando los hay, parece que en backend no funciona, hay que comentarlo con antoni.
 	});

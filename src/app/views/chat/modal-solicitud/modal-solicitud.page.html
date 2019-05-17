@@ -33,11 +33,12 @@
             <ion-label>End Date:</ion-label>
             <ion-datetime formControlName="edfcn" display-format="DD-MM-YYYY, HH:mm" #dataFinal></ion-datetime>
         </ion-item>
+    </form>
     <ion-item lines="none">
         <ion-label>Feedback</ion-label>
-        <ion-checkbox #feedback value="false"></ion-checkbox>
+        <ion-checkbox [(ngModel)]="fb"></ion-checkbox>
     </ion-item>
-    </form>
+    
     <ion-button float-right [disabled]="!solicitudForm.valid" (click)="enviaSolicitud()">Accept</ion-button>
     <ion-button float-right (click)="Cancel()">Cancel</ion-button>
 </ion-content>
