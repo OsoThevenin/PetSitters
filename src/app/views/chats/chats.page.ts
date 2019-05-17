@@ -1,8 +1,8 @@
 import { ToastController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthProviderService } from 'src/app/providers/auth/auth-provider.service';
-import { ChatsService } from 'src/app/providers/chats/chats.service';
+import { AuthProviderService } from './../../providers/auth/auth-provider.service';
+import { ChatsService } from './../../providers/chats/chats.service';
 import { throwError } from 'rxjs';
 import { bindPlayerFactory } from '@angular/core/src/render3/styling/player_factory';
 
@@ -27,7 +27,7 @@ export class ChatsPage implements OnInit {
       {username: "Ruben"}
   ];
 
-  abreChat(chatUser){
+  abreChat(chatUser) {
     this.router.navigateByUrl('/chat/' + chatUser);
   }
 
@@ -53,7 +53,6 @@ export class ChatsPage implements OnInit {
         });
   }
 
-  
   ngOnInit() {
     this.activeChats = this.showActiveChats();
     // Carregar images guardades
