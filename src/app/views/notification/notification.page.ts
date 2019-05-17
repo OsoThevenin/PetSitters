@@ -26,6 +26,7 @@ export class NotificationPage implements OnInit  {
       const token = result;
      this.auth.getReceivedContracts(token).subscribe(res => {
        this.received=res;
+       console.log("received:",this.received);
       });
     }).catch(err => {
       console.log(err);
@@ -38,6 +39,7 @@ export class NotificationPage implements OnInit  {
       const token = result;
      this.auth.getProposedContracts(token).subscribe(res => {
        this.proposed=res;
+       console.log("proposed:",this.proposed);
       });
     }).catch(err => {
       console.log(err);
@@ -55,8 +57,8 @@ export class NotificationPage implements OnInit  {
         console.log(err);
       });
     });
-    this.ngOnInit();
   }
+
   decline(un:string){
     this.auth.getToken().then(result => {
       this.auth.rejectContract(un, result)
@@ -67,7 +69,18 @@ export class NotificationPage implements OnInit  {
         console.log(err);
       });
     });
-    this.ngOnInit();
+  }
+
+  cancel(un:string){
+    this.auth.getToken().then(result => {
+      this.auth.rejectContract(un, result)
+      .subscribe(res => {
+        this.presentToast('You have cancelled the contract successfully!');
+      }, err => {
+        this.presentToast('Something went wrong, please try again');
+        console.log(err);
+      });
+    });
   }
 
   async presentToast(message) {
@@ -76,5 +89,6 @@ export class NotificationPage implements OnInit  {
       duration: 2500
     });
     await toast.present();
+    this.ngOnInit();
   }
 }
