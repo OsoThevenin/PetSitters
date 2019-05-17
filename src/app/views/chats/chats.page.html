@@ -21,7 +21,7 @@
 <ion-content>
     <!-- <ion-label>Chats</ion-label> -->
     <ion-list class=" ex1" *ngFor="let chat of activeChats">
-        <ion-item (click)="abreChat('hector')">
+        <ion-item (click)="abreChat(chat.username)">
             <ion-grid>
                 <ion-row>
                     <ion-label class="mensaje"><strong>{{chat.name}}</strong></ion-label>
