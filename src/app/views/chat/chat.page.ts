@@ -129,7 +129,7 @@ export class ChatPage implements OnInit {
           text: 'Confirm',
           handler: cancelar => {
             this.auth.getToken().then(result => {
-              this.auth.rejectContract(this.usernameCuidador, result)
+              this.chats.rejectContract(this.usernameCuidador, result)
               .subscribe(res => {
                 this.presentToast('You have cancelled the contract successfully!');
               }, err => {

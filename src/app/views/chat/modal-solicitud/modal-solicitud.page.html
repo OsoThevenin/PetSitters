@@ -5,13 +5,14 @@
 </ion-header>
 
 <ion-content padding>
-    <ion-item>
-        <ion-label>Pet name</ion-label>
-        <ion-input [(ngModel)]="animalName"></ion-input>
+    <form [formGroup]="solicitudForm">
+    <ion-item lines="none">
+        <ion-label>Pet name:</ion-label>
+        <ion-input formControlName="anfcn" #animalName></ion-input>
     </ion-item>
-    <ion-item>
-        <ion-label>Animal</ion-label>
-        <ion-select [(ngModel)]="animalSelected">
+    <ion-item lines="none">
+        <ion-label>Animal type:</ion-label>
+        <ion-select formControlName="asfcn" #animalSelected>
             <ion-select-option value="Dogs">Dogs</ion-select-option>
             <ion-select-option value="Cats">Cats</ion-select-option>
             <ion-select-option value="Ferrets">Ferrets</ion-select-option>
@@ -24,34 +25,19 @@
             <ion-select-option value="Other">Other</ion-select-option>
         </ion-select>
     </ion-item>
-    <ion-item>
-        <ion-label>Start Date</ion-label>
-        <ion-datetime [(ngModel)]="startDate" display-format="MMM DD" (ionChange)="dateChanged($event)"></ion-datetime>
-    </ion-item>
-    <ion-item>
-        <ion-label>Start Hour</ion-label>
-        <ion-datetime [(ngModel)]="startHour" display-format="HH:mm"></ion-datetime>
-    </ion-item>
-    <ion-item>
-        <ion-label>End Date</ion-label>
-        <ion-datetime [(ngModel)]="endDate" display-format="MMM DD" (ionChange)="dateChanged($event)"></ion-datetime>
-    </ion-item>
-    <ion-item>
-        <ion-label>End Hour</ion-label>
-        <ion-datetime [(ngModel)]="endHour" display-format="HH:mm"></ion-datetime>
-    </ion-item>
-    <ion-item>
+    <ion-item lines="none">
+            <ion-label>Start Date:</ion-label>
+            <ion-datetime formControlName="sdfcn" display-format="DD-MM-YYYY, HH:mm"  #dataInici></ion-datetime>
+        </ion-item>
+        <ion-item lines="none">
+            <ion-label>End Date:</ion-label>
+            <ion-datetime formControlName="edfcn" display-format="DD-MM-YYYY, HH:mm" #dataFinal></ion-datetime>
+        </ion-item>
+    <ion-item lines="none">
         <ion-label>Feedback</ion-label>
-        <ion-checkbox [(ngModel)]="feedback" value="false"></ion-checkbox>
+        <ion-checkbox #feedback value="false"></ion-checkbox>
     </ion-item>
-    <ion-item>
-        <ion-label>Data Inici:</ion-label>
-        <ion-datetime display-format="DD-MM-YYYY, HH:mm"  #dataInici></ion-datetime>
-    </ion-item>
-    <ion-item>
-        <ion-label>Data Final:</ion-label>
-        <ion-datetime display-format="DD-MM-YYYY, HH:mm" #dataFinal></ion-datetime>
-    </ion-item>
-    <ion-button float-right (click)="enviaSolicitud()">Accept</ion-button>
+    </form>
+    <ion-button float-right [disabled]="!solicitudForm.valid" (click)="enviaSolicitud()">Accept</ion-button>
     <ion-button float-right (click)="Cancel()">Cancel</ion-button>
 </ion-content>
