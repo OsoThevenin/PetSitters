@@ -13,6 +13,15 @@ const routes: Routes = [
           {
             path: '',
             loadChildren: '../views/chats/chats.module#ChatsPageModule'
+          },
+          {
+            path: 'perfil-cuidador/:username',
+            children: [
+              {
+                path: '',
+                loadChildren: '../views/search/perfil-cuidador/perfil-cuidador.module#PerfilCuidadorPageModule'
+              }
+            ]
           }
           /*
           {

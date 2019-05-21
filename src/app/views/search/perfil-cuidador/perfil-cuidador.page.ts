@@ -189,8 +189,10 @@ export class PerfilCuidadorPage implements OnInit {
     });
   }
 
-  goToSearch() {
-    this.nav.navigateRoot('/tabs/search');
+  goBack() {
+    // para volver atras y no solo ir al search
+    //this.nav.navigateRoot('/tabs/search');
+    this.nav.back();
   }
 
 

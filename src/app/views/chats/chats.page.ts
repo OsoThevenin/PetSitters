@@ -1,4 +1,4 @@
-import { ToastController } from '@ionic/angular';
+import { ToastController, AlertController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthProviderService } from './../../providers/auth/auth-provider.service';
@@ -17,7 +17,8 @@ export class ChatsPage implements OnInit {
   error: any = 'Sense error';
   activeChats = [];
 
-  constructor(private toastController: ToastController, private router: Router, private auth: AuthProviderService, private chats: ChatsService) { }
+  constructor(private toastController: ToastController, private router: Router, private auth: AuthProviderService, private chats: ChatsService, 
+    private alertController: AlertController) { }
     
 
     data = [
@@ -32,25 +33,46 @@ export class ChatsPage implements OnInit {
   }
 
   borrarChat(chatUser){
-    const data: any = {
-      otherUsername: chatUser
-    };
-    this.auth.getToken().then(result => {
-      const token = result;
-      //console.log('token: ' + token);
-      this.chats.deleteChat(data, token).
-          subscribe(res => {
-            console.log(res);
-            this.ngOnInit();
-            this.presentToast('You have successfully deleted this chat');
-          }, err => {
-            console.log(err);
-            this.presentToast('Something went wrong, please try it again');
-          });
-      }).catch(err => {
-          console.log(err);
-          return throwError;
-        });
+    this.presentAlert_D(chatUser);
+  }
+
+  async presentAlert_D(chatUser) {
+    const alert = await this.alertController.create({
+      header: 'Delete chat',
+      message: 'Are you sure you want to delete this chat?',
+      
+      buttons: [
+        {
+        text: 'Cancel',
+        role: 'cancel'
+        },
+        {
+          text: 'Confirm',
+          handler: confirm => {
+            const data: any = {
+              otherUsername: chatUser
+            };
+            this.auth.getToken().then(result => {
+              const token = result;
+              //console.log('token: ' + token);
+              this.chats.deleteChat(data, token).
+                  subscribe(res => {
+                    console.log(res);
+                    this.ngOnInit();
+                    this.presentToast('You have successfully deleted this chat');
+                  }, err => {
+                    console.log(err);
+                    this.presentToast('Something went wrong, please try it again');
+                  });
+              }).catch(err => {
+                  console.log(err);
+                  return throwError;
+                });
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 
   ngOnInit() {

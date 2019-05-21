@@ -87,7 +87,7 @@ export class ChatPage implements OnInit {
     this.selectImage();
   }
   goProfile() {
-    this.nav.navigateRoot(`/perfil-cuidador/` + this.usernameCuidador);
+    this.nav.navigateRoot(`tabs/chats/perfil-cuidador/` + this.usernameCuidador);
   }
   contratar(){
     //console.log("contrato")
