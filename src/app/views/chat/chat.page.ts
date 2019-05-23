@@ -44,9 +44,7 @@ export class ChatPage implements OnInit {
     private nav: NavController, private actionSheetController: ActionSheetController,
     private camera: Camera, private imagePicker: ImagePicker, private imageService: ImageService,
     private chats: ChatsService, private modalController: ModalController, private alertController: AlertController)
-    {
-        this.getMissatges();
-    }
+    {}
 
   ngOnInit() {
     // Carregar images guardades
@@ -229,7 +227,7 @@ export class ChatPage implements OnInit {
           this.content.scrollToBottom(0);
         });
       }
-    }.bind(this), 1000);
+    }.bind(this), 2000);
   }
 
   enviaMissatge(){ 
