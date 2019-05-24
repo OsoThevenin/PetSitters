@@ -64,11 +64,11 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'trophies',
+        path: 'ranking',
         children: [
           {
             path: '',
-            loadChildren: '../views/trophies/trophies.module#TrophiesPageModule'
+            loadChildren: '../views/ranking/ranking.module#RankingPageModule'
           }
         ]
       },

@@ -5,62 +5,75 @@
 </ion-header>
 
 <ion-content>
-  <ion-card>
-    <ion-card-header>
-        <ion-row>
-          <ion-col>
-            <ion-avatar>
-              <img src="../../../assets/default_avatar.png">
-            </ion-avatar>
-          </ion-col>
-          <ion-col>
-            <ion-card-title>
-              firstname lastname
-            </ion-card-title>
-          </ion-col>
-          <ion-col>
-            <img class="trofeu" src="../../../assets/CopaNumero1.png">
-          </ion-col>
-        </ion-row>
-      </ion-card-header>
-  </ion-card>
-  <ion-card>
-      <ion-card-header>
-          <ion-row>
-            <ion-col>
-              <ion-avatar>
-                <img src="../../../assets/default_avatar.png">
-              </ion-avatar>
-            </ion-col>
-            <ion-col>
-              <ion-card-title>
-                firstname lastname
-              </ion-card-title>
-            </ion-col>
-            <ion-col>
-              <img class="trofeu" src="../../../assets/CopaNumero1.png">
-            </ion-col>
-          </ion-row>
-        </ion-card-header>
-    </ion-card>
-    <ion-card>
-        <ion-card-header>
+
+    <ion-list>
+        <ion-item >
             <ion-row>
               <ion-col>
-                <ion-avatar>
-                  <img src="../../../assets/default_avatar.png">
-                </ion-avatar>
+                  <ion-avatar>
+                      <img src="../../../assets/{{trophies}}.png">
+                    </ion-avatar>
               </ion-col>
               <ion-col>
-                <ion-card-title>
-                  firstname lastname
-                </ion-card-title>
-              </ion-col>
-              <ion-col>
-                <img class="trofeu" src="../../../assets/CopaNumero1.png">
+                <ion-row>
+                    <ion-label class="trophyName">Getting to know each other</ion-label>
+                </ion-row>
+                <ion-row>
+                    <ion-label class="trophyDescription">Change the default profile pic <br/>
+                      Fill the description field <br/>
+                      Enter an availability <br/>
+                      Enter an expertise <br/>
+                      
+                        </ion-label>
+                </ion-row>
               </ion-col>
             </ion-row>
-          </ion-card-header>
-      </ion-card>
-   
+             
+            </ion-item>
+
+            <ion-item >
+                <ion-row>
+                  <ion-col>
+                      <ion-avatar>
+                          <img src="../../../assets/default_avatar.png">
+                        </ion-avatar>
+                  </ion-col>
+                  <ion-col>
+                    <ion-row>
+                        <ion-label class="trophyName">Share your heart</ion-label>
+                    </ion-row>
+                    <ion-row>
+                        <ion-label>Have a user as favourite pet sitter
+                          
+                            </ion-label>
+                    </ion-row>
+                  </ion-col>
+                </ion-row>
+                 
+                </ion-item>
+                <ion-item >
+                    <ion-row>
+                      <ion-col>
+                          <ion-avatar>
+                              <img src="../../../assets/default_avatar.png">
+                            </ion-avatar>
+                      </ion-col>
+                      <ion-col>
+                        <ion-row>
+                            <ion-label class="trophyName">Getting to know each other</ion-label>
+                        </ion-row>
+                        <ion-row>
+                            <ion-label>Change the default profile pic <br/>
+                              Fill the description field <br/>
+                              Enter an availability <br/>
+                              Enter an expertise <br/>
+                              
+                                </ion-label>
+                        </ion-row>
+                      </ion-col>
+                    </ion-row>
+                     
+                    </ion-item>
+    </ion-list>
+      
 </ion-content>
