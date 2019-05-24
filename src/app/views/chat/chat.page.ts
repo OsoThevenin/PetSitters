@@ -77,14 +77,16 @@ export class ChatPage implements OnInit {
   }
 
   goBack() {
-    this.router.navigateByUrl('/tabs/chats');
     clearInterval(this.id);
+    this.router.navigateByUrl('/tabs/chats');
+    
   }
   abrirCamara() {
     console.log('Open Camera');
     this.selectImage();
   }
   goProfile() {
+    clearInterval(this.id);
     this.nav.navigateRoot(`tabs/chats/perfil-cuidador/` + this.usernameCuidador);
   }
   contratar(){
@@ -266,7 +268,9 @@ export class ChatPage implements OnInit {
   ionViewDidEnter(){
     this.content.scrollToBottom();
   }
-
+  ionViewDidLeave(){
+    clearInterval(this.id);
+  }
 
   // FUNCIONALITATS DE CAMERA
 
