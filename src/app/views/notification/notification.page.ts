@@ -14,6 +14,7 @@ export class NotificationPage implements OnInit  {
   proposed: any;
 
   constructor( private toastCtrl: ToastController, private auth: AuthProviderService, private alertController: AlertController) {
+  
   }
 
   ngOnInit() {
@@ -50,6 +51,14 @@ export class NotificationPage implements OnInit  {
     return this.proposed;
   }
 
+  tiempoAcabado(t:string){
+    let currentDate = new Date();
+    let endDate = new Date(parseInt(t.substring(6,10)),parseInt(t.substring(3,5))-1,parseInt(t.substring(0,2)),parseInt(t.substring(12,14)),parseInt(t.substring(15,17)))
+    console.log(endDate);
+    console.log(currentDate);
+    return currentDate>=endDate;
+  }
+
   accept(un:string){
     this.auth.getToken().then(result => {
       this.auth.acceptContract(un, result)
@@ -62,6 +71,46 @@ export class NotificationPage implements OnInit  {
       });
     });
   }
+
+  rate(un:string){
+    this.presentAlert_Rate(un);
+  }
+
+  async presentAlert_Rate(un:string) {
+    const alert = await this.alertController.create({
+      header: 'Rate User',
+      message: 'Please tell us your experience with this user',
+      inputs: [
+        {
+          name: 'radio1',
+          type: 'radio',
+          label: 'Radio 1',
+          value: 'value1',
+          checked: true
+        },
+        {
+          name: 'rateComment',
+          placeholder: 'Add a comment (optional)', 
+          type: 'text'
+        }
+      ],
+      buttons: [
+        {
+        text: 'Cancel',
+        role: 'cancel'
+        },
+        {
+          text: 'Confirm',
+          handler: rate => {
+            // funcionalitat de valorar el usuario
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
 
   decline(un:string){
     this.auth.getToken().then(result => {
@@ -91,6 +140,7 @@ export class NotificationPage implements OnInit  {
     });
     */
   }
+  
 
   async presentAlert_D(un:string) {
     const alert = await this.alertController.create({
