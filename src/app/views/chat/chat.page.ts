@@ -223,11 +223,25 @@ export class ChatPage implements OnInit {
               let filename = msg.content;
               this.imageService.getImageData(filename, token)
                 .then((response) => {
-                  let dataDirectory = this.file.externalRootDirectory + PETSITTERS_DIRECTORY + '/';
-                  let url = dataDirectory + 'received/' + filename + '.jpg';
-                  let str = url.split('///');
-                  let path = str[1];
-                  msg.url = path;
+                  let dataDirectory = this.file.externalApplicationStorageDirectory;
+                  let url = dataDirectory + '/files/received/' + filename + '.jpg';
+                  //let str = url.split('//');
+                  //let path = str[1];
+
+                  this.file.resolveLocalFilesystemUrl(url).then((entry: any) => {
+                    entry.file((file1) => {
+                      var reader = new FileReader();
+                      reader.onload =  (encodedFile: any) => {
+                        var path = encodedFile.target.result;
+                        msg.url = path;
+                      };
+                      reader.readAsDataURL(file1);
+                    });
+                  }).catch((error) => {
+                    console.log(error);
+                  });
+
+                  
                   console.log('missatge imatge: ' + JSON.stringify(msg));
                 }).catch((err) => {
                   console.log('missatge imatge error: ' + JSON.stringify(err));
@@ -294,14 +308,27 @@ export class ChatPage implements OnInit {
       };
       console.log('body missatge: ' + JSON.stringify(body));
       this.chats.sendMessage(body, token).subscribe(res => {}, err => {console.log(err)});
-      this.messages.push({content: filename,
-                          multimedia: true,
-                          userWhoReceives: this.usernameCuidador,
-                          userWhoSends: this.username,
-                          visible: true,
-                          url: url,
-                          whenSent: ""});
-      console.log('missatges: ' + JSON.stringify(this.messages));
+
+      this.file.resolveLocalFilesystemUrl(url).then((entry: any) => {
+        entry.file((file1) => {
+          var reader = new FileReader();
+          reader.onload =  (encodedFile: any) => {
+            var url = encodedFile.target.result;
+            this.messages.push({content: filename,
+              multimedia: true,
+              userWhoReceives: this.usernameCuidador,
+              userWhoSends: this.username,
+              visible: true,
+              url: url,
+              whenSent: ""});
+            };
+          reader.readAsDataURL(file1);
+        });
+      }).catch((error) => {
+        console.log(error);
+      });
+
+    console.log('missatges: ' + JSON.stringify(this.messages));
     this.message = '';
     setTimeout(() => {
       this.content.scrollToBottom(0);
@@ -379,7 +406,8 @@ export class ChatPage implements OnInit {
             }).then((data) => {
               this.presentToast('Image sent correctly');
               console.log('Response chat:' + JSON.stringify(data));
-              let path = this.pathForImage(correctPath);
+              let string = OutputDir.split('//');
+              let path = string[1];
               this.enviaImatge(data.response, path);
             });
         });
