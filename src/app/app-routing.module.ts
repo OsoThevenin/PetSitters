@@ -18,7 +18,9 @@ const routes: Routes = [
   //{ path: 'perfil-cuidador/:username', loadChildren: './views/search/perfil-cuidador/perfil-cuidador.module#PerfilCuidadorPageModule' },
   { path: 'chat/:username', loadChildren: './views/chat/chat.module#ChatPageModule' },
   { path: 'email-confirm/:username', loadChildren: './email-confirm/email-confirm.module#EmailConfirmPageModule' },
-  { path: 'resetpassword', loadChildren: './resetpassword/resetpassword.module#ResetpasswordPageModule' }
+  { path: 'resetpassword', loadChildren: './resetpassword/resetpassword.module#ResetpasswordPageModule' },
+  //{ path: 'modal-rate', loadChildren: './views/notification/modal-rate/modal-rate.module#ModalRatePageModule' }
+
 ];
 @NgModule({
   imports: [

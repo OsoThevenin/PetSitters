@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthProviderService } from 'src/app/providers/auth/auth-provider.service';
 import { throwError } from 'rxjs/internal/observable/throwError';
-import { ToastController, AlertController } from '@ionic/angular';
+import { ToastController, AlertController, ModalController } from '@ionic/angular';
+
+import { ModalRatePage } from './modal-rate/modal-rate.page';
 
 @Component({
   selector: 'app-notification',
@@ -13,7 +15,8 @@ export class NotificationPage implements OnInit  {
   received: any;
   proposed: any;
 
-  constructor( private toastCtrl: ToastController, private auth: AuthProviderService, private alertController: AlertController) {
+  constructor( private toastCtrl: ToastController, private auth: AuthProviderService, private alertController: AlertController,
+    private modalController: ModalController) {
   
   }
 
@@ -73,42 +76,18 @@ export class NotificationPage implements OnInit  {
   }
 
   rate(un:string){
-    this.presentAlert_Rate(un);
+    this.openModal(un);
   }
 
-  async presentAlert_Rate(un:string) {
-    const alert = await this.alertController.create({
-      header: 'Rate User',
-      message: 'Please tell us your experience with this user',
-      inputs: [
-        {
-          name: 'radio1',
-          type: 'radio',
-          label: 'Radio 1',
-          value: 'value1',
-          checked: true
-        },
-        {
-          name: 'rateComment',
-          placeholder: 'Add a comment (optional)', 
-          type: 'text'
-        }
-      ],
-      buttons: [
-        {
-        text: 'Cancel',
-        role: 'cancel'
-        },
-        {
-          text: 'Confirm',
-          handler: rate => {
-            // funcionalitat de valorar el usuario
-          }
-        }
-      ]
+  async openModal(un:string) {
+    const modal = await this.modalController.create({
+      component: ModalRatePage,
+      componentProps: {
+          usernameCuidador: un
+      },
+      cssClass: 'my-rate-modal-css'
     });
-
-    await alert.present();
+    return await modal.present();
   }
 
 

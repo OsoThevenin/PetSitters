@@ -23,6 +23,8 @@ import { AuthProviderService } from './providers/auth/auth-provider.service';
 import { SearchService } from 'src/app/providers/Search/search.service';
 import { ModalPageModule } from './views/profile/modal/modal.module';
 import { ModalSolicitudPageModule } from './views/chat/modal-solicitud/modal-solicitud.module';
+import { ModalRatePage } from './views/notification/modal-rate/modal-rate.page';
+import { ModalRatePageModule } from './views/notification/modal-rate/modal-rate.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -35,6 +37,7 @@ import { ModalSolicitudPageModule } from './views/chat/modal-solicitud/modal-sol
     PopoverPageModule,
     ModalPageModule,
     ModalSolicitudPageModule,
+    ModalRatePageModule,
     IonicStorageModule.forRoot({
       name: '__mydb',
       driverOrder: ['indexeddb', 'sqlite', 'websql']
