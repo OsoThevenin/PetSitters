@@ -13,6 +13,8 @@ export class SearchPage {
   public searchTerm: string = "";
   public searchFilter: string;
   public expertFilter: string;
+  public valorationLowerBoundary: string ="";
+  public valorationUpperBoundary: string ="";
 
   constructor(private nav: NavController, private search: SearchService, private auth: AuthProviderService) {
   }
@@ -45,6 +47,7 @@ goToPerfilCuidador(cuidadorConcret) {
 
 devuelvePerfilesCuidadores(): any {
   this.auth.getToken().then(result => {
+  console.log(this.searchFilter);
     const token = result;
 	if (this.searchFilter == "Favorites"){
 		this.auth.getFavorites(token).subscribe(res => {
@@ -53,6 +56,11 @@ devuelvePerfilesCuidadores(): any {
 	}
 	else if (this.searchFilter == "Expert"){
 			  this.search.filterExpert(this.expertFilter,token).subscribe(res => {
+	  		  this.perfilsCuidadors = res;
+			  });
+			}
+	else if (this.searchFilter == "Valoration"){
+			  this.search.filterValoration(this.valorationLowerBoundary,this.valorationUpperBoundary,token).subscribe(res => {
 	  		  this.perfilsCuidadors = res;
 			  });
 			}
