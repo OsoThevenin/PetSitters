@@ -56,9 +56,7 @@ export class NotificationPage implements OnInit  {
 
   tiempoAcabado(t:string){
     let currentDate = new Date();
-    let endDate = new Date(parseInt(t.substring(6,10)),parseInt(t.substring(3,5))-1,parseInt(t.substring(0,2)),parseInt(t.substring(12,14)),parseInt(t.substring(15,17)))
-    console.log(endDate);
-    console.log(currentDate);
+    let endDate = new Date(parseInt(t.substring(6,10)),parseInt(t.substring(3,5))-1,parseInt(t.substring(0,2)),parseInt(t.substring(12,14)),parseInt(t.substring(15,17)));
     return currentDate>=endDate;
   }
 
@@ -83,7 +81,7 @@ export class NotificationPage implements OnInit  {
     const modal = await this.modalController.create({
       component: ModalRatePage,
       componentProps: {
-          usernameCuidador: un
+          usernameRated: un
       },
       cssClass: 'my-rate-modal-css'
     });

@@ -1,7 +1,7 @@
 <ion-content padding style="background:white">
     <ion-title style="font-weight:bold">Rate User</ion-title>
     <br>
-    <ion-label>Please tell us your experience with this user</ion-label>
+    <ion-label>Please tell us about your experience with this user</ion-label>
     <ion-item no-padding lines="none">
         <ion-range pin="true" min="0" max="5" step="1" snaps="true" #stars>
           <ion-icon class="marginRight" color="a1" size="small" slot="start" name="star"></ion-icon>
@@ -11,11 +11,11 @@
       </ion-item>
       <ion-label style="font-weight:bold; font-size:100%"> Comment </ion-label>
       <ion-item lines="none">
-        <ion-textarea type="text" maxlength="1000" autoGrow="true" placeholder='Add a comment (optional)'></ion-textarea>
+        <ion-textarea type="text" maxlength="1000" autoGrow="true" placeholder='Add a comment (optional)'#comment></ion-textarea>
       </ion-item>
 
       <ion-toolbar>
-          <ion-button fill="clear" slot="start" (click)="cancel(contract.usernameFrom)">Cancel</ion-button>            
-          <ion-button fill="solid" slot="end" (click)="rate(contract.usernameFrom)">Rate</ion-button>            
+          <ion-button fill="clear" slot="start" (click)="cancel()">Cancel</ion-button>            
+          <ion-button fill="solid" slot="end" (click)="rate()">Rate</ion-button>            
         </ion-toolbar>
 </ion-content>
