@@ -14,6 +14,7 @@ import { ImageCompressorService } from './../../services/compression.service';
 import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { ModalSolicitudPage } from './modal-solicitud/modal-solicitud.page';
 import { throwError } from 'rxjs';
+import { ContractsService } from 'src/app/providers/contracts/contracts.service';
 
 const STORAGE_KEY = 'my_images';
 const PETSITTERS_DIRECTORY = 'PetSitters';
@@ -43,7 +44,7 @@ export class ChatPage implements OnInit {
     private auth: AuthProviderService , private actrout: ActivatedRoute,
     private nav: NavController, private actionSheetController: ActionSheetController,
     private camera: Camera, private imagePicker: ImagePicker, private imageService: ImageService,
-    private chats: ChatsService, private modalController: ModalController, private alertController: AlertController)
+    private chats: ChatsService, private modalController: ModalController, private alertController: AlertController, private contracts: ContractsService)
     {}
 
   ngOnInit() {
@@ -60,7 +61,7 @@ export class ChatPage implements OnInit {
     this.auth.getToken().then(result => {
       const token = result;
   
-    this.chats.hasContracted(this.usernameCuidador,token).subscribe(res =>{
+    this.contracts.hasContracted(this.usernameCuidador,token).subscribe(res =>{
       console.log(res);
       if(res!=null) this.contratado=true;
     });
@@ -124,7 +125,7 @@ export class ChatPage implements OnInit {
           text: 'Confirm',
           handler: cancelar => {
             this.auth.getToken().then(result => {
-              this.chats.rejectContract(this.usernameCuidador, result)
+              this.contracts.rejectContract(this.usernameCuidador, result)
               .subscribe(res => {
                 this.ngOnInit();
                 this.presentToast('You have cancelled the contract successfully!');

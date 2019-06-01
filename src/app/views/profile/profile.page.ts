@@ -3,7 +3,7 @@ import { PopoverController, ModalController } from '@ionic/angular';
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { AuthProviderService } from 'src/app/providers/auth/auth-provider.service';
 import { Router } from '@angular/router';
-import { ChatsService } from './../../providers/chats/chats.service';
+import { ContractsService } from './../../providers/contracts/contracts.service';
 import { PopoverPage } from './popover/popover.page';
 import { throwError } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
@@ -330,6 +330,10 @@ hazlista=false;
     else if(this.day=="Sun"){
       this.diaActual=this.sunday;
     }
+  }
+
+  getPreviousValorations(){
+
   }
 
 }

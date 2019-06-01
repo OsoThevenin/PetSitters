@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild} from '@angular/core';
 import { ModalController, NavParams, ToastController } from '@ionic/angular';
 import { AuthProviderService } from 'src/app/providers/auth/auth-provider.service';
-import { ChatsService } from 'src/app/providers/chats/chats.service';
+import { ContractsService } from 'src/app/providers/contracts/contracts.service';
 import { throwError } from 'rxjs';
 
 @Component({
@@ -16,7 +16,7 @@ export class ModalRatePage implements OnInit {
 
   public ratedUser: any;
 
-  constructor( private toastCtrl: ToastController, private modalController: ModalController, private chats: ChatsService, private auth: AuthProviderService,private navParams: NavParams) { }
+  constructor( private toastCtrl: ToastController, private modalController: ModalController, private contracts: ContractsService, private auth: AuthProviderService,private navParams: NavParams) { }
 
   cancel(){
     this.modalController.dismiss();
@@ -31,8 +31,8 @@ export class ModalRatePage implements OnInit {
       valuedUser: this.ratedUser,
     };
     console.log(body);
-    this.chats.saveValuation(body,token).subscribe(res =>{
-      this.auth.rejectContract(this.ratedUser, result)
+    this.contracts.saveValuation(body,token).subscribe(res =>{
+      this.contracts.rejectContract(this.ratedUser, result)
       .subscribe(res => {
         this.presentToast('You have rated this user successfully!');
       }, err => {

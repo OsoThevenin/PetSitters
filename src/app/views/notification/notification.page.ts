@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthProviderService } from 'src/app/providers/auth/auth-provider.service';
+import { ContractsService} from 'src/app/providers/contracts/contracts.service';
 import { throwError } from 'rxjs/internal/observable/throwError';
 import { ToastController, AlertController, ModalController } from '@ionic/angular';
 
@@ -16,7 +17,7 @@ export class NotificationPage implements OnInit  {
   proposed: any;
 
   constructor( private toastCtrl: ToastController, private auth: AuthProviderService, private alertController: AlertController,
-    private modalController: ModalController) {
+    private modalController: ModalController, private contracts: ContractsService) {
   
   }
 
@@ -91,7 +92,7 @@ export class NotificationPage implements OnInit  {
 
   decline(un:string){
     this.auth.getToken().then(result => {
-      this.auth.rejectContract(un, result)
+      this.contracts.rejectContract(un, result)
       .subscribe(res => {
         this.ngOnInit();
         this.presentToast('You have rejected the contract successfully!');
@@ -106,7 +107,7 @@ export class NotificationPage implements OnInit  {
     this.presentAlert_D(un);
     /* Sin Alerta de confirmacion 
     this.auth.getToken().then(result => {
-      this.auth.rejectContract(un, result)
+      this.contracts.rejectContract(un, result)
       .subscribe(res => {
         this.ngOnInit();
         this.presentToast('You have cancelled the contract successfully!');
@@ -133,7 +134,7 @@ export class NotificationPage implements OnInit  {
           text: 'Confirm',
           handler: cancelar => {
             this.auth.getToken().then(result => {
-              this.auth.rejectContract(un, result)
+              this.contracts.rejectContract(un, result)
               .subscribe(res => {
                 this.ngOnInit();
                 this.presentToast('You have cancelled the contract successfully!');
