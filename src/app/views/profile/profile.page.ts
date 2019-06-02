@@ -1,5 +1,5 @@
 
-import { PopoverController, ModalController } from '@ionic/angular';
+import { PopoverController, ModalController} from '@ionic/angular';
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { AuthProviderService } from 'src/app/providers/auth/auth-provider.service';
 import { Router } from '@angular/router';
@@ -95,8 +95,7 @@ hazlista=false;
 
   constructor(private popoverCtrl: PopoverController, private auth: AuthProviderService, private actrout: ActivatedRoute,
     private search: SearchService,private modalCtrl:ModalController , private global: GlobalService,
-    private router: Router,
-     private storage: Storage, public formBuilder: FormBuilder) {
+    private router: Router, private storage: Storage, public formBuilder: FormBuilder) {
       this.horasForm = this.formBuilder.group({
         fromfcn: new FormControl('', Validators.compose([
           Validators.required
@@ -106,6 +105,11 @@ hazlista=false;
         ]))
       });
      }
+
+
+  seeTrophies() {
+    this.router.navigateByUrl('/trophies');
+  }
 
 
   EditText() {

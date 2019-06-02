@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthProviderService } from 'src/app/providers/auth/auth-provider.service';
+import { NavController } from '@ionic/angular';
 
 
 @Component({
@@ -57,7 +58,7 @@ export class TrophiesPage {
     { id: 45, name:'Ant-man', description: 'Take care of 10 arthropod' },
   ];
 
-  constructor(private auth: AuthProviderService) { }
+  constructor(private auth: AuthProviderService,private nav: NavController,) { }
 
   my_trophies = this.getTrofies();
   my_trophies_size = 0;
@@ -85,6 +86,10 @@ export class TrophiesPage {
     });
     //console.log(count);
     return count;
+  }
+
+  goBack() {
+    this.nav.back();
   }
 
 }
