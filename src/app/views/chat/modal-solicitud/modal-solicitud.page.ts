@@ -69,9 +69,9 @@ export class ModalSolicitudPage implements OnInit {
 		name: this.aN.value,
 		tipus: this.aS.value
 		}],
-	  end: a,
+	  end: b,
 	  feedback: this.fb,
-	  start: b,
+	  start: a,
 	  username: this.cuidadorContrato,
 	};
 	console.log(body);

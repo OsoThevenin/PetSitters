@@ -82,7 +82,7 @@ hazlista=false;
     profile_image: "",
     stars: 0,
     username: null,
-    expert: null,
+    expert: "",
   };
 
   editable: boolean = false;
@@ -107,7 +107,6 @@ hazlista=false;
       });
      }
 
-
   EditText() {
     this.editable = true;
   }
@@ -123,6 +122,7 @@ hazlista=false;
   }
 
   NoEditExpert(){
+
     this.expertEditable = false;
     this.ngOnInit()
   }
@@ -176,9 +176,11 @@ hazlista=false;
     }
   TakeTextExpert() {
     // Coger el valor nuevo y enviar a backend
-    if(this.expertise[0].isChecked == false && this.expertise[1].isChecked == false && this.expertise[2].isChecked == false && this.expertise[3].isChecked == false && this.expertise[4].isChecked == false && this.expertise[5].isChecked == false && this.expertise[6].isChecked == false && this.expertise[7].isChecked == false) this.hazlista=false;
-    else this.hazlista=true;
-    const body: any = this.expertise;
+    //if(this.expertise[0].isChecked == false && this.expertise[1].isChecked == false && this.expertise[2].isChecked == false && this.expertise[3].isChecked == false && this.expertise[4].isChecked == false && this.expertise[5].isChecked == false && this.expertise[6].isChecked == false && this.expertise[7].isChecked == false) this.hazlista=false;
+    //else this.hazlista=true;
+    this.traducirDeExpertise();
+    const body: any = this.cuidador.expert;
+    console.log(body);
     const atr: string = "expert";
     console.log(this.expertise);
     this.auth.getToken().then(result => {
@@ -195,8 +197,36 @@ hazlista=false;
       });
       // Para que vuelva apparecer el lapis
       this.expertEditable = false;
+      console.log("cuidadorExpert: ",this.cuidador.expert);
+      console.log("Expertise:  ",this.expertise);
   }
 
+  traducirDeExpertise(){
+    let hay=false;
+    this.cuidador.expert="";
+    this.expertise.forEach(element => {
+      if(element.isChecked==true){
+        hay=true;
+        this.cuidador.expert+=element.type + "''";
+      }
+    });
+    this.hazlista=hay;
+  }
+
+  traducirAExpertise(){
+    let hay=false;
+    this.expertise.forEach(element => {
+      element.isChecked=false;
+      this.cuidador.expert.forEach(animal => {
+        if(element.type==animal){
+          hay=true;
+          element.isChecked=true;
+        }
+      });
+    });
+    this.hazlista=hay;
+
+  }
 
   ngOnInit() {
     // obtener username mio
@@ -210,10 +240,15 @@ hazlista=false;
       // De momento usa el provider de search!!
       this.search.getUser(username, token).subscribe(res => {
         this.cuidador = res;
-        if (this.cuidador.expert.length != 0) this.expertise=JSON.parse(this.cuidador.expert);
-        else this.expertise=JSON.parse('[{"type":"Dogs","isChecked":false},{"type":"Cats","isChecked":false},{"type":"Ferrets","isChecked":false},{"type":"Reptiles","isChecked":false},{"type":"Birds","isChecked":false},{"type":"Rodents","isChecked":false},{"type":"Fishes","isChecked":false},{"type":"Amphibians","isChecked":false},{"type":"Arthropods","isChecked":false},{"type":"Other","isChecked":false}]');
-        if(this.expertise[0].isChecked == false && this.expertise[1].isChecked == false && this.expertise[2].isChecked == false && this.expertise[3].isChecked == false && this.expertise[4].isChecked == false && this.expertise[5].isChecked == false && this.expertise[6].isChecked == false && this.expertise[7].isChecked == false) this.hazlista=false;
-        else this.hazlista=true;
+        
+        this.traducirAExpertise();
+
+        console.log("cuidadorExpert2: ",this.cuidador.expert);
+        console.log("Expertise:  ",this.expertise);
+        //if (this.cuidador.expert.length != 0) this.expertise=JSON.parse(this.cuidador.expert);
+        //else this.expertise=JSON.parse('[{"type":"Dogs","isChecked":false},{"type":"Cats","isChecked":false},{"type":"Ferrets","isChecked":false},{"type":"Reptiles","isChecked":false},{"type":"Birds","isChecked":false},{"type":"Rodents","isChecked":false},{"type":"Fishes","isChecked":false},{"type":"Amphibians","isChecked":false},{"type":"Arthropods","isChecked":false},{"type":"Other","isChecked":false}]');
+        //if(this.expertise[0].isChecked == false && this.expertise[1].isChecked == false && this.expertise[2].isChecked == false && this.expertise[3].isChecked == false && this.expertise[4].isChecked == false && this.expertise[5].isChecked == false && this.expertise[6].isChecked == false && this.expertise[7].isChecked == false) this.hazlista=false;
+        //else this.hazlista=true;
         if (this.cuidador.availability != "None") {
           let horasdias: string[]=this.cuidador.availability.split(','); 
            this.monday.from=horasdias[0];
