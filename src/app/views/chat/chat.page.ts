@@ -223,32 +223,20 @@ export class ChatPage implements OnInit {
               let filename = msg.content;
               this.imageService.getImageData(filename, token)
                 .then((response) => {
-                  let dataDirectory = this.file.externalApplicationStorageDirectory;
-                  let url = dataDirectory + '/files/received/' + filename + '.jpg';
-                  //let str = url.split('//');
-                  //let path = str[1];
+                  console.log('Imatge descarregada: ' + JSON.stringify(response));
+                  //let dataDirectory = this.file.externalApplicationStorageDirectory;
+                  //let url = dataDirectory + '/files/received/' + filename + '.jpg';
 
-                  this.file.resolveLocalFilesystemUrl(url).then((entry: any) => {
-                    entry.file((file1) => {
-                      var reader = new FileReader();
-                      reader.onload =  (encodedFile: any) => {
-                        var path = encodedFile.target.result;
-                        msg.url = path;
-                      };
-                      reader.readAsDataURL(file1);
-                    });
-                  }).catch((error) => {
-                    console.log(error);
-                  });
+                  let imagePath = this.webview.convertFileSrc(response.nativeURL);
+                  msg.url = imagePath;
 
-                  
                   console.log('missatge imatge: ' + JSON.stringify(msg));
                 }).catch((err) => {
                   console.log('missatge imatge error: ' + JSON.stringify(err));
                 });
-              }
-              this.messages.push(msg);
             }
+              this.messages.push(msg);
+          }
             console.log('missatge imatges: ' + JSON.stringify(aux));
             setTimeout(() => {
               this.content.scrollToBottom(0);
@@ -309,31 +297,21 @@ export class ChatPage implements OnInit {
       console.log('body missatge: ' + JSON.stringify(body));
       this.chats.sendMessage(body, token).subscribe(res => {}, err => {console.log(err)});
 
-      this.file.resolveLocalFilesystemUrl(url).then((entry: any) => {
-        entry.file((file1) => {
-          var reader = new FileReader();
-          reader.onload =  (encodedFile: any) => {
-            var url = encodedFile.target.result;
-            this.messages.push({content: filename,
-              multimedia: true,
-              userWhoReceives: this.usernameCuidador,
-              userWhoSends: this.username,
-              visible: true,
-              url: url,
-              whenSent: ""});
-            };
-          reader.readAsDataURL(file1);
-        });
-      }).catch((error) => {
-        console.log(error);
-      });
+      let imagePath = this.webview.convertFileSrc(url);
+      this.messages.push({content: filename,
+        multimedia: true,
+        userWhoReceives: this.usernameCuidador,
+        userWhoSends: this.username,
+        visible: true,
+        url: imagePath,
+        whenSent: ""});
 
-    console.log('missatges: ' + JSON.stringify(this.messages));
-    this.message = '';
-    setTimeout(() => {
-      this.content.scrollToBottom(0);
-    });
-    }, err =>{
+      console.log('missatges: ' + JSON.stringify(this.messages));
+      this.message = '';
+      setTimeout(() => {
+        this.content.scrollToBottom(0);
+      });
+    }, err => {
       console.log(err);
     }).catch(err => {
       console.log(err);
@@ -343,7 +321,7 @@ export class ChatPage implements OnInit {
       this.content.scrollToBottom(0);
     });
   }
-  ionViewDidEnter(){
+  ionViewDidEnter() {
     this.content.scrollToBottom();
   }
 
@@ -406,9 +384,9 @@ export class ChatPage implements OnInit {
             }).then((data) => {
               this.presentToast('Image sent correctly');
               console.log('Response chat:' + JSON.stringify(data));
-              let string = OutputDir.split('//');
-              let path = string[1];
-              this.enviaImatge(data.response, path);
+              //let string = OutputDir.split('//');
+              //let path = string[1];
+              this.enviaImatge(data.response, OutputDir);
             });
         });
       });
@@ -433,7 +411,7 @@ export class ChatPage implements OnInit {
               console.log('Image URI: ' + results[i]);
               let currentName = results[i].substring(results[i].lastIndexOf('/') + 1);
               let correctPath = results[i].substring(0, results[i].lastIndexOf('/') + 1);
-              let generatedName:string = this.createFileName();
+              let generatedName: string = this.createFileName();
               this.copyAndCompress(correctPath, currentName, generatedName).then((OutputDir:string) => {
                 console.log("UPLOADING IMAGE: " + OutputDir);
                 this.imageService.getToken().then((token) => {
@@ -441,9 +419,7 @@ export class ChatPage implements OnInit {
                 }).then((data) => {
                   this.presentToast('Image sent correctly');
                   console.log('Response chat:' + JSON.stringify(data));
-                  let str = OutputDir.split('///');
-                  let path = str[1];
-                  this.enviaImatge(data.response, path);
+                  this.enviaImatge(data.response, OutputDir);
                 });
               });
           }
