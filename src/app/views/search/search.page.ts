@@ -9,12 +9,14 @@ import { throwError } from 'rxjs';
   templateUrl: 'search.page.html',
   styleUrls: ['search.page.scss']
 })
-export class SearchPage {
+export class SearchPage{
   public searchTerm: string = "";
   public searchFilter: string;
   public expertFilter: string;
   public valorationLowerBoundary: string ="";
   public valorationUpperBoundary: string ="";
+  public obj: any = '{"lower": "0", "upper": "5"}';
+  public stars = JSON.parse(this.obj);
 
   constructor(private nav: NavController, private search: SearchService, private auth: AuthProviderService) {
   }
@@ -47,7 +49,6 @@ goToPerfilCuidador(cuidadorConcret) {
 
 devuelvePerfilesCuidadores(): any {
   this.auth.getToken().then(result => {
-  console.log(this.searchFilter);
     const token = result;
 	if (this.searchFilter == "Favorites"){
 		this.auth.getFavorites(token).subscribe(res => {
@@ -60,7 +61,7 @@ devuelvePerfilesCuidadores(): any {
 			  });
 			}
 	else if (this.searchFilter == "Valoration"){
-			  this.search.filterValoration(this.valorationLowerBoundary,this.valorationUpperBoundary,token).subscribe(res => {
+			  this.search.filterValoration(this.stars["lower"],this.stars["upper"],token).subscribe(res => {
 	  		  this.perfilsCuidadors = res;
 			  });
 			}

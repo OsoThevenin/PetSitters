@@ -9,10 +9,8 @@
     "\\src\\app\\providers\\Search",
     "\\src\\app\\registre",
     "\\src\\app\\views",
-    "\\src\\app\\views\\profile",
-    "\\src\\app\\views\\profile\\popover",
     "\\src\\app\\views\\search"
   ],
-  "SelectedNode": "\\src\\app\\views\\search\\search.page.scss",
+  "SelectedNode": "\\src\\app\\providers\\Search\\search.service.ts",
   "PreviewInSolutionExplorer": false
 }
