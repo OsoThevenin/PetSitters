@@ -1,79 +1,49 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Trophies</ion-title>
+    <ion-title>Trophies ({{my_trophies_size}} of 45) </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-    <ion-list>
+    <ion-list *ngFor="let trophy of trophies" nopadding>
+      <div *ngIf="my_trophies[trophy.id]; else elseBlock">
         <ion-item >
+          <ion-grid fixed>
             <ion-row>
-              <ion-col>
-                  <ion-avatar>
-                      <img src="../../../assets/{{trophies}}.png">
-                    </ion-avatar>
-              </ion-col>
-              <ion-col>
+              <div class = "col">
+                <img src="../../../assets/trophies/{{trophy.id}}.png">
+              </div>
+              <ion-col class="ion-padding-start" >
                 <ion-row>
-                    <ion-label class="trophyName">Getting to know each other</ion-label>
+                  <ion-label class="trophyName">{{trophy.name}}</ion-label>
                 </ion-row>
                 <ion-row>
-                    <ion-label class="trophyDescription">Change the default profile pic <br/>
-                      Fill the description field <br/>
-                      Enter an availability <br/>
-                      Enter an expertise <br/>
-                      
-                        </ion-label>
+                  <ion-label class="trophyDescription">{{trophy.description}}</ion-label>
                 </ion-row>
               </ion-col>
             </ion-row>
-             
-            </ion-item>
-
-            <ion-item >
+          </ion-grid>
+        </ion-item>
+      </div>
+      <ng-template #elseBlock>
+          <ion-item disabled>
+              <ion-grid fixed>
                 <ion-row>
-                  <ion-col>
-                      <ion-avatar>
-                          <img src="../../../assets/default_avatar.png">
-                        </ion-avatar>
-                  </ion-col>
-                  <ion-col>
+                  <div class = "col">
+                    <img src="../../../assets/trophies/{{trophy.id}}.png">
+                  </div>
+                  <ion-col class="ion-padding-start" >
                     <ion-row>
-                        <ion-label class="trophyName">Share your heart</ion-label>
+                      <ion-label class="trophyName">{{trophy.name}}</ion-label>
                     </ion-row>
                     <ion-row>
-                        <ion-label>Have a user as favourite pet sitter
-                          
-                            </ion-label>
+                      <ion-label class="trophyDescription">{{trophy.description}}</ion-label>
                     </ion-row>
                   </ion-col>
                 </ion-row>
-                 
-                </ion-item>
-                <ion-item >
-                    <ion-row>
-                      <ion-col>
-                          <ion-avatar>
-                              <img src="../../../assets/default_avatar.png">
-                            </ion-avatar>
-                      </ion-col>
-                      <ion-col>
-                        <ion-row>
-                            <ion-label class="trophyName">Getting to know each other</ion-label>
-                        </ion-row>
-                        <ion-row>
-                            <ion-label>Change the default profile pic <br/>
-                              Fill the description field <br/>
-                              Enter an availability <br/>
-                              Enter an expertise <br/>
-                              
-                                </ion-label>
-                        </ion-row>
-                      </ion-col>
-                    </ion-row>
-                     
-                    </ion-item>
+              </ion-grid>
+            </ion-item>
+      </ng-template>
     </ion-list>
-      
 </ion-content>

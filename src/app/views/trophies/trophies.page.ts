@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { AuthProviderService } from 'src/app/providers/auth/auth-provider.service';
+
 
 @Component({
   selector: 'app-trophies',
@@ -6,8 +8,9 @@ import { Component } from '@angular/core';
   styleUrls: ['./trophies.page.scss'],
 })
 export class TrophiesPage {
+  
   public trophies = [
-    { id: 1, name:'Getting to know each other', description: 'Change the default profile pic <br/>Fill the description field <br/>Enter an availability <br/>Enter an expertise <br/>' },
+    { id: 1, name:'Getting to know each other', description: 'Change the default profile pic \nFill the description field \nEnter an availability \nEnter an expertise' },
     { id: 2, name:'Share your heart', description: 'Have a user as favourite pet sitter' },
     { id: 3, name:'Most Loved', description: 'Be someone’s favourite pet sitter' },
     { id: 4, name:'Animal Lover', description: 'Take care of 1 animal of each type' },
@@ -48,12 +51,40 @@ export class TrophiesPage {
     { id: 39, name:'Nemo', description: 'Take care of 10 fish' },
     { id: 40, name:'Amphibian Sitter', description: 'Take care of 1 amphibian' },
     { id: 41, name:'Amphibian Enthusiastic', description: 'Take care of 5 amphibian' },
-    { id: 42, name:'kermit', description: 'Take care of 10 amphibian' },
+    { id: 42, name:'Kermit', description: 'Take care of 10 amphibian' },
     { id: 43, name:'Arthropod Sitter', description: 'Take care of 1 arthropod' },
     { id: 44, name:'Arthropod Enthusiastic', description: 'Take care of 5 arthropod' },
     { id: 45, name:'Ant-man', description: 'Take care of 10 arthropod' },
-
-    
-    
   ];
+
+  constructor(private auth: AuthProviderService) { }
+
+  my_trophies = this.getTrofies();
+  my_trophies_size = 0;
+  //my_trophies[{{trophy.id}}]
+
+  async getTrofies() {
+    this.auth.getToken().then(result => {
+      const token = result;
+      this.auth.getTrophies(token).subscribe(res => {
+        this.my_trophies = res;
+        this.my_trophies_size = this.count_true(this.my_trophies);
+        //console.log(this.my_trophies);
+        //console.log(this.my_trophies[this.trophies[13].id]);
+      });
+    }).catch(err => {
+      console.log(err);
+    });
+    return await this.my_trophies;
+  }
+
+  count_true(vector){
+    let count = 0;
+    vector.forEach(element => {
+      if (element == true) count++;
+    });
+    //console.log(count);
+    return count;
+  }
+
 }
