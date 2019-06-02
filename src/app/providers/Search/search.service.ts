@@ -60,6 +60,15 @@ export class SearchService {
 	return this.http.get<any>(this.global.baseUrl + 'user/filterExpert?animal='+ body, options);
   }
 
+  filterValoration(lowerBound, upperBound, token): Observable <any> {
+	let httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    httpHeaders = httpHeaders.append('Access-Control-Allow-Origin', '*');
+    httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token);
+    const options = {headers: httpHeaders};
+
+	return this.http.get<any>(this.global.baseUrl + 'user/filterValoration?lowerBound='+ lowerBound + '&upperBound=' + upperBound, options);
+  }
+
   filterDistance(body, token): Observable <any> {
 	let httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
     httpHeaders = httpHeaders.append('Access-Control-Allow-Origin', '*');

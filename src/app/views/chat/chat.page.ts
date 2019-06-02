@@ -44,9 +44,7 @@ export class ChatPage implements OnInit {
     private nav: NavController, private actionSheetController: ActionSheetController,
     private camera: Camera, private imagePicker: ImagePicker, private imageService: ImageService,
     private chats: ChatsService, private modalController: ModalController, private alertController: AlertController)
-    {
-        this.getMissatges();
-    }
+    {}
 
   ngOnInit() {
     // Carregar images guardades
@@ -62,7 +60,7 @@ export class ChatPage implements OnInit {
     this.auth.getToken().then(result => {
       const token = result;
   
-    this.chats.hasContracted(this.usernameCuidador,token).subscribe(res =>{
+    this.chats.isContracted(this.usernameCuidador,token).subscribe(res =>{
       console.log(res);
       if(res!=null) this.contratado=true;
     });
@@ -79,14 +77,16 @@ export class ChatPage implements OnInit {
   }
 
   goBack() {
-    this.router.navigateByUrl('/tabs/chats');
     clearInterval(this.id);
+    this.router.navigateByUrl('/tabs/chats');
+    
   }
   abrirCamara() {
     console.log('Open Camera');
     this.selectImage();
   }
   goProfile() {
+    clearInterval(this.id);
     this.nav.navigateRoot(`tabs/chats/perfil-cuidador/` + this.usernameCuidador);
   }
   contratar(){
@@ -229,7 +229,7 @@ export class ChatPage implements OnInit {
           this.content.scrollToBottom(0);
         });
       }
-    }.bind(this), 1000);
+    }.bind(this), 2000);
   }
 
   enviaMissatge(){ 
@@ -268,7 +268,9 @@ export class ChatPage implements OnInit {
   ionViewDidEnter(){
     this.content.scrollToBottom();
   }
-
+  ionViewDidLeave(){
+    clearInterval(this.id);
+  }
 
   // FUNCIONALITATS DE CAMERA
 

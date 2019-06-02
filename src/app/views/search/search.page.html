@@ -5,14 +5,19 @@
 </ion-header>
 
 <ion-content>
-    <ion-searchbar [(ngModel)]="searchTerm" (ionChange)="devuelvePerfilesCuidadores()"></ion-searchbar>
+    <ion-searchbar *ngIf="searchFilter && (searchFilter!='Expert' && searchFilter!='Favorites' && searchFilter!='Valoration')" [(ngModel)]="searchTerm" (ionChange)="devuelvePerfilesCuidadores()"></ion-searchbar>
+    <ion-item *ngIf="searchFilter && searchFilter=='Valoration'">
+        <ion-range [(ngModel)]="stars" dualKnobs="true" min="0" max="5" step="1" snaps="true" (ionChange)="devuelvePerfilesCuidadores()" pin="true"></ion-range>
+        <ion-label class="valoration">{{stars["lower"]}}/{{stars["upper"]}}</ion-label>
+    </ion-item>
     <ion-item>
-    <ion-label>Filter by:</ion-label>
-        <ion-select [(ngModel)]="searchFilter" (ionChange)="devuelvePerfilesCuidadores()" value="Name">
+        <ion-label>Filter by:</ion-label>
+        <ion-select [(ngModel)]="searchFilter" (ionChange)="devuelvePerfilesCuidadores()">
             <ion-select-option value="Name">Name</ion-select-option>
             <ion-select-option value="Expert">Expert</ion-select-option>
             <ion-select-option value="Distance">Distance</ion-select-option>
             <ion-select-option value="Favorites">Favorites</ion-select-option>
+            <ion-select-option value="Valoration">Valoration</ion-select-option>
         </ion-select>
     </ion-item>
     <div *ngIf="searchFilter == 'Expert'">
