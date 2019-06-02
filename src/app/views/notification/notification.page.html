@@ -198,7 +198,12 @@
              </ion-col>
            </ion-row>  
         </ion-card-content>
-        <ion-card-content class="paddingButtons" *ngIf="contract.accepted">
+        <ion-card-content class="paddingButtons" *ngIf="contract.accepted && tiempoAcabado(contract.end)">
+            <ion-toolbar>
+              <ion-button color="warning" fill="solid" slot="end" (click)="rate(contract.usernameTo)">Rate</ion-button>            
+            </ion-toolbar>
+          </ion-card-content>
+          <ion-card-content class="paddingButtons" *ngIf="contract.accepted && !tiempoAcabado(contract.end)">
             <ion-toolbar>
               <ion-button color="danger" fill="solid" slot="end" (click)="cancel(contract.usernameTo)">Cancel</ion-button>            
             </ion-toolbar>
@@ -265,6 +270,5 @@
   </ion-card>
 </ion-col>
 </ion-row>
-
 
 </ion-content>

@@ -3,7 +3,6 @@ import { PopoverController, ModalController} from '@ionic/angular';
 import { Component, ViewChild, OnInit } from '@angular/core';
 import { AuthProviderService } from 'src/app/providers/auth/auth-provider.service';
 import { Router } from '@angular/router';
-import { ChatsService } from './../../providers/chats/chats.service';
 import { PopoverPage } from './popover/popover.page';
 import { throwError } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
@@ -12,6 +11,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { GlobalService } from './../../shared/global.service';
 import { Storage } from '@ionic/storage';
 import { FormControl, FormGroup, FormBuilder, Validators} from '@angular/forms';
+import { ProfileService } from 'src/app/providers/profile/profile.service';
 
 @Component({
   selector: 'app-profile',
@@ -54,24 +54,7 @@ hazlista=false;
   readonlyBool: boolean = true;
   day: string = "Mon";
   
-  commentsProfile: any =[
-    {
-      avatar: '../../../assets/default_avatar.png',
-      name: 'David Garcia',
-      rating: 5,
-      date: '23/03/2016',
-      text: 'Very good experience with this petsitter.'
-
-    },
-    {
-      avatar: '../../../assets/default_avatar.png',
-      name: 'Pere Bruy',
-      rating: 1,
-      date: '23/03/2019',
-      text: 'Very bad experience with this petsitter.'
-
-    }
-  ]
+  previousVal= [];
 
   cuidador: any = {
     availability: null,
@@ -95,7 +78,8 @@ hazlista=false;
 
   constructor(private popoverCtrl: PopoverController, private auth: AuthProviderService, private actrout: ActivatedRoute,
     private search: SearchService,private modalCtrl:ModalController , private global: GlobalService,
-    private router: Router, private storage: Storage, public formBuilder: FormBuilder) {
+    private router: Router, private profile: ProfileService,
+     private storage: Storage, public formBuilder: FormBuilder) {
       this.horasForm = this.formBuilder.group({
         fromfcn: new FormControl('', Validators.compose([
           Validators.required
@@ -235,6 +219,7 @@ hazlista=false;
 
   ngOnInit() {
     // obtener username mio
+    this.previousVal = this.getPreviousVal();
     this.auth.getUsername().then(uname => {
     const username = uname;
     
@@ -372,4 +357,18 @@ hazlista=false;
     }
   }
 
+  getPreviousVal(): any {
+    this.auth.getToken().then(result => {
+      const token = result;
+      this.profile.getPreviousValuations(token).subscribe(res => {
+	      console.log(res);
+	      this.previousVal = res;
+	      console.log(this.previousVal);
+	    });
+    }).catch(err => {
+	    console.log(err);
+	    return throwError;
+    });
+    return this.previousVal;
+  }
 }

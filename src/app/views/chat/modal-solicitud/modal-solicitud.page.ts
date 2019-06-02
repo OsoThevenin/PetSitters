@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ChatsService } from 'src/app/providers/chats/chats.service';
+import { ContractsService } from 'src/app/providers/contracts/contracts.service';
 import { AuthProviderService } from 'src/app/providers/auth/auth-provider.service';
 import { throwError } from 'rxjs';
 import { NavParams, ModalController } from '@ionic/angular';
@@ -23,7 +23,7 @@ export class ModalSolicitudPage implements OnInit {
 
 	public cuidadorContrato: any;
 
-  constructor( public formBuilder: FormBuilder,private modalController: ModalController,private chats: ChatsService, private auth: AuthProviderService, private navParams: NavParams) { 
+  constructor( public formBuilder: FormBuilder,private modalController: ModalController,private contracts: ContractsService, private auth: AuthProviderService, private navParams: NavParams) { 
 
 		this.solicitudForm = this.formBuilder.group({
       anfcn: new FormControl('', Validators.compose([
@@ -75,7 +75,7 @@ export class ModalSolicitudPage implements OnInit {
 	  username: this.cuidadorContrato,
 	};
 	console.log(body);
-	this.chats.proposeContract(body,token).subscribe(res =>{
+	this.contracts.proposeContract(body,token).subscribe(res =>{
 		console.log(res); //Daniel: deberia devolver null cuando no hay contratos y algo diferente cuando los hay, parece que en backend no funciona, hay que comentarlo con antoni.
 	});
 	}).catch(err => {

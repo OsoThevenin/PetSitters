@@ -274,17 +274,19 @@
     </ng-template>
 
         <!-- Mock-up -->
-        <ion-row *ngFor="let comment of commentsProfile">
+    <ion-list *ngFor="let val of previousVal">
+        <ion-row>
             <ion-card>
                 <ion-card-header>
-                    <img class="avatar" [src]=comment.avatar size="small">
-                    <ion-card-title class="name">{{comment.name}} {{comment.rating}}</ion-card-title>
-                    <ion-card-subtitle style="text-align: center">{{comment.date}}</ion-card-subtitle>
+                    <img class="avatar" [src]=val.profileImage size="small">
+                    <ion-card-title class="name">{{val.usernameWhoValues}} {{val.stars}}</ion-card-title>
+                    <ion-card-subtitle style="text-align: center">{{val.whenValued}}</ion-card-subtitle>
                 </ion-card-header>
                 <ion-card-content>
-                    <p class="text">{{comment.text}}</p>
+                    <p class="text">{{val.comment}}</p>
                 </ion-card-content>
             </ion-card>
         </ion-row>
+    </ion-list>
     </ion-grid>
 </ion-content>

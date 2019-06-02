@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthProviderService } from 'src/app/providers/auth/auth-provider.service';
+import { ContractsService} from 'src/app/providers/contracts/contracts.service';
 import { throwError } from 'rxjs/internal/observable/throwError';
-import { ToastController, AlertController } from '@ionic/angular';
+import { ToastController, AlertController, ModalController } from '@ionic/angular';
+
+import { ModalRatePage } from './modal-rate/modal-rate.page';
 
 @Component({
   selector: 'app-notification',
@@ -13,7 +16,9 @@ export class NotificationPage implements OnInit  {
   received: any;
   proposed: any;
 
-  constructor( private toastCtrl: ToastController, private auth: AuthProviderService, private alertController: AlertController) {
+  constructor( private toastCtrl: ToastController, private auth: AuthProviderService, private alertController: AlertController,
+    private modalController: ModalController, private contracts: ContractsService) {
+  
   }
 
   ngOnInit() {
@@ -60,6 +65,12 @@ export class NotificationPage implements OnInit  {
     return this.proposed;
   }
 
+  tiempoAcabado(t:string){
+    let currentDate = new Date();
+    let endDate = new Date(parseInt(t.substring(6,10)),parseInt(t.substring(3,5))-1,parseInt(t.substring(0,2)),parseInt(t.substring(12,14)),parseInt(t.substring(15,17)));
+    return currentDate>=endDate;
+  }
+
   accept(un:string){
     this.auth.getToken().then(result => {
       this.auth.acceptContract(un, result)
@@ -73,9 +84,25 @@ export class NotificationPage implements OnInit  {
     });
   }
 
+  rate(un:string){
+    this.openModal(un);
+  }
+
+  async openModal(un:string) {
+    const modal = await this.modalController.create({
+      component: ModalRatePage,
+      componentProps: {
+          usernameRated: un
+      },
+      cssClass: 'my-rate-modal-css'
+    });
+    return await modal.present();
+  }
+
+
   decline(un:string){
     this.auth.getToken().then(result => {
-      this.auth.rejectContract(un, result)
+      this.contracts.rejectContract(un, result)
       .subscribe(res => {
         this.ngOnInit();
         this.presentToast('You have rejected the contract successfully!');
@@ -90,7 +117,7 @@ export class NotificationPage implements OnInit  {
     this.presentAlert_D(un);
     /* Sin Alerta de confirmacion 
     this.auth.getToken().then(result => {
-      this.auth.rejectContract(un, result)
+      this.contracts.rejectContract(un, result)
       .subscribe(res => {
         this.ngOnInit();
         this.presentToast('You have cancelled the contract successfully!');
@@ -101,6 +128,7 @@ export class NotificationPage implements OnInit  {
     });
     */
   }
+  
 
   async presentAlert_D(un:string) {
     const alert = await this.alertController.create({
@@ -116,7 +144,7 @@ export class NotificationPage implements OnInit  {
           text: 'Confirm',
           handler: cancelar => {
             this.auth.getToken().then(result => {
-              this.auth.rejectContract(un, result)
+              this.contracts.rejectContract(un, result)
               .subscribe(res => {
                 this.ngOnInit();
                 this.presentToast('You have cancelled the contract successfully!');
