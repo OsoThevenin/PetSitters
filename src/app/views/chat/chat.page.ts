@@ -61,7 +61,7 @@ export class ChatPage implements OnInit {
     this.auth.getToken().then(result => {
       const token = result;
   
-    this.chats.isContracted(this.usernameCuidador,token).subscribe(res =>{
+    this.chats.hasContracted(this.usernameCuidador,token).subscribe(res =>{
       console.log(res);
       if(res!=null) this.contratado=true;
     });
@@ -101,7 +101,7 @@ export class ChatPage implements OnInit {
       componentProps: {
           usernameCuidador: this.usernameCuidador
       },
-      cssClass: 'my-changePW-modal-css'
+      cssClass: 'my-contract-modal-css'
     });
     return await modal.present();
   }
