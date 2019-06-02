@@ -4,6 +4,12 @@
     Log out
   </ion-item>
 
+  <ion-item (click)="ChangeToggleNotifications()">
+    <ion-icon slot="start" name="notifications-outline"></ion-icon>
+    Notifications
+    <ion-toggle [(ngModel)]="notific"></ion-toggle>
+  </ion-item>
+
   <ion-item (click)="ChangePassword()">
     <ion-icon slot="start" name="key"></ion-icon>
     Change Password

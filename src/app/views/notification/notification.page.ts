@@ -21,6 +21,16 @@ export class NotificationPage implements OnInit  {
     this.proposed=this.getProposed();
   }
 
+  doRefresh(event) {
+    console.log('Begin async operation');
+
+    setTimeout(() => {
+      this.ngOnInit();
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 2000);
+  }
+
   getReceived() {
     this.auth.getToken().then(result => {
       const token = result;
