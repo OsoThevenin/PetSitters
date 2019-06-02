@@ -8,7 +8,7 @@
     <ion-searchbar *ngIf="searchFilter && (searchFilter!='Expert' && searchFilter!='Favorites' && searchFilter!='Valoration')" [(ngModel)]="searchTerm" (ionChange)="devuelvePerfilesCuidadores()"></ion-searchbar>
     <ion-item *ngIf="searchFilter && searchFilter=='Valoration'">
         <ion-range [(ngModel)]="stars" dualKnobs="true" min="0" max="5" step="1" snaps="true" (ionChange)="devuelvePerfilesCuidadores()" pin="true"></ion-range>
-        <ion-label>{{stars["lower"]}}/{{stars["upper"]}}</ion-label>
+        <ion-label class="valoration">{{stars["lower"]}}/{{stars["upper"]}}</ion-label>
     </ion-item>
     <ion-item>
         <ion-label>Filter by:</ion-label>
