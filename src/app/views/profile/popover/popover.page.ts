@@ -1,6 +1,7 @@
 import { GlobalService } from './../../../shared/global.service';
 import { Md5 } from 'ts-md5/dist/md5';
 import { Component, OnInit } from '@angular/core';
+import { Storage } from '@ionic/storage';
 import { PopoverController, NavController, AlertController, ToastController, ModalController } from '@ionic/angular';
 import { AuthProviderService } from 'src/app/providers/auth/auth-provider.service';
 import { throwError } from 'rxjs';
@@ -13,10 +14,12 @@ import { ModalPage } from '../modal/modal.page';
 })
 export class PopoverPage implements OnInit {
 
+  notific: boolean;
+
   constructor(private popoverController: PopoverController, private nav: NavController,
      private alertController: AlertController, private auth: AuthProviderService,
      private toastCtrl: ToastController, private global: GlobalService,
-     private modalController: ModalController) { }
+     private modalController: ModalController, private storage: Storage) { }
 
   ngOnInit() {
   }
@@ -36,6 +39,9 @@ export class PopoverPage implements OnInit {
     this.openModal();
   }
 
+  ChangeToggleNotifications(){
+    this.storage.set('toggle-notifications', this.notific);
+  }
   
   async openModal() {
     const modal = await this.modalController.create({
