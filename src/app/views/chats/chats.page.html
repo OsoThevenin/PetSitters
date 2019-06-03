@@ -1,6 +1,6 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>
+  <ion-toolbar color="a1">
+    <ion-title color="white">
       Chats
     </ion-title>
   </ion-toolbar>
@@ -20,6 +20,15 @@
 
 <ion-content>
     <!-- <ion-label>Chats</ion-label> -->
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content
+        pullingIcon="arrow-dropdown"
+        pullingText="Pull to get chats"
+        refreshingSpinner="circles"
+        refreshingText="Refreshing...">
+      </ion-refresher-content>
+    </ion-refresher>
+    
     <ion-list class=" ex1" *ngFor="let chat of activeChats">
         <ion-row>
             <ion-col>

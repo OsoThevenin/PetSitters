@@ -1,7 +1,7 @@
 <ion-header>
-  <ion-toolbar>
-      <img class="logo" src="../../assets/Logo_versio3.png">
-  </ion-toolbar>
+    <ion-toolbar color="a1">
+        <img class="logo" src="../../assets/Logo_versio4.png">
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
@@ -39,16 +39,21 @@
     </div>
     <ion-grid style="height: 100%">
         <ion-row justify-content: center align-items: center>
-            <ion-col *ngFor="let cuidador of perfilsCuidadors">
-                <ion-card (click)="goToPerfilCuidador(cuidador)">
+            <ion-col *ngFor="let cuidador of perfilsCuidadors" size="6">
+                <ion-card (click)="goToPerfilCuidador(cuidador)" style="background-color: white">
                     <img class="avatar" *ngIf="cuidador.profile_image == null" src="../../../assets/default_avatar.png">
                     <ion-card-header>
                         <ion-row justify-content-center align-items-center>
-                            <ion-icon class="stars" name="star-outline"></ion-icon>
-                            <ion-icon class="stars" name="star-outline"></ion-icon>
-                            <ion-icon class="stars" name="star-outline"></ion-icon>
-                            <ion-icon class="stars" name="star-outline"></ion-icon>
-                            <ion-icon class="stars" name="star-outline"></ion-icon>
+                            <ion-icon *ngIf="cuidador.stars>=1; else elseBlock1" class="stars" name="star"></ion-icon>
+                            <ng-template #elseBlock1><ion-icon class="stars" name="star-outline"></ion-icon></ng-template>
+                            <ion-icon *ngIf="cuidador.stars>=2; else elseBlock2" class="stars" name="star"></ion-icon>
+                            <ng-template #elseBlock2><ion-icon class="stars" name="star-outline"></ion-icon></ng-template>
+                            <ion-icon *ngIf="cuidador.stars>=3; else elseBlock3" class="stars" name="star"></ion-icon>
+                            <ng-template #elseBlock3><ion-icon class="stars" name="star-outline"></ion-icon></ng-template>
+                            <ion-icon *ngIf="cuidador.stars>=4; else elseBlock4" class="stars" name="star"></ion-icon>
+                            <ng-template #elseBlock4><ion-icon class="stars" name="star-outline"></ion-icon></ng-template>
+                            <ion-icon *ngIf="cuidador.stars>=5; else elseBlock5" class="stars" name="star"></ion-icon>
+                            <ng-template #elseBlock5><ion-icon class="stars" name="star-outline"></ion-icon></ng-template>
                         </ion-row>
                         <ion-card-title style="text-align: center">{{cuidador.name}}</ion-card-title>
                     </ion-card-header>

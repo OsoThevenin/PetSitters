@@ -28,6 +28,16 @@ export class ChatsPage implements OnInit {
       {username: "Ruben"}
   ];
 
+  doRefresh(event) {
+    console.log('Begin async operation');
+
+    setTimeout(() => {
+      this.ngOnInit();
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 2000);
+  }
+
   abreChat(chatUser) {
     this.router.navigateByUrl('/chat/' + chatUser);
   }
