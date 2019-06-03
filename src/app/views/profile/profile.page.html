@@ -10,11 +10,15 @@
 <ion-content>
     
     <!-- De Base de Datos -->
+    <ion-button expand="block" icon-only fill="solid" shape="round" class="ChatButton" (click)="selectImage()" >
+        <ion-icon name="camera" slot="icon-only"></ion-icon>
+    </ion-button>
     <ion-grid>
     <ion-row justify-content-center align-items-center>
+        <img class="avatar_profile" *ngIf='cuidador.profile_image === "" ' src="../../../assets/default_avatar.png">
+        <img class="avatar_profile" *ngIf='cuidador.profile_image !== "" ' src="cuidador.profile_image">
 
-        <img class="avatar_profile" *ngIf='cuidador.profile_image == "" ' src="../../../assets/default_avatar.png">
-          <!--
+        <!--
         <ion-content padding>
                 <h3 *ngIf="images.length == 0" text-center> Please select an image</h3>
                 <ion-list>

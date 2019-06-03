@@ -1,6 +1,5 @@
-
-import { PopoverController, ModalController} from '@ionic/angular';
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { PopoverController, ModalController, ActionSheetController, Platform, ToastController} from '@ionic/angular';
+import { Component, ViewChild, OnInit, ChangeDetectorRef } from '@angular/core';
 import { AuthProviderService } from 'src/app/providers/auth/auth-provider.service';
 import { Router } from '@angular/router';
 import { PopoverPage } from './popover/popover.page';
@@ -12,6 +11,15 @@ import { GlobalService } from './../../shared/global.service';
 import { Storage } from '@ionic/storage';
 import { FormControl, FormGroup, FormBuilder, Validators} from '@angular/forms';
 import { ProfileService } from 'src/app/providers/profile/profile.service';
+import { Camera, PictureSourceType, CameraOptions } from '@ionic-native/camera/ngx';
+import { ImageService } from 'src/app/services/image/image.service';
+import { ImagePicker } from '@ionic-native/image-picker/ngx';
+import { ImageCompressorService } from 'src/app/services/compression.service';
+import { File } from '@ionic-native/file/ngx';
+import { WebView } from '@ionic-native/ionic-webview/ngx';
+
+const PETSITTERS_DIRECTORY = 'PetSitters';
+const PROFILE_IMAGE = 'ProfileImage';
 
 @Component({
   selector: 'app-profile',
@@ -48,7 +56,6 @@ hazlista=false;
 
   showExpert:boolean = false;
 
-
   disableSegmentBool:boolean = false;
   botonEditar:boolean = true;
   readonlyBool: boolean = true;
@@ -76,10 +83,14 @@ hazlista=false;
   @ViewChild('from') f;
   @ViewChild('to') t;
 
+  compression: ImageCompressorService = new ImageCompressorService();
+
   constructor(private popoverCtrl: PopoverController, private auth: AuthProviderService, private actrout: ActivatedRoute,
     private search: SearchService,private modalCtrl:ModalController , private global: GlobalService,
-    private router: Router, private profile: ProfileService,
-     private storage: Storage, public formBuilder: FormBuilder) {
+    private router: Router, private profile: ProfileService, private actionSheetController: ActionSheetController,
+     private storage: Storage, public formBuilder: FormBuilder, private camera: Camera,
+     private platform: Platform, private toastController: ToastController, private imageService: ImageService,
+     private imagePicker: ImagePicker, private file: File, private webview: WebView, private ref: ChangeDetectorRef) {
       this.horasForm = this.formBuilder.group({
         fromfcn: new FormControl('', Validators.compose([
           Validators.required
@@ -257,11 +268,19 @@ hazlista=false;
            this.sunday.to=horasdias[13];
         }
       });
+
+      this.getProfileImage();
     }).catch(err => {
       console.log(err);
       return throwError;
     });
   });  
+  }
+
+  getProfileImage() {
+    this.storage.get(PROFILE_IMAGE).then((imagePath) => {
+      this.cuidador.profile_image = imagePath;
+    });
   }
 
 
@@ -370,5 +389,163 @@ hazlista=false;
 	    return throwError;
     });
     return this.previousVal;
+  }
+
+
+  // Image profile
+
+
+  async selectImage() {
+    const actionSheet = await this.actionSheetController.create({
+      header: 'Select Image Source',
+      buttons: [{
+        text: 'Load from Library',
+        handler: () => {
+          this.openGallery();
+        }
+      },
+      {
+        text: 'Use Camera',
+        icon: 'camera',
+        handler: () => {
+          this.takePicture(this.camera.PictureSourceType.CAMERA);
+        }
+      },
+      {
+        text: 'Cancel',
+        role: 'cancel'
+      }]
+    });
+    await actionSheet.present();
+  }
+
+  takePicture(sourceType: PictureSourceType) {
+    if (this.platform.is('cordova')) {
+      const options: CameraOptions = {
+        quality: 100,
+        sourceType: sourceType,
+        destinationType: this.camera.DestinationType.FILE_URI,
+        mediaType: this.camera.MediaType.PICTURE,
+        encodingType: this.camera.EncodingType.JPEG,
+        saveToPhotoAlbum: true,
+        correctOrientation: true,
+      };
+
+      this.camera.getPicture(options).then(imagePath => {
+        let currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
+        let correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
+        let generatedName: string = this.createFileName();
+        this.copyAndCompress(correctPath, currentName, generatedName).then((OutputDir: String) => {
+            console.log("UPLOADING IMAGE: " + OutputDir);
+            // Aqui podem guardar el path directe ja
+            this.imageService.getToken().then((token) => {
+              return this.imageService.uploadProfileImage(OutputDir, token);
+            }).then((data) => {
+              this.presentToast('Image sent correctly');
+              console.log('Response chat:' + JSON.stringify(data));
+              // data.response !!!!
+            });
+        });
+      });
+    } else {
+      console.log(`I'm not in cordova`);
+    }
+  }
+
+  openGallery() {
+    let options = {
+      maximumImagesCount: 8,
+      width: 500,
+      height: 500,
+      quality: 100
+    };
+    this.imagePicker.hasReadPermission().then(res => {
+      if (res === false) {
+        this.requestReadPermission();
+      } else {
+        this.imagePicker.getPictures(options).then((results) => {
+          for (let i = 0; i < results.length; i++) {
+              console.log('Image URI: ' + results[i]);
+              let currentName = results[i].substring(results[i].lastIndexOf('/') + 1);
+              let correctPath = results[i].substring(0, results[i].lastIndexOf('/') + 1);
+              let generatedName: string = this.createFileName();
+              this.copyAndCompress(correctPath, currentName, generatedName).then((OutputDir:string) => {
+                console.log("UPLOADING IMAGE: " + OutputDir);
+                this.imageService.getToken().then((token) => {
+                  return this.imageService.uploadProfileImage(OutputDir, token);
+                }).then((data) => {
+                  this.presentToast('Image sent correctly');
+                  console.log('Response chat:' + JSON.stringify(data));
+                });
+              });
+          }
+        }, (err) => {
+          this.presentToast('Error while opening the images');
+        });
+      }
+    });
+  }
+  createFileName() {
+    let d = new Date();
+    let n = d.getTime();
+    return (n + '.jpg');
+  }
+
+
+  async requestReadPermission() {
+    this.imagePicker.requestReadPermission();
+  }
+
+  copyAndCompress(namePath, currentName, newFileName) {
+    // Image Compression
+    return new Promise((resolve, reject) => {
+      let dataDirectory = this.file.externalRootDirectory + PETSITTERS_DIRECTORY + '/';
+      let completePath: String = dataDirectory + newFileName;
+      this.compression.compress(namePath + currentName).then((filePathOutput:string) => {
+        let compressionDir = filePathOutput.substring(0, filePathOutput.lastIndexOf('/') + 1);
+        let compressionFile = filePathOutput.substring(filePathOutput.lastIndexOf('/') + 1);
+        this.file.removeFile(namePath, currentName).then(() => {this.file.removeFile(namePath, currentName)
+          .catch(() => console.log('The temporal file has been successfully removed')); });
+        this.file.moveFile(compressionDir, compressionFile, dataDirectory, newFileName).then(_ => {
+        // Aquí s'ha de pujar les imatges a la memoria del telefon, amb la referencia del xat
+        this.updateStoredImages(newFileName, completePath);
+      }, error => {
+        console.log('Error while storing the image: ' + error);
+        this.presentToast('Error while storing the image');
+        reject(error);
+      });
+    })
+    .catch(() => {console.log('Failure when compressiong the image.'); });
+    });
+  }
+  updateStoredImages(name, filePath) { // FilePath contains the complete path + name of the image
+    let resPath = this.pathForImage(filePath);
+    console.log('updatestoredimages: ' + resPath + ' ' + name);
+    this.cuidador.profile_image = resPath;
+
+    this.storage.set(PROFILE_IMAGE, resPath);
+    this.ref.detectChanges(); // trigger change detection cycle
+  }
+
+  deleteImage() {
+    this.storage.remove(PROFILE_IMAGE);
+  }
+
+  pathForImage(img) {
+    if (img === null) {
+      return '';
+    } else {
+      let converted = this.webview.convertFileSrc(img);
+      return converted;
+    }
+  }
+
+  async presentToast(text) {
+    const toast = await this.toastController.create({
+      message: text,
+      position: 'bottom',
+      duration: 2000
+    });
+    toast.present();
   }
 }

@@ -38,6 +38,24 @@ export class ImageService {
     return fileTransfer.upload(file, encodeURI(uri), options);
   }
 
+  uploadProfileImage(file: any, token: any) {
+    // Send HTTP post to API
+    const fileTransfer: FileTransferObject = new FileTransferObject();
+    let filename = file.substring(file.lastIndexOf('/') + 1);
+    console.log('FileName from URI: ' + filename);
+    let options: FileUploadOptions = {
+      fileKey: 'file',
+      fileName: filename,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Authorization': 'Bearer ' + token
+      },
+      mimeType: 'image/jpeg'
+    };
+    let uri = this.global.baseUrl + 'setProfileImage';
+    return fileTransfer.upload(file, encodeURI(uri), options);
+  }
+
   getImageData(name: string, token: any) {
     // Send HTTP GET to api
     const fileTransfer: FileTransferObject = new FileTransferObject();
