@@ -63,18 +63,29 @@
         </ion-col>
       </ion-row>
   
-      <ion-row>
-            <ion-label class="description">Description</ion-label>
-      </ion-row>
-      <ion-row padding>
-            <p>{{cuidador.description}}</p>
-      </ion-row>
-      <ion-row>
-      <ion-label class="description">Availability</ion-label>
-    </ion-row>
+      <!-- DESCRIPCION -->
+      <ion-card>
+          <ion-card-header class="noPaddingBottomTop">
+              <ion-toolbar class="fondoazulbonito">
+                  <ion-label class="sectionTitle">Description</ion-label>
+              </ion-toolbar>
+          </ion-card-header>
+          <ion-card-content>
+              <ion-textarea rows="5" class="descriptionTextarea" placeholder="Please enter a description" [(ngModel)]="cuidador.description" readonly></ion-textarea>
+          </ion-card-content>
+      </ion-card>
 
-    <ion-row>
-            <ion-card class="segmentos">  
+      
+    <ion-row class="espacio"></ion-row>
+    <ion-row class="espacio"></ion-row>
+
+    <!-- DISPONIBILIDAD -->
+        <ion-card class="segmentos">  
+            <ion-card-header class="noPaddingBottomTop">
+                <ion-toolbar class="fondoazulbonito">
+                    <ion-label class="sectionTitle">Availability</ion-label>
+                </ion-toolbar>
+                </ion-card-header>
                 <ion-row>
                 <ion-segment scrollable="true" [(ngModel)]="day"  (ionChange)="segmentChanged($event)">  <!--(ionChange)="segmentChanged($event)"   [value]="diaSegment"--> 
                   <ion-segment-button value="Mon">
@@ -109,30 +120,40 @@
                           <ion-col><ion-input type="text" [readonly]="readonlyBool" [placeholder]="diaActual.to"></ion-input></ion-col>
                   </ion-row>
           </ion-card>
-          </ion-row>
+          
           <ion-row class="espacio"></ion-row>
         <ion-row class="espacio"></ion-row>
-        <ion-row >
-          <ion-col class="align-text-middle">
-                  <ion-label class="description">Expert on</ion-label>
-          </ion-col>
-      </ion-row>
-  <ion-row *ngIf="!hazlista" class="noPaddingTop">
-          <ion-col size=10>
-              <ion-textarea placeholder="This user is not willing to take care of any animals" disabled readonly></ion-textarea>
-          </ion-col>
-  </ion-row>
-      <ion-row justify-content-center align-items-center class="sixPaddingSides">
-              <ion-col col-12>
-                  <ion-list *ngIf="hazlista" lines="none">
-                          <div *ngFor="let animal of expertise">
-                                  <ion-item  color="white" *ngIf="animal.isChecked">    
-                                      <ion-label class="labelDeshabilitada">{{animal.type}}</ion-label>
-                                  </ion-item>
-                              </div>
-                  </ion-list>
-          </ion-col>
-      </ion-row>
+        
+
+        
+  <!-- EXPERTO -->
+
+  <ion-card>
+      <ion-card-header class="noPaddingBottomTop">
+          <ion-toolbar class="fondoazulbonito">
+              <ion-label class="sectionTitle">Expert on</ion-label>
+          </ion-toolbar>
+      </ion-card-header>
+      <ion-card-content>
+
+      
+<div *ngIf="!hazlista" class="noPaddingTop">
+          <ion-textarea color="a1" placeholder="Please select the animals you are willing to take care of" disabled readonly></ion-textarea>
+  </div>                    
+          <ion-list  class="transparentBackground" *ngIf="hazlista" lines="none">
+                  <ng-container *ngFor="let animal of expertise">
+                              <ion-item class="littlepadding" color="a1" *ngIf="animal.isChecked">    
+                                  <ion-label color="white" class="labelDeshabilitada">{{animal.type}}</ion-label>
+                                  <ion-checkbox disabled="true" slot="end" [(ngModel)]="animal.isChecked"></ion-checkbox>
+                              </ion-item>
+                  </ng-container>
+              </ion-list>
+</ion-card-content>
+</ion-card>
+
+<ion-row class="espacio"></ion-row>
+<ion-row class="espacio"></ion-row>
+
     
 
       <ion-row *ngFor="let comment of commentsProfile">

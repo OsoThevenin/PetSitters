@@ -61,9 +61,44 @@
     text-align: center;
 }
 
+.transparentBackground{
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.sectionTitle{
+    font-size:15px;
+    font-weight: bolder !important;
+    color: #004F79;
+}
+
+.descriptionTextarea{
+    color: #004F79;
+    padding-bottom: 5px;
+}
+
+.noPaddingBottomTop {
+    padding-top:  0px;
+    padding-bottom: 0px;
+}
+
 ion-card{
-    width: 100%;
-    background-color: white
+    background-color: #dfe9ee !important;
+}
+
+.fondoazulbonito{
+    background-color: #dfe9ee;
+}
+.littlepadding{
+    padding-bottom: 3px;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+ion-card-content{
+    --ion-background-color: #dfe9ee;
+}
+
+ion-card-header{
+    --ion-background-color: #dfe9ee;
 }
 
 .text{
@@ -73,9 +108,9 @@ ion-card{
 
 ion-content{
     --ion-background-color: #97c7f3;
+    font-weight: bold;
 }
 .labelDeshabilitada{
-    color:black;
     opacity: 1;
 }
 
@@ -97,10 +132,10 @@ ion-list{
     border-radius: 8px;
     color:black;
 }
+
 ion-item{
-    padding-bottom: 3px;
-    padding-top:3px;
     --border-radius: 8px;
     background-color:white;
     color:black !important;
+
 }
