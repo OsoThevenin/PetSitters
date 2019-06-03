@@ -5,6 +5,18 @@
     color: white;
 }
 
+.my-button3{ 
+    padding: 0px !important;
+    color: white;
+}
+.my_col {
+    margin-left: 27%;
+}
+
+.my_row {
+    margin-bottom: 10px;
+}
+
 .my-button2{ 
     padding: 0px !important;
     color: black;
@@ -54,7 +66,8 @@ ion-item{
 }
 
 .avatar_profile {
-    width: 10em;
+    height: 150px !important;
+    width: 150px !important;
     margin: auto;
 	display: block;
 }
