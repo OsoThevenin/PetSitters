@@ -8,7 +8,7 @@
             </ion-toolbar>
 </ion-header>
 <ion-content>
-    
+        
     <!-- De Base de Datos -->
     <ion-grid>
     <ion-row justify-content-center align-items-center>
@@ -79,54 +79,62 @@
     
 
     <!-- De Base de Datos -->
+  
+    <!-- DESCRIPCION  -->
 
-    <!-- Description edit -->
     <div *ngIf="editable; else elseBlockDesc">
-        <ion-row>
-        <ion-label class="description">Description</ion-label>
-        </ion-row>
-        <ion-row class="noPaddingBottom">
-        <ion-textarea class="fondoblanco" placeholder="Please enter a description" [(ngModel)]="cuidador.description" #description></ion-textarea>
-    </ion-row>
-        <ion-row>
-            <ion-col class="alineacentro">
-        <ion-button class="my-button2" fill="clear" shape="round" size="default" (click)="TakeTextDescription()">
-            <ion-icon name="save"></ion-icon>
-        </ion-button>
-    </ion-col>
-    <ion-col class="alineacentro">
-        <ion-button class="my-button2" fill="clear" shape="round" size="default" (click)="NoEditText()">
-            <ion-icon name="close"></ion-icon>
-        </ion-button>
-    </ion-col>
-        </ion-row>
+        <ion-card>
+            <ion-card-header class="noPaddingBottomTop">
+                <ion-toolbar class="fondoazulbonito">
+                    <ion-label class="sectionTitle">Description</ion-label>
+                </ion-toolbar>
+            </ion-card-header>
+            <ion-card-content>
+                <ion-textarea rows="5" class="fondoblanco" placeholder="Please enter a description" [(ngModel)]="cuidador.description" #description></ion-textarea>
+                <ion-toolbar>
+                    <ion-button color="a1" class="botonCard" slot="end" (click)="TakeTextDescription()">
+                        <ion-icon name="save"></ion-icon>
+                    </ion-button>
+                    <ion-button color="a1" class="botonCard" slot="start" (click)="NoEditText()">
+                        <ion-icon name="close"></ion-icon>
+                    </ion-button>
+                </ion-toolbar>
+            </ion-card-content>
+        </ion-card>
     </div>
     <ng-template #elseBlockDesc>
-        <ion-row >
-            <ion-col class="align-text-middle">
-                    <ion-label class="description">Description</ion-label>
-            </ion-col>
-                <ion-col  class="alineacentro" size=2>
-                        <ion-button no-padding class="my-button2" fill="clear" shape="round" size="default" (click)="EditText()">
-                            <ion-icon name="create"></ion-icon>
-                        </ion-button>
-                </ion-col>
-        </ion-row>
-        <ion-row  justify-content-center align-items-center  class="sixPaddingSides">
-            <ion-col size=12>
-                <ion-item lines="none" color="a1">    
-                    <ion-textarea color="white" placeholder="Please enter a description" [(ngModel)]="cuidador.description" readonly></ion-textarea>
-                </ion-item>
-            </ion-col>
-        </ion-row>
+        <ion-card>
+            <ion-card-header class="noPaddingBottomTop">
+                <ion-toolbar class="fondoazulbonito">
+                    <ion-label class="sectionTitle">Description</ion-label>
+                    <ion-button color="a1" class="botonCard" slot="end" (click)="EditText()">
+                        <ion-icon  slot="icon-only" name="create"></ion-icon>
+                    </ion-button>
+                </ion-toolbar>
+            </ion-card-header>
+            <ion-card-content>
+                <ion-textarea rows="5" class="descriptionTextarea" placeholder="Please enter a description" [(ngModel)]="cuidador.description" readonly></ion-textarea>
+            </ion-card-content>
+        </ion-card>
     </ng-template>
-    
-  <ion-row>
-        <ion-label class="description">Availability</ion-label>
-      </ion-row>
-      <ion-row class="espacio"></ion-row>
-  <ion-row>
+
+    <!-- DISPONIBILIDAD -->
+
+    <ion-row class="espacio"></ion-row>
+    <ion-row class="espacio"></ion-row>
+  
   <ion-card class="segmentos">  
+        <ion-card-header class="noPaddingBottomTop">
+            <ion-toolbar class="fondoazulbonito">
+                <ion-label class="sectionTitle">Availability</ion-label>
+                <ion-button color="a1" class="botonCard" slot="end" *ngIf="botonEditar" (click)="editButton()">
+                    <ion-icon slot="icon-only" name="create"></ion-icon>
+                </ion-button>
+                <ion-button  color="a1" class="botonCard" slot="end" *ngIf="!botonEditar" [disabled]="!horasForm.valid" (click)="guardarButton()">
+                    <ion-icon slot="icon-only" name="save"></ion-icon>
+                </ion-button>
+            </ion-toolbar>
+            </ion-card-header>
       <ion-row>
       <ion-segment scrollable="true" [disabled]="disableSegmentBool" [(ngModel)]="day"  (ionChange)="segmentChanged($event)">  <!--(ionChange)="segmentChanged($event)"   [value]="diaSegment"--> 
         <ion-segment-button value="Mon">
@@ -162,119 +170,71 @@
                 <!--<ion-col><ion-input formControlName="fromfcn" type="text" [readonly]="readonlyBool" [placeholder]="diaActual.from" #from></ion-input></ion-col>-->
                 <ion-col text-center class="columnacentrada">To:</ion-col>
                 <ion-col><ion-datetime formControlName="tofcn" [readonly]="readonlyBool" [value]="diaActual.to" displayFormat="HH:mm" #to></ion-datetime></ion-col>
-                <!--<ion-col><ion-input formControlName="tofcn" type="text" [readonly]="readonlyBool" [placeholder]="diaActual.to" #to></ion-input></ion-col>-->
-                <ion-col><ion-button *ngIf="botonEditar" (click)="editButton()">
-                    <ion-icon slot="icon-only" name="create"></ion-icon>
-                    </ion-button>
-                    <ion-button *ngIf="!botonEditar" [disabled]="!horasForm.valid" (click)="guardarButton()">
-                    <ion-icon slot="icon-only" name="save"></ion-icon>
-                    </ion-button>
-                </ion-col>
-            
+                <!--<ion-col><ion-input formControlName="tofcn" type="text" [readonly]="readonlyBool" [placeholder]="diaActual.to" #to></ion-input></ion-col>-->          
         </ion-row>
     </form>
 </ion-card>
-</ion-row>
+
 <ion-row class="espacio"></ion-row>
   <ion-row class="espacio"></ion-row>
 
-        <!-- Expert edit 
-    <div *ngIf="expertEditable; else elseBlockExp">
-        <ion-row>
-            <ion-label class="description">Expert on</ion-label>
-        </ion-row>
-        <ion-row class="noPaddingBottom">
-            <ion-textarea class="fondoblanco" placeholder="Example: Dogs''Cats''Snakes''...'" [(ngModel)]="cuidador.expert" #expert></ion-textarea>
-        </ion-row>   
-        <ion-row>
-            <ion-col class="alineacentro">
-            <ion-button class="my-button2" fill="clear" shape="round" size="default" (click)="TakeTextExpert()">
-                <ion-icon name="save"></ion-icon>
-            </ion-button>
-            </ion-col>
-            <ion-col class="alineacentro">
-            <ion-button class="my-button2" fill="clear" shape="round" size="default" (click)="NoEditExpert()">
-                <ion-icon name="close"></ion-icon>
-            </ion-button>
-            </ion-col>
-        </ion-row>
-        </div>
-        <ng-template #elseBlockExp>
-            <ion-row>
-                <ion-label class="description">Expert on</ion-label>
-            </ion-row>
-            <ion-row padding>
-                <ion-col size=10>
-                        <ion-textarea placeholder="Please enter an expertise" [(ngModel)]="cuidador.expert" disabled readonly></ion-textarea>
-                </ion-col>
-                <ion-col  class="alineacentro" size=2>
-                        <ion-button no-padding class="my-button2" fill="clear" shape="round" size="default" (click)="EditExpert()">
-                                <ion-icon name="create"></ion-icon>
-                        </ion-button>
-                </ion-col>
-        </ion-row>
-        </ng-template>
-    -->
-    
-    <div *ngIf="expertEditable; else elseBlockExp">
-            <ion-row >
-                        <ion-label class="experto">Expert on</ion-label>
-                </ion-row>
-                <ion-row justify-content-center align-items-center class="sixPaddingSides">
-                    <ion-col>
-                            <ion-list >
-                                    <div *ngFor="let animal of expertise">
-                                            <ion-item color="white">    
-                                                <ion-label>{{animal.type}}</ion-label>
-                                                <ion-checkbox slot="end" [(ngModel)]="animal.isChecked"></ion-checkbox>
-                                            </ion-item>
-                                        </div>
-                                </ion-list>
-                    </ion-col>
 
-                </ion-row>
-        <ion-row>
-            <ion-col class="alineacentro">
-                <ion-button class="my-button2" fill="clear" shape="round" size="default" (click)="TakeTextExpert()">
-                    <ion-icon name="save"></ion-icon>
-                </ion-button>
-            </ion-col>
-            <ion-col class="alineacentro">
-                <ion-button class="my-button2" fill="clear" shape="round" size="default" (click)="NoEditExpert()">
-                    <ion-icon name="close"></ion-icon>
-                </ion-button>
-            </ion-col>
-        </ion-row>
+
+  <!-- EXPERTO -->
+    <div *ngIf="expertEditable; else elseBlockExp">
+        <ion-card>
+            <ion-card-header class="noPaddingBottomTop">
+                <ion-toolbar class="fondoazulbonito">
+                    <ion-label class="sectionTitle">Expert on</ion-label>
+                </ion-toolbar>
+            </ion-card-header>
+            <ion-card-content>
+                <ion-list >
+                    <div *ngFor="let animal of expertise">
+                        <ion-item color="white">    
+                            <ion-label>{{animal.type}}</ion-label>
+                            <ion-checkbox slot="end" [(ngModel)]="animal.isChecked"></ion-checkbox>
+                        </ion-item>
+                    </div>
+                </ion-list>
+                <ion-toolbar>
+                    <ion-button color="a1" class="botonCard" slot="end" (click)="TakeTextExpert()">
+                        <ion-icon slot="icon-only" name="save"></ion-icon>
+                    </ion-button>
+                    <ion-button  color="a1" class="botonCard" slot="start"  (click)="NoEditExpert()">
+                        <ion-icon slot="icon-only" name="close"></ion-icon>
+                    </ion-button>
+                </ion-toolbar>
+            </ion-card-content>
+        </ion-card>
     </div>
     <ng-template #elseBlockExp>
-        <ion-row >
-            <ion-col class="align-text-middle">
-                    <ion-label class="description">Expert on</ion-label>
-            </ion-col>
-                <ion-col  class="alineacentro" size=2>
-                        <ion-button no-padding class="my-button2" fill="clear" shape="round" size="default" (click)="EditExpert()">
-                            <ion-icon name="create"></ion-icon>
-                        </ion-button>
-                </ion-col>
-        </ion-row>
-    <ion-row *ngIf="!hazlista" class="noPaddingTop">
-            <ion-col size=10>
-                <ion-textarea placeholder="Please select the animals you are willing to take care of" disabled readonly></ion-textarea>
-            </ion-col>
-    </ion-row>
-        <ion-row justify-content-center align-items-center class="sixPaddingSides">
-                <ion-col col-12>
-                    <ion-list *ngIf="hazlista" lines="none">
-                            <div *ngFor="let animal of expertise">
+
+        <ion-card>
+            <ion-card-header class="noPaddingBottomTop">
+                <ion-toolbar class="fondoazulbonito">
+                    <ion-label class="sectionTitle">Expert on</ion-label>
+                    <ion-button color="a1" class="botonCard" slot="end" (click)="EditExpert()">
+                        <ion-icon  slot="icon-only" name="create"></ion-icon>
+                    </ion-button>
+                </ion-toolbar>
+            </ion-card-header>
+            <ion-card-content>
+
+            
+    <div *ngIf="!hazlista" class="noPaddingTop">
+                <ion-textarea color="a1" placeholder="Please select the animals you are willing to take care of" disabled readonly></ion-textarea>
+        </div>                    
+                <ion-list  class="transparentBackground" *ngIf="hazlista" lines="none">
+                        <ng-container *ngFor="let animal of expertise">
                                     <ion-item class="littlepadding" color="a1" *ngIf="animal.isChecked">    
                                         <ion-label color="white" class="labelDeshabilitada">{{animal.type}}</ion-label>
                                         <ion-checkbox disabled="true" slot="end" [(ngModel)]="animal.isChecked"></ion-checkbox>
                                     </ion-item>
-                                </div>
+                        </ng-container>
                     </ion-list>
-            </ion-col>
-        </ion-row>
-        
+    </ion-card-content>
+    </ion-card>
     </ng-template>
 
         <!-- Mock-up -->

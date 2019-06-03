@@ -102,7 +102,7 @@ hazlista=false;
 
   NoEditText() {
     this.editable = false;
-    
+    this.ngOnInit();
   }
 
 

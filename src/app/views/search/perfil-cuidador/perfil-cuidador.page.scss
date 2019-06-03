@@ -61,9 +61,41 @@
     text-align: center;
 }
 
+.transparentBackground{
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.sectionTitle{
+    font-size:15px;
+    font-weight: bolder;
+    color: #004F79;
+}
+
+.descriptionTextarea{
+    color: #004F79;
+    padding-bottom: 5px;
+}
+
+.noPaddingBottomTop {
+    padding-top:  0px;
+    padding-bottom: 0px;
+}
+
 ion-card{
-    width: 100%;
-    background-color: white
+    background-color: #dfe9ee !important;
+}
+
+.fondoazulbonito{
+    background-color: #dfe9ee;
+}
+
+
+ion-card-content{
+    --ion-background-color: #dfe9ee;
+}
+
+ion-card-header{
+    --ion-background-color: #dfe9ee;
 }
 
 .text{
