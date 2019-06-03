@@ -21,7 +21,9 @@
     
     <div padding *ngFor="let chat of activeChats">
       <ion-card style="background-color: white" (click)="abreChat(chat.username)">
+         
         <ion-card-header>
+            <img class="avatar" *ngIf="chat.profile_image == null" src="../../../assets/default_avatar.png" float-left>
           <ion-label>{{chat.name}}</ion-label>
         </ion-card-header>
         <ion-button fill='clear' (click)="borrarChat(chat.username)" float-right>Delete</ion-button>
