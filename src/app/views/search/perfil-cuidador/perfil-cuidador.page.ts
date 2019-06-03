@@ -84,6 +84,20 @@ export class PerfilCuidadorPage implements OnInit {
    private router: Router, private toastController: ToastController, private alertController: AlertController) {
   }
 
+  traducirAExpertise(){
+  let hay=false;
+  this.expertise.forEach(element => {
+    element.isChecked=false;
+    this.cuidador.expert.forEach(animal => {
+      if(element.type==animal){
+        hay=true;
+        element.isChecked=true;
+      }
+    });
+  });
+  this.hazlista=hay;
+
+}
   ngOnInit() {
     this.auth.getToken().then(result => {
       const token = result;
@@ -91,10 +105,7 @@ export class PerfilCuidadorPage implements OnInit {
       this.search.getUser(this.dataRev, token).subscribe(res => {
         //console.log(res);
         this.cuidador = res;
-        if (this.cuidador.expert.length != 0) this.expertise=JSON.parse(this.cuidador.expert);
-        else this.expertise=JSON.parse('[{"type":"Dogs","isChecked":false},{"type":"Cats","isChecked":false},{"type":"Ferrets","isChecked":false},{"type":"Reptiles","isChecked":false},{"type":"Birds","isChecked":false},{"type":"Rodents","isChecked":false},{"type":"Fishes","isChecked":false},{"type":"Amphibians","isChecked":false},{"type":"Arthropods","isChecked":false},{"type":"Other","isChecked":false}]');
-        if(this.expertise[0].isChecked == false && this.expertise[1].isChecked == false && this.expertise[2].isChecked == false && this.expertise[3].isChecked == false && this.expertise[4].isChecked == false && this.expertise[5].isChecked == false && this.expertise[6].isChecked == false && this.expertise[7].isChecked == false) this.hazlista=false;
-        else this.hazlista=true;
+        this.traducirAExpertise();
         if (this.cuidador.availability != "None") {
           let horasdias: string[]=this.cuidador.availability.split(','); 
            this.monday.from=horasdias[0];
