@@ -90,6 +90,33 @@ hazlista=false;
       });
      }
 
+  my_trophies_3 = [];//this.getTrofies();
+
+  /*
+  async getTrofies() {
+    this.auth.getToken().then(result => {
+      const token = result;
+      this.auth.getTrophies(token).subscribe(res => {
+        this.my_trophies_3 =  this.where_true(res);
+        console.log("my_trophies_3", this.my_trophies_3);
+        //console.log(this.my_trophies[this.trophies[13].id]);
+      });
+    }).catch(err => {
+      console.log(err);
+    });
+    return await this.my_trophies_3;
+  }
+  */
+
+  where_true(vector){
+    let count = [];
+    for (let i = 0; i < vector.length && count.length < 3; i++) {
+      if (vector[i] == true) count.push(i);
+    } 
+    //console.log("count: ", count);
+    return count;
+  }
+
 
   seeTrophies() {
     this.router.navigateByUrl('/trophies');
@@ -261,7 +288,18 @@ hazlista=false;
       console.log(err);
       return throwError;
     });
-  });  
+    }); 
+    
+    this.auth.getToken().then(result => {
+      const token = result;
+      this.auth.getTrophies(token).subscribe(res => {
+        this.my_trophies_3 =  this.where_true(res);
+        console.log("my_trophies_3", this.my_trophies_3);
+        //console.log(this.my_trophies[this.trophies[13].id]);
+      });
+    }).catch(err => {
+      console.log(err);
+    });
   }
 
 
