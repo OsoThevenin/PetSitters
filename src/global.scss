@@ -39,3 +39,7 @@
     position: absolute; 
     display: block;  
  }
+
+ ion-content{
+   --background: url('./assets/FondoPS.png') no-repeat center center / cover;
+}
