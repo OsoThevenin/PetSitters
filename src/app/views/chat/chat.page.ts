@@ -19,6 +19,7 @@ import { ContractsService } from 'src/app/providers/contracts/contracts.service'
 const STORAGE_KEY = 'my_images';
 const PETSITTERS_DIRECTORY = 'PetSitters';
 
+
 @Component({
   selector: 'app-chat',
   templateUrl: './chat.page.html',
@@ -80,7 +81,6 @@ export class ChatPage implements OnInit {
   goBack() {
     clearInterval(this.id);
     this.router.navigateByUrl('/tabs/chats');
-    
   }
   abrirCamara() {
     console.log('Open Camera');
@@ -156,7 +156,7 @@ export class ChatPage implements OnInit {
     });
   }
   updateStoredImages(name, filePath) { // FilePath contains the complete path + name of the image
-    return new Promise((resolve) => {   
+    return new Promise((resolve) => {
       this.storage.get(STORAGE_KEY).then(images => {
         let arr = JSON.parse(images);
         if (!arr) {
@@ -205,26 +205,46 @@ export class ChatPage implements OnInit {
     toast.present();
   }
 
-  getMissatges(){
+  getMissatges() {
     console.log('demano missatges');
     setTimeout(() => {
       this.content.scrollToBottom(0);
     });
-    this.id = setInterval(function(){
+    this.id = setInterval(function() {
       this.auth.getToken().then(result => {
         const token = result;
         this.chats.getMessagesFromChat(this.usernameCuidador, token).subscribe(res => {
-          //console.log(res);
+          console.log(JSON.stringify(res));
           let aux = res;
-          if(aux.length > this.messages.length){
-            this.messages = res;
+          while (aux.length > this.messages.length) {
+            // En cas de rebre una imatge la descarrego
+            // @TODO: evitar fer el loop pels missatges ja guardats
+            let msg = aux[this.messages.length + 1];
+            if (msg.multimedia === true) {
+              let filename = msg.content;
+              this.imageService.getImageData(filename, token)
+                .then((response) => {
+                  console.log('Imatge descarregada: ' + JSON.stringify(response));
+                  //let dataDirectory = this.file.externalApplicationStorageDirectory;
+                  //let url = dataDirectory + '/files/received/' + filename + '.jpg';
+
+                  let imagePath = this.webview.convertFileSrc(response.nativeURL);
+                  msg.url = imagePath;
+
+                  console.log('missatge imatge: ' + JSON.stringify(msg));
+                }).catch((err) => {
+                  console.log('missatge imatge error: ' + JSON.stringify(err));
+                });
+            }
+              this.messages.push(msg);
+          }
+            console.log('missatge imatges: ' + JSON.stringify(aux));
             setTimeout(() => {
               this.content.scrollToBottom(0);
             });
-          }
           });
       });
-      if(this.ini && this.messages.length > 0){
+      if (this.ini && this.messages.length > 0) {
         this.ini = false;
         setTimeout(() => {
           this.content.scrollToBottom(0);
@@ -233,8 +253,8 @@ export class ChatPage implements OnInit {
     }.bind(this), 2000);
   }
 
-  enviaMissatge(){ 
-    if (this.message !== ''){
+  enviaMissatge() {
+    if (this.message !== '') {
       this.auth.getToken().then(result => {
         const token = result;
         console.log(token);
@@ -243,8 +263,8 @@ export class ChatPage implements OnInit {
           isMultimedia: false,
           userWhoReceives: this.usernameCuidador
         };
-        console.log(body);
-        this.chats.sendMessage(body,token).subscribe(res => {},err => {console.log(err)});
+        console.log('body missatge: ' + JSON.stringify(body));
+        this.chats.sendMessage(body, token).subscribe(res => {}, err => {console.log(err)});
         this.messages.push({content: this.message,
                             multimedia: false,
                             userWhoReceives: this.usernameCuidador,
@@ -266,7 +286,43 @@ export class ChatPage implements OnInit {
       });
     }
   }
-  ionViewDidEnter(){
+
+  enviaImatge(filename, url) {
+    this.auth.getToken().then(result => {
+      const token = result;
+      let body = {
+        content: filename,
+        isMultimedia: true,
+        userWhoReceives: this.usernameCuidador
+      };
+      console.log('body missatge: ' + JSON.stringify(body));
+      this.chats.sendMessage(body, token).subscribe(res => {}, err => {console.log(err)});
+
+      let imagePath = this.webview.convertFileSrc(url);
+      this.messages.push({content: filename,
+        multimedia: true,
+        userWhoReceives: this.usernameCuidador,
+        userWhoSends: this.username,
+        visible: true,
+        url: imagePath,
+        whenSent: ""});
+
+      console.log('missatges: ' + JSON.stringify(this.messages));
+      this.message = '';
+      setTimeout(() => {
+        this.content.scrollToBottom(0);
+      });
+    }, err => {
+      console.log(err);
+    }).catch(err => {
+      console.log(err);
+    });
+    console.log(this.messages);
+    setTimeout(() => {
+      this.content.scrollToBottom(0);
+    });
+  }
+  ionViewDidEnter() {
     this.content.scrollToBottom();
   }
   ionViewDidLeave(){
@@ -303,12 +359,6 @@ export class ChatPage implements OnInit {
       {
         text: 'Cancel',
         role: 'cancel'
-      },
-      {
-        text: 'Get image',
-        handler: () => {
-          this.imageService.getImageData('hector_2019-05-15 14:41:44.592');
-        }
       }]
     });
     await actionSheet.present();
@@ -331,8 +381,16 @@ export class ChatPage implements OnInit {
         let correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
         let generatedName: string = this.createFileName();
         this.copyAndCompress(correctPath, currentName, generatedName).then((OutputDir: String) => {
-          let file_name = this.imageService.uploadImageData(OutputDir);
-          console.log(file_name);
+            console.log("UPLOADING IMAGE: " + OutputDir);
+            this.imageService.getToken().then((token) => {
+              return this.imageService.uploadImageData(OutputDir, token);
+            }).then((data) => {
+              this.presentToast('Image sent correctly');
+              console.log('Response chat:' + JSON.stringify(data));
+              //let string = OutputDir.split('//');
+              //let path = string[1];
+              this.enviaImatge(data.response, OutputDir);
+            });
         });
       });
     } else {
@@ -356,10 +414,16 @@ export class ChatPage implements OnInit {
               console.log('Image URI: ' + results[i]);
               let currentName = results[i].substring(results[i].lastIndexOf('/') + 1);
               let correctPath = results[i].substring(0, results[i].lastIndexOf('/') + 1);
-              let generatedName:string = this.createFileName();
+              let generatedName: string = this.createFileName();
               this.copyAndCompress(correctPath, currentName, generatedName).then((OutputDir:string) => {
                 console.log("UPLOADING IMAGE: " + OutputDir);
-                this.imageService.uploadImageData(OutputDir);
+                this.imageService.getToken().then((token) => {
+                  return this.imageService.uploadImageData(OutputDir, token);
+                }).then((data) => {
+                  this.presentToast('Image sent correctly');
+                  console.log('Response chat:' + JSON.stringify(data));
+                  this.enviaImatge(data.response, OutputDir);
+                });
               });
           }
         }, (err) => {
