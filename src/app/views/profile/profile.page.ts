@@ -318,8 +318,8 @@ hazlista=false;
       this.saturday.to=t1;
     }
     else if(this.day=="Sun") {
-      this.saturday.from=f1;
-      this.saturday.to=t1;
+      this.sunday.from=f1;
+      this.sunday.to=t1;
     }
 
     this.TakeAvailability();
