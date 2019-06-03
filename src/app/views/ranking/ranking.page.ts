@@ -11,17 +11,17 @@ export class RankingPage implements OnInit {
     {
       profile_pic: null,
       name: "Alexandra Volkova",
-      puntuation: 444
+      trophies: 45
     },
     {
       profile_pic: null,
       name: "Daniel Esquina",
-      puntuation: 333
+      trophies: 42
     },
     {
       profile_pic: null,
       name: "Ruben Gonzalez",
-      puntuation: 222
+      trophies: 39
     }
   ]
 
