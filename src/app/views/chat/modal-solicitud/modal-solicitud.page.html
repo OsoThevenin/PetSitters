@@ -4,7 +4,8 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content padding>
+<ion-content>
+    <div padding style="background:white">
     <form [formGroup]="solicitudForm">
     <ion-item lines="none">
         <ion-label>Pet name:</ion-label>
@@ -43,5 +44,5 @@
         <ion-button fill="clear" slot="start" (click)="Cancel()">Cancel</ion-button>
         <ion-button fill="solid" slot="end" float-right [disabled]="!solicitudForm.valid" (click)="enviaSolicitud()">Accept</ion-button>
     </ion-toolbar>
-    
+</div>
 </ion-content>
