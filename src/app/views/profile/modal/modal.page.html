@@ -1,14 +1,14 @@
 <ion-content padding style="background:white">
-  <ion-title style="font-weight:bold">Change Password</ion-title>
+  <ion-title style="font-weight:bold">{{words[0]}}</ion-title>
   <br>
-  <ion-label>To change your password, please enter old and new password:</ion-label>
+  <ion-label>{{words[1]}}</ion-label>
   
   <ion-grid>
     <form [formGroup]="changePasswordForm">
         <ion-col>
-      <p style="font-weight:bold; font-size:100%">Current Password: </p>
+      <p style="font-weight:bold; font-size:100%">{{words[2]}}: </p>
       <ion-item>
-        <ion-input formControlName="pw0fc" name='current' type='password' placeholder='Current Password' #current></ion-input>
+        <ion-input formControlName="pw0fc" name='current' type='password' placeholder={{words[2]}} #current></ion-input>
       </ion-item>
       <div class="error-messages">
         <ng-container *ngFor="let error of error_messages.current">
@@ -18,9 +18,9 @@
         </ng-container>
       </div>
 
-      <p style="font-weight:bold; font-size:100%">New Password: </p>
+      <p style="font-weight:bold; font-size:100%">{{words[3]}}: </p>
       <ion-item>
-        <ion-input  formControlName="pw1fc" name='new' type='password'  placeholder='New Password' #new></ion-input>
+        <ion-input  formControlName="pw1fc" name='new' type='password'  placeholder={{words[3]}} #new></ion-input>
       </ion-item>
       <div class="error-messages">
         <ng-container *ngFor="let error of error_messages.password">
@@ -30,9 +30,9 @@
         </ng-container>
       </div>
       
-      <p style="font-weight:bold; font-size:100%">Confirmed Password: </p>
+      <p style="font-weight:bold; font-size:100%">{{words[4]}}: </p>
       <ion-item>
-        <ion-input  formControlName="pw2fc" name='confirmed' type='password'  placeholder='Confirmed Password' #confirmed></ion-input>
+        <ion-input  formControlName="pw2fc" name='confirmed' type='password'  placeholder={{words[4]}} #confirmed></ion-input>
       </ion-item>
       <div class="error-messages">
           <ng-container *ngFor="let error of error_messages.confirm">
@@ -49,8 +49,8 @@
   <ion-grid>
   <ion-row>
   <ion-col>
-   <ion-button fill='clear' [disabled]="!changePasswordForm.valid" (click)="Confirm()" float-right>Confirm</ion-button>
-   <ion-button fill='clear' (click)="Cancel()" float-right>Cancel</ion-button>
+      <ion-button fill='clear' [disabled]="!changePasswordForm.valid" (click)="Confirm()" float-right>{{words[5]}}</ion-button>
+      <ion-button fill='clear' (click)="Cancel()" float-right>{{words[6]}}</ion-button>
   </ion-col>
   </ion-row>
  </ion-grid>

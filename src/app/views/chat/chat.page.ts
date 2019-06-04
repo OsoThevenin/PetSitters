@@ -32,6 +32,7 @@ export class ChatPage implements OnInit {
   messages = [];
   id: any;
   @ViewChild('content') content: any;
+  public words: Array<string> = ["Write a message"]
 
   images = [];
   compression: ImageCompressorService = new ImageCompressorService();
@@ -402,4 +403,17 @@ export class ChatPage implements OnInit {
     });
   }
 
+translate(){
+this.auth.getToken().then(result => {
+    const token = result;
+	this.auth.translate(this.words,"es",token).subscribe(res => {
+			this.words = res;
+		});
+	}).catch(err => {
+	  console.log(err);
+	 return throwError;
+	});
+  
+  return this.words;
+}
 }

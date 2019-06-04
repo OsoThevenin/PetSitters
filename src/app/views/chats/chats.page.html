@@ -32,7 +32,7 @@
     <ion-list class=" ex1" *ngFor="let chat of activeChats">
         <ion-row>
             <ion-col>
-                <ion-button fill='clear' (click)="borrarChat(chat.username)" float-right>Delete</ion-button>
+                <ion-button fill='clear' (click)="borrarChat(chat.username)" float-right>{{words[0]}}</ion-button>
             </ion-col>
           </ion-row>
         <ion-item (click)="abreChat(chat.username)">

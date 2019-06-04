@@ -13,6 +13,7 @@ import { bindPlayerFactory } from '@angular/core/src/render3/styling/player_fact
 })
 
 export class ChatsPage implements OnInit {
+  public words: Array<string> = ["Delete"]
   images = [];
   error: any = 'Sense error';
   activeChats = [];
@@ -113,4 +114,18 @@ export class ChatsPage implements OnInit {
     });
     return this.activeChats;
   }
+
+translate(){
+this.auth.getToken().then(result => {
+    const token = result;
+	this.auth.translate(this.words,"es",token).subscribe(res => {
+			this.words = res;
+		});
+	}).catch(err => {
+	  console.log(err);
+	 return throwError;
+	});
+  
+  return this.words;
+}
 }

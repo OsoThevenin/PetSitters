@@ -10,7 +10,7 @@ import {Md5} from 'ts-md5/dist/md5';
   styleUrls: ['./modal.page.scss'],
 })
 export class ModalPage implements OnInit {
-
+  public words: Array<string> = ["Change Password", "To change your password, please enter old and new password:", "Current Password", "New Password", "Confirmed Password", "Confirm", "Cancel"]
   changePasswordForm: FormGroup;
 
   error_messages ={
@@ -48,6 +48,20 @@ export class ModalPage implements OnInit {
       pw2fc: new FormControl('', [Validators.required, this.equalto('pw1fc')])
     });
   }
+
+translate(){
+this.auth.getToken().then(result => {
+    const token = result;
+	this.auth.translate(this.words,"es",token).subscribe(res => {
+			this.words = res;
+		});
+	}).catch(err => {
+	  console.log(err);
+	 return throwError;
+	});
+  
+  return this.words;
+}
 
   equalto(field_name): ValidatorFn {
     return (control: AbstractControl): {[key: string]: any} => {

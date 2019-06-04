@@ -65,7 +65,7 @@
           </ion-button>
         </ion-col>
       <ion-col size="8">
-        <textarea autosize class="message-input" placeholder="Write a message" maxRows="4" maxlength="1000" [(ngModel)]="message"></textarea>
+        <textarea autosize class="message-input" placeholder={{words[0]}} maxRows="4" maxlength="1000" [(ngModel)]="message"></textarea>
       </ion-col>
       <ion-col size="2">
         <ion-button expand="block" icon-only fill="solid" shape="round" class="ChatButton" (click)="enviaMissatge()" >

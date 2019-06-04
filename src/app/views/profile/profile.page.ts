@@ -20,7 +20,18 @@ import { ProfileService } from 'src/app/providers/profile/profile.service';
 })
 export class ProfilePage implements OnInit {
   public words: Array<string> = ["Description", "Please enter a description", "Availability", "From:", "To:", "Expert on", "Dogs", "Cats", "Ferrets", "Reptiles", "Birds", "Rodents", "Fishes", "Amphibians", "Arthropods", "Other", "Please select the animals you are willing to take care of"]
-  public expertiseTranslated
+  public expertiseTranslated = [
+    { type: 'Dogs', isChecked: false },
+    { type: 'Cats', isChecked: false },
+    { type: 'Ferrets', isChecked: false },
+    { type: 'Reptiles', isChecked: false },
+    { type: 'Birds', isChecked: false },
+    { type: 'Rodents', isChecked: false },
+    { type: 'Fishes', isChecked: false },
+    { type: 'Amphibians', isChecked: false },
+    { type: 'Arthropods', isChecked: false },
+    { type: 'Other', isChecked: false }
+  ];
   public expertise = [
     { type: 'Dogs', isChecked: false },
     { type: 'Cats', isChecked: false },
