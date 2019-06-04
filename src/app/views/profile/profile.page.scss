@@ -162,6 +162,30 @@ ion-card{
     background-color:#ffffff !important;
   }
 
+.cardContainer{
+    background-color:#dfe9ee;
+}
+
+.cardValuation{
+    background-color:white !important;
+}
+
+.valuationTitle{
+    --ion-background-color:white !important;
+}
+
+.stars{
+    margin-right:15px;
+    float:right;
+    size:1em;
+}
+
+.nombre{
+    align-content: center;
+    margin-left:33px;
+    font-size: 18px;
+}
+
 ion-content{
     --ion-background-color: white;// #97c7f3;
     font-weight: bold;
