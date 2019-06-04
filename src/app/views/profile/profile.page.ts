@@ -54,7 +54,16 @@ hazlista=false;
   readonlyBool: boolean = true;
   day: string = "Mon";
   
-  previousVal= [];
+  previousVal: any = [
+    {
+    comment: "",
+    nameOfUserWhoValues: "",
+    profileImage: "",
+    stars: 0,
+    usernameWhoValues: "",
+    whenValued: "",
+    }
+  ];
 
   cuidador: any = {
     availability: null,
