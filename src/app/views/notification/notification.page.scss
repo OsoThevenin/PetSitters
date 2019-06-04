@@ -9,12 +9,22 @@
     
 //}
 
+.logo {
+    width: 25%;
+    height: 100%;
+    // el código para centrar la imagen
+    margin: auto;
+	display: block;
+}
+
+
 .contractHeader{
     padding-bottom: 10px;
 }
 
 .contractContent{
     padding-left: 20px;
+    font-weight: normal;
 }
 
 .animalTypeContractLabel{
@@ -27,10 +37,22 @@
 
 .sectionTitle{
     font-size:15px;
-    font-weight: bold;
+    font-weight: bolder;
     color: #004F79;
 }
 
 .paddingButtons{
     padding-top: 0px !important;
+}
+
+.cardContainer{
+    background-color:#dfe9ee;
+}
+
+.cardContrato{
+    background-color:white !important;
+}
+
+ion-content{
+    font-weight: bold;
 }
