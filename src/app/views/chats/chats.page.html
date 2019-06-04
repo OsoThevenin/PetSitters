@@ -6,17 +6,7 @@
   </ion-toolbar>
 </ion-header>
 
-<style>
-    ion-list.ex1 {
-        
-        padding: 0px 0px 0px 0px;
-    }
 
-    ion-label.mensaje {
-        padding: 20px 0px 0px 50px;
-    }
-
-</style>
 
 <ion-content>
     <!-- <ion-label>Chats</ion-label> -->
@@ -29,31 +19,18 @@
       </ion-refresher-content>
     </ion-refresher>
     
-    <ion-list class=" ex1" *ngFor="let chat of activeChats">
-        <ion-row>
-            <ion-col>
-                <ion-button fill='clear' (click)="borrarChat(chat.username)" float-right>Delete</ion-button>
-            </ion-col>
-          </ion-row>
-        <ion-item (click)="abreChat(chat.username)">
-            <ion-grid>
-                <ion-row>
-                    <ion-label class="mensaje"><strong>{{chat.name}}</strong></ion-label>
-                </ion-row>
-                <ion-row>
-                    <ion-label class="lastMessage"><strong>{{chat.lastMessage}}</strong></ion-label>
-                </ion-row>
-            </ion-grid>
-        </ion-item>
-    </ion-list>
+    <div padding *ngFor="let chat of activeChats">
+      <ion-card style="background-color: white" (click)="abreChat(chat.username)">
+         
+        <ion-card-header>
+            <img class="avatar" *ngIf="chat.profile_image == null" src="../../../assets/default_avatar.png" float-left>
+          <ion-label>{{chat.name}}</ion-label>
+        </ion-card-header>
+        <ion-button fill='clear' (click)="borrarChat(chat.username)" float-right>Delete</ion-button>
+        <ion-label class="lastMessage"><strong>{{chat.lastMessage}}</strong></ion-label>
+      </ion-card>
+    </div>
 </ion-content>
-
-
-
-
-
-
-
 <!--
 <ion-content padding>
     <h3 *ngIf="images.length == 0" text-center> Please select an image</h3>

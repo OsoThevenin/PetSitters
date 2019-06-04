@@ -70,6 +70,7 @@ export class ChatsPage implements OnInit {
                     console.log(res);
                     this.ngOnInit();
                     this.presentToast('You have successfully deleted this chat');
+                    this.router.navigateByUrl('/tabs/chats');
                   }, err => {
                     console.log(err);
                     this.presentToast('Something went wrong, please try it again');
