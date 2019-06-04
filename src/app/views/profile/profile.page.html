@@ -106,11 +106,11 @@
         <ion-card>
             <ion-card-header class="noPaddingBottomTop">
                 <ion-toolbar class="fondoazulbonito">
-                    <ion-label class="sectionTitle">Description</ion-label>
+                    <ion-label class="sectionTitle">{{words[0]}}</ion-label>
                 </ion-toolbar>
             </ion-card-header>
             <ion-card-content>
-                <ion-textarea rows="5" class="fondoblanco" placeholder="Please enter a description" [(ngModel)]="cuidador.description" #description></ion-textarea>
+                <ion-textarea rows="5" class="fondoblanco" placeholder={{words[1]}} [(ngModel)]="cuidador.description" #description></ion-textarea>
                 <ion-toolbar>
                     <ion-button color="a1" class="botonCard" slot="end" (click)="TakeTextDescription()">
                         <ion-icon name="save"></ion-icon>
@@ -126,14 +126,14 @@
         <ion-card>
             <ion-card-header class="noPaddingBottomTop">
                 <ion-toolbar class="fondoazulbonito">
-                    <ion-label class="sectionTitle">Description</ion-label>
+                    <ion-label class="sectionTitle">{{words[0]}}</ion-label>
                     <ion-button color="a1" class="botonCard" slot="end" (click)="EditText()">
                         <ion-icon  slot="icon-only" name="create"></ion-icon>
                     </ion-button>
                 </ion-toolbar>
             </ion-card-header>
             <ion-card-content>
-                <ion-textarea rows="5" class="descriptionTextarea" placeholder="Please enter a description" [(ngModel)]="cuidador.description" readonly></ion-textarea>
+                <ion-textarea rows="5" class="descriptionTextarea" placeholder={{words[1]}} [(ngModel)]="cuidador.description" readonly></ion-textarea>
             </ion-card-content>
         </ion-card>
     </ng-template>
@@ -146,7 +146,7 @@
   <ion-card class="segmentos">  
         <ion-card-header class="noPaddingBottomTop">
             <ion-toolbar class="fondoazulbonito">
-                <ion-label class="sectionTitle">Availability</ion-label>
+                <ion-label class="sectionTitle">{{words[2]}}</ion-label>
                 <ion-button color="a1" class="botonCard" slot="end" *ngIf="botonEditar" (click)="editButton()">
                     <ion-icon slot="icon-only" name="create"></ion-icon>
                 </ion-button>
@@ -185,10 +185,10 @@
       <form [formGroup]="horasForm">
       <ion-row *ngIf="diaActual != null"> <!-- [ngSwitch]="day"-->
         <!-- <table > *ngSwitchCase="'Mon'" -->
-                <ion-col text-center class="columnacentrada">From:</ion-col>
+                <ion-col text-center class="columnacentrada">{{words[3]}}</ion-col>
                 <ion-col><ion-datetime formControlName="fromfcn" [readonly]="readonlyBool" [value]="diaActual.from" pickerFormat="HH:mm" displayFormat="HH:mm" #from></ion-datetime></ion-col>
                 <!--<ion-col><ion-input formControlName="fromfcn" type="text" [readonly]="readonlyBool" [placeholder]="diaActual.from" #from></ion-input></ion-col>-->
-                <ion-col text-center class="columnacentrada">To:</ion-col>
+                <ion-col text-center class="columnacentrada">{{words[4]}}</ion-col>
                 <ion-col><ion-datetime formControlName="tofcn" [readonly]="readonlyBool" [value]="diaActual.to" displayFormat="HH:mm" #to></ion-datetime></ion-col>
                 <!--<ion-col><ion-input formControlName="tofcn" type="text" [readonly]="readonlyBool" [placeholder]="diaActual.to" #to></ion-input></ion-col>-->          
         </ion-row>
@@ -205,12 +205,12 @@
         <ion-card>
             <ion-card-header class="noPaddingBottomTop">
                 <ion-toolbar class="fondoazulbonito">
-                    <ion-label class="sectionTitle">Expert on</ion-label>
+                    <ion-label class="sectionTitle">{{words[5]}}</ion-label>
                 </ion-toolbar>
             </ion-card-header>
             <ion-card-content>
                 <ion-list >
-                    <div *ngFor="let animal of expertise">
+                    <div *ngFor="let animal of expertiseTranslated">
                         <ion-item color="white">    
                             <ion-label>{{animal.type}}</ion-label>
                             <ion-checkbox slot="end" [(ngModel)]="animal.isChecked"></ion-checkbox>
@@ -233,7 +233,7 @@
         <ion-card>
             <ion-card-header class="noPaddingBottomTop">
                 <ion-toolbar class="fondoazulbonito">
-                    <ion-label class="sectionTitle">Expert on</ion-label>
+                    <ion-label class="sectionTitle">{{words[5]}}</ion-label>
                     <ion-button color="a1" class="botonCard" slot="end" (click)="EditExpert()">
                         <ion-icon  slot="icon-only" name="create"></ion-icon>
                     </ion-button>
@@ -243,10 +243,10 @@
 
             
     <div *ngIf="!hazlista" class="noPaddingTop">
-                <ion-textarea color="a1" placeholder="Please select the animals you are willing to take care of" disabled readonly></ion-textarea>
+                <ion-textarea color="a1" placeholder={{words[16]}} disabled readonly></ion-textarea>
         </div>                    
                 <ion-list  class="transparentBackground" *ngIf="hazlista" lines="none">
-                        <ng-container *ngFor="let animal of expertise">
+                        <ng-container *ngFor="let animal of expertiseTranslated">
                                     <ion-item class="littlepadding" color="a1" *ngIf="animal.isChecked">    
                                         <ion-label color="white" class="labelDeshabilitada">{{animal.type}}</ion-label>
                                         <ion-checkbox disabled="true" slot="end" [(ngModel)]="animal.isChecked"></ion-checkbox>

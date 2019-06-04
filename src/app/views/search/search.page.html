@@ -11,29 +11,29 @@
         <ion-label class="valoration">{{stars["lower"]}}/{{stars["upper"]}}</ion-label>
     </ion-item>
     <ion-item>
-        <ion-label>Filter by:</ion-label>
+        <ion-label>{{words[0]}}</ion-label>
         <ion-select [(ngModel)]="searchFilter" (ionChange)="devuelvePerfilesCuidadores()">
-            <ion-select-option value="Name">Name</ion-select-option>
-            <ion-select-option value="Expert">Expert</ion-select-option>
-            <ion-select-option value="Distance">Distance</ion-select-option>
-            <ion-select-option value="Favorites">Favorites</ion-select-option>
-            <ion-select-option value="Valoration">Valoration</ion-select-option>
+            <ion-select-option value="Name">{{words[1]}}</ion-select-option>
+            <ion-select-option value="Expert">{{words[2]}}</ion-select-option>
+            <ion-select-option value="Distance">{{words[3]}}</ion-select-option>
+            <ion-select-option value="Favorites">{{words[4]}}</ion-select-option>
+            <ion-select-option value="Valoration">{{words[5]}}</ion-select-option>
         </ion-select>
     </ion-item>
     <div *ngIf="searchFilter == 'Expert'">
         <ion-item>
-            <ion-label>With expertise in:</ion-label>
+            <ion-label>{{words[6]}}</ion-label>
             <ion-select [(ngModel)]="expertFilter" (ionChange)="devuelvePerfilesCuidadores()">
-                <ion-select-option value="Dogs">Dogs</ion-select-option>
-                <ion-select-option value="Cats">Cats</ion-select-option>
-                <ion-select-option value="Ferrets">Ferrets</ion-select-option>
-                <ion-select-option value="Reptiles">Reptiles</ion-select-option>
-                <ion-select-option value="Birds">Birds</ion-select-option>
-                <ion-select-option value="Rodents">Rodents</ion-select-option>
-                <ion-select-option value="Fishes">Fishes</ion-select-option>
-                <ion-select-option value="Amphibians">Amphibians</ion-select-option>
-                <ion-select-option value="Arthropods">Arthropods</ion-select-option>
-                <ion-select-option value="Other">Other</ion-select-option>
+                <ion-select-option value="Dogs">{{words[7]}}</ion-select-option>
+                <ion-select-option value="Cats">{{words[8]}}</ion-select-option>
+                <ion-select-option value="Ferrets">{{words[9]}}</ion-select-option>
+                <ion-select-option value="Reptiles">{{words[10]}}</ion-select-option>
+                <ion-select-option value="Birds">{{words[11]}}</ion-select-option>
+                <ion-select-option value="Rodents">{{words[12]}}</ion-select-option>
+                <ion-select-option value="Fishes">{{words[13]}}</ion-select-option>
+                <ion-select-option value="Amphibians">{{words[14]}}</ion-select-option>
+                <ion-select-option value="Arthropods">{{words[15]}}</ion-select-option>
+                <ion-select-option value="Other">{{words[16]}}</ion-select-option>
             </ion-select>
         </ion-item>
     </div>

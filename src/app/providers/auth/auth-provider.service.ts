@@ -164,5 +164,17 @@ export class AuthProviderService {
     return this.http.get<any>(this.global.baseUrl + 'getTrophies', options);
   }
     
+  translate(words, language, token): Observable<any> {
+    let httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    httpHeaders = httpHeaders.append('Access-Control-Allow-Origin', '*');
+    httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token);
+    const options = {headers: httpHeaders};
 
+    let body: any = {
+      inputInEnglish: words,
+      outputLanguage: language
+    };
+
+    return this.http.post<any>(this.global.baseUrl + 'translate', body, options);
+  }
 }
