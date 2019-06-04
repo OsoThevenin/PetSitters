@@ -241,6 +241,7 @@ hazlista=false;
       // De momento usa el provider de search!!
       this.search.getUser(username, token).subscribe(res => {
         this.cuidador = res;
+        this.getProfileImage();
         
         this.traducirAExpertise();
 
@@ -268,13 +269,11 @@ hazlista=false;
            this.sunday.to=horasdias[13];
         }
       });
-
-      this.getProfileImage();
     }).catch(err => {
       console.log(err);
       return throwError;
     });
-  });  
+  });
   }
 
   getProfileImage() {
