@@ -71,7 +71,7 @@
               </ion-toolbar>
           </ion-card-header>
           <ion-card-content>
-              <ion-textarea rows="5" class="descriptionTextarea" placeholder="Please enter a description" [(ngModel)]="cuidador.description" readonly></ion-textarea>
+              <ion-textarea rows="5" class="descriptionTextarea" placeholder="This user did not enter a description" [(ngModel)]="cuidador.description" readonly></ion-textarea>
           </ion-card-content>
       </ion-card>
 
@@ -138,7 +138,7 @@
 
       
 <div *ngIf="!hazlista" class="noPaddingTop">
-          <ion-textarea color="a1" placeholder="Please select the animals you are willing to take care of" disabled readonly></ion-textarea>
+          <ion-textarea color="a1" placeholder="This user did not enter any expertise" disabled readonly></ion-textarea>
   </div>                    
           <ion-list  class="transparentBackground" *ngIf="hazlista" lines="none">
                   <ng-container *ngFor="let animal of expertise">
