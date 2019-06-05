@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>New Contract</ion-title>
+    <ion-title>{{words[0]}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -8,30 +8,30 @@
     <div padding style="background:white">
     <form [formGroup]="solicitudForm">
     <ion-item lines="none">
-        <ion-label>Pet name:</ion-label>
+        <ion-label>{{words[1]}}</ion-label>
         <ion-input formControlName="anfcn" #animalName></ion-input>
     </ion-item>
     <ion-item lines="none">
-        <ion-label>Animal type:</ion-label>
+        <ion-label>{{words[2]}}</ion-label>
         <ion-select formControlName="asfcn" #animalSelected>
-            <ion-select-option value="Dogs">Dogs</ion-select-option>
-            <ion-select-option value="Cats">Cats</ion-select-option>
-            <ion-select-option value="Ferrets">Ferrets</ion-select-option>
-            <ion-select-option value="Reptiles">Reptiles</ion-select-option>
-            <ion-select-option value="Birds">Birds</ion-select-option>
-            <ion-select-option value="Rodents">Rodents</ion-select-option>
-            <ion-select-option value="Fishes">Fishes</ion-select-option>
-            <ion-select-option value="Amphibians">Amphibians</ion-select-option>
-            <ion-select-option value="Arthropods">Arthropods</ion-select-option>
-            <ion-select-option value="Other">Other</ion-select-option>
+            <ion-select-option value="Dogs">{{words[3]}}</ion-select-option>
+            <ion-select-option value="Cats">{{words[4]}}</ion-select-option>
+            <ion-select-option value="Ferrets">{{words[5]}}</ion-select-option>
+            <ion-select-option value="Reptiles">{{words[6]}}</ion-select-option>
+            <ion-select-option value="Birds">{{words[7]}}</ion-select-option>
+            <ion-select-option value="Rodents">{{words[8]}}</ion-select-option>
+            <ion-select-option value="Fishes">{{words[9]}}</ion-select-option>
+            <ion-select-option value="Amphibians">{{words[10]}}</ion-select-option>
+            <ion-select-option value="Arthropods">{{words[11]}}</ion-select-option>
+            <ion-select-option value="Other">{{words[12]}}</ion-select-option>
         </ion-select>
     </ion-item>
     <ion-item lines="none">
-            <ion-label>Start Date:</ion-label>
+            <ion-label>{{words[13]}}</ion-label>
             <ion-datetime formControlName="sdfcn" display-format="DD-MM-YYYY, HH:mm"  #dataInici></ion-datetime>
         </ion-item>
         <ion-item lines="none">
-            <ion-label>End Date:</ion-label>
+            <ion-label>{{words[14]}}</ion-label>
             <ion-datetime formControlName="edfcn" display-format="DD-MM-YYYY, HH:mm" #dataFinal></ion-datetime>
         </ion-item>
     </form>
@@ -41,8 +41,8 @@
     </ion-item>
     
     <ion-toolbar>
-        <ion-button fill="clear" slot="start" (click)="Cancel()">Cancel</ion-button>
-        <ion-button fill="solid" slot="end" float-right [disabled]="!solicitudForm.valid" (click)="enviaSolicitud()">Accept</ion-button>
+        <ion-button fill="clear" slot="start" (click)="Cancel()">{{words[15]}}</ion-button>
+        <ion-button fill="solid" slot="end" float-right [disabled]="!solicitudForm.valid" (click)="enviaSolicitud()">{{words[16]}}</ion-button>
     </ion-toolbar>
 </div>
 </ion-content>

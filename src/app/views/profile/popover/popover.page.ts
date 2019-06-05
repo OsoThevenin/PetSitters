@@ -13,7 +13,7 @@ import { ModalPage } from '../modal/modal.page';
   styleUrls: ['./popover.page.scss'],
 })
 export class PopoverPage implements OnInit {
-
+  public words: Array<string> = ["Log out", "Notifications", "Change Password", "Delete Profile", "Close Settings"]
   notific: boolean;
 
   constructor(private popoverController: PopoverController, private nav: NavController,
@@ -23,6 +23,20 @@ export class PopoverPage implements OnInit {
 
   ngOnInit() {
   }
+
+translate(){
+this.auth.getToken().then(result => {
+    const token = result;
+	this.auth.translate(this.words,"es",token).subscribe(res => {
+			this.words = res;
+		});
+	}).catch(err => {
+	  console.log(err);
+	 return throwError;
+	});
+  
+  return this.words;
+}
 
   closePopover() {
     this.popoverController.dismiss();
