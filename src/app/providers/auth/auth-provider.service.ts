@@ -84,6 +84,9 @@ export class AuthProviderService {
     return await this.storage.get('language');
   }
 
+  async gettogglenotifications() {
+    return await this.storage.get('toggle-notifications');
+  }
   // sending a POST modify to API
   modify(token,atribute,data): Observable<any> {
     // Add token to headers
