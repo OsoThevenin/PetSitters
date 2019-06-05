@@ -13,6 +13,7 @@
 
     <ion-tab-button tab="notifications">
       <ion-icon name="notifications"></ion-icon>
+      <span class="badge" *ngIf="numnotifications > 0">{{numnotifications}}</span>
       <ion-label>Taskboard</ion-label>
     </ion-tab-button>
 

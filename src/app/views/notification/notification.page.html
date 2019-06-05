@@ -35,12 +35,17 @@
                        <ion-icon name="star-half"></ion-icon>
                       Valuations
                     </ion-label>
+                    <ion-label class="sectionTitle" *ngIf="i === 3">
+                      <ion-icon name="star-half"></ion-icon>
+                     Feedback
+                   </ion-label>
                 </ion-card-header>
                 <ion-card-content>
                   <ion-card-subtitle>
                     <ion-label *ngIf="i === 0">You have opened chats</ion-label>
                     <ion-label *ngIf="i === 1">You have new Trophies</ion-label>
                     <ion-label *ngIf="i === 2">You have opened Valuations</ion-label>
+                    <ion-label *ngIf="i === 3">You have to give Feedback to some owners</ion-label>
                   </ion-card-subtitle>
                 </ion-card-content>
             </ion-card>

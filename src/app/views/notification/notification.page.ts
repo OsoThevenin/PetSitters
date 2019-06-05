@@ -31,10 +31,13 @@ export class NotificationPage implements OnInit  {
   getNotifications() {
     this.auth.getToken().then(result => {
       const token = result;
-     this.auth.getNotifications(token).subscribe(res => {
-       this.notifications = res;
-       console.log("notifications: ",this.notifications);
-      });
+      this.auth.getNotifications(token).subscribe(res => {
+        this.notifications = res;
+        console.log("notifications", res);
+       });
+      this.auth.nullifyNotifications(token).subscribe(res => {
+        console.log("notifications", res);
+       });
     }).catch(err => {
       console.log(err);
      return throwError;
