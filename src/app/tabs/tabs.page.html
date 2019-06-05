@@ -1,28 +1,33 @@
 <ion-tabs color="medium">
 
   <ion-tab-bar color="medium" slot="bottom">
-    <ion-tab-button  tab="chats">
+    <ion-tab-button  tab="chats" (click)="getNumNot()">
       <ion-icon name="chatbubbles"></ion-icon>
       <ion-label>{{words[0]}}</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="search">
+    <ion-tab-button tab="search" (click)="getNumNot()">
       <ion-icon name="search"></ion-icon>
       <ion-label>{{words[1]}}</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="notifications">
+    <ion-tab-button tab="notifications" (click)="getNumNot()">
       <ion-icon name="notifications"></ion-icon>
+
       <span class="badge" *ngIf="numnotifications > 0">{{numnotifications}}</span>
       <ion-label>{{words[2]}}</ion-label>
+
+      <span class="badge" *ngIf="numnotifications > 0 && mostrarnotif == true">{{numnotifications}}</span>
+      <ion-label>{{words[2]}}</ion-label>
+
     </ion-tab-button>
 
-    <ion-tab-button tab="ranking">
+    <ion-tab-button tab="ranking" (click)="getNumNot()">
       <ion-icon name="trophy"></ion-icon>
       <ion-label>{{words[3]}}</ion-label>
     </ion-tab-button>
 
-    <ion-tab-button tab="profile">
+    <ion-tab-button tab="profile" (click)="getNumNot()">
       <ion-icon name="person"></ion-icon>
       <ion-label>{{words[4]}}</ion-label>
     </ion-tab-button>

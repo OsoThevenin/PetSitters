@@ -12,6 +12,7 @@ import { forEach } from '@angular/router/src/utils/collection';
 export class TabsPage {
   public words: Array<string> = ["Chat", "Search", "Taskboard", "Ranking", "Profile"]
   numnotifications = 0;
+  mostrarnotif: any;
 
   constructor(private storage: Storage, private nav: NavController, private auth: AuthProviderService) {
     this.storage.get('token').then((val) => {
@@ -19,16 +20,24 @@ export class TabsPage {
         this.nav.navigateRoot(`/login`);
       }
     });
+    this.auth.gettogglenotifications().then(res => {
+      this.mostrarnotif = res;
+      console.log(this.mostrarnotif);
+    })
+    this.getNumNot();
+  }
+  getNumNot(){
+    console.log("busca notificaciones");
     this.auth.getToken().then(result => {
       const token = result;
       if(result != null){
       this.auth.getNotifications(token).subscribe(res => {
-       console.log(res);
-       let count = 0;
-       res.forEach(element => {
-       if( element == true) count++;
-       });
-       this.numnotifications = count;
+      console.log(res);
+      let count = 0;
+      res.forEach(element => {
+      if( element == true) count++;
+      });
+      this.numnotifications = count;
       });
     }
     }).catch(err => {
