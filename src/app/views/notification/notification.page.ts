@@ -15,6 +15,7 @@ export class NotificationPage implements OnInit  {
   
   received: any;
   proposed: any;
+  notifications: any;
 
   constructor( private toastCtrl: ToastController, private auth: AuthProviderService, private alertController: AlertController,
     private modalController: ModalController, private contracts: ContractsService) {
@@ -24,6 +25,20 @@ export class NotificationPage implements OnInit  {
   ngOnInit() {
     this.received=this.getReceived();
     this.proposed=this.getProposed();
+    this.getNotifications();
+  }
+
+  getNotifications() {
+    this.auth.getToken().then(result => {
+      const token = result;
+     this.auth.getNotifications(token).subscribe(res => {
+       this.notifications = res;
+       console.log("notifications: ",this.notifications);
+      });
+    }).catch(err => {
+      console.log(err);
+     return throwError;
+    });
   }
 
   doRefresh(event) {
