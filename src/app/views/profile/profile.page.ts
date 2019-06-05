@@ -279,10 +279,10 @@ hazlista=false;
   getProfileImage() {
     this.storage.get(PROFILE_IMAGE).then((imagePath) => {
       this.cuidador.profile_image = imagePath;
+    }).catch((err) => {
+      this.downloadImageData();
     });
   }
-
-
   
   async OpenPopover(ev: Event) {
     const popover = await this.popoverCtrl.create({
@@ -537,6 +537,24 @@ hazlista=false;
       let converted = this.webview.convertFileSrc(img);
       return converted;
     }
+  }
+
+  downloadImageData() {
+    this.imageService.getToken().then((token) => {
+      this.imageService.getImageData(this.cuidador.profile_image, token)
+      .then((response) => {
+        console.log('Imatge descarregada: ' + JSON.stringify(response));
+        //let dataDirectory = this.file.externalApplicationStorageDirectory;
+        //let url = dataDirectory + '/files/received/' + filename + '.jpg';
+
+        let imagePath = this.webview.convertFileSrc(response.nativeURL);
+        this.cuidador.profile_image = imagePath;
+
+        console.log('imatge perfil actualitzada');
+      }).catch((err) => {
+        console.log('missatge imatge error: ' + JSON.stringify(err));
+      });
+    });
   }
 
   async presentToast(text) {
