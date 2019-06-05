@@ -14,9 +14,6 @@
     <ion-tab-button tab="notifications" (click)="getNumNot()">
       <ion-icon name="notifications"></ion-icon>
 
-      <span class="badge" *ngIf="numnotifications > 0">{{numnotifications}}</span>
-      <ion-label>{{words[2]}}</ion-label>
-
       <span class="badge" *ngIf="numnotifications > 0 && mostrarnotif == true">{{numnotifications}}</span>
       <ion-label>{{words[2]}}</ion-label>
 
