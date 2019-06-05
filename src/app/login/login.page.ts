@@ -63,6 +63,7 @@ export class LoginPage implements OnInit {
           this.storage.set('token', res.result.token);
           this.storage.set('username', this.un.value);
           this.storage.set('toggle-notifications', false); //mirar si el user tiene las notificaciones encendidas
+          this.storage.set('language', "en"); // setear el language harcodeado en English
           this.global.token = res.result.token;
           this.router.navigateByUrl('');
         }, err => {

@@ -4,6 +4,14 @@
     {{words[0]}}
   </ion-item>
 
+  <ion-item>
+    <ion-icon slot="start" name="globe"></ion-icon>
+    <ion-label>Language</ion-label>
+    <ion-select [(ngModel)]="mylanguage" (ionChange)="changeLanguage()" okText="Okay" cancelText="Dismiss">
+      <ion-select-option *ngFor="let lang of languages">{{lang.name + ' (' + lang.acronym + ')'}}</ion-select-option>
+    </ion-select>
+  </ion-item>
+
   <ion-item (click)="ChangeToggleNotifications()">
     <ion-icon slot="start" name="notifications-outline"></ion-icon>
     {{words[1]}}
