@@ -3,6 +3,8 @@ import { ModalController, ToastController, PopoverController } from '@ionic/angu
 import { FormControl, FormGroup, FormBuilder, Validators, ValidatorFn, AbstractControl} from '@angular/forms';
 import { AuthProviderService } from 'src/app/providers/auth/auth-provider.service';
 import {Md5} from 'ts-md5/dist/md5';
+import { throwError } from 'rxjs';
+
 
 @Component({
   selector: 'app-modal',
