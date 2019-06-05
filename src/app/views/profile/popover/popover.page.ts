@@ -13,7 +13,9 @@ import { ModalPage } from '../modal/modal.page';
   styleUrls: ['./popover.page.scss'],
 })
 export class PopoverPage implements OnInit {
-  public words: Array<string> = ["Log out", "Notifications", "Change Password", "Delete Profile", "Close Settings"]
+  public words: Array<string> = ["Log out", "Language", "Notifications", "Change Password", "Delete Profile", "Close Settings", 'Delete Profile',
+  'Are you sure you want to delete your profile? Put your password to confirm this action.', 'Password', 'Cancel',
+  'Confirm', 'Something went wrong, please try it again', 'Password field cannot be empty']
   notific: boolean;
 
   public mylanguage: any;
@@ -443,13 +445,13 @@ export class PopoverPage implements OnInit {
       }
     ];
 
-	actual_language: string;
   ngOnInit() {
     this.auth.getLanguage().then(lang => {
       this.actual_language = lang;
       console.log(lang);
     }); 
     console.log(this.actual_language);
+	this.translate();
   }
 
   changeLanguage(){
@@ -460,7 +462,7 @@ export class PopoverPage implements OnInit {
     this.storage.set('language', l[0]);
   }
 
-translate(){
+async translate(){
 this.auth.getToken().then(result => {
     const token = result;
 	this.auth.translate(this.words,this.actual_language,token).subscribe(res => {
@@ -471,7 +473,7 @@ this.auth.getToken().then(result => {
 	 return throwError;
 	});
   
-  return this.words;
+  return await this.words;
 }
 
   closePopover() {
@@ -508,22 +510,22 @@ this.auth.getToken().then(result => {
 
   async presentAlert_D() {
     const alert = await this.alertController.create({
-      header: 'Delete Profile',
-      message: 'Are you sure you want to delete your profile? Put your password to confirm this action.',
+      header: this.words[6],
+      message: this.words[7],
       inputs: [
         {
           name: 'password',
-          placeholder: 'Password', 
+          placeholder: this.words[8], 
           type: 'password'
         }
       ],
       buttons: [
         {
-        text: 'Cancel',
+        text: this.words[9],
         role: 'cancel'
         },
         {
-          text: 'Confirm',
+          text: this.words[10],
           // funcionalitat de esborar perfil
           handler: esborrar => {
             if (esborrar.password !== '') {
@@ -543,7 +545,7 @@ this.auth.getToken().then(result => {
                     }, err => {
                       console.log(err);
                       bool = false;
-                      this.presentToast('Something went wrong, please try it again');
+                      this.presentToast(this.words[11]);
                     });
               }).catch(err => {
                 console.log(err);
@@ -551,7 +553,7 @@ this.auth.getToken().then(result => {
               });
               return bool;
             } else {
-              this.presentToast('Password field cannot be empty');
+              this.presentToast(this.words[12]);
               return false;
             }
           }

@@ -6,7 +6,7 @@
 
   <ion-item>
     <ion-icon slot="start" name="globe"></ion-icon>
-    <ion-label>Language</ion-label>
+    <ion-label>{{words[1]}}</ion-label>
     <ion-select [(ngModel)]="mylanguage" (ionChange)="changeLanguage()" okText="Okay" cancelText="Dismiss">
       <ion-select-option *ngFor="let lang of languages">{{lang.name + ' (' + lang.acronym + ')'}}</ion-select-option>
     </ion-select>
@@ -14,22 +14,22 @@
 
   <ion-item (click)="ChangeToggleNotifications()">
     <ion-icon slot="start" name="notifications-outline"></ion-icon>
-    {{words[1]}}
+    {{words[2]}}
     <ion-toggle [(ngModel)]="notific"></ion-toggle>
   </ion-item>
 
   <ion-item (click)="ChangePassword()">
     <ion-icon slot="start" name="key"></ion-icon>
-    {{words[2]}}
+    {{words[3]}}
   </ion-item>
 
   <ion-item (click)="DeleteProfile()">
     <ion-icon slot="start" name="trash"></ion-icon>
-    {{words[3]}}
+    {{words[4]}}
   </ion-item>
   
   <ion-item button color ="primary" (click)="closePopover()">
     <ion-icon name="close" slot="start"></ion-icon>
-    {{words[4]}} 
+    {{words[5]}} 
   </ion-item>
 </ion-list>

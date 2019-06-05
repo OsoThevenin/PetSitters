@@ -17,7 +17,7 @@ export class SearchPage{
   public valorationUpperBoundary: string ="";
   public obj: any = '{"lower": "0", "upper": "5"}';
   public stars = JSON.parse(this.obj);
-  public words: Array<string> = ["Filter by:", "Name", "Expert", "Distance", "Favorites", "Valoration", "With expertise in:", "Dogs", "Cats", "Ferrets", "Reptiles", "Birds", "Rodents", "Fishes", "Amphibians", "Arthropods", "Other"]
+  public words: Array<string> = ["Filter by:", "Name", "Expert", "Distance", "Favorites", "Rating", "With expertise in:", "Dogs", "Cats", "Ferrets", "Reptiles", "Birds", "Rodents", "Fishes", "Amphibians", "Arthropods", "Other"]
 
   constructor(private nav: NavController, private search: SearchService, private auth: AuthProviderService) {
   }

@@ -13,7 +13,8 @@ import { bindPlayerFactory } from '@angular/core/src/render3/styling/player_fact
 })
 
 export class ChatsPage implements OnInit {
-  public words: Array<string> = ["Delete"]
+  public words: Array<string> = ["Delete", 'Delete chat', 'Are you sure you want to delete this chat?', 'Cancel',
+  'Confirm', 'You have successfully deleted this chat', 'Something went wrong, please try it again']
   images = [];
   error: any = 'Sense error';
   activeChats = [];
@@ -49,16 +50,16 @@ export class ChatsPage implements OnInit {
 
   async presentAlert_D(chatUser) {
     const alert = await this.alertController.create({
-      header: 'Delete chat',
-      message: 'Are you sure you want to delete this chat?',
+      header: this.words[1],
+      message: this.words[2],
       
       buttons: [
         {
-        text: 'Cancel',
+        text: this.words[3],
         role: 'cancel'
         },
         {
-          text: 'Confirm',
+          text: this.words[4],
           handler: confirm => {
             const data: any = {
               otherUsername: chatUser
@@ -70,11 +71,11 @@ export class ChatsPage implements OnInit {
                   subscribe(res => {
                     console.log(res);
                     this.ngOnInit();
-                    this.presentToast('You have successfully deleted this chat');
+                    this.presentToast(this.words[5]);
                     this.router.navigateByUrl('/tabs/chats');
                   }, err => {
                     console.log(err);
-                    this.presentToast('Something went wrong, please try it again');
+                    this.presentToast(this.words[6]);
                   });
               }).catch(err => {
                   console.log(err);
@@ -92,7 +93,7 @@ export class ChatsPage implements OnInit {
       this.actual_language = lang;
       console.log(lang);
     }); 
-
+	this.translate();
     this.activeChats = this.showActiveChats();
     // Carregar images guardades
   }
