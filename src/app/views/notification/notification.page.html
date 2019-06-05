@@ -20,6 +20,32 @@
       <ion-card class="cardContainer">
         <ion-card-header>
       <ion-label class="sectionTitle">Notifications</ion-label>
+          <div *ngFor="let a of notifications, let i = index">
+            <ion-card class="cardContrato" *ngIf="a">
+                <ion-card-header>
+                    <ion-label class="sectionTitle" *ngIf="i === 0">
+                      <ion-icon name="chatbubbles"></ion-icon>
+                      Chats
+                    </ion-label>
+                    <ion-label class="sectionTitle" *ngIf="i === 1">
+                      <ion-icon name="trophy"></ion-icon>
+                      Trophies
+                    </ion-label>
+                    <ion-label class="sectionTitle" *ngIf="i === 2">
+                       <ion-icon name="star-half"></ion-icon>
+                      Valuations
+                    </ion-label>
+                </ion-card-header>
+                <ion-card-content>
+                  <ion-card-subtitle>
+                    <ion-label *ngIf="i === 0">You have opened chats</ion-label>
+                    <ion-label *ngIf="i === 1">You have new Trophies</ion-label>
+                    <ion-label *ngIf="i === 2">You have opened Valuations</ion-label>
+                  </ion-card-subtitle>
+                </ion-card-content>
+            </ion-card>
+            
+          </div>
     </ion-card-header>
       </ion-card>
   </ion-col>

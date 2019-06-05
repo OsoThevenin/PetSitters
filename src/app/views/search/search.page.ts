@@ -17,6 +17,7 @@ export class SearchPage{
   public valorationUpperBoundary: string ="";
   public obj: any = '{"lower": "0", "upper": "5"}';
   public stars = JSON.parse(this.obj);
+  public words: Array<string> = ["Filter by:", "Name", "Expert", "Distance", "Favorites", "Valoration", "With expertise in:", "Dogs", "Cats", "Ferrets", "Reptiles", "Birds", "Rodents", "Fishes", "Amphibians", "Arthropods", "Other"]
 
   constructor(private nav: NavController, private search: SearchService, private auth: AuthProviderService) {
   }
@@ -31,6 +32,20 @@ export class SearchPage{
 ];*/
 
 perfilsCuidadors = this.devuelvePerfilesCuidadores();
+
+translate(){
+this.auth.getToken().then(result => {
+    const token = result;
+	this.auth.translate(this.words,"es",token).subscribe(res => {
+			this.words = res;
+		});
+	}).catch(err => {
+	  console.log(err);
+	 return throwError;
+	});
+  
+  return this.words;
+}
 
 goToPerfilCuidador(cuidadorConcret) {
   /*console.log(cuidadorConcret.username);

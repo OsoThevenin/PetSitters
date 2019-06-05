@@ -26,7 +26,7 @@
             <img class="avatar" *ngIf="chat.profile_image == null" src="../../../assets/default_avatar.png" float-left>
           <ion-label>{{chat.name}}</ion-label>
         </ion-card-header>
-        <ion-button fill='clear' (click)="borrarChat(chat.username)" float-right>Delete</ion-button>
+        <ion-button fill='clear' (click)="borrarChat(chat.username)" float-right>{{words[0]}}</ion-button>
         <ion-label class="lastMessage"><strong>{{chat.lastMessage}}</strong></ion-label>
       </ion-card>
     </div>
