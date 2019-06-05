@@ -153,8 +153,10 @@ hazlista=false;
   }
   TakeTextDescription() {
     // Coger el valor nuevo y enviar a backend
-
-    const body: any = this.desc.value;
+    let body = {
+      "thing": this.desc.value
+    };
+    if(this.desc.value=="") body.thing = null;
     const atr: string = "description";
     // Aqui hauriem de enviar el user al login si no te token
     this.auth.getToken().then(result => {
@@ -175,14 +177,16 @@ hazlista=false;
 
   TakeAvailability() {
     // Coger el valor nuevo y enviar a backend
+    let body = {
+      "thing": this.monday.from + ',' + this.monday.to + ',' 
+      + this.tuesday.from + ',' + this.tuesday.to + ',' 
+      + this.wednesday.from + ',' + this.wednesday.to + ',' 
+      + this.thursday.from + ',' + this.thursday.to + ',' 
+      + this.friday.from + ',' + this.friday.to + ',' 
+      + this.saturday.from + ',' + this.saturday.to + ',' 
+      + this.sunday.from + ',' + this.sunday.to + ','
+    };
 
-    const body: any = this.monday.from + ',' + this.monday.to + ',' 
-    + this.tuesday.from + ',' + this.tuesday.to + ',' 
-    + this.wednesday.from + ',' + this.wednesday.to + ',' 
-    + this.thursday.from + ',' + this.thursday.to + ',' 
-    + this.friday.from + ',' + this.friday.to + ',' 
-    + this.saturday.from + ',' + this.saturday.to + ',' 
-    + this.sunday.from + ',' + this.sunday.to + ',';
     const atr: string = "availability";
     this.auth.getToken().then(result => {
       const token = result;
@@ -204,8 +208,11 @@ hazlista=false;
     //if(this.expertise[0].isChecked == false && this.expertise[1].isChecked == false && this.expertise[2].isChecked == false && this.expertise[3].isChecked == false && this.expertise[4].isChecked == false && this.expertise[5].isChecked == false && this.expertise[6].isChecked == false && this.expertise[7].isChecked == false) this.hazlista=false;
     //else this.hazlista=true;
     this.traducirDeExpertise();
-    const body: any = this.cuidador.expert;
-    console.log(body);
+    let body = {
+      "thing": this.cuidador.expert
+    };
+    if(this.cuidador.expert=="") body.thing = null;
+    console.log("esto se envia",body);
     const atr: string = "expert";
     console.log(this.expertise);
     this.auth.getToken().then(result => {
@@ -266,9 +273,9 @@ hazlista=false;
       // De momento usa el provider de search!!
       this.search.getUser(username, token).subscribe(res => {
         this.cuidador = res;
-        
+        console.log(this.cuidador);
         this.traducirAExpertise();
-
+        console.log(this.expertise);
         if (this.cuidador.availability != "None") {
           let horasdias: string[]=this.cuidador.availability.split(','); 
            this.monday.from=horasdias[0];
