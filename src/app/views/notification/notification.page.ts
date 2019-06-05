@@ -12,7 +12,10 @@ import { ModalRatePage } from './modal-rate/modal-rate.page';
   styleUrls: ['notification.page.scss']
 })
 export class NotificationPage implements OnInit  {
-  
+  public words: Array<string> = ["Notifications", "Chats", "Trophies", "Valuations", "Feedback", "You have opened chats",
+  "You have new Trophies", "You have opened Valuations", "You have to give Feedback to some owners", "Pending Contracts",
+  "Start Date:", "End Date:", "Animal type:", "Animal name:", "Feedback required? Yes", "Feedback required? No",
+  "Decline", "Accept", "Cancel", "Current Contracts", "Rate"]
   received: any;
   proposed: any;
   notifications: any;
@@ -22,11 +25,32 @@ export class NotificationPage implements OnInit  {
   
   }
 
+  actual_language: string;
   ngOnInit() {
+  this.auth.getLanguage().then(lang => {
+      this.actual_language = lang;
+      console.log(lang);
+    }); 
+	this.translate();
     this.received=this.getReceived();
     this.proposed=this.getProposed();
     this.getNotifications();
   }
+
+translate(){
+this.auth.getToken().then(result => {
+    const token = result;
+	this.auth.translate(this.words,this.actual_language,token).subscribe(res => {
+			this.words = res;
+		});
+	}).catch(err => {
+	  console.log(err);
+	 return throwError;
+	});
+  
+  return this.words;
+}
+
 
   getNotifications() {
     this.auth.getToken().then(result => {

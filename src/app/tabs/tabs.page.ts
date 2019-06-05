@@ -1,5 +1,5 @@
 import { Storage } from '@ionic/storage';
-import { Component } from '@angular/core';
+import { Component, Init } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { AuthProviderService } from '../providers/auth/auth-provider.service';
 import { forEach } from '@angular/router/src/utils/collection';
@@ -10,7 +10,7 @@ import { forEach } from '@angular/router/src/utils/collection';
   styleUrls: ['tabs.page.scss']
 })
 export class TabsPage {
-
+  public words: Array<string> = ["Chat", "Search", "Taskboard", "Ranking", "Profile"]
   numnotifications = 0;
 
   constructor(private storage: Storage, private nav: NavController, private auth: AuthProviderService) {
@@ -35,4 +35,28 @@ export class TabsPage {
       console.log(err);
     });
   }
+	actual_language: string;
+    ngOnInit() {
+    this.auth.getLanguage().then(lang => {
+      this.actual_language = lang;
+      console.log(lang);
+    }); 
+    console.log(this.actual_language);
+	this.translate();
+  }
+
+ async translate(){
+this.auth.getToken().then(result => {
+    const token = result;
+	this.auth.translate(this.words,this.actual_language,token).subscribe(res => {
+			this.words = res;
+		});
+	}).catch(err => {
+	  console.log(err);
+	 return throwError;
+	});
+  
+  return await this.words;
+}
+
 }

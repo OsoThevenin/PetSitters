@@ -3,28 +3,28 @@
   <ion-tab-bar color="medium" slot="bottom">
     <ion-tab-button  tab="chats">
       <ion-icon name="chatbubbles"></ion-icon>
-      <ion-label>Chats</ion-label>
+      <ion-label>{{words[0]}}</ion-label>
     </ion-tab-button>
 
     <ion-tab-button tab="search">
       <ion-icon name="search"></ion-icon>
-      <ion-label>Search</ion-label>
+      <ion-label>{{words[1]}}</ion-label>
     </ion-tab-button>
 
     <ion-tab-button tab="notifications">
       <ion-icon name="notifications"></ion-icon>
       <span class="badge" *ngIf="numnotifications > 0">{{numnotifications}}</span>
-      <ion-label>Taskboard</ion-label>
+      <ion-label>{{words[2]}}</ion-label>
     </ion-tab-button>
 
     <ion-tab-button tab="ranking">
       <ion-icon name="trophy"></ion-icon>
-      <ion-label >Ranking</ion-label>
+      <ion-label>{{words[3]}}</ion-label>
     </ion-tab-button>
 
     <ion-tab-button tab="profile">
       <ion-icon name="person"></ion-icon>
-      <ion-label>Profile</ion-label>
+      <ion-label>{{words[4]}}</ion-label>
     </ion-tab-button>
   </ion-tab-bar>
 

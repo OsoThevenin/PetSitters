@@ -19,33 +19,33 @@
     <ion-col size-lg="8" size-xl="4">
       <ion-card class="cardContainer">
         <ion-card-header>
-      <ion-label class="sectionTitle">Notifications</ion-label>
+      <ion-label class="sectionTitle">{{words[0]}}</ion-label>
           <div *ngFor="let a of notifications, let i = index">
             <ion-card class="cardContrato" *ngIf="a">
                 <ion-card-header>
                     <ion-label class="sectionTitle" *ngIf="i === 0">
-                      <ion-icon name="chatbubbles"></ion-icon>
-                      Chats
+                        <ion-icon name="chatbubbles"></ion-icon>
+                        {{words[1]}}
                     </ion-label>
                     <ion-label class="sectionTitle" *ngIf="i === 1">
-                      <ion-icon name="trophy"></ion-icon>
-                      Trophies
+                        <ion-icon name="trophy"></ion-icon>
+                        {{words[2]}}
                     </ion-label>
                     <ion-label class="sectionTitle" *ngIf="i === 2">
-                       <ion-icon name="star-half"></ion-icon>
-                      Valuations
+                        <ion-icon name="star-half"></ion-icon>
+                        {{words[3]}}
                     </ion-label>
                     <ion-label class="sectionTitle" *ngIf="i === 3">
-                      <ion-icon name="star-half"></ion-icon>
-                     Feedback
-                   </ion-label>
+                        <ion-icon name="star-half"></ion-icon>
+                        {{words[4]}}
+                    </ion-label>
                 </ion-card-header>
                 <ion-card-content>
                   <ion-card-subtitle>
-                    <ion-label *ngIf="i === 0">You have opened chats</ion-label>
-                    <ion-label *ngIf="i === 1">You have new Trophies</ion-label>
-                    <ion-label *ngIf="i === 2">You have opened Valuations</ion-label>
-                    <ion-label *ngIf="i === 3">You have to give Feedback to some owners</ion-label>
+                      <ion-label *ngIf="i === 0">{{words[5]}}</ion-label>
+                      <ion-label *ngIf="i === 1">{{words[6]}}</ion-label>
+                      <ion-label *ngIf="i === 2">{{words[7]}}</ion-label>
+                      <ion-label *ngIf="i === 3">{{words[8]}}</ion-label>
                   </ion-card-subtitle>
                 </ion-card-content>
             </ion-card>
@@ -61,7 +61,7 @@
     <ion-col size-lg="8" size-xl="4">
   <ion-card class="cardContainer">
       <ion-card-header>
-          <ion-label class="sectionTitle">Pending Contracts</ion-label>
+          <ion-label class="sectionTitle">{{words[9]}}</ion-label>
       </ion-card-header>
       <ion-card-content>
 
@@ -79,39 +79,39 @@
     <ion-card-content class="contractContent">
       <ion-row>
         <ion-col>
-          <ion-label class="timeContractLabel">Start Date: {{contract.start}}</ion-label> 
+            <ion-label class="timeContractLabel">{{words[10]}} {{contract.start}}</ion-label> 
         </ion-col>
       </ion-row>
         <ion-row>
           <ion-col>
-            <ion-label class="timeContractLabel">End Date: {{contract.end}}</ion-label>    
+              <ion-label class="timeContractLabel">{{words[11]}} {{contract.end}}</ion-label>    
           </ion-col>
         </ion-row>
         <ng-container *ngFor="let an of contract.animal">
        <ion-row>
          <ion-col>
-            <ion-label class="animalTypeContractLabel">Animal type: {{an.tipus}}</ion-label>
+             <ion-label class="animalTypeContractLabel">{{words[12]}} {{an.tipus}}</ion-label>
          </ion-col>
         <ion-col>
-            <ion-label class="animalNameContractLabel">Animal name: {{an.name}}</ion-label>
+            <ion-label class="animalNameContractLabel">{{words[13]}} {{an.name}}</ion-label>
         </ion-col>
        </ion-row>
       </ng-container>
        <ion-row *ngIf="contract.feedback"> 
          <ion-col>
-          <ion-label class="feedbackContractLabel">Feedback required? Yes</ion-label>
+             <ion-label class="feedbackContractLabel">{{words[14]}}</ion-label>
          </ion-col>
        </ion-row>  
        <ion-row *ngIf="!contract.feedback"> 
          <ion-col>
-          <ion-label class="feedbackContractLabel">Feedback required? No</ion-label>
+             <ion-label class="feedbackContractLabel">{{words[15]}}</ion-label>
          </ion-col>
        </ion-row>  
     </ion-card-content>
     <ion-card-content *ngIf="!contract.accepted">
       <ion-toolbar>
-        <ion-button color="danger" fill="solid" slot="start" (click)="decline(contract.usernameFrom)">Decline</ion-button>
-        <ion-button color="success" fill="solid" slot="end" (click)="accept(contract.usernameFrom)">Accept</ion-button>
+          <ion-button color="danger" fill="solid" slot="start" (click)="decline(contract.usernameFrom)">{{words[16]}}</ion-button>
+          <ion-button color="success" fill="solid" slot="end" (click)="accept(contract.usernameFrom)">{{words[17]}}</ion-button>
       </ion-toolbar>
     </ion-card-content>
   </ion-card>
@@ -131,38 +131,38 @@
         <ion-card-content class="contractContent">
           <ion-row>
             <ion-col>
-              <ion-label class="timeContractLabel">Start Date: {{contract.start}}</ion-label> 
+                <ion-label class="timeContractLabel">{{words[10]}} {{contract.start}}</ion-label> 
             </ion-col>
           </ion-row>
             <ion-row>
               <ion-col>
-                <ion-label class="timeContractLabel">End Date: {{contract.end}}</ion-label>    
+                  <ion-label class="timeContractLabel">{{words[11]}} {{contract.end}}</ion-label>    
               </ion-col>
             </ion-row>
             <ng-container *ngFor="let an of contract.animal">
            <ion-row>
              <ion-col>
-                <ion-label class="animalTypeContractLabel">Animal type: {{an.tipus}}</ion-label>
+                 <ion-label class="animalTypeContractLabel">{{words[12]}} {{an.tipus}}</ion-label>
              </ion-col>
             <ion-col>
-                <ion-label class="animalNameContractLabel">Animal name: {{an.name}}</ion-label>
+                <ion-label class="animalNameContractLabel">{{words[13]}} {{an.name}}</ion-label>
             </ion-col>
            </ion-row>
           </ng-container>
            <ion-row *ngIf="contract.feedback"> 
              <ion-col>
-              <ion-label class="feedbackContractLabel">Feedback required? Yes</ion-label>
+                 <ion-label class="feedbackContractLabel">{{words[14]}}</ion-label>
              </ion-col>
            </ion-row>  
            <ion-row *ngIf="!contract.feedback"> 
              <ion-col>
-              <ion-label class="feedbackContractLabel">Feedback required? No</ion-label>
+                 <ion-label class="feedbackContractLabel">{{words[15]}}</ion-label>
              </ion-col>
            </ion-row>  
         </ion-card-content>
         <ion-card-content class="paddingButtons" *ngIf="!contract.accepted">
             <ion-toolbar>
-              <ion-button color="danger" fill="solid" slot="end" (click)="cancel(contract.usernameTo)">Cancel</ion-button>            
+                <ion-button color="danger" fill="solid" slot="end" (click)="cancel(contract.usernameTo)">{{words[18]}}</ion-button>            
             </ion-toolbar>
           </ion-card-content>
       </ion-card>
@@ -179,7 +179,7 @@
     <ion-col size-lg="8" size-xl="4">
       <ion-card class="cardContainer">
           <ion-card-header>
-              <ion-label class="sectionTitle">Current Contracts</ion-label>
+              <ion-label class="sectionTitle">{{words[19]}}</ion-label>
           </ion-card-header>
           <ion-card-content>
 
@@ -198,43 +198,43 @@
         <ion-card-content class="contractContent">
           <ion-row>
             <ion-col>
-              <ion-label class="timeContractLabel">Start Date: {{contract.start}}</ion-label> 
+                <ion-label class="timeContractLabel">{{words[10]}} {{contract.start}}</ion-label> 
             </ion-col>
           </ion-row>
             <ion-row>
               <ion-col>
-                <ion-label class="timeContractLabel">End Date: {{contract.end}}</ion-label>    
+                  <ion-label class="timeContractLabel">{{words[11]}} {{contract.end}}</ion-label>    
               </ion-col>
             </ion-row>
             <ng-container *ngFor="let an of contract.animal">
            <ion-row>
              <ion-col>
-                <ion-label class="animalTypeContractLabel">Animal type: {{an.tipus}}</ion-label>
+                 <ion-label class="animalTypeContractLabel">{{words[12]}} {{an.tipus}}</ion-label>
              </ion-col>
             <ion-col>
-                <ion-label class="animalNameContractLabel">Animal name: {{an.name}}</ion-label>
+                <ion-label class="animalNameContractLabel">{{words[13]}} {{an.name}}</ion-label>
             </ion-col>
            </ion-row>
           </ng-container>
            <ion-row *ngIf="contract.feedback"> 
              <ion-col>
-              <ion-label class="feedbackContractLabel">Feedback required? Yes</ion-label>
+                 <ion-label class="feedbackContractLabel">{{words[14]}}</ion-label>
              </ion-col>
            </ion-row>  
            <ion-row *ngIf="!contract.feedback"> 
              <ion-col>
-              <ion-label class="feedbackContractLabel">Feedback required? No</ion-label>
+                 <ion-label class="feedbackContractLabel">{{words[15]}}</ion-label>
              </ion-col>
            </ion-row>  
         </ion-card-content>
         <ion-card-content class="paddingButtons" *ngIf="contract.accepted && tiempoAcabado(contract.end)">
             <ion-toolbar>
-              <ion-button color="warning" fill="solid" slot="end" (click)="rate(contract.usernameTo)">Rate</ion-button>            
+              <ion-button color="warning" fill="solid" slot="end" (click)="rate(contract.usernameTo)">{{words[20]}}</ion-button>            
             </ion-toolbar>
           </ion-card-content>
           <ion-card-content class="paddingButtons" *ngIf="contract.accepted && !tiempoAcabado(contract.end)">
             <ion-toolbar>
-              <ion-button color="danger" fill="solid" slot="end" (click)="cancel(contract.usernameTo)">Cancel</ion-button>            
+              <ion-button color="danger" fill="solid" slot="end" (click)="cancel(contract.usernameTo)">{{words[18]}}</ion-button>            
             </ion-toolbar>
           </ion-card-content>
       </ion-card>
@@ -256,38 +256,38 @@
             <ion-card-content class="contractContent">
               <ion-row>
                 <ion-col>
-                  <ion-label class="timeContractLabel">Start Date: {{contract.start}}</ion-label> 
+                  <ion-label class="timeContractLabel">{{words[10]}} {{contract.start}}</ion-label> 
                 </ion-col>
               </ion-row>
                 <ion-row>
                   <ion-col>
-                    <ion-label class="timeContractLabel">End Date: {{contract.end}}</ion-label>    
+                      <ion-label class="timeContractLabel">{{words[11]}} {{contract.end}}</ion-label>    
                   </ion-col>
                 </ion-row>
                 <ng-container *ngFor="let an of contract.animal">
                <ion-row>
                  <ion-col>
-                    <ion-label class="animalTypeContractLabel">Animal type: {{an.tipus}}</ion-label>
+                     <ion-label class="animalTypeContractLabel">{{words[12]}} {{an.tipus}}</ion-label>
                  </ion-col>
                 <ion-col>
-                    <ion-label class="animalNameContractLabel">Animal name: {{an.name}}</ion-label>
+                    <ion-label class="animalNameContractLabel">{{words[13]}} {{an.name}}</ion-label>
                 </ion-col>
                </ion-row>
               </ng-container>
                <ion-row *ngIf="contract.feedback"> 
                  <ion-col>
-                  <ion-label class="feedbackContractLabel">Feedback required? Yes</ion-label>
+                     <ion-label class="feedbackContractLabel">{{words[14]}}</ion-label>
                  </ion-col>
                </ion-row>  
                <ion-row *ngIf="!contract.feedback"> 
                  <ion-col>
-                  <ion-label class="feedbackContractLabel">Feedback required? No</ion-label>
+                     <ion-label class="feedbackContractLabel">{{words[15]}}</ion-label>
                  </ion-col>
                </ion-row>  
             </ion-card-content>
             <ion-card-content *ngIf="contract.accepted">
                 <ion-toolbar>
-                  <ion-button color="danger" fill="solid" slot="end" (click)="cancel(contract.usernameFrom)">Cancel</ion-button>            
+                    <ion-button color="danger" fill="solid" slot="end" (click)="cancel(contract.usernameFrom)">{{words[18]}}</ion-button>            
                 </ion-toolbar>
               </ion-card-content>
           </ion-card>
