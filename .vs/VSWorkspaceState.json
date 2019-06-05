@@ -5,12 +5,11 @@
     "\\src\\app",
     "\\src\\app\\providers",
     "\\src\\app\\providers\\auth",
-    "\\src\\app\\providers\\chats",
     "\\src\\app\\providers\\Search",
-    "\\src\\app\\registre",
     "\\src\\app\\views",
-    "\\src\\app\\views\\search"
+    "\\src\\app\\views\\notification",
+    "\\src\\app\\views\\trophies"
   ],
-  "SelectedNode": "\\src\\app\\providers\\Search\\search.service.ts",
+  "SelectedNode": "\\src\\app\\views\\trophies\\trophies.page.html",
   "PreviewInSolutionExplorer": false
 }

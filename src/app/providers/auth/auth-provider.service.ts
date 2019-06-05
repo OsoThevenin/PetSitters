@@ -79,6 +79,11 @@ export class AuthProviderService {
   async getUsername() {
     return await this.storage.get('username');
   }
+
+  async getLanguage() {
+    return await this.storage.get('language');
+  }
+
   // sending a POST modify to API
   modify(token,atribute,data): Observable<any> {
     // Add token to headers
@@ -169,6 +174,21 @@ export class AuthProviderService {
     httpHeaders = httpHeaders.append('Access-Control-Allow-Origin', '*');
     httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token);
     const options = {headers: httpHeaders};
+  
     return this.http.get<any>(this.global.baseUrl + 'getNotifications', options);
+  }
+
+  translate(words, language, token): Observable<any> {
+    let httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    httpHeaders = httpHeaders.append('Access-Control-Allow-Origin', '*');
+    httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token);
+    const options = {headers: httpHeaders};
+
+    let body: any = {
+      inputInEnglish: words,
+      outputLanguage: language
+    };
+
+    return this.http.post<any>(this.global.baseUrl + 'translate', body, options);
   }
 }

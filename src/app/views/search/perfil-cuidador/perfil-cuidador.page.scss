@@ -49,6 +49,30 @@
     font-weight: bold;
 }
 
+.cardContainer{
+    background-color:#dfe9ee;
+}
+
+.cardValuation{
+    background-color:white !important;
+}
+
+.valuationTitle{
+    --ion-background-color:white !important;
+}
+
+.stars{
+    margin-right:15px;
+    float:right;
+    size:1em;
+}
+
+.nombre{
+    align-content: center;
+    margin-left:33px;
+    font-size: 18px;
+}
+
 .avatar{
     width: 25%;
     height: 25%;
@@ -99,6 +123,10 @@ ion-card-content{
 
 ion-card-header{
     --ion-background-color: #dfe9ee;
+}
+
+ion-card-subtitle{
+    margin-left: 15px;
 }
 
 .text{

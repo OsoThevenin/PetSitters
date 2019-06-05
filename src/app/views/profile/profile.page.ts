@@ -19,7 +19,19 @@ import { ProfileService } from 'src/app/providers/profile/profile.service';
   styleUrls: ['profile.page.scss']
 })
 export class ProfilePage implements OnInit {
-
+  public words: Array<string> = ["Description", "Please enter a description", "Availability", "From:", "To:", "Expert on", "Dogs", "Cats", "Ferrets", "Reptiles", "Birds", "Rodents", "Fishes", "Amphibians", "Arthropods", "Other", "Please select the animals you are willing to take care of"]
+  public expertiseTranslated = [
+    { type: 'Dogs', isChecked: false },
+    { type: 'Cats', isChecked: false },
+    { type: 'Ferrets', isChecked: false },
+    { type: 'Reptiles', isChecked: false },
+    { type: 'Birds', isChecked: false },
+    { type: 'Rodents', isChecked: false },
+    { type: 'Fishes', isChecked: false },
+    { type: 'Amphibians', isChecked: false },
+    { type: 'Arthropods', isChecked: false },
+    { type: 'Other', isChecked: false }
+  ];
   public expertise = [
     { type: 'Dogs', isChecked: false },
     { type: 'Cats', isChecked: false },
@@ -236,26 +248,26 @@ hazlista=false;
   traducirDeExpertise(){
     let hay=false;
     this.cuidador.expert="";
-    this.expertise.forEach(element => {
-      if(element.isChecked==true){
-        hay=true;
-        this.cuidador.expert+=element.type + "''";
-      }
-    });
+	for(let i = 0; i<10; i++){
+		if(this.expertiseTranslated[i].isChecked==true){
+			hay=true;
+			this.cuidador.expert+=this.expertise[i].type + "''";
+		}
+	}
     this.hazlista=hay;
   }
 
   traducirAExpertise(){
     let hay=false;
-    this.expertise.forEach(element => {
-      element.isChecked=false;
-      this.cuidador.expert.forEach(animal => {
-        if(element.type==animal){
+	for(let i = 0; i<10; i++){
+		this.expertiseTranslated[i].isChecked=false;
+		this.cuidador.expert.forEach(animal => {
+        if(this.expertise[i].type==animal){
           hay=true;
-          element.isChecked=true;
+          this.expertiseTranslated[i].isChecked=true;
         }
       });
-    });
+	}
     this.hazlista=hay;
 
   }
@@ -419,4 +431,29 @@ hazlista=false;
     });
     return this.previousVal;
   }
+
+async translate(){
+this.auth.getToken().then(result => {
+    const token = result;
+	this.auth.translate(this.words,"es",token).subscribe(res => {
+			this.words =  res;
+			this.expertiseTranslated = [
+    { type:  this.words[6], isChecked: false },
+    { type:  this.words[7], isChecked: false },
+    { type:  this.words[8], isChecked: false },
+    { type:  this.words[9], isChecked: false },
+    { type:  this.words[10], isChecked: false },
+    { type:  this.words[11], isChecked: false },
+    { type:  this.words[12], isChecked: false },
+    { type:  this.words[13], isChecked: false },
+    { type:  this.words[14], isChecked: false },
+    { type:  this.words[15], isChecked: false }
+  ];
+		});
+	}).catch(err => {
+	  console.log(err);
+	 return throwError;
+	});
+  return await this.words;
+}
 }

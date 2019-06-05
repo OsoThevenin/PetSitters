@@ -7,6 +7,7 @@ import { throwError } from 'rxjs';
 import { ToastController } from '@ionic/angular';
 import { ChatsService } from './../../../providers/chats/chats.service';
 import { Router } from '@angular/router';
+import { ProfileService } from 'src/app/providers/profile/profile.service';
 
 
 @Component({
@@ -42,6 +43,17 @@ export class PerfilCuidadorPage implements OnInit {
  diaActual: any = this.monday;
  readonlyBool: boolean = true;
  day: string = "Mon";
+
+ previousVal: any = [
+  {
+  comment: "",
+  nameOfUserWhoValues: "",
+  profileImage: "",
+  stars: 0,
+  usernameWhoValues: "",
+  whenValued: "",
+  }
+];
 
   cuidador: any = {
     commentaries: null,
@@ -81,7 +93,7 @@ export class PerfilCuidadorPage implements OnInit {
 
   constructor(private nav: NavController, private actrout: ActivatedRoute,
     private search: SearchService, private auth: AuthProviderService, private chatsService: ChatsService,
-   private router: Router, private toastController: ToastController, private alertController: AlertController) {
+   private router: Router, private toastController: ToastController, private alertController: AlertController, private profile: ProfileService) {
   }
 
   traducirAExpertise(){
@@ -99,9 +111,11 @@ export class PerfilCuidadorPage implements OnInit {
 
 }
   ngOnInit() {
+    this.previousVal = this.getPreviousVal();
     this.auth.getToken().then(result => {
       const token = result;
       // console.log('token: ' + token);
+      console.log(this.dataRev)
       this.search.getUser(this.dataRev, token).subscribe(res => {
         //console.log(res);
         this.cuidador = res;
@@ -270,5 +284,18 @@ export class PerfilCuidadorPage implements OnInit {
       this.diaActual=this.sunday;
     }
   }
+
+  getPreviousVal(): any {
+    this.auth.getToken().then(result => {
+      const token = result;
+        this.profile.getPreviousValuationsFromUser(token,this.dataRev).subscribe(res => {
+          this.previousVal = res;
+	      });
+    }).catch(err => {
+	    console.log(err);
+	    return throwError;
+    });
+    return this.previousVal;
+}
 
 }
