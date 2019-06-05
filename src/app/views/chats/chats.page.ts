@@ -86,8 +86,13 @@ export class ChatsPage implements OnInit {
     });
     await alert.present();
   }
-
+  actual_language: string;
   ngOnInit() {
+  this.auth.getLanguage().then(lang => {
+      this.actual_language = lang;
+      console.log(lang);
+    }); 
+
     this.activeChats = this.showActiveChats();
     // Carregar images guardades
   }
@@ -119,7 +124,7 @@ export class ChatsPage implements OnInit {
 translate(){
 this.auth.getToken().then(result => {
     const token = result;
-	this.auth.translate(this.words,"es",token).subscribe(res => {
+	this.auth.translate(this.words,this.actual_language,token).subscribe(res => {
 			this.words = res;
 		});
 	}).catch(err => {

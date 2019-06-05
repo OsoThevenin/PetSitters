@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { SearchService } from 'src/app/providers/Search/search.service';
 import { AuthProviderService } from 'src/app/providers/auth/auth-provider.service';
@@ -36,7 +36,7 @@ perfilsCuidadors = this.devuelvePerfilesCuidadores();
 translate(){
 this.auth.getToken().then(result => {
     const token = result;
-	this.auth.translate(this.words,"es",token).subscribe(res => {
+	this.auth.translate(this.words,this.actual_language,token).subscribe(res => {
 			this.words = res;
 		});
 	}).catch(err => {
@@ -46,6 +46,16 @@ this.auth.getToken().then(result => {
   
   return this.words;
 }
+
+actual_language: string;
+  ngOnInit() {
+    // obtener username mio
+	this.auth.getLanguage().then(lang => {
+      this.actual_language = lang;
+    }); 
+	console.log(this.actual_language);
+	this.translate();
+	}
 
 goToPerfilCuidador(cuidadorConcret) {
   /*console.log(cuidadorConcret.username);

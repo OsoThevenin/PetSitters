@@ -85,12 +85,32 @@ export class ModalSolicitudPage implements OnInit {
 	this.modalController.dismiss();
   }
 
+  actual_language: string;
   ngOnInit() {
-		this.cuidadorContrato = this.navParams.get('usernameCuidador');
+	this.cuidadorContrato = this.navParams.get('usernameCuidador');
+	this.auth.getLanguage().then(lang => {
+      this.actual_language = lang;
+    }); 
+	this.translate();
   }
 
   Cancel() {
     this.modalController.dismiss();
   }
+
+  translate(){
+this.auth.getToken().then(result => {
+    const token = result;
+	this.auth.translate(this.words,this.actual_language,token).subscribe(res => {
+			this.words = res;
+		});
+	}).catch(err => {
+	  console.log(err);
+	 return throwError;
+	});
+  
+  return this.words;
+}
+
 
 }

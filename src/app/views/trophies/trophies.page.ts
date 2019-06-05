@@ -82,6 +82,15 @@ export class TrophiesPage {
   my_trophies_size = 0;
   //my_trophies[{{trophy.id}}]
 
+  actual_language: string;
+  ngOnInit() {
+    // obtener username mio
+	this.auth.getLanguage().then(lang => {
+      this.actual_language = lang;
+    }); 
+	this.translate();
+	}
+
   async getTrofies() {
     this.auth.getToken().then(result => {
       const token = result;
@@ -113,7 +122,7 @@ export class TrophiesPage {
 translate(){
 this.auth.getToken().then(result => {
     const token = result;
-	this.auth.translate(this.words,"es",token).subscribe(res => {
+	this.auth.translate(this.words,this.actual_language,token).subscribe(res => {
 			this.words = res;
 			 this.trophies = [
     { id: 0, name:'Getting to know each other', description: this.words[0] },

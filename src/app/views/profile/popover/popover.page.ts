@@ -443,6 +443,7 @@ export class PopoverPage implements OnInit {
       }
     ];
 
+	actual_language: string;
   ngOnInit() {
     this.auth.getLanguage().then(lang => {
       this.actual_language = lang;
@@ -462,7 +463,7 @@ export class PopoverPage implements OnInit {
 translate(){
 this.auth.getToken().then(result => {
     const token = result;
-	this.auth.translate(this.words,"es",token).subscribe(res => {
+	this.auth.translate(this.words,this.actual_language,token).subscribe(res => {
 			this.words = res;
 		});
 	}).catch(err => {

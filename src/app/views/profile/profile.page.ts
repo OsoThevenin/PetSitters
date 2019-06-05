@@ -271,9 +271,13 @@ hazlista=false;
     this.hazlista=hay;
 
   }
-
+  actual_language: string;
   ngOnInit() {
     // obtener username mio
+	this.auth.getLanguage().then(lang => {
+      this.actual_language = lang;
+    }); 
+	this.translate();
     this.previousVal = this.getPreviousVal();
     this.auth.getUsername().then(uname => {
     const username = uname;
@@ -435,7 +439,7 @@ hazlista=false;
 async translate(){
 this.auth.getToken().then(result => {
     const token = result;
-	this.auth.translate(this.words,"es",token).subscribe(res => {
+	this.auth.translate(this.words,this.actual_language,token).subscribe(res => {
 			this.words =  res;
 			this.expertiseTranslated = [
     { type:  this.words[6], isChecked: false },

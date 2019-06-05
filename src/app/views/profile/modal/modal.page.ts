@@ -54,7 +54,7 @@ export class ModalPage implements OnInit {
 translate(){
 this.auth.getToken().then(result => {
     const token = result;
-	this.auth.translate(this.words,"es",token).subscribe(res => {
+	this.auth.translate(this.words,this.actual_language,token).subscribe(res => {
 			this.words = res;
 		});
 	}).catch(err => {
@@ -78,8 +78,14 @@ this.auth.getToken().then(result => {
     };
   }
   
+ actual_language: string;
   ngOnInit() {
-  }
+    // obtener username mio
+	this.auth.getLanguage().then(lang => {
+      this.actual_language = lang;
+    }); 
+	this.translate();
+	}
 
   Confirm(){
     //Comunicació amb el backend i tractament de possibles errors/missatge de succés.
