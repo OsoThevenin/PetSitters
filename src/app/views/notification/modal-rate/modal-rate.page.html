@@ -1,6 +1,10 @@
-<ion-content padding style="background:white">
+<ion-header>
+  <ion-toolbar>
     <ion-title style="font-weight:bold">Rate User</ion-title>
-    <br>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div padding style="background:white">
     <ion-label>Please tell us about your experience with this user</ion-label>
     <ion-item no-padding lines="none">
         <ion-range pin="true" min="0" max="5" step="1" snaps="true" #stars>
@@ -17,5 +21,6 @@
       <ion-toolbar>
           <ion-button fill="clear" slot="start" (click)="cancel()">Cancel</ion-button>            
           <ion-button fill="solid" slot="end" (click)="rate()">Rate</ion-button>            
-        </ion-toolbar>
+      </ion-toolbar>
+  </div>
 </ion-content>
