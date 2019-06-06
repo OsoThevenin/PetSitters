@@ -26,7 +26,8 @@ export class TrophiesPage {
   'Take care of 1 rodent', 'Take care of 5 rodents', 'Take care of 10 rodents',
   'Take care of 1 fish', 'Take care of 5 fish', 'Take care of 10 fish',
   'Take care of 1 amphibian', 'Take care of 5 amphibian', 'Take care of 10 amphibian',
-  'Take care of 1 arthropod', 'Take care of 5 arthropod', 'Take care of 10 arthropod']
+  'Take care of 1 arthropod', 'Take care of 5 arthropod', 'Take care of 10 arthropod',
+  'Trophies', 'of']
   
   public trophies = [
     { id: 0, name:'Getting to know each other', description: 'Change the default profile pic \nFill the description field \nEnter an availability \nEnter an expertise' },
