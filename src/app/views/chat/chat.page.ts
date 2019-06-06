@@ -380,7 +380,8 @@ export class ChatPage implements OnInit {
         let currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
         let correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
         let generatedName: string = this.createFileName();
-        this.copyAndCompress(correctPath, currentName, generatedName).then((OutputDir: String) => {
+        this.copyAndCompress(correctPath, currentName, generatedName)
+          .then((OutputDir: String) => {
             console.log("UPLOADING IMAGE: " + OutputDir);
             this.imageService.getToken().then((token) => {
               return this.imageService.uploadImageData(OutputDir, token);
@@ -391,7 +392,7 @@ export class ChatPage implements OnInit {
               //let path = string[1];
               this.enviaImatge(data.response, OutputDir);
             });
-        });
+          });
       });
     } else {
       console.log(`I'm not in cordova`);

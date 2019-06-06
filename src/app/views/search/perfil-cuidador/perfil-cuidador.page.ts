@@ -1,12 +1,14 @@
 import { AuthProviderService } from './../../../providers/auth/auth-provider.service';
 import { SearchService } from './../../../providers/Search/search.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { NavController, AlertController } from '@ionic/angular';
 import { ActivatedRoute } from '@angular/router';
 import { throwError } from 'rxjs';
 import { ToastController } from '@ionic/angular';
 import { ChatsService } from './../../../providers/chats/chats.service';
 import { Router } from '@angular/router';
+import { ImageService } from 'src/app/services/image/image.service';
+import { WebView } from '@ionic-native/ionic-webview/ngx';
 
 
 @Component({
@@ -81,7 +83,8 @@ export class PerfilCuidadorPage implements OnInit {
 
   constructor(private nav: NavController, private actrout: ActivatedRoute,
     private search: SearchService, private auth: AuthProviderService, private chatsService: ChatsService,
-   private router: Router, private toastController: ToastController, private alertController: AlertController) {
+   private router: Router, private toastController: ToastController, private alertController: AlertController,
+   private imageService: ImageService, private webview: WebView, private ref: ChangeDetectorRef) {
   }
 
   ngOnInit() {
@@ -130,6 +133,32 @@ export class PerfilCuidadorPage implements OnInit {
     }).catch(err => {
       console.log(err);
       return throwError;
+    });
+    this.getProfileImage();
+  }
+
+  getProfileImage() {
+    setTimeout(() => {
+      this.downloadImageData();
+    }, 3000);
+  }
+
+  downloadImageData() {
+    console.log('downloadImage is called');
+    this.imageService.getToken().then((token) => {
+      this.imageService.getImageData(this.cuidador.profile_image, token)
+      .then((response) => {
+        console.log('Imatge descarregada: ' + JSON.stringify(response));
+        //let dataDirectory = this.file.externalApplicationStorageDirectory;
+        //let url = dataDirectory + '/files/received/' + filename + '.jpg';
+
+        let imagePath = this.webview.convertFileSrc(response.nativeURL);
+        this.cuidador.profile_image = imagePath;
+        this.ref.detectChanges();
+        console.log('imatge perfil actualitzada');
+      }).catch((err) => {
+        console.log('missatge imatge error: ' + JSON.stringify(err));
+      });
     });
   }
 

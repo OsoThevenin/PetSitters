@@ -1,5 +1,5 @@
 import { ImageService } from './../../services/image/image.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { SearchService } from 'src/app/providers/Search/search.service';
 import { AuthProviderService } from 'src/app/providers/auth/auth-provider.service';
@@ -26,13 +26,13 @@ export class SearchPage implements OnInit {
 		private search: SearchService,
 		private auth: AuthProviderService,
 		private imageService: ImageService,
-		private webview: WebView)
+		private webview: WebView,
+		private ref: ChangeDetectorRef)
 	{ }
 
 
 	ngOnInit() {
 		this.perfilsCuidadors = this.devuelvePerfilesCuidadores();
-		this.downloadProfileImages();
 	}
 
    /* {avatar: '../../../assets/default_avatar.png', stars: 'Star rating', nombre: 'Firstname, Lastname'},
@@ -65,29 +65,34 @@ devuelvePerfilesCuidadores(): any {
 	if (this.searchFilter == "Favorites"){
 		this.auth.getFavorites(token).subscribe(res => {
 			this.perfilsCuidadors = res;
+			this.downloadProfileImages();
 		});
 	}
 	else if (this.searchFilter == "Expert"){
 			  this.search.filterExpert(this.expertFilter,token).subscribe(res => {
-	  		  this.perfilsCuidadors = res;
+					this.perfilsCuidadors = res;
+					this.downloadProfileImages();
 			  });
 			}
 	else if (this.searchFilter == "Valoration"){
 			  this.search.filterValoration(this.stars["lower"],this.stars["upper"],token).subscribe(res => {
-	  		  this.perfilsCuidadors = res;
+					this.perfilsCuidadors = res;
+					this.downloadProfileImages();
 			  });
 			}
 	else{
 		if (this.searchTerm != ""){
 			if (this.searchFilter == "Name"){
 			  this.search.filterName(this.searchTerm,token).subscribe(res => {
-	  		  this.perfilsCuidadors = res;
+					this.perfilsCuidadors = res;
+					this.downloadProfileImages();
 			  });
 			}
 			
 			else if (this.searchFilter == "Distance"){
 			  this.search.filterDistance(this.searchTerm,token).subscribe(res => {
-	  		  this.perfilsCuidadors = res;
+					this.perfilsCuidadors = res;
+					this.downloadProfileImages();
 			  });
 			}
 		}
@@ -96,7 +101,8 @@ devuelvePerfilesCuidadores(): any {
 		 this.search.getUsersList(token).subscribe(res => {
 		   // console.log(res);
 		   this.perfilsCuidadors = res;
-		   // console.log(this.perfilsCuidadors);
+			 // console.log(this.perfilsCuidadors);
+			 this.downloadProfileImages();
 		  });
 		}
 	}
@@ -110,22 +116,26 @@ devuelvePerfilesCuidadores(): any {
 	
 	downloadProfileImages() {
 		this.imageService.getToken().then((token) => {
+			console.log('cuidadors: ' + JSON.stringify(this.perfilsCuidadors));
 			for (let profile of this.perfilsCuidadors) {
-				this.imageService.getImageData(profile.profile_pic, token)
-					.then((response) => {
-						console.log('Imatge descarregada: ' + JSON.stringify(response));
-						//let dataDirectory = this.file.externalApplicationStorageDirectory;
-						//let url = dataDirectory + '/files/received/' + filename + '.jpg';
+				if(profile.profile_pic !== null) {
+					this.imageService.getImageData(profile.profile_pic, token)
+							.then((response) => {
+								console.log('Imatge descarregada: ' + JSON.stringify(response));
+								//let dataDirectory = this.file.externalApplicationStorageDirectory;
+								//let url = dataDirectory + '/files/received/' + filename + '.jpg';
 
-						let imagePath = this.webview.convertFileSrc(response.nativeURL);
-						profile.profile_pic = imagePath;
+								let imagePath = this.webview.convertFileSrc(response.nativeURL);
+								profile.profile_pic = imagePath;
 
-						console.log('imatge perfil actualitzada');
-					}).catch((err) => {
-						console.log('error al descarregar imatge de perfil de cuidador ' + profile.name);
-					});
+								console.log('imatge perfil actualitzada');
+							}).catch((err) => {
+								console.log('error al descarregar imatge de perfil de cuidador ' + profile.name);
+							});
+				}
 			}
+			this.ref.detectChanges();
 		});
 	}
-	
+
 }

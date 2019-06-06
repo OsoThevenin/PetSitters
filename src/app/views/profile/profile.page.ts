@@ -124,7 +124,7 @@ hazlista=false;
   NoEditExpert(){
 
     this.expertEditable = false;
-    this.ngOnInit()
+    this.ngOnInit();
   }
   TakeTextDescription() {
     // Coger el valor nuevo y enviar a backend
@@ -277,7 +277,9 @@ hazlista=false;
   }
 
   getProfileImage() {
-    this.downloadImageData();
+    setTimeout(() => {
+      this.downloadImageData();
+    }, 3000);
   }
 
   async OpenPopover(ev: Event) {
@@ -430,18 +432,14 @@ hazlista=false;
         let currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
         let correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
         let generatedName: string = this.createFileName();
-        this.copyAndCompress(correctPath, currentName, generatedName).then((OutputDir: String) => {
-            console.log("UPLOADING IMAGE: " + OutputDir);
-            // Aqui podem guardar el path directe ja
-            this.imageService.getToken().then((token) => {
-              return this.imageService.uploadProfileImage(OutputDir, token);
-            }).then((data) => {
-              this.presentToast('Image sent correctly');
-              console.log('Response chat:' + JSON.stringify(data));
-              // data.response !!!!
-            }).catch((err) => {
-              console.log('Response imatge error: ' + JSON.stringify(err));
-            });
+        this.imageService.getToken().then((token) => {
+          return this.imageService.uploadProfileImage(correctPath + currentName, token);
+        }).then((data) => {
+          this.presentToast('Image sent correctly');
+          console.log('Response chat:' + JSON.stringify(data));
+          this.updateStoredImages(data.response);
+        }).catch((err) => {
+          console.log('Response imatge error: ' + JSON.stringify(err));
         });
       });
     } else {
@@ -505,7 +503,7 @@ hazlista=false;
           .catch(() => console.log('The temporal file has been successfully removed')); });
         this.file.moveFile(compressionDir, compressionFile, dataDirectory, newFileName).then(_ => {
           // Aquí s'ha de pujar les imatges a la memoria del telefon, amb la referencia del xat
-          this.updateStoredImages(newFileName, completePath);
+          //this.updateStoredImages(newFileName, completePath);
         }, error => {
           console.log('Error while storing the image: ' + error);
           this.presentToast('Error while storing the image');
@@ -517,10 +515,14 @@ hazlista=false;
   }
 
 
-  updateStoredImages(name, filePath) { // FilePath contains the complete path + name of the image
-    let resPath = this.pathForImage(filePath);
-    console.log('updatestoredimages: ' + resPath + ' ' + name);
-    this.cuidador.profile_image = resPath;
+  updateStoredImages(imageKey) { // FilePath contains the complete path + name of the image
+    this.imageService.getToken().then((token) => {
+      this.imageService.getImageData(imageKey, token).then((response) => {
+        let imagePath = this.webview.convertFileSrc(response.nativeURL);
+        this.cuidador.profile_image = imagePath;
+      });
+    });
+  
 
     // this.storage.set(PROFILE_IMAGE, resPath);
     this.ref.detectChanges(); // trigger change detection cycle
@@ -540,6 +542,7 @@ hazlista=false;
   }
 
   downloadImageData() {
+    console.log('downloadImage is called');
     this.imageService.getToken().then((token) => {
       this.imageService.getImageData(this.cuidador.profile_image, token)
       .then((response) => {

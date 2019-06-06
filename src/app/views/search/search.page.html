@@ -41,7 +41,8 @@
         <ion-row justify-content: center align-items: center>
             <ion-col *ngFor="let cuidador of perfilsCuidadors" size="6">
                 <ion-card (click)="goToPerfilCuidador(cuidador)" style="background-color: white">
-                    <img class="avatar" *ngIf="cuidador.profile_image == null" src="../../../assets/default_avatar.png">
+                    <img class="avatar" *ngIf="cuidador.profile_pic == null" src="../../../assets/default_avatar.png">
+                    <img class="avatar" *ngIf="cuidador.profile_pic != null" [src]="cuidador.profile_pic">
                     <ion-card-header>
                         <ion-row justify-content-center align-items-center>
                             <ion-icon *ngIf="cuidador.stars>=1; else elseBlock1" class="stars" name="star"></ion-icon>
