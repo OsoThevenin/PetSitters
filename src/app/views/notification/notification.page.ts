@@ -61,9 +61,19 @@ this.auth.getToken().then(result => {
         this.notifications = res;
         console.log("notifications", res);
        });
-      this.auth.nullifyNotifications(token).subscribe(res => {
-        console.log("notifications", res);
-       });
+    }).catch(err => {
+      console.log(err);
+     return throwError;
+    });
+  }
+
+  nulifynotification(){
+    this.auth.getToken().then(result => {
+      const token = result;
+    this.auth.nullifyNotifications(token).subscribe(res => {
+      console.log("notifications", res);
+      this.ngOnInit();
+     });
     }).catch(err => {
       console.log(err);
      return throwError;
