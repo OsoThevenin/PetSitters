@@ -136,13 +136,16 @@ ion-datetime{
     background-color: #97c7f3;
     border-radius: 8px;
 }
-.avatar{
-    width: 25%;
-    height: 25%;
-    float: left;
-    clear:left;
+
+.avatar {
+    object-fit: cover;
+    object-position: 100% 0;
+    width: 50px;
+    height: 50px;
+    margin: auto;
     display: block;
-}
+    border-radius: 50%;
+  }
 
 .name{
     text-align: center;
