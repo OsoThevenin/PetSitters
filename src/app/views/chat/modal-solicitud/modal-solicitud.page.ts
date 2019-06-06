@@ -11,7 +11,7 @@ import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms'
   styleUrls: ['./modal-solicitud.page.scss'],
 })
 export class ModalSolicitudPage implements OnInit {
-	public words: Array<string> = ["New Contract", "Pet name:", "Animal type:", "Dogs", "Cats", "Ferrets", "Reptiles", "Birds", "Rodents", "Fishes", "Amphibians", "Arthropods", "Other", "Start Date:", "End Date:", "Cancel", "Accept"]
+	public words: Array<string> = ["New Contract", "Pet name:", "Animal type:", "Dogs", "Cats", "Ferrets", "Reptiles", "Birds", "Rodents", "Fishes", "Amphibians", "Arthropods", "Other", "Start Date:", "End Date:", "Cancel", "Accept", "Feedback"]
 	solicitudForm: FormGroup;
 
 	@ViewChild('dataInici') dI;

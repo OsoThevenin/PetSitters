@@ -15,7 +15,9 @@ export class NotificationPage implements OnInit  {
   public words: Array<string> = ["Notifications", "Chats", "Trophies", "Valuations", "Feedback", "You have opened chats",
   "You have new Trophies", "You have opened Valuations", "You have to give Feedback to some owners", "Pending Contracts",
   "Start Date:", "End Date:", "Animal type:", "Animal name:", "Feedback required? Yes", "Feedback required? No",
-  "Decline", "Accept", "Cancel", "Current Contracts", "Rate"]
+  "Decline", "Accept", "Cancel", "Current Contracts", "Rate",
+  'You have accepted the contract successfully!', 'Something went wrong, please try again', 'You have rejected the contract successfully!',
+  'Cancel contract', 'Are you sure you want to cancel the contract?', 'Cancel', 'Confirm', 'You have cancelled the contract successfully!']
   received: any;
   proposed: any;
   notifications: any;
@@ -118,9 +120,9 @@ this.auth.getToken().then(result => {
       this.auth.acceptContract(un, result)
       .subscribe(res => {
         this.ngOnInit();
-        this.presentToast('You have accepted the contract successfully!');
+        this.presentToast(this.words[21]);
       }, err => {
-        this.presentToast('Something went wrong, please try again');
+        this.presentToast(this.words[22]);
         console.log(err);
       });
     });
@@ -147,9 +149,9 @@ this.auth.getToken().then(result => {
       this.contracts.rejectContract(un, result)
       .subscribe(res => {
         this.ngOnInit();
-        this.presentToast('You have rejected the contract successfully!');
+        this.presentToast(this.words[23]);
       }, err => {
-        this.presentToast('Something went wrong, please try again');
+        this.presentToast(this.words[22]);
         console.log(err);
       });
     });
@@ -174,24 +176,24 @@ this.auth.getToken().then(result => {
 
   async presentAlert_D(un:string) {
     const alert = await this.alertController.create({
-      header: 'Cancel contract',
-      message: 'Are you sure you want to cancel the contract?',
+      header: this.words[24],
+      message: this.words[25],
       
       buttons: [
         {
-        text: 'Cancel',
+        text: this.words[26],
         role: 'cancel'
         },
         {
-          text: 'Confirm',
+          text: this.words[27],
           handler: cancelar => {
             this.auth.getToken().then(result => {
               this.contracts.rejectContract(un, result)
               .subscribe(res => {
                 this.ngOnInit();
-                this.presentToast('You have cancelled the contract successfully!');
+                this.presentToast(this.words[28]);
               }, err => {
-                this.presentToast('Something went wrong, please try again');
+                this.presentToast(this.words[22]);
                 console.log(err);
               });
             });

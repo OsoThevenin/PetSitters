@@ -10,7 +10,7 @@ import { throwError } from 'rxjs';
   styleUrls: ['./modal-rate.page.scss'],
 })
 export class ModalRatePage implements OnInit {
-
+  public words: Array<string> = ["Please tell us about your experience with this user","Comment","Cancel","Rate",'You have rated this user successfully!','Something went wrong, please try again','Add a comment (optional)']
   @ViewChild('stars') stars;
   @ViewChild('comment') comment;
 
@@ -34,9 +34,9 @@ export class ModalRatePage implements OnInit {
     this.contracts.saveValuation(body,token).subscribe(res =>{
       this.contracts.rejectContract(this.ratedUser, result)
       .subscribe(res => {
-        this.presentToast('You have rated this user successfully!');
+        this.presentToast(this.words[4]);
       }, err => {
-        this.presentToast('Something went wrong, please try again');
+        this.presentToast(this.words[5]);
       console.log(err);
       });
     });
@@ -48,9 +48,30 @@ export class ModalRatePage implements OnInit {
     this.modalController.dismiss();
   }
 
+  actual_language: string;
   ngOnInit() {
+  this.auth.getLanguage().then(lang => {
+      this.actual_language = lang;
+      console.log(lang);
+    }); 
+	this.translate();
     this.ratedUser = this.navParams.get('usernameRated');
   }
+
+translate(){
+this.auth.getToken().then(result => {
+    const token = result;
+	this.auth.translate(this.words,this.actual_language,token).subscribe(res => {
+			this.words = res;
+		});
+	}).catch(err => {
+	  console.log(err);
+	 return throwError;
+	});
+  
+  return this.words;
+}
+
 
   async presentToast(message) {
     const toast = await this.toastCtrl.create({

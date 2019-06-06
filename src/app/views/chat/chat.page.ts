@@ -33,7 +33,8 @@ export class ChatPage implements OnInit {
   messages = [];
   id: any;
   @ViewChild('content') content: any;
-  public words: Array<string> = ["Write a message"]
+  public words: Array<string> = ["Write a message", 'Cancel contract', 'Are you sure you want to cancel the contract?',
+  'Cancel', 'Confirm', 'You have cancelled the contract successfully!', 'Something went wrong, please try again']
 
   images = [];
   compression: ImageCompressorService = new ImageCompressorService();
@@ -120,24 +121,24 @@ export class ChatPage implements OnInit {
 
   async presentAlert_D() {
     const alert = await this.alertController.create({
-      header: 'Cancel contract',
-      message: 'Are you sure you want to cancel the contract?',
+      header: this.words[1],
+      message: this.words[2],
       
       buttons: [
         {
-        text: 'Cancel',
+        text: this.words[3],
         role: 'cancel'
         },
         {
-          text: 'Confirm',
+          text: this.words[4],
           handler: cancelar => {
             this.auth.getToken().then(result => {
               this.contracts.rejectContract(this.usernameCuidador, result)
               .subscribe(res => {
                 this.ngOnInit();
-                this.presentToast('You have cancelled the contract successfully!');
+                this.presentToast(this.words[5]);
               }, err => {
-                this.presentToast('Something went wrong, please try again');
+                this.presentToast(this.words[6]);
                 console.log(err);
               });
             });
