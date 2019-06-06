@@ -16,8 +16,10 @@
 <ion-content>
         <ion-grid>
             <ion-row justify-content-center align-items-center>
-              <img class="avatar_profile" *ngIf='cuidador.profile_image !== "" ' [src]="cuidador.profile_image">      
-              <img class="avatar_profile" *ngIf='cuidador.profile_image == "" ' src="../../../assets/default_avatar.png">
+              <div class="image-cropper">
+                <img class="avatar_profile" *ngIf='cuidador.profile_image !== "" ' [src]="cuidador.profile_image">      
+                <img class="avatar_profile" *ngIf='cuidador.profile_image == "" ' src="../../../assets/default_avatar.png">
+              </div>
             </ion-row>
   
       <ion-row justify-content-center align-items-center>
