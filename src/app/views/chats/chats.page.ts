@@ -98,6 +98,10 @@ export class ChatsPage implements OnInit {
     }); 
 	this.translate();
   this.activeChats = this.showActiveChats();
+<<<<<<< HEAD
+=======
+
+>>>>>>> DevelopS4
     // Carregar images guardades
   }
 
