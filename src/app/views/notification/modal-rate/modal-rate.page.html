@@ -1,6 +1,11 @@
-<ion-content padding style="background:white">
+<ion-header>
+  <ion-toolbar>
     <ion-title style="font-weight:bold">Rate User</ion-title>
-    <br>
+
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <div padding style="background:white">
     <ion-label>{{words[0]}}</ion-label>
     <ion-item no-padding lines="none">
         <ion-range pin="true" min="0" max="5" step="1" snaps="true" #stars>
@@ -18,4 +23,5 @@
           <ion-button fill="clear" slot="start" (click)="cancel()">{{words[2]}}</ion-button>            
           <ion-button fill="solid" slot="end" (click)="rate()">{{words[3]}}</ion-button>            
         </ion-toolbar>
+      </div>
 </ion-content>
