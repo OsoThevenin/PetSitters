@@ -18,7 +18,7 @@ import { ProfileService } from 'src/app/providers/profile/profile.service';
 export class PerfilCuidadorPage implements OnInit {
   public words: Array<string> = ["Description", "This user did not enter a description", "Availability", "From:", "To:",
   "Expert on", "Dogs", "Cats", "Ferrets", "Reptiles", "Birds", "Rodents", "Fishes", "Amphibians", "Arthropods", "Other",
-  "This user did not enter any expertise", "Previous Valuations",'Report User', 'Please tell us why you are sending us this report',
+  "This user did not enter any expertise", "Previous Ratings",'Report User', 'Please tell us why you are sending us this report',
   'Add an explanation (optional)', 'Cancel', 'Confirm', 'User reported successfully!', 'There was an error reporting the user ',
   'Something went wrong, please try it again']
   public expertiseTranslated = [

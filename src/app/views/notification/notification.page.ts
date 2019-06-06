@@ -12,8 +12,8 @@ import { ModalRatePage } from './modal-rate/modal-rate.page';
   styleUrls: ['notification.page.scss']
 })
 export class NotificationPage implements OnInit  {
-  public words: Array<string> = ["Notifications", "Chats", "Trophies", "Valuations", "Feedback", "You have opened chats",
-  "You have new Trophies", "You have opened Valuations", "You have to give Feedback to some owners", "Pending Contracts",
+  public words: Array<string> = ["Notifications", "Chat", "Trophies", "Ratings", "Feedback", "You have opened chats",
+  "You have new Trophies", "You have pending ratings", "You have to give Feedback to some owners", "Pending Contracts",
   "Start Date:", "End Date:", "Animal type:", "Animal name:", "Feedback required? Yes", "Feedback required? No",
   "Decline", "Accept", "Cancel", "Current Contracts", "Rate",
   'You have accepted the contract successfully!', 'Something went wrong, please try again', 'You have rejected the contract successfully!',
