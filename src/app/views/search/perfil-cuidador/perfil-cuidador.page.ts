@@ -365,7 +365,8 @@ export class PerfilCuidadorPage implements OnInit {
       const token = result;
       this.profile.getPreviousValuations(token).subscribe(res => {
 	      console.log(res);
-	      this.previousVal = res;
+        this.previousVal = res;
+        this.downloadProfileImages();
 	      console.log(this.previousVal);
 	    });
     }).catch(err => {
@@ -398,6 +399,29 @@ this.auth.getToken().then(result => {
 	 return throwError;
 	});
   return await this.words;
+}
+downloadProfileImages() {
+  this.imageService.getToken().then((token) => {
+    console.log('cuidadors: ' + JSON.stringify(this.previousVal));
+    for (let profile of this.previousVal) {
+      if(profile.profileImage !== null) {
+        this.imageService.getImageData(profile.profileImage, token)
+            .then((response) => {
+              console.log('Imatge descarregada: ' + JSON.stringify(response));
+              //let dataDirectory = this.file.externalApplicationStorageDirectory;
+              //let url = dataDirectory + '/files/received/' + filename + '.jpg';
+
+              let imagePath = this.webview.convertFileSrc(response.nativeURL);
+              profile.profileImage = imagePath;
+
+              console.log('imatge perfil actualitzada');
+            }).catch((err) => {
+              console.log('error al descarregar imatge de perfil de cuidador ' + profile.name);
+            });
+      }
+    }
+    this.ref.detectChanges();
+  });
 }
 
 }

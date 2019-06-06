@@ -177,7 +177,8 @@
             <ion-card-header class="valuationTitle">
                 <ion-toolbar>
                     <ion-label class="nombre">{{val.nameOfUserWhoValues}}</ion-label>
-                    <img class="avatar" slot="start" src="../../../assets/default_avatar.png" size="small">
+                    <img class="avatar" slot="start" *ngIf="val.profileImage == null" src="../../../assets/default_avatar.png" size="small">
+                    <img class="avatar" slot="start" *ngIf="val.profileImage != null" [src]="val.profileImage" size="small">
                     <ion-item class="stars" lines="none">
                             <ion-icon *ngIf="val.stars>=1" name="star"></ion-icon>
                             <ion-icon *ngIf="val.stars>=2" name="star"></ion-icon>

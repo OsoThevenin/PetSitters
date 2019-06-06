@@ -98,7 +98,6 @@ export class ChatsPage implements OnInit {
     }); 
 	this.translate();
   this.activeChats = this.showActiveChats();
-  this.downloadProfileImages();
     // Carregar images guardades
   }
 
@@ -116,7 +115,8 @@ export class ChatsPage implements OnInit {
       const token = result;
       this.chats.getActiveChats(token).subscribe(res => {
 	      console.log(res);
-	      this.activeChats = res;
+        this.activeChats = res;
+        this.downloadProfileImages();
 	      //console.log(this.activeChats);
 	    });
     }).catch(err => {
