@@ -311,15 +311,17 @@ export class PerfilCuidadorPage implements OnInit {
   getPreviousVal(): any {
     this.auth.getToken().then(result => {
       const token = result;
-        this.profile.getPreviousValuationsFromUser(token,this.dataRev).subscribe(res => {
-          this.previousVal = res;
-	      });
+      this.profile.getPreviousValuations(token).subscribe(res => {
+	      console.log(res);
+	      this.previousVal = res;
+	      console.log(this.previousVal);
+	    });
     }).catch(err => {
 	    console.log(err);
 	    return throwError;
     });
     return this.previousVal;
-}
+  }
 
 async translate(){
 this.auth.getToken().then(result => {

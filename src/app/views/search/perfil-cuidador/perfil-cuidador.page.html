@@ -157,36 +157,36 @@
     
 
 <ion-card class="cardContainer">
-        <ion-card-header class="noPaddingBottomTop">
-                <ion-toolbar class="fondoazulbonito">
-                    <ion-label class="sectionTitle">{{words[17]}}</ion-label>
+    <ion-card-header class="noPaddingBottomTop">
+            <ion-toolbar class="fondoazulbonito">
+                <ion-label class="sectionTitle">{{words[17]}}</ion-label>
+            </ion-toolbar>
+    </ion-card-header>
+    <ion-card-content>
+        <ion-card class="cardValuation" *ngFor="let val of previousVal">
+            <ion-card-header class="valuationTitle">
+                <ion-toolbar>
+                    <ion-label class="nombre">{{val.nameOfUserWhoValues}}</ion-label>
+                    <img class="avatar" slot="start" src="../../../assets/default_avatar.png" size="small">
+                    <ion-item class="stars" lines="none">
+                            <ion-icon *ngIf="val.stars>=1" name="star"></ion-icon>
+                            <ion-icon *ngIf="val.stars>=2" name="star"></ion-icon>
+                            <ion-icon *ngIf="val.stars>=3" name="star"></ion-icon>
+                            <ion-icon *ngIf="val.stars>=4" name="star"></ion-icon>
+                            <ion-icon *ngIf="val.stars>=5" name="star"></ion-icon>
+                            <ion-icon *ngIf="val.stars==0" name="star-outline"></ion-icon>
+                            <ion-icon *ngIf="val.stars<=1" name="star-outline"></ion-icon>
+                            <ion-icon *ngIf="val.stars<=2" name="star-outline"></ion-icon>
+                            <ion-icon *ngIf="val.stars<=3" name="star-outline"></ion-icon>
+                            <ion-icon *ngIf="val.stars<=4" name="star-outline"></ion-icon>
+                        </ion-item>
                 </ion-toolbar>
-        </ion-card-header>
-        <ion-card-content>
-            <ion-card class="cardValuation" *ngFor="let val of previousVal">
-                <ion-card-header class="valuationTitle">
-                    <ion-toolbar>
-                        <ion-label class="nombre">{{val.nameOfUserWhoValues}}</ion-label>
-                        <img class="avatar" slot="start" src="../../../assets/default_avatar.png" size="small">
-                        <ion-item class="stars" lines="none">
-                                <ion-icon *ngIf="val.stars>=1" name="star"></ion-icon>
-                                <ion-icon *ngIf="val.stars>=2" name="star"></ion-icon>
-                                <ion-icon *ngIf="val.stars>=3" name="star"></ion-icon>
-                                <ion-icon *ngIf="val.stars>=4" name="star"></ion-icon>
-                                <ion-icon *ngIf="val.stars>=5" name="star"></ion-icon>
-                                <ion-icon *ngIf="val.stars==0" name="star-outline"></ion-icon>
-                                <ion-icon *ngIf="val.stars<=1" name="star-outline"></ion-icon>
-                                <ion-icon *ngIf="val.stars<=2" name="star-outline"></ion-icon>
-                                <ion-icon *ngIf="val.stars<=3" name="star-outline"></ion-icon>
-                                <ion-icon *ngIf="val.stars<=4" name="star-outline"></ion-icon>
-                            </ion-item>
-                    </ion-toolbar>
-                </ion-card-header>
-                <ion-card-content>
-                    <ion-card-subtitle>{{val.comment}}</ion-card-subtitle>
-                </ion-card-content>
-            </ion-card>
-        </ion-card-content>
-    </ion-card>
+            </ion-card-header>
+            <ion-card-content>
+                <ion-card-subtitle>{{val.comment}}</ion-card-subtitle>
+            </ion-card-content>
+        </ion-card>
+    </ion-card-content>
+</ion-card>
   </ion-grid>
 </ion-content>
