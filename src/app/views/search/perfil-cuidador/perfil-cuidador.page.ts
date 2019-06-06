@@ -16,6 +16,23 @@ import { ProfileService } from 'src/app/providers/profile/profile.service';
   styleUrls: ['./perfil-cuidador.page.scss'],
 })
 export class PerfilCuidadorPage implements OnInit {
+  public words: Array<string> = ["Description", "This user did not enter a description", "Availability", "From:", "To:",
+  "Expert on", "Dogs", "Cats", "Ferrets", "Reptiles", "Birds", "Rodents", "Fishes", "Amphibians", "Arthropods", "Other",
+  "This user did not enter any expertise", "Previous Valuations",'Report User', 'Please tell us why you are sending us this report',
+  'Add an explanation (optional)', 'Cancel', 'Confirm', 'User reported successfully!', 'There was an error reporting the user ',
+  'Something went wrong, please try it again']
+  public expertiseTranslated = [
+    { type: 'Dogs', isChecked: false },
+    { type: 'Cats', isChecked: false },
+    { type: 'Ferrets', isChecked: false },
+    { type: 'Reptiles', isChecked: false },
+    { type: 'Birds', isChecked: false },
+    { type: 'Rodents', isChecked: false },
+    { type: 'Fishes', isChecked: false },
+    { type: 'Amphibians', isChecked: false },
+    { type: 'Arthropods', isChecked: false },
+    { type: 'Other', isChecked: false }
+  ];
 
   public expertise = [
     { type: 'Dogs', isChecked: false },
@@ -97,20 +114,26 @@ export class PerfilCuidadorPage implements OnInit {
   }
 
   traducirAExpertise(){
-  let hay=false;
-  this.expertise.forEach(element => {
-    element.isChecked=false;
-    this.cuidador.expert.forEach(animal => {
-      if(element.type==animal){
-        hay=true;
-        element.isChecked=true;
-      }
-    });
-  });
-  this.hazlista=hay;
+    let hay=false;
+	for(let i = 0; i<10; i++){
+		this.expertiseTranslated[i].isChecked=false;
+		this.cuidador.expert.forEach(animal => {
+        if(this.expertise[i].type==animal){
+          hay=true;
+          this.expertiseTranslated[i].isChecked=true;
+        }
+      });
+	}
+    this.hazlista=hay;
 
-}
+  }
+
+  actual_language: string;
   ngOnInit() {
+    this.auth.getLanguage().then(lang => {
+      this.actual_language = lang;
+    }); 
+	this.translate();
     this.previousVal = this.getPreviousVal();
     this.auth.getToken().then(result => {
       const token = result;
@@ -165,11 +188,11 @@ export class PerfilCuidadorPage implements OnInit {
 
       this.search.reportUser(this.reportMotive, this.cuidador.username, result)
         .subscribe(res => {
-           this.presentToast('User reported successfully!');
+           this.presentToast(this.words[23]);
            this.router.navigateByUrl('/tabs/search');
         }, err => {
           console.log(err);
-		      this.presentToast('There was an error reporting the user ' + err);
+		      this.presentToast(this.words[24] + err);
         });
     }, error => {
       console.log('Unable to get the token');
@@ -189,7 +212,7 @@ export class PerfilCuidadorPage implements OnInit {
       this.auth.unsetFavorites(dataRev, result).subscribe(res => {
         this.favorito = false;
       }, err => {
-        this.presentToast('Something went wrong, please try it again');
+        this.presentToast(this.words[25]);
         console.log(err);
       });
     });
@@ -206,7 +229,7 @@ export class PerfilCuidadorPage implements OnInit {
             this.favorito = true;
           }, err => {
             console.log(err);
-            this.presentToast('Something went wrong, please try it again');
+            this.presentToast(this.words[25]);
           });
     }).catch(err => {
       console.log(err);
@@ -231,22 +254,22 @@ export class PerfilCuidadorPage implements OnInit {
 
   async presentAlert_Report() {
     const alert = await this.alertController.create({
-      header: 'Report User',
-      message: 'Please tell us why you are sending us this report',
+      header: this.words[18],
+      message: this.words[19],
       inputs: [
         {
           name: 'reportMotive',
-          placeholder: 'Add an explanation (optional)', 
+          placeholder: this.words[20], 
           type: 'text'
         }
       ],
       buttons: [
         {
-        text: 'Cancel',
+        text: this.words[21],
         role: 'cancel'
         },
         {
-          text: 'Confirm',
+          text: this.words[22],
           // funcionalitat de reportar usuario
           handler: report => {
             if (report.reportMotive !== '') {
@@ -296,6 +319,31 @@ export class PerfilCuidadorPage implements OnInit {
 	    return throwError;
     });
     return this.previousVal;
+}
+
+async translate(){
+this.auth.getToken().then(result => {
+    const token = result;
+	this.auth.translate(this.words,this.actual_language,token).subscribe(res => {
+			this.words =  res;
+			this.expertiseTranslated = [
+    { type:  this.words[6], isChecked: false },
+    { type:  this.words[7], isChecked: false },
+    { type:  this.words[8], isChecked: false },
+    { type:  this.words[9], isChecked: false },
+    { type:  this.words[10], isChecked: false },
+    { type:  this.words[11], isChecked: false },
+    { type:  this.words[12], isChecked: false },
+    { type:  this.words[13], isChecked: false },
+    { type:  this.words[14], isChecked: false },
+    { type:  this.words[15], isChecked: false }
+  ];
+		});
+	}).catch(err => {
+	  console.log(err);
+	 return throwError;
+	});
+  return await this.words;
 }
 
 }
