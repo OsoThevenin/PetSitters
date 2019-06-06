@@ -86,15 +86,13 @@ ion-item{
 }
 
 .avatar_profile {
-    width: 10em;
-    margin: auto;
-	display: block;
-    /*
-    height: 150px !important;
-    width: 150px !important;
+    object-fit: cover;
+    object-position: 100% 0;
+    width: 170px;
+    height: 170px;
     margin: auto;
     display: block;
-    */
+    border-radius: 50%;
 }
 .columnacentrada{
     margin-top: 10px;

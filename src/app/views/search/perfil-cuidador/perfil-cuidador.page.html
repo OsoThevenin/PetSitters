@@ -17,8 +17,11 @@
         <ion-grid>
             <ion-row justify-content-center align-items-center>
               <ion-col class="my_col">
-                  <img class="avatar_profile" *ngIf='cuidador.profile_image == "" ' src="../../../assets/default_avatar.png">
-              </ion-col>
+                  <div class="image-cropper">
+                      <img class="avatar_profile" *ngIf='cuidador.profile_image !== "" ' [src]="cuidador.profile_image">      
+                      <img class="avatar_profile" *ngIf='cuidador.profile_image == "" ' src="../../../assets/default_avatar.png">
+                  </div>
+                  </ion-col>
               <div class="col align-self-start" style="margin-right: 20%;">
                   <ion-row class="my_row" *ngFor="let trophy of trophies_3">
                           <img height="32" width="32" src="../../../assets/trophies/{{trophy}}.png">   
