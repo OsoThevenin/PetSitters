@@ -21,7 +21,8 @@
       <ion-card style="background-color: white" (click)="abreChat(chat.username)">
          
         <ion-card-header>
-            <img class="avatar" *ngIf="chat.profile_image == null" src="../../../assets/default_avatar.png" float-left>
+            <img class="avatar" *ngIf="chat.profileImage == null" src="../../../assets/default_avatar.png" float-left>
+            <img class="avatar" *ngIf="chat.profileImage != null" [src]="chat.profileImage" float-left>
           <ion-label>{{chat.name}}</ion-label>
         </ion-card-header>
         <ion-button fill='clear' (click)="borrarChat(chat.username)" float-right>{{words[0]}}</ion-button>

@@ -20,7 +20,8 @@
             <ion-row>
               <ion-col>
                 <ion-avatar>
-                  <img src="../../../assets/default_avatar.png">
+                    <img class="avatar" *ngIf="rank.profileImage == null" src="../../../assets/default_avatar.png">
+                    <img class="avatar" *ngIf="rank.profileImage != null" [src]="rank.profileImage">
                 </ion-avatar>
               </ion-col>
               <ion-col>
