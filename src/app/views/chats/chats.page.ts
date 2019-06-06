@@ -1,10 +1,12 @@
 import { ToastController, AlertController } from '@ionic/angular';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthProviderService } from './../../providers/auth/auth-provider.service';
 import { ChatsService } from './../../providers/chats/chats.service';
 import { throwError } from 'rxjs';
 import { bindPlayerFactory } from '@angular/core/src/render3/styling/player_factory';
+import { ImageService } from 'src/app/services/image/image.service';
+import { WebView } from '@ionic-native/ionic-webview/ngx';
 
 @Component({
   selector: 'app-chats',
@@ -20,7 +22,7 @@ export class ChatsPage implements OnInit {
   activeChats = [];
 
   constructor(private toastController: ToastController, private router: Router, private auth: AuthProviderService, private chats: ChatsService, 
-    private alertController: AlertController) { }
+    private alertController: AlertController, private ref: ChangeDetectorRef, private imageService: ImageService, private webview: WebView) { }
     
 
     data = [
@@ -88,13 +90,15 @@ export class ChatsPage implements OnInit {
     await alert.present();
   }
   actual_language: string;
+
   ngOnInit() {
   this.auth.getLanguage().then(lang => {
       this.actual_language = lang;
       console.log(lang);
     }); 
 	this.translate();
-    this.activeChats = this.showActiveChats();
+  this.activeChats = this.showActiveChats();
+  this.downloadProfileImages();
     // Carregar images guardades
   }
 
@@ -134,5 +138,29 @@ this.auth.getToken().then(result => {
 	});
   
   return this.words;
+}
+
+downloadProfileImages() {
+  this.imageService.getToken().then((token) => {
+    console.log('cuidadors: ' + JSON.stringify(this.activeChats));
+    for (let profile of this.activeChats) {
+      if(profile.profileImage !== null) {
+        this.imageService.getImageData(profile.profileImage, token)
+            .then((response) => {
+              console.log('Imatge descarregada: ' + JSON.stringify(response));
+              //let dataDirectory = this.file.externalApplicationStorageDirectory;
+              //let url = dataDirectory + '/files/received/' + filename + '.jpg';
+
+              let imagePath = this.webview.convertFileSrc(response.nativeURL);
+              profile.profileImage = imagePath;
+
+              console.log('imatge perfil actualitzada');
+            }).catch((err) => {
+              console.log('error al descarregar imatge de perfil de cuidador ' + profile.name);
+            });
+      }
+    }
+    this.ref.detectChanges();
+  });
 }
 }
