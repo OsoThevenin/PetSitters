@@ -1,5 +1,5 @@
 import { Storage } from '@ionic/storage';
-import { Component, Init } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { AuthProviderService } from '../providers/auth/auth-provider.service';
 import { forEach } from '@angular/router/src/utils/collection';

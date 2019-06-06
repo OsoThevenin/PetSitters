@@ -3,13 +3,15 @@
     "",
     "\\src",
     "\\src\\app",
-    "\\src\\app\\providers",
-    "\\src\\app\\providers\\auth",
-    "\\src\\app\\providers\\Search",
+    "\\src\\app\\tabs",
     "\\src\\app\\views",
+    "\\src\\app\\views\\chats",
+    "\\src\\app\\views\\chat\\modal-solicitud",
     "\\src\\app\\views\\notification",
-    "\\src\\app\\views\\trophies"
+    "\\src\\app\\views\\profile",
+    "\\src\\app\\views\\profile\\popover",
+    "\\src\\app\\views\\search\\perfil-cuidador"
   ],
-  "SelectedNode": "\\src\\app\\views\\trophies\\trophies.page.html",
+  "SelectedNode": "\\src\\app\\tabs\\tabs.page.html",
   "PreviewInSolutionExplorer": false
 }
