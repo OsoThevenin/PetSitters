@@ -27,14 +27,14 @@ export class RankingPage implements OnInit {
 
   ngOnInit() {
     this.ranking = this.getRanking();
-    this.downloadProfileImages();
   }
   getRanking(): any {
     this.auth.getToken().then(result => {
       const token = result;
       this.auth.getRankingUsers(token).subscribe(res => {
 	      console.log(res);
-	      this.ranking = res;
+        this.ranking = res;
+        this.downloadProfileImages();
 	      console.log(this.ranking);
 	    });
     }).catch(err => {
