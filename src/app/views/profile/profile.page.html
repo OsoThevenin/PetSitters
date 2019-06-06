@@ -8,7 +8,14 @@
             </ion-toolbar>
 </ion-header>
 <ion-content>
-        
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+            <ion-refresher-content
+                pullingIcon="arrow-dropdown"
+                pullingText="Pull to Refresh"
+                refreshingSpinner="circles"
+                refreshingText="Refreshing...">
+            </ion-refresher-content>
+        </ion-refresher>
     <!-- De Base de Datos -->
     <ion-grid>
     <ion-row justify-content-center align-items-center>

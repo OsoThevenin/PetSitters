@@ -7,6 +7,15 @@
 </ion-header>
 
 <ion-content>
+
+  <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+      <ion-refresher-content
+          pullingIcon="arrow-dropdown"
+          pullingText="Pull to Refresh"
+          refreshingSpinner="circles"
+          refreshingText="Refreshing...">
+      </ion-refresher-content>
+  </ion-refresher>
   <div justify-content: center align-items: center *ngFor="let rank of ranking, let i = index">
     <ion-card style="background-color: white">
         <ion-card-header>

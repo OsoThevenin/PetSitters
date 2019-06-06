@@ -129,6 +129,16 @@ hazlista=false;
   }
   */
 
+ doRefresh(event) {
+  console.log('Begin async operation');
+
+  setTimeout(() => {
+    this.ngOnInit();
+    console.log('Async operation has ended');
+    event.target.complete();
+  }, 2000);
+}
+
   where_true(vector){
     let count = [];
     for (let i = 0; i < vector.length && count.length < 3; i++) {
