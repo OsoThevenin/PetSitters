@@ -77,4 +77,14 @@ export class SearchService {
 
 	return this.http.get<any>(this.global.baseUrl + 'user/filterDistance?rad='+ body, options);
   }
+
+
+  getTrophiesFromUser(token, user): Observable<any> {
+    let httpHeaders = new HttpHeaders().set('Content-Type', 'application/json');
+    httpHeaders = httpHeaders.append('Access-Control-Allow-Origin', '*');
+    httpHeaders = httpHeaders.append('Authorization', 'Bearer ' + token);
+    const options = {headers: httpHeaders};
+    return this.http.get<any>(this.global.baseUrl + 'getTrophiesFromUser?user=' + user, options);
+  }
+
 }
