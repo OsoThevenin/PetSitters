@@ -7,7 +7,8 @@
     </ion-buttons>
     <ion-buttons (click)="goProfile()" layout="icon-start">
       <ion-avatar>
-        <img src="../../../assets/default_avatar.png">
+          <img class="avatar" *ngIf='cuidador.profile_image === "" ' src="../../../assets/default_avatar.png" size="small">
+          <img class="avatar" *ngIf='cuidador.profile_image !== "" ' [src]="cuidador.profile_image" size="small">
       </ion-avatar>
       <ion-label color="white">
         {{usernameCuidador}}

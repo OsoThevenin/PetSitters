@@ -15,6 +15,7 @@ import { ImagePicker } from '@ionic-native/image-picker/ngx';
 import { ModalSolicitudPage } from './modal-solicitud/modal-solicitud.page';
 import { throwError } from 'rxjs';
 import { ContractsService } from 'src/app/providers/contracts/contracts.service';
+import { SearchService } from 'src/app/providers/Search/search.service';
 
 const STORAGE_KEY = 'my_images';
 const PETSITTERS_DIRECTORY = 'PetSitters';
@@ -32,6 +33,7 @@ export class ChatPage implements OnInit {
   message = '';
   messages = [];
   id: any;
+  cuidador: any;
   @ViewChild('content') content: any;
   public words: Array<string> = ["Write a message", 'Cancel contract', 'Are you sure you want to cancel the contract?',
   'Cancel', 'Confirm', 'You have cancelled the contract successfully!', 'Something went wrong, please try again']
@@ -47,11 +49,13 @@ export class ChatPage implements OnInit {
     private auth: AuthProviderService , private actrout: ActivatedRoute,
     private nav: NavController, private actionSheetController: ActionSheetController,
     private camera: Camera, private imagePicker: ImagePicker, private imageService: ImageService,
-    private chats: ChatsService, private modalController: ModalController, private alertController: AlertController, private contracts: ContractsService)
+    private chats: ChatsService, private modalController: ModalController, private alertController: AlertController, private contracts: ContractsService,
+    private search: SearchService)
     {}
 
   actual_language:string;
   ngOnInit() {
+    
 	this.auth.getLanguage().then(lang => {
       this.actual_language = lang;
     }); 
@@ -69,6 +73,11 @@ export class ChatPage implements OnInit {
 
     this.auth.getToken().then(result => {
       const token = result;
+      this.search.getUser(this.usernameCuidador, token).subscribe(res => {
+        //console.log(res);
+        this.cuidador = res;
+        this.downloadImageData();
+      });
   
     this.chats.hasContracted(this.usernameCuidador,token).subscribe(res =>{
       console.log(res);
@@ -487,6 +496,25 @@ this.auth.getToken().then(result => {
 	});
   
   return this.words;
+}
+
+downloadImageData() {
+  console.log('downloadImage is called');
+  this.imageService.getToken().then((token) => {
+    this.imageService.getImageData(this.cuidador.profile_image, token)
+    .then((response) => {
+      console.log('Imatge descarregada: ' + JSON.stringify(response));
+      //let dataDirectory = this.file.externalApplicationStorageDirectory;
+      //let url = dataDirectory + '/files/received/' + filename + '.jpg';
+
+      let imagePath = this.webview.convertFileSrc(response.nativeURL);
+      this.cuidador.profile_image = imagePath;
+
+      console.log('imatge perfil actualitzada');
+    }).catch((err) => {
+      console.log('missatge imatge error: ' + JSON.stringify(err));
+    });
+  });
 }
 
 }
