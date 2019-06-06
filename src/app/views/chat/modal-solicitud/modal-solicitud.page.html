@@ -5,7 +5,6 @@
 </ion-header>
 
 <ion-content>
-    <div padding style="background:white">
     <form [formGroup]="solicitudForm">
     <ion-item lines="none">
         <ion-label>{{words[1]}}</ion-label>
@@ -44,5 +43,4 @@
         <ion-button fill="clear" slot="start" (click)="Cancel()">{{words[15]}}</ion-button>
         <ion-button fill="solid" slot="end" float-right [disabled]="!solicitudForm.valid" (click)="enviaSolicitud()">{{words[16]}}</ion-button>
     </ion-toolbar>
-</div>
 </ion-content>

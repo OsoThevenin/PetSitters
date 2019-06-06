@@ -21,7 +21,7 @@
         <ion-card-header>
       <ion-label class="sectionTitle">{{words[0]}}</ion-label>
           <div *ngFor="let a of notifications, let i = index">
-            <ion-card class="cardContrato" *ngIf="a">
+            <ion-card class="cardContrato" *ngIf="a" (click)="nulifynotification()">
                 <ion-card-header>
                     <ion-label class="sectionTitle" *ngIf="i === 0">
                         <ion-icon name="chatbubbles"></ion-icon>
