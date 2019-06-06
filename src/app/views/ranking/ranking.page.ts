@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthProviderService } from 'src/app/providers/auth/auth-provider.service';
+import { throwError } from 'rxjs';
 
 @Component({
   selector: 'app-ranking',
@@ -7,25 +9,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RankingPage implements OnInit {
 
-  ranking = [
-    {
-      profile_pic: null,
-      name: "Alexandra Volkova",
-      trophies: 45
-    },
-    {
-      profile_pic: null,
-      name: "Daniel Esquina",
-      trophies: 42
-    },
-    {
-      profile_pic: null,
-      name: "Ruben Gonzalez",
-      trophies: 39
-    }
-  ]
+  ranking = []
 
-  constructor() { }
+  constructor(private auth: AuthProviderService) { }
 
   doRefresh(event) {
     console.log('Begin async operation');
@@ -38,6 +24,20 @@ export class RankingPage implements OnInit {
   }
 
   ngOnInit() {
+    this.ranking = this.getRanking();
   }
-
+  getRanking(): any {
+    this.auth.getToken().then(result => {
+      const token = result;
+      this.auth.getRankingUsers(token).subscribe(res => {
+	      console.log(res);
+	      this.ranking = res;
+	      console.log(this.ranking);
+	    });
+    }).catch(err => {
+	    console.log(err);
+	    return throwError;
+    });
+    return this.ranking;
+  }
 }
