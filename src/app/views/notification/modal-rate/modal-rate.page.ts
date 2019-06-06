@@ -10,7 +10,7 @@ import { throwError } from 'rxjs';
   styleUrls: ['./modal-rate.page.scss'],
 })
 export class ModalRatePage implements OnInit {
-  public words: Array<string> = ["Please tell us about your experience with this user","Comment","Cancel","Rate",'You have rated this user successfully!','Something went wrong, please try again','Add a comment (optional)']
+  public words: Array<string> = ["Please tell us about your experience with this user","Comment","Cancel","Rate",'You have rated this user successfully!','Something went wrong, please try again','Add a comment (optional)','Rate User']
   @ViewChild('stars') stars;
   @ViewChild('comment') comment;
 

@@ -47,6 +47,16 @@ this.auth.getToken().then(result => {
   return this.words;
 }
 
+doRefresh(event) {
+    console.log('Begin async operation');
+
+    setTimeout(() => {
+      this.ngOnInit();
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 2000);
+  }
+
 actual_language: string;
   ngOnInit() {
     // obtener username mio

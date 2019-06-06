@@ -28,12 +28,12 @@ export class TabsPage {
     this.getNumNot();
   }
   getNumNot(){
-    console.log("busca notificaciones");
+    //console.log("busca notificaciones");
     this.auth.getToken().then(result => {
       const token = result;
       if(result != null){
       this.auth.getNotifications(token).subscribe(res => {
-      console.log(res);
+      //console.log(res);
       let count = 0;
       res.forEach(element => {
       if( element == true) count++;
