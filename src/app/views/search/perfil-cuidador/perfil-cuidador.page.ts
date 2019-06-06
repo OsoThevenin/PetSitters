@@ -113,6 +113,17 @@ export class PerfilCuidadorPage implements OnInit {
    private router: Router, private toastController: ToastController, private alertController: AlertController, private profile: ProfileService) {
   }
 
+  trophies_3 = [];
+
+  where_true(vector){
+    let count = [];
+    for (let i = 0; i < vector.length && count.length < 3; i++) {
+      if (vector[i] == true) count.push(i);
+    } 
+    //console.log("count: ", count);
+    return count;
+  }
+
   traducirAExpertise(){
     let hay=false;
 	for(let i = 0; i<10; i++){
@@ -178,6 +189,17 @@ export class PerfilCuidadorPage implements OnInit {
     }).catch(err => {
       console.log(err);
       return throwError;
+    });
+
+    this.auth.getToken().then(result => {
+      const token = result;
+      this.search.getTrophiesFromUser(token, this.dataRev).subscribe(res => {
+        this.trophies_3 =  this.where_true(res);
+        console.log("trophies_3", this.trophies_3);
+        //console.log(this.my_trophies[this.trophies[13].id]);
+      });
+    }).catch(err => {
+      console.log(err);
     });
   }
 

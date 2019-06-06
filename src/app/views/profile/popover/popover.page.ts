@@ -456,10 +456,12 @@ export class PopoverPage implements OnInit {
 
   changeLanguage(){
     //console.log(this.mylanguage.split('('));
-    let l = this.mylanguage.split('(');
-    l = l[l.length -1].split(')'); 
-    //console.log(l[0]);
-    this.storage.set('language', l[0]);
+    if (this.mylanguage != undefined) {
+      let l = this.mylanguage.split('(');
+      l = l[l.length -1].split(')'); 
+      //console.log(l[0]);
+      this.storage.set('language', l[0]);
+    }
   }
 
 async translate(){
