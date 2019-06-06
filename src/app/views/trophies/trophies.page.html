@@ -1,15 +1,18 @@
+
 <ion-header>
-  <ion-toolbar>
-      <ion-buttons slot="start">
-          <ion-button (click)="goBack()">
-            <ion-icon name="arrow-back"></ion-icon>
-          </ion-button>
-        </ion-buttons>
-    <ion-title>Trophies ({{my_trophies_size}} of 45) </ion-title>
-  </ion-toolbar>
+    <ion-toolbar color="a1">
+        <ion-button class="my-button" fill="clear" shape="round" size="small" (click)="goBack()" >
+            <ion-icon name="arrow-round-back"></ion-icon>
+        </ion-button>
+      <img class="logo" src="../../assets/Logo_versio4.png">
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
+
+  <ion-toolbar>
+  <ion-title>Trophies ({{my_trophies_size}} of 45) </ion-title>
+</ion-toolbar>
 
     <ion-list *ngFor="let trophy of trophies" nopadding>
       <div *ngIf="my_trophies[trophy.id]; else elseBlock">
