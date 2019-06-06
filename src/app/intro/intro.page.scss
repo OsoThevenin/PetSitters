@@ -1,14 +1,13 @@
 ion-slide {
-    height: 100vh;
+    //height: 100vh;
     flex-direction: column;
 }
 
 ion-img {
-    max-width: 50vw;
-    max-height: 50vh;
+    max-width: 70%;
+    max-height: 70%;
     overflow: hidden;
 }
-
 
 .step-one {
     background: var(--ion-color-primary);
@@ -23,4 +22,15 @@ ion-img {
 .step-three {
     background: var(--ion-color-dark);
     color: var(--ion-color-dark-contrast);
+}
+
+ion-content{
+    --background: #dfe9ee;
+    font-weight: bold;
+  }
+
+.titulo{
+    color: #004F79;
+    font-weight: bolder;
+    font-size: 20px;
 }

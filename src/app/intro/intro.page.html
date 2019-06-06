@@ -1,11 +1,56 @@
-<ion-slides pager="true">
-  <ion-slide class="step-one">
-    <ion-img src="../../assets/slides/step1.svg"></ion-img>
-    <h1>Heading</h1>
-    <p>Text</p>
-  </ion-slide>
-  <ion-slide class="step-one">
-      <ion-img src="../../assets/slides/tutorial2.svg"></ion-img>
-      <ion-button (click)="finish()">FINISH TUTORIAL!</ion-button>
+<ion-content>
+  <ion-slides>
+      <ion-slide>
+          <h1 class="titulo">Welcome to PetSitters!</h1>
+          <ion-img  src="../../assets/slides/welcome.jpeg"></ion-img>
+          <br>
+          <ion-icon size="large" color="a1" name="arrow-round-forward"></ion-icon>  
+          <br>
+          <ion-button color="a1" (click)="finish()">SKIP TUTORIAL</ion-button>      
+        </ion-slide>
+    <ion-slide>
+      <h1 class="titulo">Customize your profile!</h1>
+      <ion-img src="../../assets/slides/profile.jpeg"></ion-img>
+      <br>
+      <ion-icon size="large" color="a1" name="swap"></ion-icon>
     </ion-slide>
-</ion-slides>
+    <ion-slide>
+        <h1 class="titulo">Chat with other users!</h1>
+        <ion-img src="../../assets/slides/chat.jpeg"></ion-img>
+        <br>
+        <ion-icon size="large" color="a1" name="swap"></ion-icon>
+      </ion-slide>
+      <ion-slide>
+          <h1 class="titulo">Search with filters!</h1>
+          <ion-img src="../../assets/slides/search.jpeg"></ion-img>
+          <br>
+          <ion-icon size="large" color="a1" name="swap"></ion-icon>
+        </ion-slide>
+        <ion-slide>
+            <h1 class="titulo">Check your taskboard!</h1>
+            <ion-img src="../../assets/slides/taskboard.jpeg"></ion-img>
+            <br>
+            <ion-icon size="large" color="a1" name="swap"></ion-icon>
+          </ion-slide>
+        <ion-slide>
+          <h1 class="titulo">Rate users!</h1>
+          <ion-img src="../../assets/slides/rate.jpeg"></ion-img>
+          <br>
+          <ion-icon size="large" color="a1" name="swap"></ion-icon>
+        </ion-slide>
+        <ion-slide>
+            <h1 class="titulo">Get all trophies!</h1>
+            <ion-img src="../../assets/slides/trophies.jpeg"></ion-img>
+            <br>
+            <ion-icon size="large" color="a1" name="swap"></ion-icon>
+          </ion-slide>
+        <ion-slide>
+          <h1 class="titulo">Aim for the top!</h1>
+          <ion-img src="../../assets/slides/ranking.jpeg"></ion-img>
+          <br>
+          <ion-icon size="large" color="a1" name="arrow-round-back"></ion-icon>
+          <br>
+          <ion-button color="a1" (click)="finish()">FINISH TUTORIAL!</ion-button>
+        </ion-slide>
+  </ion-slides>   
+</ion-content>
