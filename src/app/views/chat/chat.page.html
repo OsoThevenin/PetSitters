@@ -63,16 +63,16 @@
   <ion-toolbar color="a1">
     <ion-row no-padding align-items-center>
       <ion-col size="2">
-          <ion-button expand="block" icon-only fill="solid" shape="round" class="ChatButton" (click)="abrirCamara()" >
-            <ion-icon name="camera" slot="icon-only"></ion-icon>
+          <ion-button color="a2" expand="block" icon-only fill="solid" shape="round" class="ChatButton" (click)="abrirCamara()" >
+            <ion-icon color="a1" name="camera" slot="icon-only"></ion-icon>
           </ion-button>
         </ion-col>
       <ion-col size="8">
         <textarea autosize class="message-input" placeholder={{words[0]}} maxRows="4" maxlength="1000" [(ngModel)]="message"></textarea>
       </ion-col>
       <ion-col size="2">
-        <ion-button expand="block" icon-only fill="solid" shape="round" class="ChatButton" (click)="enviaMissatge()" >
-          <ion-icon name="ios-send" slot="icon-only"></ion-icon>
+        <ion-button color="a2" expand="block" icon-only fill="solid" shape="round" class="ChatButton" (click)="enviaMissatge()" >
+          <ion-icon color="a1" name="ios-send" slot="icon-only"></ion-icon>
         </ion-button>
       </ion-col>
     </ion-row>
