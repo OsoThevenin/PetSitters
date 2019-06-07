@@ -127,11 +127,23 @@ export class PerfilCuidadorPage implements OnInit {
     return count;
   }
 
+  doRefresh(event) {
+    console.log('Begin async operation');
+  
+    setTimeout(() => {
+      this.ngOnInit();
+      console.log('Async operation has ended');
+      event.target.complete();
+    }, 2000);
+  }
+
   traducirAExpertise(){
     let hay=false;
 	for(let i = 0; i<10; i++){
 		this.expertiseTranslated[i].isChecked=false;
-		this.cuidador.expert.forEach(animal => {
+    console.log('expert in: ' + JSON.stringify(this.cuidador.expert));
+    //let cuidadors = this.cuidador.expert.split("''");
+    this.cuidador.expert.split("''").forEach(animal => {
         if(this.expertise[i].type==animal){
           hay=true;
           this.expertiseTranslated[i].isChecked=true;
@@ -148,7 +160,6 @@ export class PerfilCuidadorPage implements OnInit {
       this.actual_language = lang;
     }); 
 	this.translate();
-    this.previousVal = this.getPreviousVal();
     this.auth.getToken().then(result => {
       const token = result;
       // console.log('token: ' + token);
@@ -156,7 +167,6 @@ export class PerfilCuidadorPage implements OnInit {
       this.search.getUser(this.dataRev, token).subscribe(res => {
         //console.log(res);
         this.cuidador = res;
-        this.traducirAExpertise();
         if (this.cuidador.availability != "None") {
           let horasdias: string[]=this.cuidador.availability.split(','); 
            this.monday.from=horasdias[0];
@@ -210,6 +220,8 @@ export class PerfilCuidadorPage implements OnInit {
   getProfileImage() {
     setTimeout(() => {
       this.downloadImageData();
+      //this.traducirAExpertise();
+      this.getPreviousVal();
     }, 3000);
   }
 
@@ -360,20 +372,21 @@ export class PerfilCuidadorPage implements OnInit {
     }
   }
 
-  getPreviousVal(): any {
+  getPreviousVal(): void {
     this.auth.getToken().then(result => {
       const token = result;
-      this.profile.getPreviousValuations(token).subscribe(res => {
-	      console.log(res);
+      console.log('valuations petsitter name: ' + this.cuidador.username);
+      this.profile.getPreviousValuationsFromUser(token, this.cuidador.username).subscribe(res => {
         this.previousVal = res;
-        this.downloadProfileImages();
-	      console.log(this.previousVal);
+        console.log('cuidadors a crida: ' + JSON.stringify(res));
+        setTimeout(() => {
+          this.downloadProfileImages();
+        }, 2000);
 	    });
     }).catch(err => {
 	    console.log(err);
 	    return throwError;
     });
-    return this.previousVal;
   }
 
 async translate(){

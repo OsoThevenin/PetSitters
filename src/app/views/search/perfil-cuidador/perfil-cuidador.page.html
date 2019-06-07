@@ -14,6 +14,14 @@
 </ion-header>
 
 <ion-content>
+    <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content
+            pullingIcon="arrow-dropdown"
+            pullingText="Pull to Refresh"
+            refreshingSpinner="circles"
+            refreshingText="Refreshing...">
+        </ion-refresher-content>
+    </ion-refresher>
         <ion-grid>
             <ion-row justify-content-center align-items-center>
               <ion-col class="my_col">
@@ -138,28 +146,7 @@
         
   <!-- EXPERTO -->
 
-  <ion-card>
-      <ion-card-header class="noPaddingBottomTop">
-          <ion-toolbar class="fondoazulbonito">
-              <ion-label class="sectionTitle">{{words[5]}}</ion-label>
-          </ion-toolbar>
-      </ion-card-header>
-      <ion-card-content>
-
-      
-<div *ngIf="!hazlista" class="noPaddingTop">
-          <ion-textarea color="a1" placeholder={{words[16]}} disabled readonly></ion-textarea>
-  </div>                    
-          <ion-list  class="transparentBackground" *ngIf="hazlista" lines="none">
-                  <ng-container *ngFor="let animal of expertise">
-                              <ion-item class="littlepadding" color="a1" *ngIf="animal.isChecked">    
-                                  <ion-label color="white" class="labelDeshabilitada">{{animal.type}}</ion-label>
-                                  <ion-checkbox disabled="true" slot="end" [(ngModel)]="animal.isChecked"></ion-checkbox>
-                              </ion-item>
-                  </ng-container>
-              </ion-list>
-</ion-card-content>
-</ion-card>
+  
 
 <ion-row class="espacio"></ion-row>
 <ion-row class="espacio"></ion-row>
