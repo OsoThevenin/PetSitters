@@ -54,7 +54,7 @@
     "info.protonet.imageresizer": "0.1.1",
     "intl": "^1.2.5",
     "ionic2-calendar": "^0.5.2",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "network": "^0.4.1",
     "rxjs": "~6.3.3",
     "ts-md5": "^1.2.4",
